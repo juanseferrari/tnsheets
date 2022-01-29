@@ -1,0 +1,5 @@
+{
+    "comida": ["Tenedor, Cuchara, Cuchillo", "Plato / Tabla de madera", "Repasador","Vaso / Vaso térmico / Taza"],
+    "higiene": ["Bolsito", "Cepillo de dientes", "Shampoo en barra"],
+    "dormir": ["Aislante", "Bolsa de Dormir"]
+}

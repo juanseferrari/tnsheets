@@ -1,0 +1,48 @@
+
+
+/** -------- HOME -------------- **/
+
+.main-image {
+    width: 100%;
+}
+
+.home-section {
+    display: flex;
+}
+
+.home-first-section {
+    padding: 10px;
+}
+
+.group-image {
+    width: 100%
+}
+.group-image img {
+    width: 100%
+}
+/** -------- CARDS -------------- **/
+
+#offcanvas-menu {
+    display: none;
+}
+
+.offcanvas-body a{
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+}
+.offcanvas-body {
+    margin-right: 60px;
+}
+
+.card-wrapper {
+    width: 45%;
+}
+.image-content img{
+    height: 100%;
+    width: 100%;
+    min-height: 253px;
+}
+.card-wrapper:hover {
+    transform: scale(1.1);
+}

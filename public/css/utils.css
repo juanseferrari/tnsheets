@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap');
+
+h1,h2,h6, p {
+    font-family: 'Jost', sans-serif;
+
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    color: black;
+}
+
+.container-fluid {
+    max-width: 900px
+}
+
+.main-title {
+    font-size: 50px;
+    margin-top: 15px;
+    text-align: center;
+}
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+.width-100 {
+    width: 100%;
+}
