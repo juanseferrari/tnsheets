@@ -9,7 +9,7 @@ const mainController = {
   home: async (req, res) => {
     const viajes = await mainService.viajes()
 
-    res.render("index", { viajes });
+    res.render( "index", { viajes });
   },
   viajes: async(req, res) => {
     const viajes = await mainService.viajes()
