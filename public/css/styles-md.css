@@ -1,4 +1,10 @@
-
+.flex-md {
+    display: flex;
+}
+.width-50-md {
+    width: 45%;
+    padding: 0 2vh
+}
 
 /** -------- HOME -------------- **/
 
@@ -36,13 +42,18 @@
 }
 
 .card-wrapper {
-    width: 45%;
+    width: 46%;
 }
 .image-content img{
     height: 100%;
     width: 100%;
-    min-height: 253px;
+    min-height: 20vh;
 }
 .card-wrapper:hover {
     transform: scale(1.1);
+}
+
+.card-text-content h2 {
+    text-align: center;
+    font-size: 4vh;
 }

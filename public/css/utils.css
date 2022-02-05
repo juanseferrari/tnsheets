@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap');
 
-h1,h2,h6, p {
+h1,h2,h6, p, li {
     font-family: 'Jost', sans-serif;
 
 }
@@ -16,9 +16,14 @@ a:hover {
     max-width: 900px
 }
 
+
 .main-title {
-    font-size: 50px;
+    font-size: 5vh;
     margin-top: 15px;
+    text-align: center;
+}
+.main-text {
+    font-size: 2.5vh;
     text-align: center;
 }
 .flex {
@@ -27,4 +32,10 @@ a:hover {
 }
 .width-100 {
     width: 100%;
+}
+
+
+ul {
+    padding: 0;
+    list-style-type: none;
 }

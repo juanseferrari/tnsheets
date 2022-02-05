@@ -1,15 +1,29 @@
-
+.main-container {
+    width: 95%;
+    padding-left: 5%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
 
 /** --------- NAVBAR ------------ **/
 .top-navbar {
     background-color: #f5a067;
-    height: 80px;
+    height: 10vh;
 }
 
 .btn-menu {
     background-color: #5089C6 ;
-    height: 55px;
-    width: 55px;
+    height: 4.5vh;
+    width: 4.5vh;
+    padding: 0;
+    border-radius: 0.5vh;
+}
+.navbar-brand {
+    font-size: 3vh;
+}
+.btn-menu i {
+    font-size: 2.5vh;
 }
 
 
@@ -22,7 +36,7 @@
 .menu-item {
     text-align: center;
     color: black;
-    padding: 15px;
+    padding: 1vh;
 }
 .menu-item:hover {
     background-color:#5089C6;
@@ -33,34 +47,32 @@
 
 .offcanvas-body a{
     text-decoration: none;
-    font-size: 40px;
+    font-size: 4vh;
     color: black;
 }
+.offcanvas {
+    width: 35vh
+}
+.offcanvas h5 {
+    font-size: 3vh
+}
+
 
 /** ---------- HOME ----------------*/
 
 .main-image {
     width: 100%;
 }
-.home-section {
-    padding: 20px;
-    display: block;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-.home-title {
-    text-align: center;
-}
+
 .p {
-    font-size: 20px;
+    font-size: 2.5vh;
     text-align: center;
 }
 
 .group-image img{
-    width: 80%;
-    border-top-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+    width: 100%;
+    border-top-left-radius: 4vh;
+    border-bottom-right-radius: 4vh;
 }
 .group-image {
     text-align: center;
@@ -71,10 +83,10 @@
 /** -------- CARDS -------------- **/
 
 .card-wrapper {
-    border-radius: 10px;
+    border-radius: 1.5vh;
     margin: 15px;
     width: 100%;
-    max-height: 370px;
+    max-height: 30vh;
 }
 .card-container {
     display: flex;
@@ -89,9 +101,9 @@
     position: relative;
     height: 100%;
     width: 100%;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    max-height: 370px;
+    border-top-left-radius: 1.5vh;
+    border-bottom-left-radius: 1.5vh;
+    max-height: 30vh;
 
 }
 .image-content {
@@ -99,11 +111,25 @@
 }
 
 .card-text-content {
-    margin-left: 5px;
+    margin-left: 0.5vh;
     display: block;
-    padding: 7px;
+    padding: 0.5vh;
     justify-content: flex-end;
     width: 30%;
+}
+
+.card-text-content h2 {
+    font-size: 2.7vh;
+}
+.card-text-content p {
+    font-size: 1.5vh;
+}
+.card-text-title h2,p {
+    text-align: center;
+}
+.card-info-elements h6,i {
+    font-size: 1.5vh;
+
 }
 
 
@@ -111,4 +137,39 @@
 
 .mochila-img {
     width: 100%;
+}
+
+
+/** ----------- PILLS TRAVESIAS   ------------ */
+
+.nav-pills {
+    width: 100%;
+}
+.nav-item {
+    font-size: 2.8vh;
+}
+
+
+/*-------------CONTENIDO BLOG   ---------------- **/
+
+.blog-content {
+    display: block;
+}
+
+.blog-subtitle {
+    font-size: 3vh;
+    text-align: center;
+
+}
+.blog-main-text {
+    font-size: 2vh;
+    text-align: justify;
+}
+
+.blog-content span {
+    font-weight: bold;
+}
+.blog-main-list {
+    font-size: 2vh;
+    text-align: justify;
 }

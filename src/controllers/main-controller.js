@@ -28,6 +28,11 @@ const mainController = {
   contacto: (req, res) => {
     res.render("menus/contacto", {title: "contacto"});
   },
+  bariloche: (req,res) => {
+    console.log("bariloche")
+    res.render("menus/cincolagunas", {title: "5 Lagunas"} );
+
+  }
 };
 
 module.exports = mainController;
