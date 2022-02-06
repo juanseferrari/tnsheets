@@ -26,7 +26,7 @@ const mainController = {
     res.render("menus/equipamiento", {equipamiento});
   },
   contacto: (req, res) => {
-    res.render("menus/contacto", {title: "contacto"});
+    res.render("menus/contacto", {title: "Contacto"});
   },
   bariloche: (req,res) => {
     console.log("bariloche")

@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 const indexRouter = require('./src/routes/main-routes');
 const viajesRouter = require('./src/routes/viajes-routes');
+const travesiasRouter = require('./src/routes/travesias-routes');
+
 
 var app = express();
 
@@ -21,6 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/viajes', viajesRouter);
+app.use('/travesias', travesiasRouter);
+
 
 
 // catch 404 and forward to error handler
