@@ -30,7 +30,7 @@ const mainController = {
   },
   bariloche: (req,res) => {
     console.log("bariloche")
-    res.render("menus/cincolagunas", {title: "5 Lagunas"} );
+    res.render("contenidos/cincolagunas", {title: "5 Lagunas"} );
 
   }
 };
