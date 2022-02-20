@@ -57,10 +57,21 @@
     text-align: center;
     font-size: 4vh;
 }
+.card-text-content p {
+    font-size: 2.3vh;
+}
+
+.card-info-elements h6,i {
+    font-size: 2vh;
+
+}
 
 
 /* ----------- FORM  ---------------  **/
 .contact-form button {
     width: 40%;
-
+}
+.send-buttons {
+    display: flex;
+    justify-content: space-between;
 }

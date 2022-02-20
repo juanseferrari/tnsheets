@@ -20,10 +20,15 @@
             <label for="email">Email</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="text"  class="form-control form-message" placeholder="Leave a comment here" id="floatingTextarea" style="height: 25vh"></input>
-            <label for="floatingTextarea">Mensaje</label>
+            <input type="text"  class="form-control form-message" placeholder="Leave a comment here" id="message" style="height: 25vh"></input>
+            <label for="message">Mensaje</label>
           </div>
-          <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+          <div class="send-buttons">
+            <button type="submit" class="btn btn-primary send-button">Enviar por mail</button>
+            <button type="submit" class="btn color-wapp send-button" id="goToWapp">Enviar mensaje por Whatsapp</button>
+          </div>
+       
+
         </form>
       </div>
 
@@ -33,5 +38,7 @@
 
 
   </body>
+  <script src="/js/contact.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </html>
