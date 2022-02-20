@@ -8,10 +8,10 @@
       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
         <div class="accordion-body">
             
-            <% for (equipo of equipamiento.comida) { %>
+            <% for (const [index,equipo] of equipamiento.comida.entries()) { %>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="" id="comida-<%= index %>">
+                    <label class="form-check-label" for="comida-<%= index %>">
                           <%= equipo %> 
                     </label>
                 </div>
@@ -27,10 +27,10 @@
       </h2>
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
         <div class="accordion-body">
-            <% for (equipo of equipamiento.higiene) { %>
+            <% for (const [index,equipo] of equipamiento.higiene.entries()) { %>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="" id="higiene-<%= index %>">
+                    <label class="form-check-label" for="higiene-<%= index %>">
                           <%= equipo %> 
                     </label>
                 </div>
@@ -46,10 +46,10 @@
       </h2>
       <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" >
         <div class="accordion-body">
-            <% for (equipo of equipamiento.dormir) { %>
+            <% for (const [index,equipo] of equipamiento.dormir.entries()) { %>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="" id="dormir-<%= index %>">
+                    <label class="form-check-label" for="dormir-<%= index %>">
                           <%= equipo %> 
                     </label>
                 </div>

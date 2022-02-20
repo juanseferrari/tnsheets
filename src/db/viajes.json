@@ -4,26 +4,5 @@
     "link": "/viajes/bariloche",
     "image": "/images/fondo1.jpeg"
 
-},
-{
-    "title":"El Chaltén",
-    "subtitle": "5 lagunas",
-    "link": "/viajes/chalten",
-    "image": "/images/fondo2.jpeg"
-
-},
-{
-    "title":"El Bolsón",
-    "subtitle": "Camino de los refugios",
-    "link": "/viajes/bolson",
-    "image": "/images/fondo6.jpg"
-
-},
-{
-    "title":"Ushuaia",
-    "subtitle": "Cerro Castor",
-    "link": "/viajes/ushuaia",
-    "image": "/images/fondo7.jpg"
-
 }
 ]
