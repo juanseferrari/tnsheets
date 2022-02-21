@@ -9,12 +9,12 @@ const mainController = {
   home: async (req, res) => {
     const viajes = await mainService.viajes()
 
-    res.render( "index", { viajes });
+    res.render( "index", { viajes, title: "Inicio" });
   },
   viajes: async(req, res) => {
     const viajes = await mainService.viajes()
  
-    res.render("menus/viajes", {viajes} );
+    res.render("menus/viajes", {viajes, title: "Viajes"} );
   },
   travesias: (req, res) => {
     res.render("menus/travesias", {title: "Travesias"});
@@ -23,7 +23,7 @@ const mainController = {
     const equipamiento = await mainService.equipamiento();
     console.log(equipamiento)
     console.log(equipamiento.comida)
-    res.render("menus/equipamiento", {equipamiento});
+    res.render("menus/equipamiento", {equipamiento, title: "Equipamiento"});
   },
   contacto: (req, res) => {
     res.render("menus/contacto", {title: "Contacto"});
