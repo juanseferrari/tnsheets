@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include("../partials/head.ejs") %>
+    <%- include("../partials/header.ejs") %>
+    <meta name="google-signin-client_id" content="225728526229-sisj9u9a0pu086tq3la97aj88se29elr.apps.googleusercontent.com">
+
+  </head>
+
+  <body>
+    <h2>Usando login</h2>
+    <p>Nombre</p>
+    <p id="nombre-usuario"></p>
+    <p>Email</p>
+    <p id="email-usuario"></p>
+    <p>Imagen</p>
+    <img  id="foto-usuario" src="" alt="">
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+
+  </body>
+  <script src="/js/login.js"></script>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</html>
