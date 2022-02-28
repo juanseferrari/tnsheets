@@ -8,21 +8,27 @@
   </head>
 
   <body>
-    <h2>Usando login</h2>
-    <p>Nombre</p>
-    <p id="nombre-usuario"></p>
-    <p>Email</p>
-    <p id="email-usuario"></p>
-    <p>Imagen</p>
-    <img  id="foto-usuario" src="" alt="">
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <h1 class="main-title"><%= title %></h1>
+    <div id="info-usuario">
+      <p class="info-usuario-titulo">Nombre</p>
+      <p id="nombre-usuario"></p>
+      <p class="info-usuario-titulo">Email</p>
+      <p id="email-usuario"></p>
+      <p class="info-usuario-titulo">Imagen</p>
+      <div class="imagen-centro">
+        <img  id="foto-usuario" src="" alt="">
+      </div>
+    </div>
+    
+    <div class="g-signin2" data-onsuccess="onSignIn" id="login-button"></div>
 
+    <a href="#" onclick="signOut();" id="logout-button">Sign out</a>
 
   </body>
   <script src="/js/login.js"></script>
 
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-
+  <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </html>

@@ -296,3 +296,25 @@
     position: fixed;
     bottom: 0;
 }
+
+
+/*  ---------------- LOGIN  -----------------  **/
+
+.imagen-centro {
+    text-align: center;
+    display: block;
+}
+.imagen-centro img{
+    border-radius: 50%;
+
+}
+#info-usuario {
+    display: none;
+}
+#logout_element {
+    display: none;
+}
+.info-usuario-titulo {
+    font-size: 3vh;
+    font-weight: bold;
+}
