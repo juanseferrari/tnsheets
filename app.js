@@ -4,6 +4,21 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const mongoose = require('mongoose')
+require('dotenv/config')
+//DB CONNECITON
+const uri = process.env.DB_CONNECTION
+async function connect(){
+    try {
+        await mongoose.connect(uri)
+        console.log("connected to db")
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+connect()
+
 const indexRouter = require('./src/routes/main-routes');
 const viajesRouter = require('./src/routes/viajes-routes');
 const travesiasRouter = require('./src/routes/travesias-routes');
@@ -46,7 +61,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(process.env.PORT || 5000)
+app.listen(process.env.PORT || 5001)
 
 
 module.exports = app;

@@ -8,4 +8,9 @@ router.get('/viajes', apiController.viajes);
 
 router.get('/equipamiento', apiController.equipamiento);
 
+router.get('/mongousers/:userId', apiController.mongousers);
+
+router.get('/mongo/check', apiController.mongouserscheck);
+
+
 module.exports = router;
