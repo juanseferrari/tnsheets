@@ -25,6 +25,7 @@ const apiController = {
   },
   mongouserscheck: (req,res) => {
     console.log("checking mongo")
+    res.json({"test": 123})
   }
 };
 
