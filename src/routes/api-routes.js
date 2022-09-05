@@ -10,6 +10,8 @@ router.get('/equipamiento', apiController.equipamiento);
 
 router.get('/mongousers/:userId', apiController.mongousers);
 
+router.post('/mongousers', apiController.addmongouser);
+
 router.get('/mongo/check', apiController.mongouserscheck);
 
 

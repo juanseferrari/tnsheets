@@ -26,6 +26,22 @@ const apiController = {
   mongouserscheck: (req,res) => {
     console.log("checking mongo")
     res.json({"test": 123})
+  },
+  addmongouser: async (req,res) => {
+    let store_id_from_req = req.query.store_id
+    userObject = {
+      access_token: "testing1234fromheroku",
+      refresh_token: "rt1234",
+      store_id: store_id_from_req
+    }
+    console.log(userObject)
+    try{
+      const userToAdd = await User.create(userObject)
+      res.json(userToAdd)
+    } catch (error){
+      res.json(error)
+    }
+
   }
 };
 
