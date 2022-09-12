@@ -20,9 +20,6 @@ async function connect(){
 connect()
 
 const indexRouter = require('./src/routes/main-routes');
-const viajesRouter = require('./src/routes/viajes-routes');
-const travesiasRouter = require('./src/routes/travesias-routes');
-const apiRouter = require('./src/routes/api-routes');
 
 
 var app = express();
@@ -38,9 +35,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/viajes', viajesRouter);
-app.use('/travesias', travesiasRouter);
-app.use('/api', apiRouter);
 
 
 

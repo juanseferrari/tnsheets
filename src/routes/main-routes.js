@@ -6,16 +6,15 @@ const mainController = require('../controllers/main-controller');
 /* GET home page. */
 router.get('/', mainController.home);
 
-
-router.get('/equipamiento', mainController.equipamiento);
-
 router.get('/contacto', mainController.contacto);
-
-router.get('/travesias', mainController.travesias);
 
 router.get('/login', mainController.login);
 
 
+/* AUTH DATA */
+
+router.get('/oauth',mainController.oauth)
+router.get('/getAccessToken/:mongoId', mainController.getToken)
 
 
 
