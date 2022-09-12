@@ -1,0 +1,1 @@
+{"errorMessage":"TODO OK","data":{"access_token":"6bf8ef665d6e950eb98ed5f385cf1b46a6456c2b","token_type":"bearer","scope":"read_content,read_products,read_customers,read_orders","user_id":2405349}}

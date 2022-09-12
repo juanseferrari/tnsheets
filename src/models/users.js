@@ -5,10 +5,6 @@ const usersSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    refresh_token: {
-        type: String,
-        required: true
-    },
     store_id: {
         type: String,
         required: true
