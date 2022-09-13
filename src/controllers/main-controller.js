@@ -72,9 +72,16 @@ const mainController = {
   getToken: async (req,res) => {
     try {
       const user = await User.findById(req.params.mongoId)
-      res.json(user)
+      res.json({
+        "id": user._id,
+        "access_token": user.access_token,
+        "store_id": user.store_id
+      })
   } catch (error) {
-      res.json(error)
+      res.json({
+        "error": "Usuario no encontrado",
+        "errorName": error.name
+      })
   }
   }
 };
