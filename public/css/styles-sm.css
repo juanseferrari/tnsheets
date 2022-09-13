@@ -67,7 +67,8 @@
 
 /** ---------- HOME ----------------*/
 
-.main-image {
+.main-image img {
+    margin-top: 5vh;
     width: 100%;
 }
 
@@ -318,3 +319,16 @@
     font-size: 3vh;
     font-weight: bold;
 }
+
+
+/*  ---------------- TN INDEX  -----------------  **/
+
+.main-center-button a {
+    color: white;
+}
+.main-center-button button {
+    padding: 2vh 4vh;
+    background-color: #2c3357;
+
+}
+

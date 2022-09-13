@@ -29,8 +29,6 @@ const mainController = {
   },
   oauth: async (req,res) => {
     let code = req.query.code
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("client_id", "5434");
@@ -40,7 +38,9 @@ const mainController = {
 
     var requestOptions = {
       method: 'POST',
-      headers: myHeaders,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
       body: urlencoded,
       redirect: 'follow'
     };
