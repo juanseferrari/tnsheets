@@ -1,6 +1,8 @@
 // Requires
 const path = require("path");
 const fs = require("fs");
+const fetch = require('node-fetch');
+
 
 const mainService = require("../services/main-service");
 
@@ -29,12 +31,15 @@ const mainController = {
   },
   oauth: async (req,res) => {
     let code = req.query.code
+    console.log(code)
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("client_id", "5434");
     urlencoded.append("client_secret", "kI8kgTH4im9qPYp1nYVlZgbsC1zkHRe03FQsm88xYjoukida");
     urlencoded.append("grant_type", "authorization_code");
     urlencoded.append("code", code);
+
+    console.log(urlencoded)
 
     var requestOptions = {
       method: 'POST',
@@ -47,6 +52,7 @@ const mainController = {
 
     let response = await fetch("https://www.tiendanube.com/apps/authorize/token", requestOptions)
     let data = await response.json();
+    console.log(data)
 
     if(data['error']){
       res.json({
