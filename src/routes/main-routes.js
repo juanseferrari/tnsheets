@@ -14,7 +14,7 @@ router.get('/login', mainController.login);
 /* AUTH DATA */
 
 router.get('/oauth',mainController.oauth)
-router.get('/getAccessToken/:mongoId', mainController.getToken)
+router.get('/getAccessToken/:Id', mainController.getToken)
 
 
 
