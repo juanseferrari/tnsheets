@@ -21,6 +21,9 @@ const mainController = {
   login: (req,res) => {
     res.render("menus/login", {title: "Login"})
   },
+  instrucciones: (req,res) => {
+    res.render("menus/instrucciones", {title: "Instrucciones",id_conexion:""})
+  },
   getData: async (req,res) => {
     try {
       const user = await User.findById(req.params.userId)
@@ -69,7 +72,7 @@ const mainController = {
         const userToAdd = await User.create(user)
         console.log(userToAdd._id)
         console.log(userToAdd.store_id)
-        res.json(userToAdd)
+        res.render("menus/instrucciones", {id_conexion: userToAdd._id ,title:"Instrucciones"});
       } catch (error){
         res.json(error)
       }

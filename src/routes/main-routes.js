@@ -8,6 +8,7 @@ router.get('/', mainController.home);
 
 router.get('/contacto', mainController.contacto);
 
+router.get('/instrucciones', mainController.instrucciones);
 
 /* AUTH DATA */
 
