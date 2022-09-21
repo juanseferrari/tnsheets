@@ -63,7 +63,11 @@ const mainController = {
         data: data
       })
     } else {
+      /** FUNCIONO OK EL OAUTH, valido que exista en la DB */
+      let isInDB = await mainService.findByStore(data['user_id'])
+      console.log(isInDB)
       /** FUNCIONO OK EL OAUTH, ahora guardo en DB */
+
       const user = new User({
         access_token: data['access_token'],
         store_id: data['user_id']
@@ -100,6 +104,11 @@ const mainController = {
       })
     }
 
+  },
+  getStore: async (req,res) => {
+    const data = await mainService.findByStore(req.query.store_id);
+    console.log(data)
+    res.json(data)
   }
 };
 

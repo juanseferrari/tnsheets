@@ -14,6 +14,8 @@ router.get('/instrucciones', mainController.instrucciones);
 
 router.get('/oauth',mainController.oauth)
 router.get('/getAccessToken/:Id', mainController.getToken)
+router.get('/store_id', mainController.getStore)
+
 
 
 
