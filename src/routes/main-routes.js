@@ -10,6 +10,9 @@ router.get('/contacto', mainController.contacto);
 
 router.get('/instrucciones', mainController.instrucciones);
 
+router.get('/instructivo', mainController.instructivo);
+
+
 /* AUTH DATA */
 
 router.get('/oauth',mainController.oauth)

@@ -3,6 +3,8 @@ const path = require("path");
 const fs = require("fs");
 const fetch = require('node-fetch');
 
+const tn_client_secret = process.env.TN_CLIENT_SECRET
+
 
 const mainService = require("../services/main-service");
 
@@ -24,6 +26,9 @@ const mainController = {
   instrucciones: (req,res) => {
     res.render("menus/instrucciones", {title: "Instrucciones",id_conexion:""})
   },
+  instructivo: (req,res) => {
+    res.render("menus/instructivo", {title: "Instructivo",id_conexion:""})
+  },
   getData: async (req,res) => {
     try {
       const user = await User.findById(req.params.userId)
@@ -34,15 +39,12 @@ const mainController = {
   },
   oauth: async (req,res) => {
     let code = req.query.code
-    console.log(code)
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("client_id", "5434");
-    urlencoded.append("client_secret", "kI8kgTH4im9qPYp1nYVlZgbsC1zkHRe03FQsm88xYjoukida");
+    urlencoded.append("client_secret", tn_client_secret); // Pasar a .env en el futuro
     urlencoded.append("grant_type", "authorization_code");
     urlencoded.append("code", code);
-
-    console.log(urlencoded)
 
     var requestOptions = {
       method: 'POST',
@@ -55,8 +57,6 @@ const mainController = {
 
     let response = await fetch("https://www.tiendanube.com/apps/authorize/token", requestOptions)
     let data = await response.json();
-    console.log(data)
-
     if(data['error']){
       res.json({
         errorMessage: "Errorrrr",
@@ -64,24 +64,24 @@ const mainController = {
       })
     } else {
       /** FUNCIONO OK EL OAUTH, valido que exista en la DB */
-      let isInDB = await mainService.findByStore(data['user_id'])
-      console.log(isInDB)
+        const user = {
+          access_token: data['access_token'],
+          store_id: String(data['user_id'])
+        }; 
+ 
+        let finded_user = User.findOneAndUpdate({store_id: data['user_id'].toString()},user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
+          if(error){
+            res.send(error)
+          }else{
+            res.render("menus/instrucciones", {id_conexion: result.value._id ,title:"Instrucciones (usuario existente actualizado)"});
+          }
+        })
+ 
+      } /** Fin del else error */
       /** FUNCIONO OK EL OAUTH, ahora guardo en DB */
-
-      const user = new User({
-        access_token: data['access_token'],
-        store_id: data['user_id']
-      });   
-      try{
-        const userToAdd = await User.create(user)
-        console.log(userToAdd._id)
-        console.log(userToAdd.store_id)
-        res.render("menus/instrucciones", {id_conexion: userToAdd._id ,title:"Instrucciones"});
-      } catch (error){
-        res.json(error)
-      }
     }  
-  },
+    
+  ,
   getToken: async (req,res) => {
     let token = req.query.token
     if(token === "sheetapi5678"){
