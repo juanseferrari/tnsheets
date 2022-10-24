@@ -73,7 +73,8 @@ const mainController = {
           if(error){
             res.send(error)
           }else{
-            res.render("menus/instrucciones", {id_conexion: result.value._id ,title:"Instrucciones (usuario existente actualizado)"});
+            console.log(result.value)
+            res.render("menus/instrucciones", {id_conexion: result.value._id ,title:"Instrucciones"});
           }
         })
  
