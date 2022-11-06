@@ -75,3 +75,34 @@
     display: flex;
     justify-content: space-between;
 }
+
+/** ---------- INSTRUCCIONES ------------ **/
+
+
+.presentation-container {
+    display: flex;
+    padding: 0;
+    height: 60vh;
+
+}
+.presentation-container div {
+    width: 50%;
+    margin: 2%;
+}
+
+.clone-section {
+    position: relative;
+    text-align: center;
+    display: block;
+}
+
+.button-clone {
+    height: 8vh;
+    width: 40%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
