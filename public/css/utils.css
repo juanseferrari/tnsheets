@@ -5,7 +5,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-h1,h2,h6, p, li {
+h1,h2,h3,h6, p, li {
     font-family: 'Jost', sans-serif;
 
 }
@@ -18,14 +18,21 @@ a:hover {
 }
 
 .container-fluid {
-    max-width: 900px
+    max-width: 900px;
+    justify-content: center;
+}
+.container-fluid a {
+    text-align: center;
 }
 
 
 .main-title {
     font-size: 5vh;
-    padding-top: 15px;
+    padding-top: 5vh;
     text-align: center;
+}
+body {
+    padding-top: 10vh;
 }
 
 .main-text {
@@ -55,9 +62,6 @@ ul {
     background-color: #25D366;
     color: #075E54;
 }
-body {
-    background-color: #F8F8F8;
-}
 
 /** -------------------- Full page ------------------- **/ 
 .section-fullpage{
@@ -72,13 +76,6 @@ body {
 
 }
 
-.two{
-    background: blue;
-}
-.three{
-    background: yellow;
-}
-.four{
-    background: grey;
-}
+
+
 

@@ -26,6 +26,10 @@
 .btn-menu i {
     font-size: 2.5vh;
 }
+.sticky-top {
+    position: fixed;
+    width: 100%;
+}
 
 
 
@@ -212,6 +216,9 @@
     text-align: center;
 
 }
+.main-text {
+    padding-top: 2vh;
+}
 .blog-main-text {
     font-size: 2.2vh;
     text-align: justify;
@@ -387,3 +394,44 @@
     color: white;
 }
 
+
+
+/** ------------ ONE PAGER -------------  **/
+
+.main-division {
+    display: block;
+    width: 100%;
+    height: 80vh;
+}
+.division-text-content {
+    display: block;
+    height: 40vh;
+    padding: 0 1vh;
+}
+.division-right-content {
+    display: block;
+    height: 40vh;
+}
+
+.division-left-content-top{
+    display: flex;
+    align-items: center;
+    height: 40%;
+}
+
+.division-left-content-bottom{
+    height: 60%;
+}
+.explain-text {
+    padding: 1vh;
+    font-size: 2.5vh;
+}
+.video-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.intro-video {
+    max-width: 100%;
+    border-radius: 2vh;
+}

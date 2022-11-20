@@ -6,7 +6,7 @@
     <%- include("./partials/header.ejs") %>
   </head>
 
-  <body class="main-body">
+  <body class="main-body gradient-background">
     <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KMHPBPS"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -15,12 +15,11 @@
 
 
     <div class="container-fullpage">
-      <section class="one section-fullpage">
+      <section class="section-fullpage" >
         <div class="container">
-          <h1 class="main-title">Automatizá tus ventas de Tienda Nube en Google Sheets</h1>
+          <h1 class="main-title">Tu gestión de Tienda Nube, hacela en Google Sheets💻</h1>
           <h3 class="main-text">
-            Seguis usando Sheets para todo? Muchas tareas manuales para gestionar tus ventas y tu stock?
-            Logueate con Tienda Nube y empezá a automatizar tus ventas en nuestro Google Sheet. 
+            Todos los negocios, desde las Multinacionales hasta los micro emprendimientos, usan hojas de cálculo para su gestión. Usa lo mejor de los dos mundos. 
           </h3>
           <div class="main-image">
             <img src="../images/fondo1.png" alt="" class="shadow rounded">
@@ -33,28 +32,84 @@
           </div>
         </div>
       </section>
-      <section class="two section-fullpage">
-        <h1>Second page</h1>
 
-      </section>
-      <section class="three section-fullpage">
-        <h1>Third page</h1>
+      <section class="section-fullpage">
+        <div class="container">
+          <div class="main-division">
+            <div class="division-text-content">
+              <div class="division-left-content-top">
+                <h1>Automatiza tus ventas de Tienda Nube</h1>
+              </div>
+              <div class="division-left-content-bottom">
+                <h3 class="explain-text"> Cada nueva venta agrega un nuevo registro en tu planilla </h3>
+                <h3 class="explain-text"> Por cada actualización, se editan las filas que correspondan </h3>
+                <h3 class="explain-text"> Olvidate de descargar ventas y cargarlas manualmente </h3>
+              </div>
+              
+            </div ><!-- Divion left content-->
+            <div class="division-right-content video-container">
+              <video loop autoplay muted class="intro-video shadow" >
+                <source src="../images/nuevas_ordenes.mp4" type="video/mp4" />
+              </video>
+            </div><!-- Divion right content-->
 
+          </div>
+
+        </div>
       </section>
-      <section class="four section-fullpage">
-        <h1>Forth page</h1>
+
+      <section class="section-fullpage" >
+        <div class="container">
+          <div class="main-division">
+            <div class="division-text-content">
+              <div class="division-left-content-top">
+                <h1>Importa tus productos directamente desde Google Sheets</h1>
+              </div>
+              <div class="division-left-content-bottom">
+                <h3 class="explain-text"> Mantené actualizado tu stock en tiempo real </h3>
+                <h3 class="explain-text"> Tus productos, en un solo lugar </h3>
+                <h3 class="explain-text"> Edita tus productos y tus precios (*) </h3>
+              </div>
+              
+            </div ><!-- Divion left content-->
+
+            <div class="division-text-content video-container">
+              <video loop autoplay muted class="intro-video shadow">
+                <source src="../images/productos.mp4" type="video/mp4" />
+              </video>
+            </div > <!-- Divion left content-->
+
+          </div>
+
+        </div>
+      </section>
+      <section class="section-fullpage" data-color="green">
+        <div class="container">
+          <div class="main-division">
+            <div class="division-text-content">
+              <div class="division-left-content-top">
+                <h1>El resto, ¡como ya conoces!</h1>
+              </div>
+              <div class="division-left-content-bottom">
+                <h3 class="explain-text"> Seguí usando las mismas funciones de Google Sheets </h3>
+                <h3 class="explain-text"> Crea filtros, fórmulas, tablas dinámicas, notas ... </h3>
+                <h3 class="explain-text"> Crea tus propios gráficos, agrega colores, lo que quieras! </h3>
+              </div>
+            </div > <!-- Divion left content-->
+            <div class="division-right-content video-container">
+              <video loop autoplay muted class="intro-video shadow" id="vid">
+                <source src="../images/ordenes.mp4" type="video/mp4" />
+              </video>
+            </div> <!-- Divion right content-->
+          </div>
+        </div>
+
       </section>
     </div>
 
    <!--   <%- include("./partials/footer.ejs") %>   -->
   </body>
-  <script type="text/javascript">
-    let video = document.querySelector("video")
-    window.addEventListener('scroll', function(){
-      let value = 1 + window.scrollY/-900;
-      video.style.opacity = value
-    })
+  <script src="/js/index.js"></script>
 
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </html>
