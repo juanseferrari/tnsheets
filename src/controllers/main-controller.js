@@ -12,10 +12,11 @@ const User = require('../models/users');
 
 
 const mainController = {
-  home: async (req, res) => {
-    const viajes = await mainService.viajes()
-
-    res.render( "index", { viajes, title: "Inicio" });
+  home: (req, res) => {
+    res.render( "menus/home", { });
+  },
+  tiendaNubeHome: (req, res) => {
+    res.render( "index", { title: "Inicio" });
   },
   contacto: (req, res) => {
     res.render("menus/contacto", {title: "Contacto"});
@@ -25,9 +26,6 @@ const mainController = {
   },
   instrucciones: (req,res) => {
     res.render("menus/instrucciones", {title: "Instrucciones",id_conexion:""})
-  },
-  instructivo: (req,res) => {
-    res.render("menus/instructivo", {title: "Instructivo",id_conexion:""})
   },
   getData: async (req,res) => {
     try {

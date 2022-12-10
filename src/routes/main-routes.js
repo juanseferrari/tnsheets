@@ -3,14 +3,18 @@ var router = express.Router();
 
 const mainController = require('../controllers/main-controller');
 
-/* GET home page. */
-router.get('/', mainController.home);
-
-router.get('/contacto', mainController.contacto);
-
+/* Tienda Nube */
+router.get('/', mainController.tiendaNubeHome);
 router.get('/instrucciones', mainController.instrucciones);
 
-router.get('/instructivo', mainController.instructivo);
+/* Future new home page. */
+
+router.get('/home', mainController.home);
+
+
+/* Contacto. */
+router.get('/contacto', mainController.contacto);
+
 
 
 /* AUTH DATA */
