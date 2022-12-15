@@ -31,8 +31,16 @@ a:hover {
     padding-top: 5vh;
     text-align: center;
 }
+
+.main-title-2 {
+    font-size: 4vh;
+    padding-top: 4vh;
+    text-align: center;
+
+}
 body {
     padding-top: 10vh;
+    max-width: 100% !important;
 }
 
 .main-text {
