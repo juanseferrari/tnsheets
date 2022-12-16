@@ -28,7 +28,7 @@ a:hover {
 
 .main-title {
     font-size: 5vh;
-    padding-top: 5vh;
+    padding: 5vh 0 2vh 0;
     text-align: center;
 }
 
