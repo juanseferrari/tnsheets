@@ -1,22 +1,21 @@
-        <div class="card-wrapper shadow">
-            <div class="card-content">
-              <div class="image-content">
-              </div>
-              <div class="card-text-content">
-                <div class="card-text-title">
-                </div>
-                <div class="card-info-elements">
-                  <div>
-                    <h6><i class="far fa-calendar-alt"></i> 9 días</h6>
-                  </div>
-                  <div>
-                    <h6><i class="fas fa-hiking"></i> 40 Km</h6>
-                  </div>
-                  <div>
-                    <h6><i class="fas fa-mountain"></i> Dificil</h6>
-                  </div>
-                </div>
-              </div>
+<div class="card-wrapper shadow">
+  <a href="<%= viaje.link %>">
+    <div class="card-content">
+      <div class="image-content">
+        <img src="<%= viaje.image %>" alt="">
+      </div>
+      <div class="card-text-content">
+        <div class="card-text-title">
+          <h2><%= viaje.title %></h2>
+        </div>
+        <div class="card-info-elements">
+          <% for (texts of viaje.texts) { %>
+            <div>
+              <h6><i class="<%= texts.icon %>"></i> <%= texts.text %></h6>
             </div>
-          </a>
-        </div> <!-- End card-wrapper -->
+          <% }  %>
+        </div>
+      </div>
+    </div>
+  </a>
+</div> <!-- End card-wrapper -->

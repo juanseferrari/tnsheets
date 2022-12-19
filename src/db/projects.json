@@ -1,0 +1,25 @@
+[{
+    "title":"Tienda Nube",
+    "subtitle": "Testing",
+    "link": "/",
+    "image": "/images/fondo1.png",
+    "texts": [
+        {"icon": "far fa-calendar-alt", "text": "9 días"},
+        {"icon": "fas fa-hiking", "text": "Test"},
+        {"icon": "fas fa-mountain", "text": "Dificil"}
+    ]
+
+},
+{
+    "title":"Mercado Pago",
+    "subtitle": "Testing",
+    "link": "/",
+    "image": "/images/fondo1.png",
+    "texts": [
+        {"icon": "far fa-calendar-alt", "text": "9 días"},
+        {"icon": "fas fa-hiking", "text": "Test"},
+        {"icon": "fas fa-mountain", "text": "Dificil"}
+    ]
+
+}
+]

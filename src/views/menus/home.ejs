@@ -8,8 +8,16 @@
 
   <body class="main-body">
     <div class="main-container">
-      <h1>Home2</h1>
-      <h1>home e</h1>
+      <div class="home-screen border-line">
+        <div></div>
+
+      </div>
+      <div class="flex card-container">
+        <% for (viaje of viajes) { %>
+          <%- include("../partials/card.ejs") %>
+        <% }  %>
+      </div>
+
 
 
     </div>

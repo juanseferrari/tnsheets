@@ -12,8 +12,9 @@ const User = require('../models/users');
 
 
 const mainController = {
-  home: (req, res) => {
-    res.render( "menus/home", { });
+  home: async (req, res) => {
+    const viajes = await mainService.viajes()
+    res.render( "menus/home", { viajes });
   },
   tiendaNubeHome: (req, res) => {
     res.render( "index", { title: "Inicio" });

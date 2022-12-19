@@ -71,6 +71,9 @@ ul {
     color: #075E54;
 }
 
+.border-line {
+    border: black solid;
+}
 /** -------------------- Full page ------------------- **/ 
 .section-fullpage{
     height: 100vh;
