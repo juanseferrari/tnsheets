@@ -131,15 +131,16 @@
 }
 
 .card-text-content {
-    margin-left: 1vh;
-    display: block;
-    padding: 0.5vh;
-    justify-content: flex-end;
+    margin-left: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2vh;
     width: 60%;
 }
 
 .card-text-content h2 {
-    font-size: 2.7vh;
+    font-size: 4vh;
 }
 .card-text-content p {
     font-size: 1.5vh;
@@ -151,8 +152,15 @@
     margin-top: 1vh;
 }
 .card-info-elements h6,i {
-    font-size: 1.5vh;
-
+    font-size: 2vh;
+}
+.card-bottom-container{
+    display: flex;
+    border: 1px black solid;
+}
+.card-bottom-element{
+    width: 50%;
+    border: 1px black solid;
 }
 
 .home-button {

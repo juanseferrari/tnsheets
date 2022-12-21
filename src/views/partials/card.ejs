@@ -5,17 +5,27 @@
         <img src="<%= viaje.image %>" alt="">
       </div>
       <div class="card-text-content">
-        <div class="card-text-title">
-          <h2><%= viaje.title %></h2>
-        </div>
-        <div class="card-info-elements">
-          <% for (texts of viaje.texts) { %>
-            <div>
-              <h6><i class="<%= texts.icon %>"></i> <%= texts.text %></h6>
+          <div class="card-text-title">
+            <h2><%= viaje.title %></h2>
+          </div> <!-- END card-text-title -->
+          <div class="card-info-elements">
+            <% for (texts of viaje.texts) { %>
+              <div>
+                <h6><i class="<%= texts.icon %>"></i> <%= texts.text %></h6>
+              </div>
+            <% }  %>
+          </div> <!-- END card-info-elements -->
+          <div class="card-bottom-container">
+            <div class="card-bottom-element">
+              <p>Texto 1</p>
             </div>
-          <% }  %>
-        </div>
-      </div>
-    </div>
+            <div class="card-bottom-element">
+              <p>Texto 1</p>
+            </div>
+          </div> <!-- END card-bottom-container -->
+
+      </div> <!-- END card-text-content -->
+
+    </div><!-- END card-content -->
   </a>
 </div> <!-- End card-wrapper -->
