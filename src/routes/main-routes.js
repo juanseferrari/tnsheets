@@ -10,6 +10,7 @@ router.get('/instrucciones', mainController.instrucciones);
 /* Future new home page. */
 
 router.get('/home', mainController.home);
+router.get('/pricing', mainController.pricing);
 
 
 /* Contacto. */

@@ -25,6 +25,9 @@ const mainController = {
   login: (req,res) => {
     res.render("menus/login", {title: "Login"})
   },
+  pricing: (req,res) => {
+    res.render("menus/pricing", {title: "Pricing"})
+  },
   instrucciones: (req,res) => {
     res.render("menus/instrucciones", {title: "Instrucciones",id_conexion:""})
   },
