@@ -20,7 +20,7 @@ const mainController = {
     res.render( "index", { title: "Inicio" });
   },
   contacto: (req, res) => {
-    res.render("menus/contacto", {title: "Contacto"});
+    res.render("menus/contacto");
   },
   login: (req,res) => {
     res.render("menus/login", {title: "Login"})
