@@ -50,11 +50,7 @@ body {
 .width-100 {
     width: 100%;
 }
-.main-center-button {
-    margin: 3vh 0;
-    display: flex;
-    justify-content: center;
-}
+
 
 
 ul {

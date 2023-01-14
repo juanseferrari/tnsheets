@@ -76,6 +76,10 @@ const mainController = {
             res.send(error)
           }else{
             console.log(result.value)
+            //send email api
+
+
+            //render instrucciones
             res.render("menus/instrucciones", {id_conexion: result.value._id ,title:"Instrucciones"});
           }
         })

@@ -8,6 +8,7 @@
 .top-navbar {
     background-color: #2c3357;
     height: 10vh;
+    max-height: 10vh;
 }
 
 .btn-menu {
@@ -28,6 +29,12 @@
     position: fixed;
     width: 100%;
 }
+.logo-image {
+    height: 10vh;
+    width: 10vh;
+}
+
+
 
 
 
@@ -276,18 +283,25 @@
 
 /*  ---------------- TN INDEX  -----------------  **/
 
-.main-center-button {
+.tn-button {
     margin-top: 5vh;
+    margin: 3vh 0;
+    display: flex;
+    justify-content: center;
 }
-.main-center-button a {
+
+.tn-button a {
     color: white;
     font-size: 2vh;
 }
-.main-center-button button {
-    padding: 2vh 4vh;
+.tn-button button {
     background-color: #2c3357;
-
+    padding: 2vh 4vh;
 }
+.tn-button button:hover {
+    background-color: #3c0087;
+}
+
 
 
 /*---------------- TN INSTRUCCIONES --------------**/
@@ -355,7 +369,7 @@
 }
 .division-text-content {
     display: block;
-    height: 40vh;
+    height: 45vh;
     padding: 0 1vh;
 }
 .division-right-content {
@@ -372,6 +386,7 @@
 .division-left-content-bottom{
     height: 60%;
 }
+
 .explain-text {
     padding: 1vh;
     font-size: 2.5vh;
