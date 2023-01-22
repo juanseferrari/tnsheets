@@ -61,7 +61,7 @@ const mainController = {
     let data = await response.json();
     if(data['error']){
       res.json({
-        errorMessage: "Errorrrr",
+        errorMessage: "Error",
         data: data
       })
     } else {
@@ -70,6 +70,7 @@ const mainController = {
           access_token: data['access_token'],
           store_id: String(data['user_id'])
         }; 
+        console.log(data)
  
         let finded_user = User.findOneAndUpdate({store_id: data['user_id'].toString()},user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
           if(error){
