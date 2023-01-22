@@ -26,5 +26,33 @@
     </div>
 
 
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+  <script type="text/javascript">
+    function sendEmail() {
+      Email.send({
+        Host: "smtp.gmail.com",
+        Username: "juansegundoferrari@gmail.com",
+        Password: "1234",
+        To: 'juansegundoferrari@gmail.com',
+        From: "juansegundoferrari@gmail.com",
+        Subject: "Sending Email using javascript",
+        Body: "Well that was easy!!",
+        Attachments: [
+          {
+            name: "File_Name_with_Extension",
+            path: "Full Path of the file"
+          }]
+      })
+        .then( message => alert(message))
+    }
+  </script>
+ 
+  <form method="post">
+    <input type="button" value="Send Mail"
+        onclick="sendEmail()" />
+  </form>
+
+
+
 
 </div>
