@@ -10,3 +10,18 @@ goToWapp.addEventListener("click", function(e){
 })
 
   //window.location.href="https://wa.me/+5491140494130?text=" + text;
+
+
+  function sendEmail(e){
+    e.preventDefault();
+    Email.send({
+      SecureToken : "8579ce7b-13fa-42f6-892d-c12f70a339ae",
+      To : 'fbaqueriza@itba.edu.ar',
+      From : "juansegundoferrari@gmail.com",
+      Subject : "Bienvenido a Sheets Central",
+      Body : "Ejemplo de envio de mail con Javascript"
+      //armar un html en el body
+    }).then(
+      message => alert(message)
+    );
+  }
