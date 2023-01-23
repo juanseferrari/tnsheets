@@ -25,39 +25,6 @@
       </form>
     </div>
 
-    <script src="https://smtpjs.com/v3/smtp.js"></script>
-    
-    <form action="#" class="send-email">
-      <button type="submit">Enviar mail</button>
-    </form>
-
-    <script>
-      const form = document.querySelector(".send-email")
-      // Mandar esta funcion a cuando hace el registro que le llegue un mail .
-
-      function sendEmail(e){
-        e.preventDefault();
-        Email.send({
-          SecureToken : "8579ce7b-13fa-42f6-892d-c12f70a339ae",
-          To : 'fbaqueriza@itba.edu.ar',
-          From : "juansegundoferrari@gmail.com",
-          Subject : "Bienvenido a Sheets Central",
-          Body : "Ejemplo de envio de mail con Javascript"
-          //armar un html en el body
-        }).then(
-          message => alert(message)
-        );
-      }
-      
-      form.addEventListener("submit",sendEmail)
-
-      
-      
-
-
-    </script>
-
-
 
 
 </div>
