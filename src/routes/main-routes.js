@@ -16,6 +16,8 @@ router.get('/pricing', mainController.pricing);
 /* Contacto. */
 router.get('/contacto', mainController.contacto);
 
+/* Legales. */
+router.get('/privacy-policy', mainController.privacy);
 
 
 /* AUTH DATA */

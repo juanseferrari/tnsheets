@@ -83,7 +83,6 @@
 
 .p {
     font-size: 2.5vh;
-    text-align: center;
 }
 
 .group-image img{
@@ -258,6 +257,12 @@
     bottom: 0;
 }
 
+/*  ---------------- LEGALES  -----------------  **/
+
+.text-justify {
+    text-align: justify;
+}
+
 
 /*  ---------------- LOGIN  -----------------  **/
 
@@ -333,8 +338,6 @@
 }
 
 .presentation-container {
-    margin: 3vh 0;
-    height: 70vh;
     display: block;
 }
 .frame {

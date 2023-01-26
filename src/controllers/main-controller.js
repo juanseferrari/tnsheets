@@ -28,6 +28,9 @@ const mainController = {
   pricing: (req,res) => {
     res.render("menus/pricing", {title: "Pricing"})
   },
+  privacy: (req,res) => {
+    res.render("menus/privacy-policy", {})
+  },
   instrucciones: (req,res) => {
     res.render("menus/instrucciones", {title: "Instrucciones",id_conexion:""})
   },

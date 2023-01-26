@@ -90,7 +90,6 @@
 .presentation-container {
     display: flex;
     padding: 0;
-    height: 60vh;
 
 }
 .presentation-container div {
