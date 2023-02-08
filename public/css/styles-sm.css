@@ -362,6 +362,19 @@
 }
 
 
+#google-sign-in{
+    display: flex;
+    justify-content: center;
+    padding: 3vh;
+    margin: 0;
+    width: 100%;
+}
+#google-sign-in div{
+    display: flex;
+    justify-content: center;
+}
+    
+
 
 /** ------------ ONE PAGER -------------  **/
 

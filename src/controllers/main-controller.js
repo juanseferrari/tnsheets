@@ -5,6 +5,9 @@ const fetch = require('node-fetch');
 
 const tn_client_secret = process.env.TN_CLIENT_SECRET
 
+//Google OAUTH validation
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const mainService = require("../services/main-service");
 
@@ -35,7 +38,13 @@ const mainController = {
     res.render("menus/terms-and-conditions", {})
   },
   instrucciones: (req,res) => {
-    res.render("menus/instrucciones", {title: "Instrucciones",id_conexion:""})
+    console.log("Cookies:", req.cookies)
+    id_conexion = ""
+    if(req.cookies.tn_id){
+      id_conexion = req.cookies.tn_id
+    }
+
+    res.render("menus/instrucciones", {title: "Instrucciones",id_conexion})
   },
   getData: async (req,res) => {
     try {
@@ -84,6 +93,8 @@ const mainController = {
           }else{
             //send email api
 
+            //save cookie
+            res.cookie("tn_id", result.value._id)
 
             //render instrucciones
             res.render("menus/instrucciones", {id_conexion: result.value._id ,title:"Instrucciones"});
@@ -116,6 +127,35 @@ const mainController = {
         "error": "Token invalido"
       })
     }
+
+  },
+  googleoauth: async(req,res) =>{
+
+
+    async function verify() {
+      const ticket = await client.verifyIdToken({
+          idToken: req.body.credential,
+          audience: process.env.CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+          // Or, if multiple clients access the backend:
+          //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+      });
+      const payload = ticket.getPayload();
+      const userid = payload['sub'];
+      //Guardar esta info del payload en Mongo. 
+      // If request specified a G Suite domain:
+      // const domain = payload['hd'];
+      // Cookies that have not been signed
+
+      // Cookies that have been signed
+      return payload
+    }
+    let google_user = await verify().catch(console.error);
+    res.cookie("google_user", google_user.name)
+    //console.log(google_user)
+
+
+    res.render("menus/instrucciones", {id_conexion:req.cookies.tn_id,title:"Instrucciones"});
+
 
   },
   getStore: async (req,res) => {

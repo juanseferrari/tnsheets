@@ -13,6 +13,7 @@
     "dotenv": "^16.0.2",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "google-auth-library": "^8.7.0",
     "http-errors": "~1.6.3",
     "mongoose": "^6.6.0",
     "morgan": "~1.9.1",

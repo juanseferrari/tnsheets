@@ -27,6 +27,9 @@ router.get('/oauth',mainController.oauth)
 router.get('/getAccessToken/:Id', mainController.getToken)
 router.get('/store_id', mainController.getStore)
 
+/* GOOGLE AUTH DATA */
+router.post('/google-auth',mainController.googleoauth)
+
 
 
 
