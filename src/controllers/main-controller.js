@@ -64,7 +64,7 @@ const mainController = {
       res.json(error)
   }
   },
-  oauth: async (req,res) => {
+  tn_oauth: async (req,res) => {
     let code = req.query.code
 
     var urlencoded = new URLSearchParams();

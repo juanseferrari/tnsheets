@@ -374,8 +374,27 @@
     justify-content: center;
 }
     
+/*  ---------------- MP INDEX  -----------------  **/
 
+.mp-button {
+    margin-top: 5vh;
+    margin: 3vh 0;
+    display: flex;
+    justify-content: center;
+}
 
+.mp-button a {
+    color: white;
+    font-size: 2vh;
+}
+.mp-button button {
+    background-color: #00b1ea;
+    padding: 2vh 4vh;
+    border: none;
+}
+.mp-button button:hover {
+    background-color: #2d3277;
+}
 /** ------------ ONE PAGER -------------  **/
 
 .main-division {
