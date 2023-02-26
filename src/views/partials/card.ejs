@@ -1,15 +1,15 @@
 <div class="card-wrapper shadow">
-  <a href="<%= viaje.link %>">
+  <a href="<%= projecto.link %>">
     <div class="card-content">
       <div class="image-content">
-        <img src="<%= viaje.image %>" alt="">
+        <img src="<%= projecto.image %>" alt="">
       </div>
       <div class="card-text-content">
           <div class="card-text-title">
-            <h2><%= viaje.title %></h2>
+            <h2><%= projecto.title %></h2>
           </div> <!-- END card-text-title -->
           <div class="card-info-elements">
-            <% for (texts of viaje.texts) { %>
+            <% for (texts of projecto.texts) { %>
               <div>
                 <h6><i class="<%= texts.icon %>"></i> <%= texts.text %></h6>
               </div>
