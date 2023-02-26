@@ -4,7 +4,12 @@ const fs = require("fs");
 const fetch = require('node-fetch');
 const url = require('url');
 
+//MP CREDENTIALS
+const mp_test_access_token = process.env.MP_TEST_AT
+const mp_access_token = process.env.MP_PROD_AT
+const mp_test_client_secret = process.env.MP_TEST_CLIENT_SECRET
 
+//MP MONGO DB
 const mpUser = require('../models/usersmp');
 
 var mp_redirect_url = "https://www.sheetscentral.com/mp-oauth"
@@ -33,27 +38,62 @@ const mpController = {
   },
   mp_oauth: async (req,res) => {
     let code = req.query.code
-    console.log(code)
+    let date_now = new Date();
     var requestOptions = {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer APP_USR-8414965337573666-022612-3ae1feb9805de5b497a50c59ae587d3f-1196439407"
+        "Authorization": "Bearer " + mp_test_access_token
       },
       body: JSON.stringify({
-        "client_secret": "2tdgDtxL7cb6ZTuzg7zazSOPrxh3Qliw",
+        "client_secret": mp_test_client_secret,
         "client_id": "8414965337573666",
         "grant_type": "authorization_code",
         "code": code,
         "redirect_uri": mp_redirect_url
       })
     };
-    console.log(requestOptions.body)
 
     let response = await fetch("https://api.mercadopago.com/oauth/token", requestOptions)
     let data = await response.json();
-    console.log(data)
-    res.send(data) 
+
+
+    if(data['error']){
+        //WIP mostrar una pagina de error
+        res.json({
+          errorMessage: "Error al validar el token con Mercado Pago",
+          data: data
+        })
+      } else {
+        /** FUNCIONO OK EL OAUTH, valido que exista en la DB */
+          const mp_user = {
+            mp_access_token: data['access_token'],
+            mp_user_id: data['user_id'],
+            mp_refresh_token: data['refresh_token'],
+            conection_date: date_now.toISOString()
+          }; 
+          //hacer un GET al store para traer mas informacion relevante de la store.
+   
+          let finded_user = await mpUser.findOneAndUpdate({mp_user_id: data['user_id'].toString()},mp_user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
+            if(error){
+              res.json({
+                errorMessage: "Error al guardar en la base de datos",
+                data: error
+              })
+            }else{
+              //GUARDADO EXITOSAMENTE EN DB
+
+              //WIP send email api
+
+              //save cookie
+              res.cookie("mp_user_id", data['user_id'])
+  
+              //render instrucciones
+              res.render("menus/mp_instructions", {id_conexion: result.value._id ,title:"Instrucciones"});
+            }
+          })
+   
+        }
     }  
     
   
