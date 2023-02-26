@@ -78,7 +78,7 @@ const mpController = {
             mp_user_id: data['user_id'],
             mp_refresh_token: data['refresh_token'],
             conection_date: date_now.toISOString(),
-            company_name: user_info.company_name
+            company_name: user_info["company_name"]
           }; 
 
           let finded_mp_user = MpUser.findOneAndUpdate({mp_user_id: data['user_id'].toString()},mp_user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
