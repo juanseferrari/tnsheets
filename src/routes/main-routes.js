@@ -2,14 +2,20 @@ var express = require('express');
 var router = express.Router();
 
 const mainController = require('../controllers/main-controller');
+const mpController = require('../controllers/mp-controller');
 
 /* Tienda Nube */
 router.get('/', mainController.tiendaNubeHome);
 router.get('/instrucciones', mainController.instrucciones);
+router.get('/oauth',mainController.tn_oauth)
+
+/* Mercado Pago */
+router.get('/mercadopago', mpController.mpHome);
+router.get('/mp-oauth', mpController.mp_oauth);
+
 
 /* Future new home page. */
-
-//router.get('/home', mainController.home);
+router.get('/home', mainController.home);
 router.get('/pricing', mainController.pricing);
 
 
@@ -23,7 +29,6 @@ router.get('/terms-and-conditions', mainController.terms);
 
 /* AUTH DATA */
 
-router.get('/oauth',mainController.oauth)
 router.get('/getAccessToken/:Id', mainController.getToken)
 router.get('/store_id', mainController.getStore)
 

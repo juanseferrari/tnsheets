@@ -5,3 +5,10 @@ git checkout master
 git merge develop
 git push -u origin master
 
+
+
+mp test user:
+mail: TEST_USER_1318551213
+contra: FNL9W4Vo67
+
+URL: https://auth.mercadopago.com/authorization?client_id=8414965337573666&response_type=code&platform_id=mp&redirect_uri=localhost:5001/mp-oauth
