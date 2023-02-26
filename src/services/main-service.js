@@ -9,7 +9,7 @@ const projectsFilePath = path.join(__dirname, "../db/projects.json");
 const projects = JSON.parse(fs.readFileSync(projectsFilePath, "utf-8"));
 
 const mainService = {
-  viajes() {
+  projectos() {
     return projects
   },
   equipamiento() {
