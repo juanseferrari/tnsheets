@@ -27,9 +27,10 @@ router.get('/privacy-policy', mainController.privacy);
 router.get('/terms-and-conditions', mainController.terms);
 
 
-/* AUTH DATA */
-
-router.get('/getAccessToken/:Id', mainController.getToken)
+/* PUBLIC APIS*/
+router.get('/getAccessToken/:Id', mainController.getToken) //deprecar en el futuro
+router.get('/tn/getAccessToken/:Id', mainController.getToken)
+router.get('/mp/getAccessToken/:Id', mainController.getTokenMP)
 router.get('/store_id', mainController.getStore)
 
 
