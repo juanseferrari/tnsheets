@@ -10,7 +10,7 @@ const mp_access_token = process.env.MP_PROD_AT
 const mp_test_client_secret = process.env.MP_TEST_CLIENT_SECRET
 
 //MP MONGO DB
-const mpUser = require('../models/usersmp');
+const MpUser = require('../models/usersmp');
 
 var mp_redirect_url = "https://www.sheetscentral.com/mp-oauth"
 
@@ -30,7 +30,7 @@ const mpController = {
   },
   getData: async (req,res) => {
     try {
-      const user = await mpUser.findById(req.params.userId)
+      const user = await MpUser.findById(req.params.userId)
       res.json(user)
   } catch (error) {
       res.json(error)
@@ -74,7 +74,7 @@ const mpController = {
           }; 
           //hacer un GET al store para traer mas informacion relevante de la store.
    
-          let finded_user = await mpUser.findOneAndUpdate({mp_user_id: data['user_id'].toString()},mp_user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
+          let finded_mp_user = MpUser.findOneAndUpdate({mp_user_id: data['user_id'].toString()},mp_user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
             if(error){
               res.json({
                 errorMessage: "Error al guardar en la base de datos",
