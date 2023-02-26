@@ -16,6 +16,10 @@ const usersMPSchema = mongoose.Schema({
     conection_date: {
         type: Date,
         required: true   
+    },
+    company_name: {
+        type: String,
+        required: false  
     }
 })
 

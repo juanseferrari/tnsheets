@@ -12,6 +12,10 @@ const mp_test_client_secret = process.env.MP_TEST_CLIENT_SECRET
 //MP MONGO DB
 const MpUser = require('../models/usersmp');
 
+//SERVICES
+const mainService = require("../services/main-service");
+
+
 var mp_redirect_url = "https://www.sheetscentral.com/mp-oauth"
 
 
@@ -66,14 +70,17 @@ const mpController = {
         })
       } else {
         /** FUNCIONO OK EL OAUTH, valido que exista en la DB */
+          //hacer un GET al store para traer mas informacion relevante de la store.
+          let user_info = mainService.getAccountInfo(data['user_id'],data['access_token'],"mp")
+          
           const mp_user = {
             mp_access_token: data['access_token'],
             mp_user_id: data['user_id'],
             mp_refresh_token: data['refresh_token'],
-            conection_date: date_now.toISOString()
+            conection_date: date_now.toISOString(),
+            company_name: user_info.company_name
           }; 
-          //hacer un GET al store para traer mas informacion relevante de la store.
-   
+
           let finded_mp_user = MpUser.findOneAndUpdate({mp_user_id: data['user_id'].toString()},mp_user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
             if(error){
               res.json({
