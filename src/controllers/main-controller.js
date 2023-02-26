@@ -95,7 +95,7 @@ const mainController = {
           access_token: data['access_token'],
           store_id: String(data['user_id'])
         }; 
-        //hacer un GET al store para traer mas informacion relevante de la store.
+        //WIP hacer un GET al store para traer mas informacion relevante de la store.
  
         let finded_user = User.findOneAndUpdate({store_id: data['user_id'].toString()},user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
           if(error){
