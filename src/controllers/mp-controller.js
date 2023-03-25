@@ -4,9 +4,16 @@ const fs = require("fs");
 const fetch = require('node-fetch');
 const url = require('url');
 
-//MP CREDENTIALS
-const mp_test_access_token = process.env.MP_TEST_AT
+//MP CREDENTIALS PROD
 const mp_access_token = process.env.MP_PROD_AT
+const mp_client_id = process.env.MP_CLIENT_ID
+const mp_client_secret = process.env.MP_CLIENT_SECRET
+
+//MP CREDENTIALS TEST
+//USER: TESTGUTFSIRT
+//PASS: qatest5942
+const mp_test_access_token = process.env.MP_TEST_AT
+const mp_test_client_id = process.env.MP_TEST_CLIENT_ID
 const mp_test_client_secret = process.env.MP_TEST_CLIENT_SECRET
 
 //MP MONGO DB
@@ -40,18 +47,18 @@ const mpController = {
       res.json(error)
   }
   },
-  mp_oauth: async (req,res) => {
+  mpOauth: async (req,res) => {
     let code = req.query.code
     let date_now = new Date();
     var requestOptions = {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + mp_test_access_token
+        "Authorization": "Bearer " + mp_access_token
       },
       body: JSON.stringify({
-        "client_secret": mp_test_client_secret,
-        "client_id": "8414965337573666",
+        "client_secret": mp_client_secret,
+        "client_id": mp_client_id,
         "grant_type": "authorization_code",
         "code": code,
         "redirect_uri": mp_redirect_url
@@ -64,6 +71,18 @@ const mpController = {
 
     if(data['error']){
         //WIP mostrar una pagina de error
+
+        //MIGRAR TODO A REDIRECT
+        /** 
+        res.redirect(url.format({
+            pathname:"/",
+            query: {
+               "a": 1,
+               "b": 2,
+               "valid":"your string here"
+             }
+          }));
+          */
         res.json({
           errorMessage: "Error al validar el token con Mercado Pago",
           data: data
@@ -96,7 +115,8 @@ const mpController = {
               res.cookie("mp_user_id", data['user_id'])
   
               //render instrucciones
-              res.render("menus/mp_instructions", {id_conexion: result.value._id ,title:"Instrucciones"});
+              //res.render("menus/mp_instructions", {id_conexion: result.value._id ,title:"Instrucciones"});
+              res.redirect("/instrucciones")
             }
           })
    
