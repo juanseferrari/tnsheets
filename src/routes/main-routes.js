@@ -7,11 +7,12 @@ const mpController = require('../controllers/mp-controller');
 /* Tienda Nube */
 router.get('/', mainController.tiendaNubeHome);
 router.get('/instrucciones', mainController.instrucciones);
-router.get('/oauth',mainController.tn_oauth)
+router.get('/oauth',mainController.tnOauth)
+router.get('/error',mainController.errorPage)
 
 /* Mercado Pago */
 router.get('/mercadopago', mpController.mpHome);
-router.get('/mp-oauth', mpController.mp_oauth);
+router.get('/mp-oauth', mpController.mpOauth);
 
 
 /* Future new home page. */

@@ -57,6 +57,10 @@ const mainController = {
 
     res.render("menus/instrucciones", {title: "Instrucciones",id_conexion})
   },
+  errorPage: (req,res) => {
+    let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
+    res.render("menus/error-page", {message})
+  },
   getData: async (req,res) => {
     try {
       const user = await User.findById(req.params.userId)
@@ -65,12 +69,12 @@ const mainController = {
       res.json(error)
   }
   },
-  tn_oauth: async (req,res) => {
+  tnOauth: async (req,res) => {
     let code = req.query.code
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("client_id", "5434");
-    urlencoded.append("client_secret", tn_client_secret); // Pasar a .env en el futuro
+    urlencoded.append("client_secret", tn_client_secret); 
     urlencoded.append("grant_type", "authorization_code");
     urlencoded.append("code", code);
 
@@ -86,10 +90,10 @@ const mainController = {
     let response = await fetch("https://www.tiendanube.com/apps/authorize/token", requestOptions)
     let data = await response.json();
     if(data['error']){
-      res.json({
-        errorMessage: "Error",
-        data: data
-      })
+      //WIP despues manejar bien este error handling. 
+      console.log(data)
+      let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
+      res.render("menus/error-page", {message})
     } else {
       /** FUNCIONO OK EL OAUTH, valido que exista en la DB */
         const user = {
@@ -100,9 +104,12 @@ const mainController = {
  
         let finded_user = User.findOneAndUpdate({store_id: data['user_id'].toString()},user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
           if(error){
-            res.send(error)
+            let message = "Hubo un error en la conexión. Por favor intente nuevamente."
+            res.render("menus/error-page", {message}) 
           }else{
             //send email api
+
+            //add comment in notion
 
             //save cookie
             res.cookie("tn_id", result.value._id)
