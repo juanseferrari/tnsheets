@@ -4,6 +4,7 @@ const fs = require("fs");
 const fetch = require('node-fetch');
 const url = require('url');
 
+const tn_client_id = "5434"
 const tn_client_secret = process.env.TN_CLIENT_SECRET
 const google_client_id = process.env.GOOGLE_CLIENT_ID
 const google_client_secret = process.env.GOOGLE_CLIENT_SECRET
@@ -77,8 +78,8 @@ const mainController = {
   tnOauth: async (req,res) => {
     let code = req.query.code
     var urlencoded = new URLSearchParams();
-    urlencoded.append("client_id", test_client_id);
-    urlencoded.append("client_secret", test_client_secret); 
+    urlencoded.append("client_id", tn_client_id);
+    urlencoded.append("client_secret", tn_client_secret); 
     urlencoded.append("grant_type", "authorization_code");
     urlencoded.append("code", code);
 
