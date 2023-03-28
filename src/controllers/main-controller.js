@@ -8,6 +8,11 @@ const tn_client_secret = process.env.TN_CLIENT_SECRET
 const google_client_id = process.env.GOOGLE_CLIENT_ID
 const google_client_secret = process.env.GOOGLE_CLIENT_SECRET
 
+//TEST ENVIRONMENTS
+const test_client_id = "6107"
+const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
+
+
 //Google OAUTH validation
 //const {OAuth2Client} = require('google-auth-library');
 //const client = new OAuth2Client(google_client_id);
@@ -71,10 +76,9 @@ const mainController = {
   },
   tnOauth: async (req,res) => {
     let code = req.query.code
-
     var urlencoded = new URLSearchParams();
-    urlencoded.append("client_id", "5434");
-    urlencoded.append("client_secret", tn_client_secret); 
+    urlencoded.append("client_id", test_client_id);
+    urlencoded.append("client_secret", test_client_secret); 
     urlencoded.append("grant_type", "authorization_code");
     urlencoded.append("code", code);
 
@@ -102,20 +106,18 @@ const mainController = {
         }; 
         //WIP hacer un GET al store para traer mas informacion relevante de la store.
  
-        let finded_user = User.findOneAndUpdate({store_id: data['user_id'].toString()},user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
+        let finded_user = User.findOneAndUpdate({store_id: data['user_id'].toString()},user,{upsert: true,returnOriginal: false},function(error,result){
           if(error){
             let message = "Hubo un error en la conexión. Por favor intente nuevamente."
             res.render("menus/error-page", {message}) 
-          }else{
+          } else{
             //send email api
-
             //add comment in notion
-
             //save cookie
-            res.cookie("tn_id", result.value._id)
+            res.cookie("tn_id", result._id)
 
             //render instrucciones
-            res.render("menus/instrucciones", {id_conexion: result.value._id ,title:"Instrucciones"});
+            res.render("menus/instrucciones", {id_conexion: result._id ,title:"Instrucciones"});
           }
         })
  
