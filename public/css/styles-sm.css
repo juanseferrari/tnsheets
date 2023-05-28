@@ -5,6 +5,9 @@
 }
 
 /** --------- NAVBAR ------------ **/
+.navbar {
+    padding: 0;
+}
 .top-navbar {
     background-color: #2c3357;
     height: 10vh;
