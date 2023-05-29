@@ -14,6 +14,13 @@ const test_client_id = "6107"
 const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
 
 
+//AIRTABLE VALUES
+const airtable_base_id = "apptn4i3QI5oFREAR"
+const airtable_test_table_id = "tbl3tdymJSf7Rhiv0"
+const airtable_prod_table_id = "tblnrwQ17D1popaBe"
+const airtable_access_token = process.env.AIRTABLE_ACCESS_TOKEN
+
+
 //Google OAUTH validation
 //const {OAuth2Client} = require('google-auth-library');
 //const client = new OAuth2Client(google_client_id);
@@ -27,7 +34,7 @@ const oauth2Client = new google.auth.OAuth2(
 
 
 const mainService = require("../services/main-service");
-const User = require('../models/users');
+const User = require('../models/users'); // MongoDB model
 const MpUser = require('../models/usersmp');
 
 
@@ -57,8 +64,8 @@ const mainController = {
   instrucciones: (req,res) => {
     console.log("Cookies:", req.cookies)
     id_conexion = ""
-    if(req.cookies.tn_id){
-      id_conexion = req.cookies.tn_id
+    if(req.cookies.conection_id){
+      id_conexion = req.cookies.conection_id
     }
 
     res.render("menus/instrucciones", {title: "Instrucciones",id_conexion})
@@ -127,7 +134,107 @@ const mainController = {
     }  
     
   ,
-  getToken: async (req,res) => {
+  tnOauth2: async (req,res) => {
+    let code = req.query.code
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("client_id", tn_client_id);
+    urlencoded.append("client_secret", tn_client_secret); 
+    urlencoded.append("grant_type", "authorization_code");
+    urlencoded.append("code", code);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: urlencoded,
+      redirect: 'follow'
+    };
+
+    let response = await fetch("https://www.tiendanube.com/apps/authorize/token", requestOptions)
+    let data = await response.json();
+    if(data['error']){
+      //WIP despues manejar bien este error handling. 
+      let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
+      res.render("menus/error-page", {message})
+    } else {
+      /** FUNCIONO OK EL OAUTH, valido que exista en la DB */
+        const user = {
+          access_token: data['access_token'],
+          store_id: String(data['user_id'])
+        }; 
+        // GET al store para traer mas informacion relevante de la store.
+        var GETrequestOptions = {
+          method: 'GET',
+          headers: {
+            "Authentication": "bearer" + data['access_token']
+          },
+          redirect: 'follow'
+        };
+        let tn_user_request_data = await fetch("https://api.tiendanube.com/v1/"+data['user_id']+"/store", GETrequestOptions)
+        let tn_user_data = await tn_user_request_data.json();
+        //console.log(tn_user_data)
+
+        //AIRTABLE DATA
+        let user_email = tn_user_data['email']
+        let user_name = tn_user_data['name']['es']
+        const data_to_airtable_db = {
+          "performUpsert": {
+            "fieldsToMergeOn": [
+              "user_id", "conection"
+            ]
+          },
+          "records": [
+            {
+              "fields": {
+              //  Futuro: Agregar el state para identificar al usuario
+                "nickname": "[TN] " + user_name,
+                "access_token": data['access_token'],
+                "user_id": data['user_id'].toString(),
+                "conection": "tienda_nube",
+                "active": "true",
+                "user_name": user_name,
+                "user_email": user_email,
+                "conection_date": new Date().toISOString(),
+                "tag": { "id": "usrvCuwmV2hTFySmZ"}  
+              }
+            }
+          ]
+        } //end data_to_airtable_db
+
+      var airtable_POSTrequestOptions = {
+          method: 'PATCH',
+          headers: {
+            "Authorization": "Bearer " + airtable_access_token,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data_to_airtable_db),
+          redirect: 'follow'
+        }
+      let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id, airtable_POSTrequestOptions)
+      let airtable_response = await airtabe_request.json();
+      //WIP Chequear que solamente haya un solo valor aca.
+      let record_id = airtable_response['records'][0]['id']
+      if(airtable_response['error']){
+        console.log(airtable_response['error'])
+        let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282999"
+        res.render("menus/error-page", {message})
+      } else {
+        //SALIO TODO OK EL GUARDADO EN AIRTABLE Y VALIDACION DE TIENDA NUBE
+        //send email - esto podria hacerse en Airtable
+        //save cookie
+        res.cookie("conection_id", record_id)
+        //render instrucciones
+        res.render("menus/instrucciones", {id_conexion: record_id ,title:"Instrucciones"});
+      }
+
+ 
+      } /** Fin del else error */
+      /** FUNCIONO OK EL OAUTH, ahora guardo en DB */
+    }  
+    
+  , 
+  getTokenTN: async (req,res) => {
     let token = req.query.token
     if(token === "sheetapi5678"){
       try {
@@ -141,6 +248,39 @@ const mainController = {
         res.json({
           "error": "Usuario no encontrado",
           "errorName": error.name
+        })
+    }
+    } else {
+      res.json({
+        "error": "Token invalido"
+      })
+    }
+
+  },
+  getTokenTN2: async (req,res) => {
+    let token = req.query.token
+    //FUTURO, AGREGAR LA VALIDACION DEL SPREADSHEET ID
+    if(token === "sheetapi5678"){
+      try {
+        var airtable_GETrequestOptions = {
+          method: 'GET',
+          headers: {
+            "Authorization": "Bearer " + airtable_access_token,
+            "Content-Type": "application/json"
+          },
+          redirect: 'follow'
+        }
+      let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id + "/" + req.params.Id, airtable_GETrequestOptions)
+      let airtable_response = await airtabe_request.json();
+        res.json({
+          "id": airtable_response.id,
+          "access_token": airtable_response.fields.access_token,
+          "store_id": airtable_response.fields.user_id
+        })
+    } catch (error) {
+        res.json({
+          "error": "Usuario no encontrado",
+          "errorName": error
         })
     }
     } else {
