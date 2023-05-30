@@ -7,11 +7,8 @@ const mpController = require('../controllers/mp-controller');
 /* Tienda Nube */
 router.get('/', mainController.tiendaNubeHome);
 router.get('/instrucciones', mainController.instrucciones);
-//router.get('/oauth',mainController.tnOauth)
+router.get('/oauth',mainController.tnOauth)
 router.get('/error',mainController.errorPage)
-
-/* Tienda Nube 2 airtable*/
-router.get('/oauth',mainController.tnOauth2)
 
 
 /* Mercado Pago */
@@ -34,7 +31,7 @@ router.get('/terms-and-conditions', mainController.terms);
 
 /* PUBLIC APIS*/
 router.get('/getAccessToken/:Id', mainController.getTokenTN) //deprecar en el futuro
-router.get('/tn/getAccessToken/:Id', mainController.getTokenTN2)
+router.get('/tn/getAccessToken/:Id', mainController.getTokenTN)
 router.get('/mp/getAccessToken/:Id', mainController.getTokenMP)
 router.get('/store_id', mainController.getStore)
 

@@ -20,6 +20,14 @@ const airtable_test_table_id = "tbl3tdymJSf7Rhiv0"
 const airtable_prod_table_id = "tblnrwQ17D1popaBe"
 const airtable_access_token = process.env.AIRTABLE_ACCESS_TOKEN
 
+const airtable_GETrequestOptions = {
+  method: 'GET',
+  headers: {
+    "Authorization": "Bearer " + airtable_access_token,
+    "Content-Type": "application/json"
+  },
+  redirect: 'follow'
+}
 
 //Google OAUTH validation
 //const {OAuth2Client} = require('google-auth-library');
@@ -34,7 +42,7 @@ const oauth2Client = new google.auth.OAuth2(
 
 
 const mainService = require("../services/main-service");
-const User = require('../models/users'); // MongoDB model
+//const User = require('../models/users'); // MongoDB model -> TO DELETE
 const MpUser = require('../models/usersmp');
 
 
@@ -74,67 +82,7 @@ const mainController = {
     let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
     res.render("menus/error-page", {message})
   },
-  getData: async (req,res) => {
-    try {
-      const user = await User.findById(req.params.userId)
-      res.json(user)
-  } catch (error) {
-      res.json(error)
-  }
-  },
   tnOauth: async (req,res) => {
-    let code = req.query.code
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("client_id", tn_client_id);
-    urlencoded.append("client_secret", tn_client_secret); 
-    urlencoded.append("grant_type", "authorization_code");
-    urlencoded.append("code", code);
-
-    var requestOptions = {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: urlencoded,
-      redirect: 'follow'
-    };
-
-    let response = await fetch("https://www.tiendanube.com/apps/authorize/token", requestOptions)
-    let data = await response.json();
-    if(data['error']){
-      //WIP despues manejar bien este error handling. 
-      console.log(data)
-      let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
-      res.render("menus/error-page", {message})
-    } else {
-      /** FUNCIONO OK EL OAUTH, valido que exista en la DB */
-        const user = {
-          access_token: data['access_token'],
-          store_id: String(data['user_id'])
-        }; 
-        //WIP hacer un GET al store para traer mas informacion relevante de la store.
- 
-        let finded_user = User.findOneAndUpdate({store_id: data['user_id'].toString()},user,{upsert: true,returnOriginal: false},function(error,result){
-          if(error){
-            let message = "Hubo un error en la conexión. Por favor intente nuevamente."
-            res.render("menus/error-page", {message}) 
-          } else{
-            //send email api
-            //add comment in notion
-            //save cookie
-            res.cookie("tn_id", result._id)
-
-            //render instrucciones
-            res.render("menus/instrucciones", {id_conexion: result._id ,title:"Instrucciones"});
-          }
-        })
- 
-      } /** Fin del else error */
-      /** FUNCIONO OK EL OAUTH, ahora guardo en DB */
-    }  
-    
-  ,
-  tnOauth2: async (req,res) => {
     let code = req.query.code
     var urlencoded = new URLSearchParams();
     urlencoded.append("client_id", tn_client_id);
@@ -236,41 +184,12 @@ const mainController = {
   , 
   getTokenTN: async (req,res) => {
     let token = req.query.token
-    if(token === "sheetapi5678"){
-      try {
-        const user = await User.findById(req.params.Id)
-        res.json({
-          "id": user._id,
-          "access_token": user.access_token,
-          "store_id": user.store_id
-        })
-    } catch (error) {
-        res.json({
-          "error": "Usuario no encontrado",
-          "errorName": error.name
-        })
-    }
-    } else {
-      res.json({
-        "error": "Token invalido"
-      })
-    }
-
-  },
-  getTokenTN2: async (req,res) => {
-    let token = req.query.token
+    var conection_id = req.params.Id
+    //var spreadsheet_id = req.params.spreadsheet_id
     //FUTURO, AGREGAR LA VALIDACION DEL SPREADSHEET ID
     if(token === "sheetapi5678"){
       try {
-        var airtable_GETrequestOptions = {
-          method: 'GET',
-          headers: {
-            "Authorization": "Bearer " + airtable_access_token,
-            "Content-Type": "application/json"
-          },
-          redirect: 'follow'
-        }
-      let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id + "/" + req.params.Id, airtable_GETrequestOptions)
+      let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id + "/" + conection_id, airtable_GETrequestOptions)
       let airtable_response = await airtabe_request.json();
         res.json({
           "id": airtable_response.id,
