@@ -209,6 +209,50 @@ const mainController = {
     }
 
   },
+  getTokenTN2: async (req,res) => {
+    let token = req.body.token
+    let spreadsheet_id = req.body.spreadsheet_id
+    var connection_id = req.body.connection_id
+
+    var data_to_airtable = {
+               "fields": {
+                 "spreadsheet_id": spreadsheet_id,
+                 "spreadsheet_conection_date": new Date().toISOString(),
+               }
+         } //end data_to_airtable
+ 
+    var airtable_update_record = {
+           method: 'PATCH',
+           headers: {
+             "Authorization": "Bearer " + airtable_access_token,
+             "Content-Type": "application/json"
+           },
+           body: JSON.stringify(data_to_airtable),
+           redirect: 'follow'
+         }
+
+    if(token === "sheetapi5678"){
+      try {
+      let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id + "/" + connection_id, airtable_update_record)
+      let airtable_response = await airtabe_request.json();
+        res.json({
+          "id": airtable_response.id,
+          "access_token": airtable_response.fields.access_token,
+          "store_id": airtable_response.fields.user_id
+        })
+    } catch (error) {
+        res.json({
+          "error": "Usuario no encontrado",
+          "errorName": error
+        })
+    }
+    } else {
+      res.json({
+        "error": "Token invalido"
+      })
+    }
+
+  },
   getTokenMP: async (req,res) => {
     //WIP AGREGARLE LO DEL REFRESH TOKEN
     let token = req.query.token
