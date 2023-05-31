@@ -32,6 +32,7 @@ router.get('/terms-and-conditions', mainController.terms);
 /* PUBLIC APIS*/
 router.get('/getAccessToken/:Id', mainController.getTokenTN) //deprecar en el futuro
 router.get('/tn/getAccessToken/:Id', mainController.getTokenTN)
+router.post('/tn/getAccessToken', mainController.getTokenTN2)
 router.get('/mp/getAccessToken/:Id', mainController.getTokenMP)
 router.get('/store_id', mainController.getStore)
 
