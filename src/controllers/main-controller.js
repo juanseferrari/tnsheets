@@ -1,8 +1,15 @@
+//a futuro renombrar a tn-controller y tener un controller por app.
+
 // Requires
 const path = require("path");
 const fs = require("fs");
 const fetch = require('node-fetch');
 const url = require('url');
+
+//Services
+const mainService = require("../services/main-service");
+//const User = require('../models/users'); // MongoDB model -> TO DELETE
+const MpUser = require('../models/usersmp');
 
 const tn_client_id = "5434"
 const tn_client_secret = process.env.TN_CLIENT_SECRET
@@ -15,10 +22,11 @@ const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
 
 
 //AIRTABLE VALUES
-const airtable_base_id = "apptn4i3QI5oFREAR"
+const airtable_base_id = process.env.AIRTABLE_BASE_ID
 const airtable_test_table_id = "tbl3tdymJSf7Rhiv0"
-const airtable_prod_table_id = "tblnrwQ17D1popaBe"
+const airtable_prod_table_id = process.env.AIRTABLE_PROD_USERS
 const airtable_access_token = process.env.AIRTABLE_ACCESS_TOKEN
+const AIRTABLE_SUBSCRIPTIONS = process.env.AIRTABLE_SUBSCRIPTIONS
 
 const airtable_GETrequestOptions = {
   method: 'GET',
@@ -41,9 +49,7 @@ const oauth2Client = new google.auth.OAuth2(
 );
 
 
-const mainService = require("../services/main-service");
-//const User = require('../models/users'); // MongoDB model -> TO DELETE
-const MpUser = require('../models/usersmp');
+
 
 
 const mainController = {
@@ -75,6 +81,7 @@ const mainController = {
     if(req.cookies.conection_id){
       id_conexion = req.cookies.conection_id
     }
+    //validar si el conection_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
 
     res.render("menus/instrucciones", {title: "Instrucciones",id_conexion})
   },
@@ -126,7 +133,7 @@ const mainController = {
         //AIRTABLE DATA
         let user_email = tn_user_data['email']
         let user_name = tn_user_data['name']['es']
-        const data_to_airtable_db = {
+        var data_to_airtable_db = {
           "performUpsert": {
             "fieldsToMergeOn": [
               "user_id", "conection"
@@ -169,7 +176,7 @@ const mainController = {
         res.render("menus/error-page", {message})
       } else {
         //SALIO TODO OK EL GUARDADO EN AIRTABLE Y VALIDACION DE TIENDA NUBE
-        //send email - esto podria hacerse en Airtable
+        //A FUTURO send email - esto podria hacerse en Airtable
         //save cookie
         res.cookie("conection_id", record_id)
         //render instrucciones
@@ -184,12 +191,12 @@ const mainController = {
   , 
   getTokenTN: async (req,res) => {
     let token = req.query.token
-    var conection_id = req.params.Id
+    var connection_id = req.params.Id
     //var spreadsheet_id = req.params.spreadsheet_id
     //FUTURO, AGREGAR LA VALIDACION DEL SPREADSHEET ID
     if(token === "sheetapi5678"){
       try {
-      let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id + "/" + conection_id, airtable_GETrequestOptions)
+      let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id + "/" + connection_id, airtable_GETrequestOptions)
       let airtable_response = await airtabe_request.json();
         res.json({
           "id": airtable_response.id,
@@ -204,16 +211,23 @@ const mainController = {
     }
     } else {
       res.json({
-        "error": "Token invalido"
-      })
+        "error": {
+            "type": "INVALID_TOKEN",
+            "message": "Token provided is incorrect."
+        }
+    })
     }
 
   },
   getTokenTN2: async (req,res) => {
+    //A FUTURO: esta funcion deberia ser connectSheet y se aplicaria para todas las conexiones.
+    //deberiamos validar la suscripcion
+    // funcion usada para obtener el token desde GAS
     let token = req.body.token
     let spreadsheet_id = req.body.spreadsheet_id
     var connection_id = req.body.connection_id
 
+    //migrate to upsert data
     var data_to_airtable = {
                "fields": {
                  "spreadsheet_id": spreadsheet_id,
@@ -230,9 +244,11 @@ const mainController = {
            body: JSON.stringify(data_to_airtable),
            redirect: 'follow'
          }
-
+    //FUTURO, AGREGAR LA VALIDACION DEL SPREADSHEET ID
     if(token === "sheetapi5678"){
+      //agregar un token mas seguro o algo dinamico por usuario
       try {
+      // A FUTURO: pasar esta funcion de get token a un service reusable.
       let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id + "/" + connection_id, airtable_update_record)
       let airtable_response = await airtabe_request.json();
         res.json({
@@ -242,14 +258,19 @@ const mainController = {
         })
     } catch (error) {
         res.json({
-          "error": "Usuario no encontrado",
-          "errorName": error
-        })
+          "error": {
+              "type": "CONNECTION_NOT_FOUND",
+              "message": "The connection_id provided is incorrect or not found."
+          }
+      })
     }
     } else {
       res.json({
-        "error": "Token invalido"
-      })
+        "error": {
+            "type": "INVALID_TOKEN",
+            "message": "Token provided is incorrect."
+        }
+    })
     }
 
   },
@@ -393,11 +414,6 @@ const mainController = {
       }
     });
     */
-  },
-  getStore: async (req,res) => {
-    const data = await mainService.findByStore(req.query.store_id);
-    console.log(data)
-    res.json(data)
   }
 };
 
