@@ -153,6 +153,7 @@ const mainService = {
       let user_subs_data = await airtable_subs_response.json();
       console.log(user_subs_data)
       if(user_subs_data.records.length == 0) {
+        //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
         console.log("amount of records: 0")
         response_object = {
           "connection_id": connection_id,

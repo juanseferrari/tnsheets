@@ -12,6 +12,7 @@
     background-color: #2c3357;
     height: 10vh;
     max-height: 10vh;
+    border-radius: 0 0 1vh 1vh ;
 }
 
 .btn-menu {

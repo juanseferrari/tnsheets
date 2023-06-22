@@ -88,7 +88,7 @@ const paymentsController = {
         }
 
       //A FUTURO: enviar notificacion al usuario que no se cancelo el plan y eliminarle todo.
-      
+
     } else {
       //notification not supported
       res.json({
