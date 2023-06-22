@@ -121,8 +121,31 @@ const mpController = {
           })
    
         }
-    }  
-    
+  },  
+  getTokenMP: async (req,res) => {
+    //WIP AGREGARLE LO DEL REFRESH TOKEN
+    let token = req.query.token
+    if(token === "sheetapi5678"){
+      try {
+        const user = await MpUser.findById(req.params.Id)
+        res.json({
+          "id": user._id,
+          "access_token": user.mp_access_token,
+          "user_id": user.mp_user_id
+        })
+    } catch (error) {
+        res.json({
+          "error": "Usuario no encontrado",
+          "errorName": error.name
+        })
+    }
+    } else {
+      res.json({
+        "error": "Token invalido"
+      })
+    }
+
+  },   
   
 };
 
