@@ -5,8 +5,22 @@ const mainController = require('../controllers/main-controller');
 const mpController = require('../controllers/mp-controller');
 const paymentsController = require('../controllers/payments-controller');
 const googleController = require('../controllers/google-controller');
+//a futuro un controller por servicio
+
+/**
+ * Nomenclatura general:
+ * TODOOO kebab-case
+ * TODOOO en ingles las urls
+ * /tn/ -> Esto indica el servicio que vamos a invocar
+ * /tn/oauth -> Este es el redirect url a usar para cada servicio
+ * /tn -> La home del servicio
+ * /tn/instructions -> las instrucciones y ahi mostramos el token. A futuro puede estar todo englobado en un mismo servicio.
+ * /api -> Apis publicas de sheets central. A futuro podemos hacer como una api que te devuelva los tokens.
+ * 
 
 /* Tienda Nube */
+/** A futuro que sea /tn/xxx */
+// pasar a tnController
 router.get('/', mainController.tiendaNubeHome);
 router.get('/instrucciones', mainController.instrucciones);
 router.get('/oauth',mainController.tnOauth)
@@ -33,11 +47,9 @@ router.get('/terms-and-conditions', mainController.terms);
 
 /* PUBLIC APIS*/
 //tienen que ser kebab-case
-router.get('/getAccessToken/:Id', mainController.getTokenTN) //deprecar en el futuro
-router.get('/tn/getAccessToken/:Id', mainController.getTokenTN)
-router.post('/tn/getAccessToken', mainController.getTokenTN2) //sheet-configuration -> esta funcion deberia ser la misma para todos los sheets usados.
-router.get('/mp/getAccessToken/:Id', mpController.getTokenMP)
-router.post('/webhook-connection', mainController.webhookConnection)
+router.post('/tn/get-token', mainController.getTokenTN2) //sheet-configuration -> esta funcion deberia ser la misma para todos los sheets usados.
+router.get('/mp/getAccessToken/:Id', mpController.getTokenMP) //migrar a POST
+router.post('/webhook-connection', mainController.webhookConnection) //Pending TODO
 
 
 /* STRIPE APIS*/
@@ -50,6 +62,7 @@ router.get('/subscription-status', paymentsController.checkSubscription)
 //router.post('/google-auth',googleController.googleoauth)
 
 /* GOOGLE AUTH DATA 2 */
+/// /google/oauth
 //router.get('/google',googleController.google)
 //router.get('/authenticate',googleController.authenticate)
 

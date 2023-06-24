@@ -217,6 +217,7 @@ const mainController = {
                "fields": {
                  "spreadsheet_id": spreadsheet_id,
                  "spreadsheet_conection_date": new Date().toISOString(),
+                 "connection_id": connection_id
                }
          } //end data_to_airtable
  
