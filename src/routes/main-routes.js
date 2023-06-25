@@ -47,7 +47,7 @@ router.get('/terms-and-conditions', mainController.terms);
 
 /* PUBLIC APIS*/
 //tienen que ser kebab-case
-router.post('/tn/get-token', mainController.getTokenTN2) //sheet-configuration -> esta funcion deberia ser la misma para todos los sheets usados.
+router.post('/tn/get-token', mainController.getTokenTN) //sheet-configuration -> esta funcion deberia ser la misma para todos los sheets usados.
 router.get('/mp/getAccessToken/:Id', mpController.getTokenMP) //migrar a POST
 router.post('/webhook-connection', mainController.webhookConnection) //Pending TODO
 
@@ -59,12 +59,8 @@ router.get('/subscription-status', paymentsController.checkSubscription)
 
 
 /* GOOGLE AUTH DATA */
-//router.post('/google-auth',googleController.googleoauth)
-
-/* GOOGLE AUTH DATA 2 */
-/// /google/oauth
-//router.get('/google',googleController.google)
-//router.get('/authenticate',googleController.authenticate)
+router.post('/google-auth',googleController.googleoauth)
+router.get('/google-auth',mainController.tiendaNubeHome)
 
 
 

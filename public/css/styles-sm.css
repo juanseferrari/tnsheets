@@ -369,9 +369,9 @@
 #google-sign-in{
     display: flex;
     justify-content: center;
-    padding: 3vh;
     margin: 0;
     width: 100%;
+    margin-bottom: 2vh;
 }
 #google-sign-in div{
     display: flex;

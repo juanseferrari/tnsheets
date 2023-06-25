@@ -176,35 +176,6 @@ const mainController = {
     
   , 
   getTokenTN: async (req,res) => {
-    let token = req.query.token
-    var connection_id = req.params.Id
-    //var spreadsheet_id = req.params.spreadsheet_id
-    if(token === "sheetapi5678"){
-      try {
-      let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id + "/" + connection_id, airtable_GETrequestOptions)
-      let airtable_response = await airtabe_request.json();
-        res.json({
-          "id": airtable_response.id,
-          "access_token": airtable_response.fields.access_token,
-          "store_id": airtable_response.fields.user_id
-        })
-    } catch (error) {
-        res.json({
-          "error": "Usuario no encontrado",
-          "errorName": error
-        })
-    }
-    } else {
-      res.json({
-        "error": {
-            "type": "INVALID_TOKEN",
-            "message": "Token provided is incorrect."
-        }
-    })
-    }
-
-  },
-  getTokenTN2: async (req,res) => {
     //A FUTURO: esta funcion deberia ser connectSheet y se aplicaria para todas las conexiones.
     //deberiamos validar la suscripcion
     // funcion usada para obtener el token desde GAS
