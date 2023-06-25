@@ -10,6 +10,7 @@ const AIRTABLE_TEST_USERS = process.env.AIRTABLE_TEST_USERS
 const AIRTABLE_PROD_USERS = process.env.AIRTABLE_PROD_USERS
 const AIRTABLE_ACCESS_TOKEN = process.env.AIRTABLE_ACCESS_TOKEN
 const AIRTABLE_SUBSCRIPTIONS = process.env.AIRTABLE_SUBSCRIPTIONS
+const AIRTABLE_GOOGLE_USERS = process.env.AIRTABLE_GOOGLE_USERS
 
 // ***** Database folder *****
 const projectsFilePath = path.join(__dirname, "../db/projects.json");
@@ -205,6 +206,8 @@ const mainService = {
       airtable_table = AIRTABLE_TEST_USERS
     } else if (table == "subscriptions"){
       airtable_table = AIRTABLE_SUBSCRIPTIONS
+    } else if (table == "google_users"){
+      airtable_table = AIRTABLE_GOOGLE_USERS
     } else {
       return_object = {
         "error": "unsupported table"
@@ -251,6 +254,7 @@ const mainService = {
     try {
       console.log("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + airtable_table)
       const airtabe_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + airtable_table, airtable_upsert)
+      console.log(airtabe_response)
       if (airtabe_response.status === 200) {
         // Process the data when the status code is 200
         var data = await airtabe_response.json();
@@ -261,7 +265,7 @@ const mainService = {
       } else {
         response_object = {
           "error": "error while saving data",
-          "response_status": airtabe_response.status          
+          "response_status": airtabe_response.status
         }
       }
     } catch (error) {

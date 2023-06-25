@@ -3,6 +3,8 @@ How to push from develop to master:
 
 git checkout master 
 git merge develop
+git add .
+git commit -m ""
 git push -u origin master
 
 
