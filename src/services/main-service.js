@@ -152,24 +152,24 @@ const mainService = {
       };
       let airtable_subs_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + AIRTABLE_SUBSCRIPTIONS + "?filterByFormula={client_reference_id}='"+connection_id+"'", get_request_options)
       let user_subs_data = await airtable_subs_response.json();
-      console.log(user_subs_data)
+     // console.log(user_subs_data)
       if(user_subs_data.records.length == 0) {
         //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
-        console.log("amount of records: 0")
+       // console.log("amount of records: 0")
         response_object = {
           "connection_id": connection_id,
           "subscription": false,
           "message": "Connection do not have any current subscription."
         }
       } else if (user_subs_data.records.length == 1) {
-        console.log("amount of records: 1")
+        //console.log("amount of records: 1")
         response_object = {
           "connection_id": connection_id,
           "subscription": true,
           "subscription_status": user_subs_data.records[0].fields.subscription_status
         }
       } else {
-        console.log("amount of records: more")
+        //console.log("amount of records: more")
         response_object = {
           "error": {
               "type": "SUBSCRIPTION_ERROR",
@@ -240,7 +240,7 @@ const mainService = {
 
 
 
-    console.log(JSON.stringify(data_to_airtable_db))
+    //console.log(JSON.stringify(data_to_airtable_db))
     var airtable_upsert = {
       method: 'PATCH',
       headers: {
@@ -252,21 +252,20 @@ const mainService = {
     }
 
     try {
-      console.log("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + airtable_table)
+      //console.log("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + airtable_table)
       const airtabe_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + airtable_table, airtable_upsert)
-      console.log(airtabe_response)
+      //console.log(airtabe_response)
+      var data = await airtabe_response.json();
+
       if (airtabe_response.status === 200) {
         // Process the data when the status code is 200
-        var data = await airtabe_response.json();
         response_object = {
           "status": "success",
           "response_status":airtabe_response.status 
         }
       } else {
-        response_object = {
-          "error": "error while saving data",
-          "response_status": airtabe_response.status
-        }
+        console.log(data)
+        response_object = data
       }
     } catch (error) {
       return_object = {

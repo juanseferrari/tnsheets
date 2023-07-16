@@ -40,45 +40,45 @@ const airtable_GETrequestOptions = {
 const mainController = {
   home: async (req, res) => {
     const projectos = await mainService.projectos()
-    res.render( "menus/home", { projectos });
+    res.render("menus/home", { projectos });
   },
   tiendaNubeHome: (req, res) => {
-    res.render( "index", { title: "Inicio" });
+    res.render("index", { title: "Inicio" });
   },
   contacto: (req, res) => {
     res.render("menus/contacto");
   },
-  login: (req,res) => {
-    res.render("menus/login", {title: "Login"})
+  login: (req, res) => {
+    res.render("menus/login", { title: "Login" })
   },
-  pricing: (req,res) => {
-    res.render("menus/pricing", {title: "Pricing"})
+  pricing: (req, res) => {
+    res.render("menus/pricing", { title: "Pricing" })
   },
-  privacy: (req,res) => {
+  privacy: (req, res) => {
     res.render("menus/privacy-policy", {})
   },
-  terms: (req,res) => {
+  terms: (req, res) => {
     res.render("menus/terms-and-conditions", {})
   },
-  instrucciones: (req,res) => {
+  instrucciones: (req, res) => {
     console.log("Cookies:", req.cookies)
     id_conexion = ""
-    if(req.cookies.conection_id){
+    if (req.cookies.conection_id) {
       id_conexion = req.cookies.conection_id
     }
     //validar si el conection_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
 
-    res.render("menus/instrucciones", {title: "Instrucciones",id_conexion})
+    res.render("menus/instrucciones", { title: "Instrucciones", id_conexion })
   },
-  errorPage: (req,res) => {
+  errorPage: (req, res) => {
     let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
-    res.render("menus/error-page", {message})
+    res.render("menus/error-page", { message })
   },
-  tnOauth: async (req,res) => {
+  tnOauth: async (req, res) => {
     let code = req.query.code
     var urlencoded = new URLSearchParams();
     urlencoded.append("client_id", tn_client_id);
-    urlencoded.append("client_secret", tn_client_secret); 
+    urlencoded.append("client_secret", tn_client_secret);
     urlencoded.append("grant_type", "authorization_code");
     urlencoded.append("code", code);
 
@@ -93,89 +93,89 @@ const mainController = {
 
     let response = await fetch("https://www.tiendanube.com/apps/authorize/token", requestOptions)
     let data = await response.json();
-    if(data['error']){
+    if (data['error']) {
       //WIP despues manejar bien este error handling. 
       let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
-      res.render("menus/error-page", {message})
+      res.render("menus/error-page", { message })
     } else {
       /** FUNCIONO OK EL OAUTH, valido que exista en la DB */
-        const user = {
-          access_token: data['access_token'],
-          store_id: String(data['user_id'])
-        }; 
-        // GET al store para traer mas informacion relevante de la store.
-        var GETrequestOptions = {
-          method: 'GET',
-          headers: {
-            "Authentication": "bearer" + data['access_token']
-          },
-          redirect: 'follow'
-        };
-        let tn_user_request_data = await fetch("https://api.tiendanube.com/v1/"+data['user_id']+"/store", GETrequestOptions)
-        let tn_user_data = await tn_user_request_data.json();
-        //console.log(tn_user_data)
+      const user = {
+        access_token: data['access_token'],
+        store_id: String(data['user_id'])
+      };
+      // GET al store para traer mas informacion relevante de la store.
+      var GETrequestOptions = {
+        method: 'GET',
+        headers: {
+          "Authentication": "bearer" + data['access_token']
+        },
+        redirect: 'follow'
+      };
+      let tn_user_request_data = await fetch("https://api.tiendanube.com/v1/" + data['user_id'] + "/store", GETrequestOptions)
+      let tn_user_data = await tn_user_request_data.json();
+      //console.log(tn_user_data)
 
-        //AIRTABLE DATA
-        let user_email = tn_user_data['email']
-        let user_name = tn_user_data['name']['es']
-        var data_to_airtable_db = {
-          "performUpsert": {
-            "fieldsToMergeOn": [
-              "user_id", "conection"
-            ]
-          },
-          "records": [
-            {
-              "fields": {
-              //  Futuro: Agregar el state para identificar al usuario
-                "nickname": "[TN] " + user_name,
-                "access_token": data['access_token'],
-                "user_id": data['user_id'].toString(),
-                "conection": "tienda_nube",
-                "active": "true",
-                "user_name": user_name,
-                "user_email": user_email,
-                "conection_date": new Date().toISOString(),
-                "tag": { "id": "usrvCuwmV2hTFySmZ"}  
-              }
-            }
+      //AIRTABLE DATA
+      let user_email = tn_user_data['email']
+      let user_name = tn_user_data['name']['es']
+      var data_to_airtable_db = {
+        "performUpsert": {
+          "fieldsToMergeOn": [
+            "user_id", "conection"
           ]
-        } //end data_to_airtable_db
+        },
+        "records": [
+          {
+            "fields": {
+              //  Futuro: Agregar el state para identificar al usuario
+              "nickname": "[TN] " + user_name,
+              "access_token": data['access_token'],
+              "user_id": data['user_id'].toString(),
+              "conection": "tienda_nube",
+              "active": "true",
+              "user_name": user_name,
+              "user_email": user_email,
+              "conection_date": new Date().toISOString(),
+              "tag": { "id": "usrvCuwmV2hTFySmZ" }
+            }
+          }
+        ]
+      } //end data_to_airtable_db
 
       var airtable_POSTrequestOptions = {
-          method: 'PATCH',
-          headers: {
-            "Authorization": "Bearer " + airtable_access_token,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data_to_airtable_db),
-          redirect: 'follow'
-        }
+        method: 'PATCH',
+        headers: {
+          "Authorization": "Bearer " + airtable_access_token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data_to_airtable_db),
+        redirect: 'follow'
+      }
       //A FUTURO: Migrar a createAirtableUpsert
-      let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id, airtable_POSTrequestOptions)
+      let airtabe_request = await fetch("https://api.airtable.com/v0/" + airtable_base_id + "/" + airtable_prod_table_id, airtable_POSTrequestOptions)
       let airtable_response = await airtabe_request.json();
       //WIP Chequear que solamente haya un solo valor aca.
       let record_id = airtable_response['records'][0]['id']
-      if(airtable_response['error']){
-        console.log(airtable_response['error'])
+      if (airtable_response['error']) {
+        //console.log(airtable_response['error'])
         let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282999"
-        res.render("menus/error-page", {message})
+        res.render("menus/error-page", { message })
       } else {
         //SALIO TODO OK EL GUARDADO EN AIRTABLE Y VALIDACION DE TIENDA NUBE
         //A FUTURO send email - esto podria hacerse en Airtable
         //save cookie
         res.cookie("conection_id", record_id)
         //render instrucciones
-        res.render("menus/instrucciones", {id_conexion: record_id ,title:"Instrucciones"});
+        res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
       }
 
- 
-      } /** Fin del else error */
-      /** FUNCIONO OK EL OAUTH, ahora guardo en DB */
-  }  
-    
-  , 
-  getTokenTN: async (req,res) => {
+
+    } /** Fin del else error */
+    /** FUNCIONO OK EL OAUTH, ahora guardo en DB */
+  }
+
+  ,
+  getTokenTN: async (req, res) => {
     //A FUTURO: esta funcion deberia ser connectSheet y se aplicaria para todas las conexiones.
     //deberiamos validar la suscripcion
     // funcion usada para obtener el token desde GAS
@@ -185,56 +185,92 @@ const mainController = {
 
     //migrate to upsert data
     var data_to_airtable = {
-               "fields": {
-                 "spreadsheet_id": spreadsheet_id,
-                 "spreadsheet_conection_date": new Date().toISOString(),
-                 "connection_id": connection_id
-               }
-         } //end data_to_airtable
- 
+      "fields": {
+        "spreadsheet_id": spreadsheet_id,
+        "spreadsheet_conection_date": new Date().toISOString(),
+        "connection_id": connection_id
+      }
+    } //end data_to_airtable
+
     var airtable_update_record = {
-           method: 'PATCH',
-           headers: {
-             "Authorization": "Bearer " + airtable_access_token,
-             "Content-Type": "application/json"
-           },
-           body: JSON.stringify(data_to_airtable),
-           redirect: 'follow'
-         }
+      method: 'PATCH',
+      headers: {
+        "Authorization": "Bearer " + airtable_access_token,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data_to_airtable),
+      redirect: 'follow'
+    }
     //FUTURO, AGREGAR LA VALIDACION DEL SPREADSHEET ID
-    if(token === "sheetapi5678"){
+    if (token === "sheetapi5678") {
       //agregar un token mas seguro o algo dinamico por usuario
       try {
-      // A FUTURO: pasar esta funcion de get token a un service reusable.
-      let airtabe_request = await fetch("https://api.airtable.com/v0/"+ airtable_base_id + "/" + airtable_prod_table_id + "/" + connection_id, airtable_update_record)
-      let airtable_response = await airtabe_request.json();
+        // A FUTURO: pasar esta funcion de get token a un service reusable.
+        let airtabe_request = await fetch("https://api.airtable.com/v0/" + airtable_base_id + "/" + airtable_prod_table_id + "/" + connection_id, airtable_update_record)
+        let airtable_response = await airtabe_request.json();
         res.json({
           "id": airtable_response.id,
           "access_token": airtable_response.fields.access_token,
           "store_id": airtable_response.fields.user_id
         })
-    } catch (error) {
+      } catch (error) {
         res.json({
           "error": {
-              "type": "CONNECTION_NOT_FOUND",
-              "message": "The connection_id provided is incorrect or not found."
+            "type": "CONNECTION_NOT_FOUND",
+            "message": "The connection_id provided is incorrect or not found."
           }
-      })
-    }
+        })
+      }
     } else {
       res.json({
         "error": {
-            "type": "INVALID_TOKEN",
-            "message": "Token provided is incorrect."
+          "type": "INVALID_TOKEN",
+          "message": "Token provided is incorrect."
         }
-    })
+      })
     }
 
   },
-  webhookConnection: async (req,res) => {
+  webhookConnection: async (req, res) => {
     //receive webhooks url and connection id and save into DB to keep tracking
     //in the case users cancels subscription, send webhook to url and cancel connection.
 
+    let token = req.body.token
+    var connection_id = req.body.connection_id
+    var webhook_url = req.body.webhook_url
+
+    var fields_to_db = {
+      "webhook_url": webhook_url,
+      "webhook_conection_date": new Date().toISOString(),
+      "connection_id": connection_id
+    }
+    if (token == "sheetapi5678") {
+      let user_exists = await mainService.validateUserExists(connection_id)
+      if (user_exists) {
+        try {
+          let response = await mainService.createAirtableUpsert(true, ["connection_id"], fields_to_db, "prod_users")
+          response_object = response
+        } catch (error) {
+          response_object = error
+        }
+      } else {
+        response_object = {
+          "error": {
+            "type": "CONNECTION_ID_NOT_FOUND",
+            "message": "connection_id was not found or incorrect."
+          }
+        }
+      }
+
+    } else {
+      response_object = {
+        "error": {
+          "type": "INVALID_TOKEN",
+          "message": "Token provided is incorrect."
+        }
+      }
+    }
+  res.json(response_object)
   }
 };
 
