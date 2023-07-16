@@ -98,6 +98,7 @@ const paymentsController = {
   },
   cancelSubscription: async (req,res) => {
     //function to cancel the Stripe subscription
+    //delete notifications in sheets central and delete properties. 
   }
 
 }
