@@ -179,14 +179,17 @@ const mainController = {
       try {
         let tn_app_request_data = await fetch("https://api.tiendanube.com/v1/" + data['user_id'] + "/webhooks", POSTrequestOptions2)
         let tn_app_data = await tn_app_request_data.json();
-        if(tn_app_data.id){
+        console.log(tn_app_data)
+        if(tn_app_data['id']){
             //SALIO TODO OK
+            console.log(tn_app_data)
             //save cookie
             res.cookie("conection_id", record_id)
             //render instrucciones
             res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
         } else {
             //Fallo la generacion del app/uninstalled, pero hago el rendering igual
+            console.log(tn_app_data)
             //save cookie
             res.cookie("conection_id", record_id)
             //render instrucciones
