@@ -173,7 +173,7 @@ const mainController = {
         },
         body: JSON.stringify({
           "event": "app/uninstalled",
-          "url": "https://sheetscentral.com/tn/uninstalled"
+          "url": "https://www.sheetscentral.com/tn/uninstalled"
         }),
         redirect: 'follow'
       };
@@ -321,8 +321,10 @@ const mainController = {
     try {
       let response = await mainService.createAirtableUpsert(true, ["user_id"], fields_to_db, "prod_users")
       response_object = response
+      console.log(response)
       } catch (error) {
         response_object = error
+        console.log(response)
       }
     } else {
       response_object = {
