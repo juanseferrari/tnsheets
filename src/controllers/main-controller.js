@@ -163,10 +163,42 @@ const mainController = {
       } else {
         //SALIO TODO OK EL GUARDADO EN AIRTABLE Y VALIDACION DE TIENDA NUBE
         //A FUTURO send email - esto podria hacerse en Airtable
-        //save cookie
-        res.cookie("conection_id", record_id)
-        //render instrucciones
-        res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
+
+      //send webhook notification for app/uninstalled -> Migrarlo a un service
+      var POSTrequestOptions2 = {
+        method: 'POST',
+        headers: {
+          "Authentication": "bearer" + data['access_token']
+        },
+        body: {
+          "event": "app/uninstalled",
+          "url": "https://sheetscentral.com/tn/uninstalled"
+        },
+        redirect: 'follow'
+      };
+      try {
+        let tn_app_request_data = await fetch("https://api.tiendanube.com/v1/" + data['user_id'] + "/webhooks", POSTrequestOptions2)
+        let tn_app_data = await tn_app_request_data.json();
+        if(tn_app_data.id){
+            //SALIO TODO OK
+            //save cookie
+            res.cookie("conection_id", record_id)
+            //render instrucciones
+            res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
+        } else {
+            //Fallo la generacion del app/uninstalled, pero hago el rendering igual
+            //save cookie
+            res.cookie("conection_id", record_id)
+            //render instrucciones
+            res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
+        }
+        } catch (error) {
+          //arreglar esto despues
+          console.log(error)
+        }
+
+      
+
       }
 
 
@@ -271,6 +303,32 @@ const mainController = {
       }
     }
   res.json(response_object)
+  },
+  appUninstalled: async (req,res) => {
+    let au_store_id = req.body.store_id
+    let au_event =  req.body.event
+    let response_object
+    if(au_event == "app/uninstalled"){
+    var fields_to_db = {
+        "active": "false",
+        "uninstalled_date": new Date().toISOString(),
+        "user_id": au_store_id.toString()
+      }
+    try {
+      let response = await mainService.createAirtableUpsert(true, ["user_id"], fields_to_db, "prod_users")
+      response_object = response
+      } catch (error) {
+        response_object = error
+      }
+    } else {
+      response_object = {
+        "error": {
+          "type": "NOTIFICATION_NOT_SUPPORTED",
+          "message": "This notification type is not supported. "
+        }
+      }
+    }
+    res.json(response_object)
   }
 };
 
