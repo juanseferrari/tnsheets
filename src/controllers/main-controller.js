@@ -171,10 +171,10 @@ const mainController = {
           "Authentication": "bearer" + data['access_token'],
           "Content-Type": "application/json"
         },
-        body: {
+        body: JSON.stringify({
           "event": "app/uninstalled",
           "url": "https://sheetscentral.com/tn/uninstalled"
-        },
+        }),
         redirect: 'follow'
       };
       try {
