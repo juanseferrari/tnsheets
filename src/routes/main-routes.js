@@ -49,7 +49,8 @@ router.get('/terms-and-conditions', mainController.terms);
 //tienen que ser kebab-case
 router.post('/tn/get-token', mainController.getTokenTN) //sheet-configuration -> esta funcion deberia ser la misma para todos los sheets usados.
 router.get('/mp/getAccessToken/:Id', mpController.getTokenMP) //migrar a POST
-router.post('/webhook-connection', mainController.webhookConnection) //Pending TODO
+router.post('/webhook-connection', mainController.webhookConnection)
+router.post('/tn/uninstalled', mainController.appUninstalled)
 
 
 /* STRIPE APIS*/
