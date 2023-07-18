@@ -168,7 +168,8 @@ const mainController = {
       var POSTrequestOptions2 = {
         method: 'POST',
         headers: {
-          "Authentication": "bearer" + data['access_token']
+          "Authentication": "bearer" + data['access_token'],
+          "Content-Type": "application/json"
         },
         body: {
           "event": "app/uninstalled",
