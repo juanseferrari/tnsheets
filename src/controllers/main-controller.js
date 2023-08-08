@@ -63,16 +63,16 @@ const mainController = {
   instrucciones: (req, res) => {
     console.log("Cookies:", req.cookies)
     id_conexion = ""
-    if (req.cookies.conection_id) {
-      id_conexion = req.cookies.conection_id
+    if (req.cookies.connection_id) {
+      id_conexion = req.cookies.connection_id
     }
     let tn_user_name = req.cookies.tn_user_name
-    //validar si el conection_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
+    //validar si el connection_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
 
     res.render("menus/instrucciones", { title: "Instrucciones", id_conexion })
   },
   instrucciones2: async (req, res) => {
-    //res.cookie("connection_id", "rec4UeECqFJzN49Vy")
+    //res.cookie("connnection_id", "rec4UeECqFJzN49Vy")
 
     console.log("Cookies:", req.cookies)
     connection_id = ""
@@ -84,7 +84,7 @@ const mainController = {
     console.log(user_connected)
     console.log("user_connected")
 
-    //validar si el conection_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
+    //validar si el conenction_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
 
     let user_name = req.cookies.tn_user_name
 
@@ -207,7 +207,7 @@ const mainController = {
             //SALIO TODO OK
             console.log(tn_app_data)
             //save cookie
-            res.cookie("conection_id", record_id)
+            res.cookie("connection_id", record_id)
             res.cookie("tn_user_name", user_name)
 
             //render instrucciones
@@ -216,7 +216,7 @@ const mainController = {
             //Fallo la generacion del app/uninstalled, pero hago el rendering igual
             console.log(tn_app_data)
             //save cookie
-            res.cookie("conection_id", record_id)
+            res.cookie("connection_id", record_id)
             res.cookie("tn_user_name", user_name)
             //render instrucciones
             res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
