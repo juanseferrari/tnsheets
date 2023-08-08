@@ -138,7 +138,11 @@ const mainController = {
       //AIRTABLE DATA
       let user_email = tn_user_data['email']
       let user_name = tn_user_data['name']['es']
-      let user_logo = tn_user_data['logo']
+      if(tn_user_data['logo']){
+        var user_logo = "https:" + tn_user_data['logo']
+      } else {
+        var user_logo  = null
+      }
       var data_to_airtable_db = {
         "performUpsert": {
           "fieldsToMergeOn": [
@@ -156,7 +160,7 @@ const mainController = {
               "active": "true",
               "user_name": user_name,
               "user_email": user_email,
-              "user_logo": "https:" + user_logo,
+              "user_logo": user_logo,
               "conection_date": new Date().toISOString(),
               "tag": { "id": "usrvCuwmV2hTFySmZ" }
             }
