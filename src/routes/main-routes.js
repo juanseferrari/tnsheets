@@ -19,17 +19,19 @@ const googleController = require('../controllers/google-controller');
  * 
 
 /* Tienda Nube */
-/** A futuro que sea /tn/xxx */
+/** A futuro que sea /tiendanube/xxx */
 // pasar a tnController
-router.get('/', mainController.tiendaNubeHome);
+router.get('/', mainController.tiendaNubeHome); //deberia ser /tiendanube. 
 router.get('/instrucciones', mainController.instrucciones);
-router.get('/oauth',mainController.tnOauth)
+router.get('/tiendanube/config', mainController.instrucciones2);
+
+router.get('/oauth',mainController.tnOauth) // a futuro que sea /tiendanube/auth
 router.get('/error',mainController.errorPage)
 
 
 /* Mercado Pago */
 router.get('/mercadopago', mpController.mpHome);
-router.get('/mp-oauth', mpController.mpOauth);
+router.get('/mp-oauth', mpController.mpOauth); //a futuro que sea /mp/auth
 
 
 /* Future new home page. */

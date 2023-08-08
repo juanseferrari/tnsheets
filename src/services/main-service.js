@@ -23,6 +23,28 @@ const mainService = {
   async searchUser(connection_id){
     let response_object
 
+    if(!connection_id){
+      response_object = {
+        "connection_id": null,
+        "nickname": null,
+        "user_id": null,
+        "user_name": null,
+        "user_logo": null,
+        "conection": null,
+        "connection_date": null,
+        "spreadsheet_id": null,
+        "webhook_url": null,
+        "active": null,
+        "subscription_status": null,
+        "subscription_customer_email": null
+      }
+      return response_object
+    }
+
+    console.log("connection_id")
+    console.log(connection_id)
+    console.log("connection_id")
+
     var get_request_options = {
       method: 'GET',
       headers: {
@@ -31,15 +53,44 @@ const mainService = {
       },
       redirect: 'follow'
     };
+    //Get information about payment subscription
+    const airtable_payment_status = await this.validatePaymentSubscription(connection_id)
+
+    console.log("airtable_payment_status")
+    console.log(airtable_payment_status)
+    console.log("airtable_payment_status")
+
+    if(airtable_payment_status.subscription_status){
+      var payment_status = airtable_payment_status.subscription_status
+      var customer_email = airtable_payment_status.subscription_customer_email
+    } else {
+      var payment_status = "no subscription"
+      var customer_email = "no email"
+    }
+
+    //Get information about Airtable user
     const airtable_user_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + AIRTABLE_PROD_USERS + "/"+connection_id, get_request_options)
     if (airtable_user_response.status === 200) {
     let user_data = await airtable_user_response.json();
+
+    console.log("user_data")
+    console.log(user_data)
+    console.log("user_data")
+
+    //Response of search user
     response_object = {
       "connection_id": user_data.id,
-      "nickname": user_data.nickname,
-      "user_id": user_data.user_id,
-      "connection_date": user_data.connection_date,
-      "active": user_data.active
+      "nickname": user_data.fields.nickname,
+      "user_id": user_data.fields.user_id,
+      "user_name": user_data.fields.user_name,
+      "user_logo": user_data.fields.user_logo,
+      "conection": user_data.fields.conection,
+      "connection_date": user_data.fields.conection_date,
+      "spreadsheet_id": user_data.fields.spreadsheet_id,
+      "webhook_url": user_data.fields.webhook_url,
+      "active": user_data.fields.active,
+      "subscription_status": payment_status,
+      "subscription_customer_email": customer_email
     }
 
     } else {
@@ -159,6 +210,8 @@ const mainService = {
         response_object = {
           "connection_id": connection_id,
           "subscription": false,
+          "subscription_status": "no subscription",
+          "subscription_customer_email": null,
           "message": "Connection do not have any current subscription."
         }
       } else if (user_subs_data.records.length == 1) {
@@ -166,7 +219,8 @@ const mainService = {
         response_object = {
           "connection_id": connection_id,
           "subscription": true,
-          "subscription_status": user_subs_data.records[0].fields.subscription_status
+          "subscription_status": user_subs_data.records[0].fields.subscription_status,
+          "subscription_customer_email": user_subs_data.records[0].fields.customer_email
         }
       } else {
         //console.log("amount of records: more")

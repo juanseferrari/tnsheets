@@ -66,9 +66,29 @@ const mainController = {
     if (req.cookies.conection_id) {
       id_conexion = req.cookies.conection_id
     }
+    let tn_user_name = req.cookies.tn_user_name
     //validar si el conection_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
 
     res.render("menus/instrucciones", { title: "Instrucciones", id_conexion })
+  },
+  instrucciones2: async (req, res) => {
+    //res.cookie("connection_id", "rec4UeECqFJzN49Vy")
+
+    console.log("Cookies:", req.cookies)
+    connection_id = ""
+    if (req.cookies.connection_id) {
+      connection_id = req.cookies.connection_id
+    }
+    let user_connected = await mainService.searchUser(connection_id)
+    console.log("user_connected")
+    console.log(user_connected)
+    console.log("user_connected")
+
+    //validar si el conection_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
+
+    let user_name = req.cookies.tn_user_name
+
+    res.render("menus/tn-instructions", { title: "Instrucciones", connection_id, user_connected})
   },
   errorPage: (req, res) => {
     let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
@@ -118,6 +138,7 @@ const mainController = {
       //AIRTABLE DATA
       let user_email = tn_user_data['email']
       let user_name = tn_user_data['name']['es']
+      let user_logo = tn_user_data['logo']
       var data_to_airtable_db = {
         "performUpsert": {
           "fieldsToMergeOn": [
@@ -135,6 +156,7 @@ const mainController = {
               "active": "true",
               "user_name": user_name,
               "user_email": user_email,
+              "user_logo": "https:" + user_logo,
               "conection_date": new Date().toISOString(),
               "tag": { "id": "usrvCuwmV2hTFySmZ" }
             }
@@ -186,6 +208,8 @@ const mainController = {
             console.log(tn_app_data)
             //save cookie
             res.cookie("conection_id", record_id)
+            res.cookie("tn_user_name", user_name)
+
             //render instrucciones
             res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
         } else {
@@ -193,6 +217,7 @@ const mainController = {
             console.log(tn_app_data)
             //save cookie
             res.cookie("conection_id", record_id)
+            res.cookie("tn_user_name", user_name)
             //render instrucciones
             res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
         }
