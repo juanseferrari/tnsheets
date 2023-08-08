@@ -21,29 +21,31 @@
     <div class="instructivo-general py-1">
       <p class="p">Muy bien! Ya validamos tu cuenta, ahora solo queda configurar el Google Sheets.</p>
       <p class="p">Copia el siguiente ID de Conexión y pegalo en la configuración:</p>
-    </div>
-
-    <div class="contact-form-ins">
-      <div class="input-group">
-        <div class="input-group-item1">
-          <!-- A futuro agregar validacion de cookie por si el usuario no esta logueado -->
-          <label for="id-conexion">ID de Conexión</label>
-          <input type="text" class="form-control" id="id-conexion" aria-describedby="basic-addon2"
-            value="<%= id_conexion ? id_conexion : '' %>">
-        </div>
-        <div class="input-group-item2">
-          <button class="btn btn-success shadow" onclick="return copyToClipboard(event, this);"><i
-              class="fa-regular fa-copy"></i> Copiar</button>
+      <div class="contact-form-ins">
+        <div class="input-group">
+          <div class="input-group-item1">
+            <!-- A futuro agregar validacion de cookie por si el usuario no esta logueado -->
+            <label for="id-conexion">ID de Conexión</label>
+            <input type="text" class="form-control" id="id-conexion" aria-describedby="basic-addon2"
+              value="<%= id_conexion ? id_conexion : '' %>">
+          </div>
+          <div class="input-group-item2">
+            <button class="btn btn-success shadow" onclick="return copyToClipboard(event, this);"><i
+                class="fa-regular fa-copy"></i> Copiar</button>
+          </div>
         </div>
       </div>
     </div>
+
+
 
     <div class="container presentation-container">
       <div>
         <h1 class="main-title">Instructivo</h1>
         <iframe class="frame"
           src="https://docs.google.com/presentation/d/e/2PACX-1vQqeBEr5U9nJ7nCTlzTM-O5b3Y3kZOC1dK__jy9_iNSslzybIGehnnSLluHuZicVSqN5ZKkONnI_t4Q/embed?start=false&loop=false&delayms=10000"
-          frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+          frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+        </iframe>
 
       </div>
       <div class="clone-section" style="text-align: center;">

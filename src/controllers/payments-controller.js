@@ -50,7 +50,7 @@ const paymentsController = {
        // "subscription_status": req.body.data.object.status, --> esto lo sacamos de la subscription
         "payment_link": req.body.data.object.payment_link,
         "internal_product": "tienda_nube_1",
-        "test_mode": "true"
+        "test_mode": "true" //esto sacar una vez que lo pasemos a prod.
       }
       try {
         let response = await mainService.createAirtableUpsert(true,["subscription_id"],fields_to_db,"subscriptions")
@@ -61,6 +61,13 @@ const paymentsController = {
 
 
     } else if(req.body.type == "customer.subscription.updated" ) {
+
+
+      //agregar algun if o algo en caso que se cancele la subscription, mande una notificacion al google sheet que se desactivo la conexion. 
+
+      //agregar el resto de la informacion del subscription updated.
+
+
       
       var fields_to_db = {
       "subscription_status": req.body.data.object.status,

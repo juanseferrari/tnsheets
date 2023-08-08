@@ -27,11 +27,9 @@
           <img src="../images/fondo1.png" alt="" class="shadow rounded">
 
         </div>
-        <div class="tn-button">
-          <button type="button" class="btn btn-outline-secondary">
-            <a href="https://www.tiendanube.com/apps/5434/authorize">Login Tienda Nube</a>
-          </button>
-        </div>
+        <%- include("./partials/buttons/tn-button.ejs") %>
+
+        <!-- GOOGLE SIGN IN
         <div id="google-sign-in" style="display: none;">
           <div id="g_id_onload" 
           data-client_id="427991503152-kc7o2sfn50e42svvv61r5lc5rrppukr3.apps.googleusercontent.com"
@@ -43,7 +41,7 @@
           data-text="signin_with" data-size="large" data-logo_alignment="left">
         </div>
         </div>
-
+        -->
 
         <div class="arrow">
           <i class="fa-solid fa-angles-down bounce"></i>
@@ -124,7 +122,10 @@
 
     </section>
   </div>
+  <!-- Hacer un if si esta logueado, que se vaya a las instrucciones y que vaya a pagar plan-->
   <%- include("./partials/pricing-section.ejs") %>
+  <%- include("./partials/compare-plans.ejs") %>
+
     <%- include("./partials/contact-form.ejs") %>
 
 

@@ -71,7 +71,7 @@
 }
 
 .card:hover {
-    transform: scale(1.1);
+   transform: scale(1.1); 
 }
 
 
@@ -113,6 +113,32 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+
+
+/** ---------- INSTRUCCIONES 2------------ **/
+
+.step-user-info {
+    display: flex;
+}
+.step-left-text {
+    display: flex;
+    align-items: left;
+    text-align: left;
+    width: 50%;
+}
+.step-right-text {
+    width: 50%;
+}
+.step-user-info-image {
+    display: block;
+    padding-bottom: 0;
+}
+.step-user-info-data {
+        padding-left: 4vw;
+}
+.step-left-p {
+    text-align: left;
+} 
 
 /** ------------ ONE PAGER -------------  **/
 
