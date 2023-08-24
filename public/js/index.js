@@ -3,7 +3,7 @@ function checkCookie() {
     var googleUserId = getCookie("google_user_id");
     if (!googleUserId) {
         // Display the button
-        document.getElementById("google-sign-in").style.display = "block";
+        document.getElementById("google-sign-in").style.display = "block"; 
     } else {
         // Hide the button
         document.getElementById("google-sign-in").style.display = "none";
@@ -26,3 +26,14 @@ function getCookie(cookieName) {
     }
     return "";
 }
+
+function scrollManagement(){
+    const navbarHeight = document.getElementsByClassName('navbar')[0].offsetHeight
+    console.log("navbarHeight")
+    console.log(navbarHeight)
+    console.log("navbarHeight")
+    const contacto = document.getElementById("contacto");
+    contacto.scrollTop = navbarHeight
+
+}
+scrollManagement()

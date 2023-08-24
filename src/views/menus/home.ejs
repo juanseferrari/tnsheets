@@ -1,31 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
 
-    <%- include("../partials/head.ejs") %>
+<head>
+
+  <%- include("../partials/head.ejs") %>
     <%- include("../partials/header.ejs") %>
 
-  </head>
+</head>
 
-  <body class="main-body">
+<body class="main-body">
 
-    <div class="main-container">
-      <div class="home-screen border-line">
-        <div></div>
+  <div class="main-container">
+    <div class="home-screen border-line">
 
-      </div>
-      <div class="flex card-container">
-        <% for (projecto of projectos) { %>
-          <%- include("../partials/card.ejs") %>
-        <% }  %>
-      </div>
 
+
+
+    </div>
+    <div class="flex card-container">
+      <% for (projecto of projectos) { %>
+        <%- include("../partials/card.ejs") %>
+          <% } %>
     </div>
+    <!-- GOOGLE SIGN IN-->
+    <div id="google-sign-in" style="display: none;" >
+      <div id="g_id_onload" data-client_id="427991503152-kc7o2sfn50e42svvv61r5lc5rrppukr3.apps.googleusercontent.com"
+        data-context="signin" data-ux_mode="popup" data-login_uri="http://localhost:5001/google-auth"
+        data-itp_support="true" data-skip_prompt_cookie="google_user_id">
+      </div>
+
+      <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+        data-text="signin_with" data-size="large" data-logo_alignment="left">
+      </div>
+    </div>
+    <!-- END GOOGLE SIGN IN-->
+
+  </div>
 
 
 
-   <!--   <%- include("../partials/footer.ejs") %>   -->
-  </body>
+  <!--   <%- include("../partials/footer.ejs") %>   -->
+</body>
+<script src="../js/index.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 </html>

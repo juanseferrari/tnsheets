@@ -148,7 +148,7 @@ const mainService = {
         "company_name": data['first_name'] + " " + data['last_name'],
         "email": data['email'],
         "country": data['country_id'],
-        "logo_url": data['logo']
+        "logo_url": data['thumbnail']['picture_url']
       }
 
 
@@ -310,12 +310,17 @@ const mainService = {
       const airtabe_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + airtable_table, airtable_upsert)
       //console.log(airtabe_response)
       var data = await airtabe_response.json();
+      console.log("data")
+      console.log(data)
+      console.log("data")
 
       if (airtabe_response.status === 200) {
         // Process the data when the status code is 200
         response_object = {
           "status": "success",
-          "response_status":airtabe_response.status 
+          "response_status":airtabe_response.status,
+          "id": data['records'][0]['id']
+          //necesito mandar el id de cierta forma. 
         }
       } else {
         console.log(data)
