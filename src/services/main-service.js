@@ -151,7 +151,6 @@ const mainService = {
         "logo_url": data['thumbnail']['picture_url']
       }
 
-
     } else if (platform == "tn"){
       // TIENDA NUBE
       headers = {
@@ -178,8 +177,6 @@ const mainService = {
         "error": "invalid platform"
       }
     }
-
-
 
     return response_object
 
