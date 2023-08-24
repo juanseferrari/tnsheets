@@ -37,9 +37,11 @@ const mpController = {
   instrucciones: (req,res) => {
     console.log("Cookies:", req.cookies)
     id_conexion = ""
-    if(req.cookies.tn_id){
-      id_conexion = req.cookies.tn_id
+
+    if(req.cookies.connection_id){
+      id_conexion = req.cookies.connection_id
     }
+    let mp_user_name = req.cookies.mp_user_name
     res.render("menus/mp-instructions", {title: "Instrucciones",id_conexion})
   },
   getData: async (req,res) => {
@@ -78,8 +80,8 @@ const mpController = {
         /** FUNCIONO OK EL OAUTH */
 
         //GET INFO ABOUT MP USER
-        let mp_user_info = mainService.getAccountInfo(data['user_id'],data['access_token'],"mp")
-  
+        let mp_user_info = await mainService.getAccountInfo(data['user_id'],data['access_token'],"mp")
+        console.log(mp_user_info)
         var data_to_airtable_db = {
                 "nickname": "[MP] " + mp_user_info["company_name"],
                 "access_token": data['access_token'],
@@ -98,6 +100,8 @@ const mpController = {
 
           res.cookie("connection_id", id_conexion)
           res.cookie("mp_user_id", data['user_id'].toString())
+          res.cookie("mp_user_name", mp_user_info["company_name"])
+
           res.render("menus/mp-instructions", { id_conexion: record_id, title: "Instrucciones" });
 
         } catch (error) {
