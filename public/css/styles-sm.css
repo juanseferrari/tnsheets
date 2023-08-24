@@ -319,7 +319,6 @@
 
 .tn-button-a {
     color: #2c3357;
-    font-size: 2vh;
 }
 .tn-button-a:hover {
     color: #2c3357;
@@ -337,6 +336,13 @@
 .stripe-button-a:hover {
     color: #008cdd;
 }
+.mp-button-a {
+    color: #00b1ea;
+}
+.mp-button-a:hover {
+    color: #00b1ea;
+}
+
 .login-button button {
     background-color: white;
     padding: 1vh 2vh;

@@ -12,6 +12,9 @@ const mp_client_secret = process.env.MP_CLIENT_SECRET
 //MP CREDENTIALS TEST
 //USER: TESTGUTFSIRT
 //PASS: qatest5942
+
+//USER: TESTUSER1060967405
+//PASS: i0nRgXG0YP
 const mp_test_access_token = process.env.MP_TEST_AT
 const mp_test_client_id = process.env.MP_TEST_CLIENT_ID
 const mp_test_client_secret = process.env.MP_TEST_CLIENT_SECRET
@@ -30,14 +33,14 @@ const mpController = {
   mpHome: (req,res) => {
     res.render( "menus/mercadopago", { title: "Mercado Pago" });
   },
+  
   instrucciones: (req,res) => {
     console.log("Cookies:", req.cookies)
     id_conexion = ""
     if(req.cookies.tn_id){
       id_conexion = req.cookies.tn_id
     }
-
-    res.render("menus/instrucciones", {title: "Instrucciones",id_conexion})
+    res.render("menus/mp-instructions", {title: "Instrucciones",id_conexion})
   },
   getData: async (req,res) => {
     try {
@@ -64,66 +67,52 @@ const mpController = {
         "redirect_uri": mp_redirect_url
       })
     };
-
     let response = await fetch("https://api.mercadopago.com/oauth/token", requestOptions)
     let data = await response.json();
 
-
     if(data['error']){
-        //WIP mostrar una pagina de error
-
-        //MIGRAR TODO A REDIRECT
-        /** 
-        res.redirect(url.format({
-            pathname:"/",
-            query: {
-               "a": 1,
-               "b": 2,
-               "valid":"your string here"
-             }
-          }));
-          */
-        res.json({
-          errorMessage: "Error al validar el token con Mercado Pago",
-          data: data
-        })
+      //ERROR AL CONECTARSE CON MP
+      let message = "No hemos podido validar la conexión con Mercado Pago. Por favor intente nuevamente."
+      res.render("menus/error-page", { message })
       } else {
-        /** FUNCIONO OK EL OAUTH, valido que exista en la DB */
-          //hacer un GET al store para traer mas informacion relevante de la store.
-          let user_info = mainService.getAccountInfo(data['user_id'],data['access_token'],"mp")
-          
-          const mp_user = {
-            mp_access_token: data['access_token'],
-            mp_user_id: data['user_id'],
-            mp_refresh_token: data['refresh_token'],
-            conection_date: date_now.toISOString(),
-            company_name: user_info["company_name"]
-          }; 
+        /** FUNCIONO OK EL OAUTH */
 
-          let finded_mp_user = MpUser.findOneAndUpdate({mp_user_id: data['user_id'].toString()},mp_user,{upsert: true,rawResult: true,returnNewDocument: true},function(error,result){
-            if(error){
-              res.json({
-                errorMessage: "Error al guardar en la base de datos",
-                data: error
-              })
-            }else{
-              //GUARDADO EXITOSAMENTE EN DB
-
-              //WIP send email api
-
-              //save cookie
-              res.cookie("mp_user_id", data['user_id'])
+        //GET INFO ABOUT MP USER
+        let mp_user_info = mainService.getAccountInfo(data['user_id'],data['access_token'],"mp")
   
-              //render instrucciones
-              //res.render("menus/mp_instructions", {id_conexion: result.value._id ,title:"Instrucciones"});
-              res.redirect("/instrucciones")
-            }
-          })
-   
+        var data_to_airtable_db = {
+                "nickname": "[MP] " + mp_user_info["company_name"],
+                "access_token": data['access_token'],
+                "user_id": data['user_id'].toString(),
+                "conection": "mercado_pago",
+                "active": "true",
+                "user_name": mp_user_info["company_name"],
+                "user_email": mp_user_info["email"],
+                "user_logo": mp_user_info["logo_url"],
+                "conection_date": new Date().toISOString(),
+                "tag": { "id": "usrvCuwmV2hTFySmZ" }
+        } //end data_to_airtable_db
+        try {
+          let airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "conection"], data_to_airtable_db, "prod_users")
+          let id_conexion = airtable_response['id']
+
+          res.cookie("connection_id", id_conexion)
+          res.cookie("mp_user_id", data['user_id'].toString())
+          res.render("menus/mp-instructions", { id_conexion: record_id, title: "Instrucciones" });
+
+        } catch (error) {
+          let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282991"
+          res.render("menus/error-page", { message })
         }
+
+      
+      }
+
   },  
   getTokenMP: async (req,res) => {
     //WIP AGREGARLE LO DEL REFRESH TOKEN
+    //WIP MIGRARLO A AIRTABLE
+
     let token = req.query.token
     if(token === "sheetapi5678"){
       try {

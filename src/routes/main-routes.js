@@ -25,13 +25,14 @@ router.get('/', mainController.tiendaNubeHome); //deberia ser /tiendanube.
 router.get('/instrucciones', mainController.instrucciones);
 router.get('/tiendanube/config', mainController.instrucciones2);
 
-router.get('/oauth',mainController.tnOauth) // a futuro que sea /tiendanube/auth
+router.get('/oauth',mainController.tnOauth) // a futuro que sea /tiendanube/oauth
 router.get('/error',mainController.errorPage)
 
 
 /* Mercado Pago */
 router.get('/mercadopago', mpController.mpHome);
 router.get('/mp-oauth', mpController.mpOauth); //a futuro que sea /mp/auth
+router.get('/mercadopago/instrucciones', mpController.instrucciones); //a futuro que sea /mp/auth
 
 
 /* Future new home page. */
