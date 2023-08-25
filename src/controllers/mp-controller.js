@@ -85,6 +85,7 @@ const mpController = {
         var data_to_airtable_db = {
                 "nickname": "[MP] " + mp_user_info["company_name"],
                 "access_token": data['access_token'],
+                "refresh_token": data['refresh_token'],
                 "user_id": data['user_id'].toString(),
                 "conection": "mercado_pago",
                 "active": "true",
@@ -102,7 +103,7 @@ const mpController = {
           res.cookie("mp_user_id", data['user_id'].toString())
           res.cookie("mp_user_name", mp_user_info["company_name"])
 
-          res.render("menus/mp-instructions", { id_conexion: record_id, title: "Instrucciones" });
+          res.render("menus/mp-instructions", { id_conexion, title: "Instrucciones" });
 
         } catch (error) {
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282991"
