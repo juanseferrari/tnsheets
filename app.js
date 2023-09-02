@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 const mongoose = require('mongoose')
 require('dotenv/config')
-//DB CONNECITON
+//DB CONNECITON -> REMOVE
 const uri = process.env.DB_CONNECTION
 async function connect(){
     try {
