@@ -18,6 +18,8 @@ const paymentsController = {
   checkSubscription: async (req,res) => {
     let connection_id = req.query.connection_id
 
+    //add more parameters on the GET request for security: Spreadsheet_id (hardcoded token from the spreadsheet), Email.  
+
     if(!connection_id) {
       res.json({
         "error": {

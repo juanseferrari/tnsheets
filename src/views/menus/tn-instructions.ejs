@@ -189,10 +189,56 @@
 
        </div>
 
+      
+
       <!-- STEP 4 -->
 
       <div id="step4">
-        <div class="step-block step-ok">
+        <div class="step-block step-ok ">
+          <div class="step-title">
+            <div class="step-check">
+              <% if (user_connected.webhook_url) { %>
+                <i class="fa-solid fa-circle-check"></i>
+                <%} else { %>
+                  <i class="fa-regular fa-circle"></i>
+              <% } %>
+            </div>
+            <div class="step-text">
+              <p>Paso 4: Configurar notificaciones</p>
+            </div>
+          </div>
+          <div class="step-user-info">
+            <div class="step-left-text">
+              <div>
+                <h4>Para automatizar la gestión de Sheets Central, es necesario configurar las notificaciones del Sheet. Para hacerlo, sigue los siguientes pasos:  </h4>
+                <p class="step-left-p">1. Dentro del Google Sheet ya clonado, debes ir a Extensiones > Apps Script. </p>
+                <p class="step-left-p">2. Dentro de App Script, hacer click en el botón "Implementar" > "Nueva implementación". </p>
+                <p class="step-left-p">3. Crea una nueva implementación. Importante que Cualquier usuario tenga acceso. </p>
+                <p class="step-left-p">4. Esperar Carga. </p>
+                <p class="step-left-p">5. Copiar URL de Aplicación Web.  </p>
+                <p class="step-left-p">6. Volver al Sheet y click en Sheets Central > Configurar Notificaciones.  </p>
+                <p class="step-left-p">7. Pegar URL de la Aplicación Web y click en Aceptar  </p>
+                <p class="step-left-p">8. ¡Listo! Configuración completada.  </p>
+
+              </div>
+
+
+
+            </div>
+            <div class="step-right-text">
+              <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS9xpBes5hMMKZiLzwf2NSuWkxbspOkUCCicLiB4iwBBsZ6fJrhX_wMgYVkmm6JNGW64Pk7cF0FQ4bY/embed?start=false&loop=false&delayms=5000" frameborder="0" width="90%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+            </div>
+
+          </div>
+
+        </div>
+
+       </div>
+
+       <!-- STEP 5 -->
+
+      <div id="step5">
+        <div class="step-block step-ok no-border">
           <div class="step-title">
             <div class="step-check">
               <% if (user_connected.subscription_status == 'active') { %>
@@ -202,7 +248,7 @@
               <% } %>
             </div>
             <div class="step-text">
-              <p>Paso 4 (recomendado): Obtener Premium. 30 días de prueba!</p>
+              <p>Paso 5 (recomendado): Obtener Premium. 30 días de prueba!</p>
             </div>
           </div>
           <div class="step-user-info">
@@ -248,50 +294,6 @@
               
 
 
-            </div>
-
-          </div>
-
-        </div>
-
-       </div>
-
-      <!-- STEP 5 -->
-
-      <div id="step5">
-        <div class="step-block step-ok no-border">
-          <div class="step-title">
-            <div class="step-check">
-              <% if (user_connected.webhook_url) { %>
-                <i class="fa-solid fa-circle-check"></i>
-                <%} else { %>
-                  <i class="fa-regular fa-circle"></i>
-              <% } %>
-            </div>
-            <div class="step-text">
-              <p>Paso 5: Configurar notificaciones</p>
-            </div>
-          </div>
-          <div class="step-user-info">
-            <div class="step-left-text">
-              <div>
-                <h4>Para automatizar la gestión de Sheets Central, es necesario configurar las notificaciones del Sheet. Para hacerlo, sigue los siguientes pasos:  </h4>
-                <p class="step-left-p">1. Dentro del Google Sheet ya clonado, debes ir a Extensiones > Apps Script. </p>
-                <p class="step-left-p">2. Dentro de App Script, hacer click en el botón "Implementar" > "Nueva implementación". </p>
-                <p class="step-left-p">3. Crea una nueva implementación. Importante que Cualquier usuario tenga acceso. </p>
-                <p class="step-left-p">4. Esperar Carga. </p>
-                <p class="step-left-p">5. Copiar URL de Aplicación Web.  </p>
-                <p class="step-left-p">6. Volver al Sheet y click en Sheets Central > Configurar Notificaciones.  </p>
-                <p class="step-left-p">7. Pegar URL de la Aplicación Web y click en Aceptar  </p>
-                <p class="step-left-p">8. ¡Listo! Configuración completada.  </p>
-
-              </div>
-
-
-
-            </div>
-            <div class="step-right-text">
-              <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS9xpBes5hMMKZiLzwf2NSuWkxbspOkUCCicLiB4iwBBsZ6fJrhX_wMgYVkmm6JNGW64Pk7cF0FQ4bY/embed?start=false&loop=false&delayms=5000" frameborder="0" width="90%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
             </div>
 
           </div>
