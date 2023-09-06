@@ -138,6 +138,12 @@ const mainController = {
       //AIRTABLE DATA
       let user_email = tn_user_data['email']
       let user_name = tn_user_data['name']['es']
+      let user_country = tn_user_data['country']
+      if(tn_user_data['url_with_protocol']){
+        var user_url = tn_user_data['url_with_protocol']
+      } else {
+        var user_url = null
+      }
       if(tn_user_data['logo']){
         var user_logo = "https:" + tn_user_data['logo']
       } else {
@@ -161,6 +167,8 @@ const mainController = {
               "user_name": user_name,
               "user_email": user_email,
               "user_logo": user_logo,
+              "country": user_country,
+              "user_url": user_url,
               "conection_date": new Date().toISOString(),
               "tag": { "id": "usrvCuwmV2hTFySmZ" }
             }
@@ -359,7 +367,7 @@ const mainController = {
       response_object = {
         "error": {
           "type": "NOTIFICATION_NOT_SUPPORTED",
-          "message": "This notification type is not supported. "
+          "message": "This notification type is not supported."
         }
       }
     }
