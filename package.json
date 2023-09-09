@@ -21,5 +21,9 @@
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.7",
     "nodemon": "^2.0.19"
-  }
+  },
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
