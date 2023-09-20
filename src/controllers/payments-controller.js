@@ -49,7 +49,7 @@ const paymentsController = {
         "customer_email": req.body.data.object.customer_details.email,
         "client_reference_id": req.body.data.object.client_reference_id,
         "date_created": req.body.data.object.created.toString(),
-        "subscription_status": req.body.data.object.status, 
+        //"subscription_status": req.body.data.object.status,  -> Esto viene de subscription status
         "payment_link": req.body.data.object.payment_link,
         "internal_product": "tienda_nube_1",
         "tag": { "id": "usrvCuwmV2hTFySmZ" },

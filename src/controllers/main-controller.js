@@ -47,7 +47,7 @@ const mainController = {
     if (req.cookies.google_user_id) {
       google_user_id = req.cookies.google_user_id
     }
-    res.render("index", { title: "Inicio",google_user_id,connection_id });
+    res.render("index", { title: "Inicio", google_user_id, connection_id });
   },
   contacto: (req, res) => {
     res.render("menus/contacto");
