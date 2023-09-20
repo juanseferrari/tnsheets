@@ -39,7 +39,15 @@ const mainController = {
     res.render("menus/home", { projectos });
   },
   tiendaNubeHome: (req, res) => {
-    res.render("index", { title: "Inicio" });
+    connection_id = ""
+    google_user_id = ""
+    if (req.cookies.connection_id) {
+      connection_id = req.cookies.connection_id
+    }
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
+    }
+    res.render("index", { title: "Inicio",google_user_id,connection_id });
   },
   contacto: (req, res) => {
     res.render("menus/contacto");
