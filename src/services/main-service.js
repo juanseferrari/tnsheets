@@ -2,7 +2,6 @@
 const path = require("path");
 const fs = require("fs");
 
-const User = require('../models/users');
 
 //AIRTABLE VALUES
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID
@@ -200,7 +199,7 @@ const mainService = {
       };
       let airtable_subs_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + AIRTABLE_SUBSCRIPTIONS + "?filterByFormula={client_reference_id}='"+connection_id+"'", get_request_options)
       let user_subs_data = await airtable_subs_response.json();
-     // console.log(user_subs_data)
+      //console.log(user_subs_data)
       if(user_subs_data.records.length == 0) {
         //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
        // console.log("amount of records: 0")
@@ -332,8 +331,118 @@ const mainService = {
     //en el return devolver un objecto que sea el status de la suscripcion
     return response_object;
   },
+  async getAirtableData(table,id,filter){
+    let response_object
+    var get_request_options = {
+        method: 'GET',
+        headers: {
+          "Authorization": "Bearer " + AIRTABLE_ACCESS_TOKEN,
+          "Content-Type": "application/json"
+        },
+        redirect: 'follow'
+      };
+      let airtable_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + table + "?filterByFormula={"+filter+"}='"+id+"'", get_request_options)
+      let user_response_data = await airtable_response.json();
+      console.log("user_response_data")
+      console.log(user_response_data)
+      console.log("user_response_data")
+
+      if(user_response_data.records.length == 0) {
+        //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
+         console.log("amount of records: 0")
+        response_object = {
+          "error": {
+              "type": "NO_DATA_FOUND",
+              "message": "No record found with that id on that table."
+          }
+        }     
+      } else if (user_response_data.records.length == 1) {
+        //console.log("amount of records: 1")
+        response_object = user_response_data.records[0]['fields']
+        console.log("user_response_data.records[0]['fields']")
+        console.log(user_response_data.records[0]['fields'])
+        console.log("user_response_data.records[0]['fields']")
+
+      } else {
+        //console.log("amount of records: more")
+        response_object = {
+          "error": {
+              "type": "OBTENTION_OF_DATA_ERROR",
+              "message": "More than one value found."
+          }
+        }     
+      }
+    
+ 
+
+  return response_object
+  },
+  async changeUserPlan(subscription_id, action){
+    let return_object = {}
+    let subscription_data = await this.getAirtableData(AIRTABLE_SUBSCRIPTIONS,subscription_id,"subscription_id")
+    let user_data = await this.searchUser(subscription_data['client_reference_id'])
+
+    console.log("webhook_url")
+    console.log(user_data['webhook_url'])
+    console.log("webhook_url")
+
+
+    let json_to_sc = {
+      "action": action
+    }
+    console.log("json_to_sc")
+    console.log(json_to_sc)
+    console.log("json_to_sc")
+
+    var sheetscentral_post = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(json_to_sc),
+      redirect: 'follow'
+    }
+
+    try {
+      var sc_response = await fetch(user_data['webhook_url'], sheetscentral_post)
+      let sc_response_json = await sc_response.json();
+
+      console.log("sc_response")
+      console.log(sc_response_json)
+      console.log("sc_response")
+
+      if (sc_response.status === 200) {
+        // Process the data when the status code is 200
+        return_object = {
+          "status": "success",
+          "response_status":sc_response.status
+        }
+      } else {
+        console.log(sc_response)
+        response_object = data
+      }
+
+    } catch(error){
+      return_object = {
+        "error": {
+            "type": "UNABLE_TO_CHANGE_USER_PLAN",
+            "message": "It was not possible to change the user plan."
+        }
+    }
+
+    }
+    return return_object
+
+  },
+  async getSubscriptionData(subscription_id){
+
+  },
   getUserToken(connection_id){
     //a futuro agregar un servicio que para cualquier plataforma te traiga el access token del usuario
+    //este servicio tiene que manejar la gestion del refresh token tambien de alguna forma. 
+  },
+  refreshToken(connection_id){
+    //a futuro hacer una funcion para refreshear el access token. 
   }
 };
 
