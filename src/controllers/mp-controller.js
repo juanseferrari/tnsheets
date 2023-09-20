@@ -19,8 +19,6 @@ const mp_test_access_token = process.env.MP_TEST_AT
 const mp_test_client_id = process.env.MP_TEST_CLIENT_ID
 const mp_test_client_secret = process.env.MP_TEST_CLIENT_SECRET
 
-//MP MONGO DB
-const MpUser = require('../models/usersmp');
 
 //SERVICES
 const mainService = require("../services/main-service");
@@ -43,14 +41,6 @@ const mpController = {
     }
     let mp_user_name = req.cookies.mp_user_name
     res.render("menus/mp-instructions", {title: "Instrucciones",id_conexion})
-  },
-  getData: async (req,res) => {
-    try {
-      const user = await MpUser.findById(req.params.userId)
-      res.json(user)
-  } catch (error) {
-      res.json(error)
-  }
   },
   mpOauth: async (req,res) => {
     let code = req.query.code

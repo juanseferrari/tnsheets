@@ -49,9 +49,10 @@ const paymentsController = {
         "customer_email": req.body.data.object.customer_details.email,
         "client_reference_id": req.body.data.object.client_reference_id,
         "date_created": req.body.data.object.created.toString(),
-       // "subscription_status": req.body.data.object.status, --> esto lo sacamos de la subscription
+        "subscription_status": req.body.data.object.status, 
         "payment_link": req.body.data.object.payment_link,
         "internal_product": "tienda_nube_1",
+        "tag": { "id": "usrvCuwmV2hTFySmZ" },
         "test_mode": "true" //esto sacar una vez que lo pasemos a prod.
       }
       try {
@@ -91,12 +92,27 @@ const paymentsController = {
         }
         try {
           let response = await mainService.createAirtableUpsert(true,["subscription_id"],fields_to_db,"subscriptions")
+          if(response['response_status'] == 200){
+            try {
+              let user_downgrade = await mainService.changeUserPlan(req.body.data.object.id,"downgrade")
+              console.log("user_downgrade")
+              console.log(user_downgrade)
+              console.log("user_downgrade")
+            } catch (error) {
+              console.log("error downgrading user")
+              console.log(error)
+              console.log("error downgrading user")
+
+            }
+          }
+          //Downgrade user
+ 
           res.json(response)
         } catch (error) {
           res.json(error)
         }
 
-      //A FUTURO: enviar notificacion al usuario que no se cancelo el plan y eliminarle todo.
+
 
     } else {
       //notification not supported

@@ -8,13 +8,9 @@ const url = require('url');
 
 //Services
 const mainService = require("../services/main-service");
-//const User = require('../models/users'); // MongoDB model -> TO DELETE
-const MpUser = require('../models/usersmp');
 
 const tn_client_id = "5434"
 const tn_client_secret = process.env.TN_CLIENT_SECRET
-const google_client_id = process.env.GOOGLE_CLIENT_ID
-const google_client_secret = process.env.GOOGLE_CLIENT_SECRET
 
 //TEST ENVIRONMENTS
 const test_client_id = "6107"
@@ -76,8 +72,12 @@ const mainController = {
 
     console.log("Cookies:", req.cookies)
     connection_id = ""
+    google_user_id = ""
     if (req.cookies.connection_id) {
       connection_id = req.cookies.connection_id
+    }
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
     }
     let user_connected = await mainService.searchUser(connection_id)
     console.log("user_connected")
@@ -88,7 +88,7 @@ const mainController = {
 
     let user_name = req.cookies.tn_user_name
 
-    res.render("menus/tn-instructions", { title: "Instrucciones", connection_id, user_connected})
+    res.render("menus/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
   },
   errorPage: (req, res) => {
     let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
@@ -96,6 +96,8 @@ const mainController = {
   },
   tnOauth: async (req, res) => {
     let code = req.query.code
+    let state = req.query.state //Este es el google_id
+
     var urlencoded = new URLSearchParams();
     urlencoded.append("client_id", tn_client_id);
     urlencoded.append("client_secret", tn_client_secret);
@@ -149,6 +151,11 @@ const mainController = {
       } else {
         var user_logo  = null
       }
+      if(state){
+        var google_user_id = state.toString()
+      } else {
+        var google_user_id = null
+      }
       var data_to_airtable_db = {
         "performUpsert": {
           "fieldsToMergeOn": [
@@ -163,6 +170,7 @@ const mainController = {
               "access_token": data['access_token'],
               "user_id": data['user_id'].toString(),
               "conection": "tienda_nube",
+              "google_user_id": google_user_id,
               "active": "true",
               "user_name": user_name,
               "user_email": user_email,
@@ -372,6 +380,68 @@ const mainController = {
       }
     }
     res.json(response_object)
+  },
+  getTokenGeneric: async (req,res) => {
+    // funcion usada para obtener el token desde Google App Script
+    // Es una funcion generica para todas las conexiones
+    var token = req.body.token
+    var spreadsheet_id = req.body.spreadsheet_id
+    var connection_id = req.body.connection_id
+    var sheet_email = req.body.email
+
+
+    //Paso 1: Validar el token generico (sheetapi5678)
+    //Paso 2: Hacer un searchUser (tiene que existir si o si para configurar el sheet) con el connection_id. 
+    //Paso 3: Validar que el google_email del usuario coincida con el sheet_email (cuando este la conexion entre google user y la base de datos)
+    //Paso 4: Hacer upsert y agregar el spreadsheet_id, spreadsheet_conection_date y connection_id. 
+    //Paso 5: Devolver en la API el connection_id, access_token y user_id. 
+
+    //migrate to upsert data
+    var data_to_airtable = {
+      "fields": {
+        "spreadsheet_id": spreadsheet_id,
+        "spreadsheet_conection_date": new Date().toISOString(),
+        "connection_id": connection_id
+      }
+    } //end data_to_airtable
+
+    var airtable_update_record = {
+      method: 'PATCH',
+      headers: {
+        "Authorization": "Bearer " + airtable_access_token,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data_to_airtable),
+      redirect: 'follow'
+    }
+    if (token === "sheetapi5678") {
+      //agregar un token mas seguro o algo dinamico por usuario
+      try {
+        // A FUTURO: pasar esta funcion de get token a un service reusable.
+        let airtabe_request = await fetch("https://api.airtable.com/v0/" + airtable_base_id + "/" + airtable_prod_table_id + "/" + connection_id, airtable_update_record)
+        let airtable_response = await airtabe_request.json();
+        res.json({
+          "id": airtable_response.id,
+          "access_token": airtable_response.fields.access_token,
+          "store_id": airtable_response.fields.user_id
+        })
+      } catch (error) {
+        res.json({
+          "error": {
+            "type": "CONNECTION_NOT_FOUND",
+            "message": "The connection_id provided is incorrect or not found."
+          }
+        })
+      }
+    } else {
+      res.json({
+        "error": {
+          "type": "INVALID_TOKEN",
+          "message": "Token provided is incorrect."
+        }
+      })
+    }
+
   }
 };
 
