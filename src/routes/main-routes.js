@@ -23,6 +23,7 @@ const googleController = require('../controllers/google-controller');
 router.get('/', mainController.tiendaNubeHome); //deberia ser /tiendanube. 
 router.get('/instrucciones', mainController.instrucciones);
 router.get('/tiendanube/config', mainController.instrucciones2);
+router.get('/tiendanube/documentation', mainController.documentation);
 
 router.get('/oauth',mainController.tnOauth) // a futuro que sea /tiendanube/oauth
 router.get('/error',mainController.errorPage)

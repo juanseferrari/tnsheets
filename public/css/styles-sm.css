@@ -342,6 +342,12 @@
 .mp-button-a:hover {
     color: #00b1ea;
 }
+.docs-button-a {
+    color: black;
+}
+.docs-button-a:hover {
+    color: black;
+}
 
 .login-button button {
     background-color: white;

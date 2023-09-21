@@ -238,7 +238,7 @@
        <!-- STEP 5 -->
 
       <div id="step5">
-        <div class="step-block step-ok no-border">
+        <div class="step-block step-ok">
           <div class="step-title">
             <div class="step-check">
               <% if (user_connected.subscription_status == 'active') { %>
@@ -254,7 +254,7 @@
           <div class="step-user-info">
             <div class="step-left-text" >
               <div>
-                <h4>Obten Sheets Central Premium y desbloquea todas las funcionalidades.   </h4>
+                <h4>Obten Sheets Central Premium y desbloquea todas las funcionalidades </h4>
                 <p class="step-left-p">Prueba Sheets Central Premium por <span class="step-left-span">15 días gratis</span>. No se te cobrará hasta pasados los 15 días.</p>
                 <p class="step-left-p">Funcionalidades extra como edición de productos, edición de stock, ventas automáticas, soporte preferencial y más!</p>
                 <button type="button" class="btn btn-outline-secondary shador btn-functionalities ">
@@ -300,7 +300,43 @@
 
         </div>
 
-       </div>
+       </div> <!-- END STEP 6 -->
+
+
+           <!-- STEP 6  -->
+           <div id="step6">
+            <div class="step-block step-ok  no-border">
+              <div class="step-title">
+                <div class="step-text">
+                  <p>Material adicional</p>
+                </div>
+              </div>
+              <div class="step-user-info">
+                <div class="step-left-text" >
+                  <h4>Revisa nuestra documentación para conocer en detalle Sheets Central  </h4>
+                </div>
+                <div class="step-right-text">
+
+                      <div class="login-button">
+                        <button type="button" class="btn btn-outline-secondary">
+                          <a class="docs-button-a" href="https://sheetscentral.notion.site/Sheets-Central-Tiendanube-b5981995bad64dc19be57d4704a76fff" target="_blank">
+                            <div class="login-button-text">
+                              <img class="login-button-logo" src="../images/document.png" alt="">
+                              <p class="login-button-p">Documentación</p>
+                            </div>
+                          </a>
+                        </button>
+                      </div>
+    
+                  <!-- end clone sheet button -->
+                </div>
+    
+              </div>
+    
+            </div>
+    
+           </div>
+           <!-- END STEP 6 -->
  
 
 
@@ -313,8 +349,6 @@
 
 
   </div>
-  <%- include("../partials/pricing-section2.ejs") %>
-  <%- include("../partials/compare-plans2.ejs") %>
 
 
   <%- include("../partials/footer.ejs") %>
