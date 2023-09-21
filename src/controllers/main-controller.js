@@ -244,8 +244,9 @@ const mainController = {
             res.cookie("tn_user_name", user_name)
 
             //render instrucciones
-            //res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
-            res.redirect("/tiendanube/config")
+            res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
+            //USAR REDIRECT AL MOMENTO DE PASAR A PRODUCCION
+            //res.redirect("/tiendanube/config")
         } else {
             //Fallo la generacion del app/uninstalled, pero hago el rendering igual
             console.log(tn_app_data)
@@ -253,9 +254,10 @@ const mainController = {
             res.cookie("connection_id", record_id)
             res.cookie("tn_user_name", user_name)
             //render instrucciones
-            //res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
-            res.redirect("/tiendanube/config")
+            res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
 
+            //USAR REDIRECT AL MOMENTO DE PASAR A PRODUCCION
+            //res.redirect("/tiendanube/config")
         }
         } catch (error) {
           //arreglar esto despues
