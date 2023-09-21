@@ -38,7 +38,7 @@ const mainController = {
     const projectos = await mainService.projectos()
     res.render("menus/home", { projectos });
   },
-  tiendaNubeHome: (req, res) => {
+  tiendaNubeHome: async (req, res) => {
     connection_id = ""
     google_user_id = ""
     if (req.cookies.connection_id) {
@@ -47,7 +47,9 @@ const mainController = {
     if (req.cookies.google_user_id) {
       google_user_id = req.cookies.google_user_id
     }
-    res.render("index", { title: "Inicio", google_user_id, connection_id });
+    let user_connected = await mainService.searchUser(connection_id)
+
+    res.render("index", { title: "Inicio", google_user_id, connection_id, user_connected });
   },
   contacto: (req, res) => {
     res.render("menus/contacto");
@@ -95,8 +97,11 @@ const mainController = {
     //validar si el conenction_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
 
     let user_name = req.cookies.tn_user_name
-
+    //res.redirect("/tiendanube/config")
     res.render("menus/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
+  },
+  documentation: (req,res) => {
+    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-b5981995bad64dc19be57d4704a76fff?pvs=4")
   },
   errorPage: (req, res) => {
     let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
@@ -239,7 +244,8 @@ const mainController = {
             res.cookie("tn_user_name", user_name)
 
             //render instrucciones
-            res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
+            //res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
+            res.redirect("/tiendanube/config")
         } else {
             //Fallo la generacion del app/uninstalled, pero hago el rendering igual
             console.log(tn_app_data)
@@ -247,7 +253,9 @@ const mainController = {
             res.cookie("connection_id", record_id)
             res.cookie("tn_user_name", user_name)
             //render instrucciones
-            res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
+            //res.render("menus/instrucciones", { id_conexion: record_id, title: "Instrucciones" });
+            res.redirect("/tiendanube/config")
+
         }
         } catch (error) {
           //arreglar esto despues
