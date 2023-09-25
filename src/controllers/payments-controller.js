@@ -38,11 +38,13 @@ const paymentsController = {
   },
   notificationController: async (req,res) => {
 
+    let fields_to_db = {}
+
     if(req.body.type == "checkout.session.completed") {
       // notification on checkout session
       // agregar subscripcion en airtable
 
-      var fields_to_db = {
+      fields_to_db = {
         "subscription_id": req.body.data.object.subscription,
         "customer_id": req.body.data.object.customer,
         "customer_name": req.body.data.object.customer_details.name,
@@ -52,8 +54,22 @@ const paymentsController = {
         //"subscription_status": req.body.data.object.status,  -> Esto viene de subscription status
         "payment_link": req.body.data.object.payment_link,
         "internal_product": "tienda_nube_1",
-        "tag": { "id": "usrvCuwmV2hTFySmZ" },
-        "test_mode": "true" //esto sacar una vez que lo pasemos a prod.
+        "tag": { "id": "usrvCuwmV2hTFySmZ" }
+        //"test_mode": "true" //esto sacar una vez que lo pasemos a prod.
+      }
+      try {
+        let response = await mainService.createAirtableUpsert(true,["subscription_id"],fields_to_db,"subscriptions")
+        res.json(response)
+      } catch (error) {
+        res.json(error)
+      }
+
+
+    } else if(req.body.type == "customer.subscription.created" ) {
+      
+      fields_to_db = {
+      "subscription_status": req.body.data.object.status,
+      "subscription_id": req.body.data.object.id,
       }
       try {
         let response = await mainService.createAirtableUpsert(true,["subscription_id"],fields_to_db,"subscriptions")
@@ -65,14 +81,7 @@ const paymentsController = {
 
     } else if(req.body.type == "customer.subscription.updated" ) {
 
-
-      //agregar algun if o algo en caso que se cancele la subscription, mande una notificacion al google sheet que se desactivo la conexion. 
-
-      //agregar el resto de la informacion del subscription updated.
-
-
-      
-      var fields_to_db = {
+      fields_to_db = {
       "subscription_status": req.body.data.object.status,
       "subscription_id": req.body.data.object.id,
       }
@@ -86,7 +95,7 @@ const paymentsController = {
 
     } else if (req.body.type == "customer.subscription.deleted"){
 
-      var fields_to_db = {
+      fields_to_db = {
         "subscription_status": req.body.data.object.status,
         "subscription_id": req.body.data.object.id,
         }
@@ -116,8 +125,9 @@ const paymentsController = {
 
     } else {
       //notification not supported
+      //Change status code for 400
       res.json({
-        "erorr": "Notification not supported"
+        "errorr": "Notification not supported"
       })
     }
   },
