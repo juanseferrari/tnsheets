@@ -48,7 +48,9 @@
                 <h3><%= user_connected.user_name %></h3>
                 <% if (user_connected.subscription_status == 'active') { %>
                   <h4>Plan: Premium</h4>
-                <%} else { %>
+                <%} else if (user_connected.subscription_status == 'trialing') { %>
+                  <h4>Plan: Premium - Período de prueba</h4>
+                <% } else { %>
                   <h4>Plan: Free</h4>
                 <% } %>
               </div>
@@ -118,10 +120,10 @@
                 <%} else { %>
                   <div class="login-button">
                     <button type="button" class="btn btn-outline-secondary">
-                      <a class="sheet-button-a" href="https://docs.google.com/spreadsheets/d/1DIzDkzkyMd4jncF12Gq95ADWt9uYEYKZ2P4EUqbDIyw/copy" target="_blank">
+                      <a class="sheet-button-a" href="https://docs.google.com/spreadsheets/d/1vqqop451KIr7L_u84z3iyYa2oG5rA4OerPyn8ZmBnJo/copy" target="_blank">
                         <div class="login-button-text">
                           <img class="login-button-logo" src="../images/sheets_logo.png" alt="">
-                          <p class="login-button-p">Clonar Sheet (v1.6)</p>
+                          <p class="login-button-p">Clonar Sheet (v1.7)</p>
                         </div>
                       </a>
                     </button>
@@ -241,7 +243,7 @@
         <div class="step-block step-ok">
           <div class="step-title">
             <div class="step-check">
-              <% if (user_connected.subscription_status == 'active') { %>
+              <% if (user_connected.subscription_status == 'active' || user_connected.subscription_status == 'trialing') { %>
                 <i class="fa-solid fa-circle-check"></i>
                 <%} else { %>
                   <i class="fa-regular fa-circle"></i>
@@ -268,10 +270,10 @@
 
             </div>
             <div class="step-right-text">
-              <% if (user_connected.subscription_status == 'active') { %>
+              <% if (user_connected.subscription_status == 'active' || user_connected.subscription_status == 'trialing' ) { %>
                 <div class="login-button">
                   <button type="button" class="btn btn-outline-secondary">
-                    <a class="stripe-button-a" href="https://billing.stripe.com/p/login/test_00g8yE5Sa4ip2WY144?prefilled_email=<%=user_connected.subscription_customer_email %>" target="_blank">
+                    <a class="stripe-button-a" href="https://billing.stripe.com/p/login/9AQbJG39y5kL2eQ6oo?prefilled_email=<%=user_connected.subscription_customer_email %>" target="_blank">
                       <div class="login-button-text">
                         <img class="login-button-logo" src="../images/configuration.png" alt="">
                         <p class="login-button-p">Gestionar plan</p>
@@ -282,7 +284,7 @@
               <%} else { %>
                 <div class="login-button">
                   <button type="button" class="btn btn-outline-secondary">
-                    <a class="stripe-button-a" href="https://buy.stripe.com/test_5kA3fq71jafj1XydQS?client_reference_id=<%= connection_id %>" target="_blank">
+                    <a class="stripe-button-a" href="https://buy.stripe.com/3cscQkbqI8rRae4cMN?client_reference_id=<%= connection_id %>" target="_blank">
                       <div class="login-button-text">
                         <img class="login-button-logo" src="../images/rocket.png" alt="">
                         <p class="login-button-p">Obtener premium</p>
