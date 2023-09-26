@@ -39,8 +39,8 @@ const mainController = {
     res.render("menus/home", { projectos });
   },
   tiendaNubeHome: async (req, res) => {
-    connection_id = ""
-    google_user_id = ""
+    let connection_id = ""
+    let google_user_id = ""
     if (req.cookies.connection_id) {
       connection_id = req.cookies.connection_id
     }

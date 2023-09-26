@@ -52,7 +52,7 @@ const googleController = {
     }
     try {
         let response = await mainService.createAirtableUpsert(true,["google_user_id"],fields_to_db,"google_users")
-        res.render( "index", { title: "Inicio" });
+        res.render("index", { title: "Inicio" });
       } catch (error) {
         //render info of error
         res.json(error)
