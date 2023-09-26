@@ -22,18 +22,8 @@
         <%- include("../partials/card.ejs") %>
           <% } %>
     </div>
-    <!-- GOOGLE SIGN IN-->
-    <div id="google-sign-in" style="display: none;" >
-      <div id="g_id_onload" data-client_id="561559378274-vquvti7momk6huf1k4ugn8q9jha6313q.apps.googleusercontent.com"
-        data-context="signin" data-ux_mode="popup" data-login_uri="https://www.sheetscentral.com/google-auth"
-        data-itp_support="true" data-skip_prompt_cookie="google_user_id">
-      </div>
+    <%- include("../partials/buttons/google-login.ejs") %>
 
-      <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
-        data-text="signin_with" data-size="large" data-logo_alignment="left">
-      </div>
-    </div>
-    <!-- END GOOGLE SIGN IN-->
 
   </div>
 
