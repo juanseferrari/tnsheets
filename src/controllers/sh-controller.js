@@ -88,7 +88,7 @@ const shController = {
     //WIP check that the state is the same as the one sent in the previous step
 
     //WIP validate hmac.
-     
+
 
     //POST request to get Access token
     var requestOptions = {
@@ -142,7 +142,6 @@ const shController = {
 
       try {
         let response = await mainService.createAirtableUpsert(true, ['user_id','conection'], fields_to_db, "prod_users")
-        response_object = response
         if (response['error']) {
           //console.log(airtable_response['error'])
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997"
@@ -151,15 +150,14 @@ const shController = {
           //OK with connection. 
 
           //save connection_id cookie
-          res.cookie("connection_id", record_id)
+          res.cookie("connection_id", response['id'])
           //redirect user to instructions page
           res.redirect('/shopify/config')
       
         }
 
       } catch (error) {
-        response_object = error
-        let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997 " + response_object
+        let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997 " + error
         res.render("menus/error-page", { message })
       }
 
