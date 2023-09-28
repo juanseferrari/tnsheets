@@ -288,6 +288,9 @@ const mainService = {
       } //end subs_data_to_airtable_db
     }
 
+    console.log("data_to_airtable_db")
+    console.log(data_to_airtable_db)
+    console.log("data_to_airtable_db")
 
 
     //console.log(JSON.stringify(data_to_airtable_db))
@@ -306,9 +309,9 @@ const mainService = {
       const airtabe_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + airtable_table, airtable_upsert)
       //console.log(airtabe_response)
       var data = await airtabe_response.json();
-      console.log("data")
+      console.log("airtable data response")
       console.log(data)
-      console.log("data")
+      console.log("airtable data response")
 
       if (airtabe_response.status === 200) {
         // Process the data when the status code is 200

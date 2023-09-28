@@ -34,13 +34,12 @@ const mpController = {
   
   instrucciones: (req,res) => {
     console.log("Cookies:", req.cookies)
-    id_conexion = ""
+    connection_id = ""
 
     if(req.cookies.connection_id){
       id_conexion = req.cookies.connection_id
     }
-    let mp_user_name = req.cookies.mp_user_name
-    res.render("menus/mp-instructions", {title: "Instrucciones",id_conexion})
+    res.render("instructions/mp-instructions", {title: "Instrucciones",connection_id})
   },
   mpOauth: async (req,res) => {
     let code = req.query.code
@@ -93,7 +92,7 @@ const mpController = {
           res.cookie("mp_user_id", data['user_id'].toString())
           res.cookie("mp_user_name", mp_user_info["company_name"])
 
-          res.render("menus/mp-instructions", { id_conexion, title: "Instrucciones" });
+          res.render("instructions/mp-instructions", { id_conexion, title: "Instrucciones" });
 
         } catch (error) {
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282991"
