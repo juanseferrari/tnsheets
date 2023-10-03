@@ -46,20 +46,19 @@ const paymentsController = {
 
       fields_to_db = {
         "subscription_id": req.body.data.object.subscription,
+        "payment_intent_id": req.body.data.object.payment_intent,
         "customer_id": req.body.data.object.customer,
         "customer_name": req.body.data.object.customer_details.name,
         "customer_email": req.body.data.object.customer_details.email,
         "client_reference_id": req.body.data.object.client_reference_id,
         "mode": req.body.data.object.mode, //determina si es un payment o un subscription
-        "date_created": req.body.data.object.created.toString(),
-        //"subscription_status": req.body.data.object.status,  -> Esto viene de subscription status
+        "date_created": new Date().toISOString(),
         "payment_link": req.body.data.object.payment_link,
-        "internal_product": "tienda_nube_1",
         "tag": { "id": "usrvCuwmV2hTFySmZ" }
         //"test_mode": "true" //esto sacar una vez que lo pasemos a prod.
       }
       try {
-        let response = await mainService.createAirtableUpsert(true,["subscription_id"],fields_to_db,"subscriptions")
+        let response = await mainService.createAirtableUpsert(true,["subscription_id","payment_intent_id"],fields_to_db,"subscriptions")
         res.json(response)
       } catch (error) {
         res.json(error)
@@ -123,6 +122,24 @@ const paymentsController = {
         }
 
 
+
+    } else if(req.body.type == "payment_intent.succeeded"){
+
+      var date = new Date();
+      date.setDate(date.getDate() + 30);
+      var date30 = date.toISOString()
+
+      fields_to_db = {
+        "payment_status": req.body.data.object.status,
+        "payment_intent_id": req.body.data.object.id,
+        "expiration_date": date30
+        }
+        try {
+          let response = await mainService.createAirtableUpsert(true,["payment_intent_id"],fields_to_db,"subscriptions")
+          res.json(response)
+        } catch (error) {
+          res.json(error)
+        }
 
     } else {
       //notification not supported
