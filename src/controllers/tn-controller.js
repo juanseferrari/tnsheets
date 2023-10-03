@@ -49,21 +49,16 @@ const tnController = {
 
     res.render("index", { title: "Inicio", google_user_id, connection_id, user_connected });
   },
-  instrucciones: (req, res) => {
+  instruccionesOld: (req, res) => {
     //! deprecar por la nueva version despues.
     console.log("Cookies:", req.cookies)
     id_conexion = ""
     if (req.cookies.connection_id) {
       id_conexion = req.cookies.connection_id
     }
-    //validar si el connection_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
-
     res.render("instructions/instrucciones", { title: "Instrucciones", id_conexion })
   },
-  instrucciones2: async (req, res) => {
-    //res.cookie("connnection_id", "rec4UeECqFJzN49Vy")
-
-    console.log("Cookies:", req.cookies)
+  instrucciones: async (req, res) => {
     connection_id = ""
     google_user_id = ""
     if (req.cookies.connection_id) {
@@ -77,11 +72,7 @@ const tnController = {
     console.log(user_connected)
     console.log("user_connected")
 
-    //validar si el conenction_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
-
-    let user_name = req.cookies.tn_user_name
-    //res.redirect("/tiendanube/config")
-    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
+    res.render("instructions/dt-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-b5981995bad64dc19be57d4704a76fff?pvs=4")
