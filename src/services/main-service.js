@@ -208,7 +208,9 @@ const mainService = {
           "subscription": false,
           "subscription_status": "no subscription",
           "subscription_customer_email": null,
-          "message": "Connection do not have any current subscription."
+          "payment_status": false,
+          "expiration_date": false,
+          "message": "Connection do not have any current subscription or payment."
         }
       } else if (user_subs_data.records.length == 1) {
         //console.log("amount of records: 1")
@@ -216,7 +218,10 @@ const mainService = {
           "connection_id": connection_id,
           "subscription": true,
           "subscription_status": user_subs_data.records[0].fields.subscription_status,
-          "subscription_customer_email": user_subs_data.records[0].fields.customer_email
+          "subscription_customer_email": user_subs_data.records[0].fields.customer_email,
+          "payment_status": user_subs_data.records[0].fields.payment_status,
+          "expiration_date": user_subs_data.records[0].fields.expiration_date,
+          "message": "subscription or payment found."
         }
       } else {
         //console.log("amount of records: more")
