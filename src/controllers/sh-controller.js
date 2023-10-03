@@ -11,7 +11,7 @@ const sh_client_id = "9acb8be0a8e01c48a864ee381db4f45f"
 const sh_client_secret = "f2d9372555156ca420c991d68a2335b8"
 const sh_test_redirect_url = "http://localhost:5001/shopify/oauth"
 const sh_prod_redirect_url = "https://www.sheetscentral.com/shopify/oauth"
-const scopes = 'read_products,write_products,read_all_orders,read_customers'
+const scopes = 'read_products,write_products,read_all_orders,read_customers,read_orders'
 var state = '1234'
 
 //SERVICES
