@@ -132,7 +132,7 @@ const dtController = {
         "nickname": "[DT] " + tn_user_data['name']['es'],
         "access_token": data['access_token'],
         "user_id": data['user_id'].toString(),
-        "conection": "drive-to-tiendanube",
+        "conection": "drive_to_tiendanube",
         "google_user_id": google_user_id,
         "active": "true",
         "user_name": tn_user_data['name']['es'],
