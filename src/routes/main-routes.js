@@ -25,9 +25,9 @@ const dtController = require('../controllers/dt-controller');
 /* Tiendanube */
 router.get('/', tnController.tnHome); //deberia ser /tiendanube cuando tengamos la nueva home 
 router.get('/tiendanube', tnController.tnHome);
-router.get('/tiendanube/config', tnController.instrucciones2);
+router.get('/tiendanube/config', tnController.instrucciones);
 router.get('/tiendanube/documentation', tnController.documentation);
-router.get('/tiendanube/oauth',tnController.tnOauth) // a futuro que sea /tiendanube/oauth
+router.get('/tiendanube/oauth',tnController.tnOauth) 
 
 
 /* Images to Tiendanube */
