@@ -27,11 +27,6 @@
           <img src="../images/fondo1.png" alt="" class="shadow rounded">
 
         </div>
-        <% if (google_user_id) { %>
-          <a class="tn-button-a" href="https://www.tiendanube.com/apps/5434/authorize?state=<%= google_user_id %>" target="_blank">
-            <%} else { %>
-              <a class="tn-button-a" href="https://www.tiendanube.com/apps/5434/authorize" target="_blank">
-         <% } %>
 
         <%- include("./partials/buttons/tn-button.ejs") %>
         <%- include("./partials/buttons/google-login.ejs") %>

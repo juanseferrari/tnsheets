@@ -10,8 +10,8 @@ const url = require('url');
 const mainService = require("../services/main-service");
 
 //Sheets Central tokens. 
-const tn_client_id = "5434"
-const tn_client_secret = process.env.TN_CLIENT_SECRET
+const dt_client_id = "7342"
+const dt_client_secret = process.env.DT_CLIENT_SECRET
 
 //TEST ENVIRONMENTS
 const test_client_id = "6107"
@@ -35,8 +35,8 @@ const airtable_GETrequestOptions = {
   redirect: 'follow'
 }
 
-const tnController = {
-  tnHome: async (req, res) => {
+const dtController = {
+  dtHome: async (req, res) => {
     let connection_id = ""
     let google_user_id = ""
     if (req.cookies.connection_id) {
@@ -46,23 +46,9 @@ const tnController = {
       google_user_id = req.cookies.google_user_id
     }
     let user_connected = await mainService.searchUser(connection_id)
-
-    res.render("index", { title: "Inicio", google_user_id, connection_id, user_connected });
+    res.render("menus/drive-to-tiendanube", { title: "Drive to Tiendanube", google_user_id, connection_id, user_connected });
   },
-  instrucciones: (req, res) => {
-    //! deprecar por la nueva version despues.
-    console.log("Cookies:", req.cookies)
-    id_conexion = ""
-    if (req.cookies.connection_id) {
-      id_conexion = req.cookies.connection_id
-    }
-    //validar si el connection_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
-
-    res.render("instructions/instrucciones", { title: "Instrucciones", id_conexion })
-  },
-  instrucciones2: async (req, res) => {
-    //res.cookie("connnection_id", "rec4UeECqFJzN49Vy")
-
+  instrucciones: async (req, res) => {
     console.log("Cookies:", req.cookies)
     connection_id = ""
     google_user_id = ""
@@ -78,21 +64,19 @@ const tnController = {
     console.log("user_connected")
 
     //validar si el conenction_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
-
-    let user_name = req.cookies.tn_user_name
     //res.redirect("/tiendanube/config")
-    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
+    res.render("instructions/dt-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
   },
   documentation: (req,res) => {
-    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-b5981995bad64dc19be57d4704a76fff?pvs=4")
+    res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-72f6a9435253493885209eab1d671c10?pvs=4")
   },
-  tnOauth: async (req, res) => {
+  dtOauth: async (req, res) => {
     let code = req.query.code
     let state = req.query.state //Este es el google_id
 
     var urlencoded = new URLSearchParams();
-    urlencoded.append("client_id", tn_client_id);
-    urlencoded.append("client_secret", tn_client_secret);
+    urlencoded.append("client_id", dt_client_id);
+    urlencoded.append("client_secret", dt_client_secret);
     urlencoded.append("grant_type", "authorization_code");
     urlencoded.append("code", code);
 
@@ -145,10 +129,10 @@ const tnController = {
 
       var fields_to_db = {
         //  Futuro: Agregar el state para identificar al usuario
-        "nickname": "[TN] " + tn_user_data['name']['es'],
+        "nickname": "[DT] " + tn_user_data['name']['es'],
         "access_token": data['access_token'],
         "user_id": data['user_id'].toString(),
-        "conection": "tienda_nube",
+        "conection": "drive-to-tiendanube",
         "google_user_id": google_user_id,
         "active": "true",
         "user_name": tn_user_data['name']['es'],
@@ -187,14 +171,14 @@ const tnController = {
                 res.cookie("connection_id", record_id)
                 res.cookie("tn_user_name", tn_user_data['name']['es'])
           
-                res.redirect("/tiendanube/config")
+                res.redirect("/drive-to-tiendanube/config")
             } else {
                 //Fallo la generacion del app/uninstalled, pero hago el rendering igual
                 //save cookie
                 res.cookie("connection_id", record_id)
                 res.cookie("tn_user_name",  tn_user_data['name']['es'])
 
-                res.redirect("/tiendanube/config")
+                res.redirect("/drive-to-tiendanube/config")
             }
             } catch (error) {
               //arreglar esto despues
@@ -269,4 +253,4 @@ const tnController = {
 
 };
 
-module.exports = tnController;
+module.exports = dtController;

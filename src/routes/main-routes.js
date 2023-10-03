@@ -7,6 +7,7 @@ const mpController = require('../controllers/mp-controller');
 const paymentsController = require('../controllers/payments-controller');
 const googleController = require('../controllers/google-controller');
 const shController = require('../controllers/sh-controller');
+const dtController = require('../controllers/dt-controller');
 
 //a futuro un controller por servicio
 
@@ -21,17 +22,19 @@ const shController = require('../controllers/sh-controller');
  * /api -> Apis publicas de sheets central. A futuro podemos hacer como una api que te devuelva los tokens.
 
 
-/* Tienda Nube */
-/** A futuro que sea /tiendanube/xxx */
-// pasar a tnController
-router.get('/', tnController.tnHome); //deberia ser /tiendanube. 
-router.get('/tiendanube', tnController.tnHome); //deberia ser /tiendanube. 
-router.get('/instrucciones', tnController.instrucciones);
+/* Tiendanube */
+router.get('/', tnController.tnHome); //deberia ser /tiendanube cuando tengamos la nueva home 
+router.get('/tiendanube', tnController.tnHome);
 router.get('/tiendanube/config', tnController.instrucciones2);
 router.get('/tiendanube/documentation', tnController.documentation);
+router.get('/tiendanube/oauth',tnController.tnOauth) // a futuro que sea /tiendanube/oauth
 
-router.get('/oauth',tnController.tnOauth) // a futuro que sea /tiendanube/oauth
-router.get('/error',mainController.errorPage)
+
+/* Images to Tiendanube */
+router.get('/drive-to-tiendanube', dtController.dtHome); //dtController
+router.get('/drive-to-tiendanube/oauth',dtController.dtOauth) 
+router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
+router.get('/drive-to-tiendanube/config',dtController.instrucciones)
 
 
 /* Mercado Pago */
@@ -48,6 +51,7 @@ router.get('/shopify/config', shController.configuration);
 /* Future new home page. */
 router.get('/home', mainController.home);
 router.get('/pricing', mainController.pricing);
+router.get('/error',mainController.errorPage)
 
 
 /* Contacto. */
