@@ -63,8 +63,6 @@ const dtController = {
     console.log(user_connected)
     console.log("user_connected")
 
-    //validar si el conenction_id tiene subscription_status (nueva variable a agregar al momento del primer auth)
-    //res.redirect("/tiendanube/config")
     res.render("instructions/dt-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
   },
   documentation: (req,res) => {

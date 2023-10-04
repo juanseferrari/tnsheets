@@ -72,7 +72,7 @@ const tnController = {
     console.log(user_connected)
     console.log("user_connected")
 
-    res.render("instructions/dt-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
+    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-b5981995bad64dc19be57d4704a76fff?pvs=4")

@@ -43,7 +43,12 @@ const paymentsController = {
     if(req.body.type == "checkout.session.completed") {
       // notification on checkout session
       // agregar subscripcion en airtable
-
+      let field_to_merge = []
+      if(req.body.data.object.mode == "payment"){
+        field_to_merge.push("payment_intent_id")
+      } else if (req.body.data.object.mode == "subscription"){
+        field_to_merge.push("subscription_id")
+      }
       fields_to_db = {
         "subscription_id": req.body.data.object.subscription,
         "payment_intent_id": req.body.data.object.payment_intent,
@@ -58,7 +63,7 @@ const paymentsController = {
         //"test_mode": "true" //esto sacar una vez que lo pasemos a prod.
       }
       try {
-        let response = await mainService.createAirtableUpsert(true,["subscription_id","payment_intent_id"],fields_to_db,"subscriptions")
+        let response = await mainService.createAirtableUpsert(true,field_to_merge,fields_to_db,"subscriptions")
         res.json(response)
       } catch (error) {
         res.json(error)

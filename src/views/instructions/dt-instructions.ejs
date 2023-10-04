@@ -120,10 +120,10 @@
                 <%} else { %>
                   <div class="login-button">
                     <button type="button" class="btn btn-outline-secondary">
-                      <a class="sheet-button-a" href="https://docs.google.com/spreadsheets/d/1vqqop451KIr7L_u84z3iyYa2oG5rA4OerPyn8ZmBnJo/copy" target="_blank">
+                      <a class="sheet-button-a" href="https://docs.google.com/spreadsheets/d/1MQJ99uQ2do6KgiD7gwz2m9NagoGG1bFueft4sJcEkZg/copy" target="_blank">
                         <div class="login-button-text">
                           <img class="login-button-logo" src="../images/sheets_logo.png" alt="">
-                          <p class="login-button-p">Clonar Sheet (v1.7)</p>
+                          <p class="login-button-p">Clonar Sheet (v1.1)</p>
                         </div>
                       </a>
                     </button>
@@ -190,79 +190,23 @@
         </div>
 
        </div>
-
       
-
-      <!-- STEP 4 -->
-
-      <div id="step4">
-        <div class="step-block step-ok ">
-          <div class="step-title">
-            <div class="step-check">
-              <% if (user_connected.webhook_url) { %>
-                <i class="fa-solid fa-circle-check"></i>
-                <%} else { %>
-                  <i class="fa-regular fa-circle"></i>
-              <% } %>
-            </div>
-            <div class="step-text">
-              <p>Paso 4: Configuración de URL</p>
-            </div>
-          </div>
-          <div class="step-user-info">
-            <div class="step-left-text">
-              <div>
-                <h4>Para automatizar la gestión de Sheets Central, realiza la configuración de URL. Para hacerlo, sigue los siguientes pasos:  </h4>
-                <p class="step-left-p">1. Dentro del Google Sheet ya clonado, debes ir a Extensiones > Apps Script </p>
-                <p class="step-left-p">2. Dentro de App Script, hacer click en el botón "Implementar" > "Nueva implementación" </p>
-                <p class="step-left-p">3. Crea una nueva implementación. Importante que Cualquier usuario tenga acceso </p>
-                <p class="step-left-p">4. Esperar Carga </p>
-                <p class="step-left-p">5. Copiar URL de Aplicación Web  </p>
-                <p class="step-left-p">6. Volver al Sheet y click en Sheets Central > Configuración de URL  </p>
-                <p class="step-left-p">7. Pegar URL de la Aplicación Web y click en Aceptar  </p>
-                <p class="step-left-p">8. ¡Listo! Configuración completada  </p>
-
-              </div>
-
-
-
-            </div>
-            <div class="step-right-text">
-              <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS9xpBes5hMMKZiLzwf2NSuWkxbspOkUCCicLiB4iwBBsZ6fJrhX_wMgYVkmm6JNGW64Pk7cF0FQ4bY/embed?start=false&loop=false&delayms=5000" frameborder="0" width="90%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-            </div>
-
-          </div>
-
-        </div>
-
-       </div>
-
        <!-- STEP 5 -->
 
-      <div id="step5">
+      <div id="step4">
         <div class="step-block step-ok">
           <div class="step-title">
             <div class="step-check">
-              <% if (user_connected.subscription_status == 'active' || user_connected.subscription_status == 'trialing') { %>
-                <i class="fa-solid fa-circle-check"></i>
-                <%} else { %>
-                  <i class="fa-regular fa-circle"></i>
-              <% } %>
+              <i class="fa-regular fa-circle"></i>
             </div>
             <div class="step-text">
-              <p>Paso 5 (recomendado): Obtener Premium. 15 días de prueba!</p>
+              <p>Paso 4 (recomendado): Obtener Premium. ¡Carga ilimitada por 30 días!</p>
             </div>
           </div>
           <div class="step-user-info">
             <div class="step-left-text" >
               <div>
-                <h4>Obten Sheets Central Premium y desbloquea todas las funcionalidades </h4>
-                <p class="step-left-p">Prueba Sheets Central Premium por <span class="step-left-span">15 días gratis</span>. No se te cobrará hasta pasados los 15 días.</p>
-                <p class="step-left-p">Funcionalidades extra como edición de productos, edición de stock, ventas automáticas, soporte preferencial y más!</p>
-                <button type="button" class="btn btn-outline-secondary shador btn-functionalities ">
-                  <a href="/#compare-plans">Ver funcionalidades</a>
-                </button>
-
+                <h4>Obten Drive to Tiendanube Premium y carga imágenes de forma ilimitada por 30 días.  </h4>
 
               </div>
 
@@ -284,7 +228,7 @@
               <%} else { %>
                 <div class="login-button">
                   <button type="button" class="btn btn-outline-secondary">
-                    <a class="stripe-button-a" href="https://buy.stripe.com/3cscQkbqI8rRae4cMN?client_reference_id=<%= connection_id %>" target="_blank">
+                    <a class="stripe-button-a" href="https://buy.stripe.com/7sIbMg1Q86jJ4TK6oq?client_reference_id=<%= connection_id %>" target="_blank">
                       <div class="login-button-text">
                         <img class="login-button-logo" src="../images/rocket.png" alt="">
                         <p class="login-button-p">Obtener premium</p>
@@ -306,7 +250,7 @@
 
 
            <!-- STEP 6  -->
-           <div id="step6">
+           <div id="step5">
             <div class="step-block step-ok">
               <div class="step-title">
                 <div class="step-text">
@@ -321,7 +265,7 @@
 
                       <div class="login-button">
                         <button type="button" class="btn btn-outline-secondary">
-                          <a class="docs-button-a" href="https://sheetscentral.notion.site/Sheets-Central-Tiendanube-b5981995bad64dc19be57d4704a76fff" target="_blank">
+                          <a class="docs-button-a" href="https://sheetscentral.notion.site/Drive-to-Tiendanube-72f6a9435253493885209eab1d671c10?pvs=4" target="_blank">
                             <div class="login-button-text">
                               <img class="login-button-logo" src="../images/document.png" alt="">
                               <p class="login-button-p">Documentación</p>
@@ -341,7 +285,7 @@
            <!-- END STEP 6 -->
 
                  <!-- STEP 7  -->
-                 <div id="step7">
+                 <div id="step6">
                   <div class="step-block step-ok  no-border">
                     <div class="step-title">
                       <div class="step-text">

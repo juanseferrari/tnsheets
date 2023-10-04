@@ -30,7 +30,7 @@ router.get('/tiendanube/documentation', tnController.documentation);
 router.get('/tiendanube/oauth',tnController.tnOauth) 
 
 
-/* Images to Tiendanube */
+/* Drive to Tiendanube */
 router.get('/drive-to-tiendanube', dtController.dtHome); //dtController
 router.get('/drive-to-tiendanube/oauth',dtController.dtOauth) 
 router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
