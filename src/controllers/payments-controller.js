@@ -59,7 +59,7 @@ const paymentsController = {
         "mode": req.body.data.object.mode, //determina si es un payment o un subscription
         "date_created": new Date().toISOString(),
         "payment_link": req.body.data.object.payment_link,
-        "tag": { "id": "usrvCuwmV2hTFySmZ" }
+        "tag": { "id": "usrOsqwIYk4a2tZsg" }
         //"test_mode": "true" //esto sacar una vez que lo pasemos a prod.
       }
       try {

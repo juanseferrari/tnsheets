@@ -134,7 +134,7 @@ const shController = {
         "country": sh_shop_data["shop"]['country'],
         "user_url": shop.toString(),
         "conection_date": new Date().toISOString(),
-        "tag": { "id": "usrvCuwmV2hTFySmZ" }
+        "tag": { "id": "usrOsqwIYk4a2tZsg" }
       }
       console.log("fields_to_db")
       console.log(fields_to_db)
