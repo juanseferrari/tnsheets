@@ -148,7 +148,7 @@ const tnController = {
         "country": tn_user_data['country'],
         "user_url": user_url,
         "conection_date": new Date().toISOString(),
-        "tag": { "id": "usrvCuwmV2hTFySmZ" }
+        "tag": { "id": "usrOsqwIYk4a2tZsg" }
       }
 
       try {
