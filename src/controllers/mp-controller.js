@@ -82,7 +82,7 @@ const mpController = {
                 "user_email": mp_user_info["email"],
                 "user_logo": mp_user_info["logo_url"],
                 "conection_date": new Date().toISOString(),
-                "tag": { "id": "usrvCuwmV2hTFySmZ" }
+                "tag": { "id": "usrOsqwIYk4a2tZsg" }
         } //end data_to_airtable_db
         try {
           let airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "conection"], data_to_airtable_db, "prod_users")

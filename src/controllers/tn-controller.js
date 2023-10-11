@@ -90,7 +90,8 @@ const tnController = {
     var requestOptions = {
       method: 'POST',
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "Sheets Central"
       },
       body: urlencoded,
       redirect: 'follow'
@@ -160,7 +161,8 @@ const tnController = {
             method: 'POST',
             headers: {
               "Authentication": "bearer" + data['access_token'],
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
+              "User-Agent": "Sheets Central"
             },
             body: JSON.stringify({
               "event": "app/uninstalled",

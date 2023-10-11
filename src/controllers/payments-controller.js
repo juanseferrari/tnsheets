@@ -39,6 +39,7 @@ const paymentsController = {
   notificationController: async (req,res) => {
 
     let fields_to_db = {}
+    let test_mode = req.query.test_mode
 
     if(req.body.type == "checkout.session.completed") {
       // notification on checkout session
@@ -59,8 +60,8 @@ const paymentsController = {
         "mode": req.body.data.object.mode, //determina si es un payment o un subscription
         "date_created": new Date().toISOString(),
         "payment_link": req.body.data.object.payment_link,
-        "tag": { "id": "usrOsqwIYk4a2tZsg" }
-        //"test_mode": "true" //esto sacar una vez que lo pasemos a prod.
+        "tag": { "id": "usrOsqwIYk4a2tZsg" },
+        "test_mode": req.query.test_mode ? req.query.test_mode : "false"
       }
       try {
         let response = await mainService.createAirtableUpsert(true,field_to_merge,fields_to_db,"subscriptions")
