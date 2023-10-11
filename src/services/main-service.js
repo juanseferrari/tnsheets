@@ -154,7 +154,8 @@ const mainService = {
       // TIENDA NUBE
       headers = {
         "Content-Type": "application/json",
-        'Authentication': token
+        "Authentication": token,
+        "User-Agent": "Sheets Central"
       }
       url = "https://api.tiendanube.com/v1/"+user_id+"/store"
 
