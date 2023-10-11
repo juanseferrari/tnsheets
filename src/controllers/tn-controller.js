@@ -209,6 +209,7 @@ const tnController = {
     let token = req.body.token
     let spreadsheet_id = req.body.spreadsheet_id
     var connection_id = req.body.connection_id
+    var sheet_version = req.body.sheet_version
 
     //TODO migrate to upsert data
     //TODO agregar validacion del email y del tipo de connection. Si es tienda_nube/shopify, etc se tiene que enviar directo desde el Google Sheet. 
@@ -216,7 +217,8 @@ const tnController = {
       "fields": {
         "spreadsheet_id": spreadsheet_id,
         "spreadsheet_conection_date": new Date().toISOString(),
-        "connection_id": connection_id
+        "connection_id": connection_id,
+        "sheet_version": sheet_version
       }
     } //end data_to_airtable
 
