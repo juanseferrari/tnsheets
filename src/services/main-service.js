@@ -40,10 +40,6 @@ const mainService = {
       return response_object
     }
 
-    console.log("connection_id")
-    console.log(connection_id)
-    console.log("connection_id")
-
     var get_request_options = {
       method: 'GET',
       headers: {
@@ -55,9 +51,6 @@ const mainService = {
     //Get information about payment subscription
     const airtable_payment_status = await this.validatePaymentSubscription(connection_id)
 
-    console.log("airtable_payment_status")
-    console.log(airtable_payment_status)
-    console.log("airtable_payment_status")
 
     if(airtable_payment_status.subscription_status){
       var subscription_status = airtable_payment_status.subscription_status
@@ -72,9 +65,9 @@ const mainService = {
     if (airtable_user_response.status === 200) {
     let user_data = await airtable_user_response.json();
 
-    console.log("user_data")
-    console.log(user_data)
-    console.log("user_data")
+    //console.log("user_data")
+    //console.log(user_data)
+    //console.log("user_data")
 
     //Response of search user
     response_object = {
@@ -297,9 +290,9 @@ const mainService = {
       } //end subs_data_to_airtable_db
     }
 
-    console.log("data_to_airtable_db")
-    console.log(data_to_airtable_db)
-    console.log("data_to_airtable_db")
+    //console.log("data_to_airtable_db")
+    //console.log(data_to_airtable_db)
+    //console.log("data_to_airtable_db")
 
 
     //console.log(JSON.stringify(data_to_airtable_db))
@@ -318,9 +311,9 @@ const mainService = {
       const airtabe_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + airtable_table, airtable_upsert)
       //console.log(airtabe_response)
       var data = await airtabe_response.json();
-      console.log("airtable data response")
-      console.log(data)
-      console.log("airtable data response")
+      //console.log("airtable data response")
+      //console.log(data)
+      //console.log("airtable data response")
 
       if (airtabe_response.status === 200) {
         // Process the data when the status code is 200
@@ -355,9 +348,9 @@ const mainService = {
       };
       let airtable_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + table + "?filterByFormula={"+filter+"}='"+id+"'", get_request_options)
       let user_response_data = await airtable_response.json();
-      console.log("user_response_data")
-      console.log(user_response_data)
-      console.log("user_response_data")
+      //console.log("user_response_data")
+      //console.log(user_response_data)
+      //console.log("user_response_data")
 
       if(user_response_data.records.length == 0) {
         //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
@@ -371,9 +364,9 @@ const mainService = {
       } else if (user_response_data.records.length == 1) {
         //console.log("amount of records: 1")
         response_object = user_response_data.records[0]['fields']
-        console.log("user_response_data.records[0]['fields']")
-        console.log(user_response_data.records[0]['fields'])
-        console.log("user_response_data.records[0]['fields']")
+        //console.log("user_response_data.records[0]['fields']")
+        //console.log(user_response_data.records[0]['fields'])
+        //console.log("user_response_data.records[0]['fields']")
 
       } else {
         //console.log("amount of records: more")
