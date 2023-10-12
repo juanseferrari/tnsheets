@@ -216,7 +216,6 @@ const mainService = {
           "message": "Connection do not have any current subscription or payment."
         }
       } else if (user_subs_data.records.length == 1) {
-        console.log("JUANSE CAPO")
         //console.log("amount of records: 1")
         console.log(user_subs_data.records[0].fields)
         response_object = {
@@ -224,8 +223,8 @@ const mainService = {
           "subscription": true,
           "subscription_status": user_subs_data.records[0].fields.subscription_status,
           "subscription_customer_email": user_subs_data.records[0].fields.customer_email,
-          "payment_status": (user_subs_data.records[0].fields.payment_status) ? user_subs_data.records[0].fields.payment_status : "no payment_status",
-          "expiration_date": (user_subs_data.records[0].fields.expiration_date) ? user_subs_data.records[0].fields.expiration_date : "no expiration_date" ,
+          "payment_status": (user_subs_data.records[0].fields.payment_status) ? user_subs_data.records[0].fields.payment_status : false,
+          "expiration_date": (user_subs_data.records[0].fields.expiration_date) ? user_subs_data.records[0].fields.expiration_date : false ,
           "message": "subscription or payment found."
         }
       } else {
