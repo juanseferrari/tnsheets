@@ -330,22 +330,16 @@
 .sheet-button-a:hover {
     color: #05ac47;
 }
-.stripe-button-a {
-    color: #008cdd;
-}
-.stripe-button-a:hover {
-    color: #008cdd;
-}
 .mp-button-a {
     color: #00b1ea;
 }
 .mp-button-a:hover {
     color: #00b1ea;
 }
-.docs-button-a {
+.black-button-a {
     color: black;
 }
-.docs-button-a:hover {
+.black-button-a:hover {
     color: black;
 }
 
