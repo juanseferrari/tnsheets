@@ -46,6 +46,10 @@ const dtController = {
       google_user_id = req.cookies.google_user_id
     }
     let user_connected = await mainService.searchUser(connection_id)
+    console.log("user_connected")
+    console.log(user_connected)
+    console.log("user_connected")
+
     res.render("menus/drive-to-tiendanube", { title: "Drive to Tiendanube", google_user_id, connection_id, user_connected });
   },
   instrucciones: async (req, res) => {

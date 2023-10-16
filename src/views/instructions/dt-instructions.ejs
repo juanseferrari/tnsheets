@@ -4,7 +4,9 @@
 <head>
   <%- include("../partials/head.ejs") %>
     <%- include("../partials/header.ejs") %>
-
+      <!-- Titulo del broswer-->
+      <title>Drive to Tiendanube | Instrucciones</title>
+      <meta property="og:title" content="Drive to Tiendanube | Instrucciones"> <!-- Esto despues hacerlo cambiado para cada proyecto -->
 </head>
 
 <body>
@@ -34,28 +36,30 @@
                 <p>Paso 1: Login Tiendanube</p>
               </div>
             </div>
-  
+
             <div class="step-user-info">
               <div class="step-user-info-image">
                 <% if (user_connected.user_logo) { %>
                   <img class="step-user-info-logo" src="<%= user_connected.user_logo %>" alt="">
-                <%} else { %>
-                  <img class="step-user-info-logo" src="../images/tiendanube_logo3.png" alt="">
-                <% } %> 
-              
+                  <%} else { %>
+                    <img class="step-user-info-logo" src="../images/tiendanube_logo3.png" alt="">
+                    <% } %>
+
               </div>
               <div class="step-user-info-data">
-                <h3><%= user_connected.user_name %></h3>
-                <% if (user_connected.subscription_status == 'active') { %>
+                <h3>
+                  <%= user_connected.user_name %>
+                </h3>
+                <% if (user_connected.subscription_status=='active' ) { %>
                   <h4>Plan: Premium</h4>
-                <%} else if (user_connected.subscription_status == 'trialing') { %>
-                  <h4>Plan: Premium - Período de prueba</h4>
-                <% } else { %>
-                  <h4>Plan: Free</h4>
-                <% } %>
+                  <%} else if (user_connected.subscription_status=='trialing' ) { %>
+                    <h4>Plan: Premium - Período de prueba</h4>
+                  <% } else { %>
+                      <h4>Plan: Free</h4>
+                  <% } %>
               </div>
-  
-  
+
+
             </div>
           </div>
           <%} else { %>
@@ -70,24 +74,24 @@
                 </div>
               </div>
               <div class="step-user-info">
-                <div class="step-left-text" >
+                <div class="step-left-text">
                   <h4>Inicia sesión para comenzar a usar Drive to Tiendanube</h4>
                 </div>
                 <div class="step-right-text">
                   <!-- Login con tienda nube button-->
                   <%- include("../partials/buttons/dt-button.ejs") %>
                 </div>
-  
+
               </div>
-  
+
             </div>
             <% } %>
 
       </div>
-       <!-- END STEP 1 -->
+      <!-- END STEP 1 -->
 
-       <!-- STEP 2  -->
-       <div id="step2">
+      <!-- STEP 2  -->
+      <div id="step2">
         <div class="step-block step-ok">
           <div class="step-title">
             <div class="step-check">
@@ -95,21 +99,23 @@
                 <i class="fa-solid fa-circle-check"></i>
                 <%} else { %>
                   <i class="fa-regular fa-circle"></i>
-              <% } %>
+                  <% } %>
             </div>
             <div class="step-text">
               <p>Paso 2: Clonar Google Sheet</p>
             </div>
           </div>
           <div class="step-user-info">
-            <div class="step-left-text" >
-              <h4>Clona el siguiente Google Sheet en tu propia cuenta de Google  </h4>
+            <div class="step-left-text">
+              <h4>Clona el siguiente Google Sheet en tu propia cuenta de Google </h4>
             </div>
             <div class="step-right-text">
               <% if (user_connected.spreadsheet_id) { %>
                 <div class="login-button">
                   <button type="button" class="btn btn-outline-secondary">
-                    <a class="sheet-button-a" href="https://docs.google.com/spreadsheets/d/<%= user_connected.spreadsheet_id %>" target="_blank">
+                    <a class="sheet-button-a"
+                      href="https://docs.google.com/spreadsheets/d/<%= user_connected.spreadsheet_id %>"
+                      target="_blank">
                       <div class="login-button-text">
                         <img class="login-button-logo" src="../images/sheets_logo.png" alt="">
                         <p class="login-button-p">Abrir Sheet</p>
@@ -120,7 +126,9 @@
                 <%} else { %>
                   <div class="login-button">
                     <button type="button" class="btn btn-outline-secondary">
-                      <a class="sheet-button-a" href="https://docs.google.com/spreadsheets/d/1MQJ99uQ2do6KgiD7gwz2m9NagoGG1bFueft4sJcEkZg/copy" target="_blank">
+                      <a class="sheet-button-a"
+                        href="https://docs.google.com/spreadsheets/d/1MQJ99uQ2do6KgiD7gwz2m9NagoGG1bFueft4sJcEkZg/copy"
+                        target="_blank">
                         <div class="login-button-text">
                           <img class="login-button-logo" src="../images/sheets_logo.png" alt="">
                           <p class="login-button-p">Clonar Sheet (v1.1)</p>
@@ -128,22 +136,22 @@
                       </a>
                     </button>
                   </div>
-              <% } %>
+                  <% } %>
 
-              <!-- end clone sheet button -->
+                    <!-- end clone sheet button -->
             </div>
 
           </div>
 
         </div>
 
-       </div>
-       <!-- END STEP 2 -->
+      </div>
+      <!-- END STEP 2 -->
 
 
       <!-- STEP 3 -->
 
-       <div id="step3">
+      <div id="step3">
         <div class="step-block step-ok">
           <div class="step-title">
             <div class="step-check">
@@ -151,14 +159,14 @@
                 <i class="fa-solid fa-circle-check"></i>
                 <%} else { %>
                   <i class="fa-regular fa-circle"></i>
-              <% } %>
+                  <% } %>
             </div>
             <div class="step-text">
               <p>Paso 3: Configurar Sheets Central</p>
             </div>
           </div>
           <div class="step-user-info">
-            <div class="step-left-text" >
+            <div class="step-left-text">
               <div class="step-3">
                 <h3 class="small-text">1. Abre el Google Sheet recién clonado</h3>
                 <h3 class="small-text">2. Copia el siguiente ID de Conexión:</h3>
@@ -176,22 +184,26 @@
                     </div>
                   </div>
                 </div>
-                <h3 class="small-text">3. Pega el ID de Conexión en el Google Sheet, bajo el menu Sheets Central > Configuración de cuenta </h3>
+                <h3 class="small-text">3. Pega el ID de Conexión en el Google Sheet, bajo el menu Sheets Central >
+                  Configuración de cuenta </h3>
               </div>
 
 
             </div>
             <div class="step-right-text">
-              <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRhZguOdeL_1YdoW-cBqpu7iC32spiBvx-E8rVKfUs8UC822RsQwLpPhNd3e2ZyeIsO5ClwjPxkuTyw/embed?start=false&loop=false&delayms=5000" frameborder="0" width="90%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+              <iframe
+                src="https://docs.google.com/presentation/d/e/2PACX-1vRhZguOdeL_1YdoW-cBqpu7iC32spiBvx-E8rVKfUs8UC822RsQwLpPhNd3e2ZyeIsO5ClwjPxkuTyw/embed?start=false&loop=false&delayms=5000"
+                frameborder="0" width="90%" height="100%" allowfullscreen="true" mozallowfullscreen="true"
+                webkitallowfullscreen="true"></iframe>
             </div>
 
           </div>
 
         </div>
 
-       </div>
-      
-       <!-- STEP 5 -->
+      </div>
+
+      <!-- STEP 5 -->
 
       <div id="step4">
         <div class="step-block step-ok">
@@ -204,9 +216,9 @@
             </div>
           </div>
           <div class="step-user-info">
-            <div class="step-left-text" >
+            <div class="step-left-text">
               <div>
-                <h4>Obten Drive to Tiendanube Premium y carga imágenes de forma ilimitada por 30 días.  </h4>
+                <h4>Obten Drive to Tiendanube Premium y carga imágenes de forma ilimitada por 30 días. </h4>
 
               </div>
 
@@ -214,30 +226,35 @@
 
             </div>
             <div class="step-right-text">
-              <% if (user_connected.subscription_status == 'active' || user_connected.subscription_status == 'trialing' ) { %>
+              <% if (user_connected.subscription_status=='active' || user_connected.subscription_status=='trialing' ) {
+                %>
                 <div class="login-button">
                   <button type="button" class="btn btn-outline-secondary">
-                    <a class="black-button-a" href="https://billing.stripe.com/p/login/9AQbJG39y5kL2eQ6oo?prefilled_email=<%=user_connected.subscription_customer_email %>" target="_blank">
+                    <a class="black-button-a"
+                      href="https://billing.stripe.com/p/login/9AQbJG39y5kL2eQ6oo?prefilled_email=<%=user_connected.subscription_customer_email %>"
+                      target="_blank">
                       <div class="login-button-text">
                         <img class="login-button-logo" src="../images/configuration.png" alt="">
                         <p class="login-button-p">Gestionar plan</p>
                       </div>
                     </a>
                   </button>
-                </div> 
-              <%} else { %>
-                <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
-                    <a class="black-button-a" href="https://buy.stripe.com/7sIbMg1Q86jJ4TK6oq?client_reference_id=<%= connection_id %>" target="_blank">
-                      <div class="login-button-text">
-                        <img class="login-button-logo" src="../images/rocket.png" alt="">
-                        <p class="login-button-p">Obtener premium</p>
-                      </div>
-                    </a>
-                  </button>
                 </div>
-              <% } %>
-              
+                <%} else { %>
+                  <div class="login-button">
+                    <button type="button" class="btn btn-outline-secondary">
+                      <a class="black-button-a"
+                        href="https://buy.stripe.com/7sIbMg1Q86jJ4TK6oq?client_reference_id=<%= connection_id %>"
+                        target="_blank">
+                        <div class="login-button-text">
+                          <img class="login-button-logo" src="../images/rocket.png" alt="">
+                          <p class="login-button-p">Obtener premium</p>
+                        </div>
+                      </a>
+                    </button>
+                  </div>
+                  <% } %>
+
 
 
             </div>
@@ -246,83 +263,45 @@
 
         </div>
 
-       </div> <!-- END STEP 5 -->
+      </div> <!-- END STEP 5 -->
 
 
-           <!-- STEP 6  -->
-           <div id="step5">
-            <div class="step-block step-ok">
-              <div class="step-title">
-                <div class="step-text">
-                  <p>Material adicional</p>
-                </div>
-              </div>
-              <div class="step-user-info">
-                <div class="step-left-text" >
-                  <h4>Revisa nuestra documentación para conocer en detalle Drive to Tiendanube  </h4>
-                </div>
-                <div class="step-right-text">
-
-                      <div class="login-button">
-                        <button type="button" class="btn btn-outline-secondary">
-                          <a class="black-button-a" href="https://sheetscentral.notion.site/Drive-to-Tiendanube-72f6a9435253493885209eab1d671c10?pvs=4" target="_blank">
-                            <div class="login-button-text">
-                              <img class="login-button-logo" src="../images/document.png" alt="">
-                              <p class="login-button-p">Documentación</p>
-                            </div>
-                          </a>
-                        </button>
-                      </div>
-    
-                  <!-- end clone sheet button -->
-                </div>
-    
-              </div>
-    
+      <!-- STEP 6  -->
+      <div id="step5">
+        <div class="step-block step-ok no-border">
+          <div class="step-title">
+            <div class="step-text">
+              <p>Material adicional</p>
             </div>
-    
-           </div>
-           <!-- END STEP 6 -->
+          </div>
+          <div class="step-user-info">
+            <div class="step-left-text">
+              <h4>Revisa nuestra documentación para conocer en detalle Drive to Tiendanube </h4>
+            </div>
+            <div class="step-right-text">
 
-                 <!-- STEP 7  -->
-                 <div id="step6">
-                  <div class="step-block step-ok  no-border">
-                    <div class="step-title">
-                      <div class="step-text">
-                        <p>Agenda una reunión</p>
-                      </div>
+              <div class="login-button">
+                <button type="button" class="btn btn-outline-secondary">
+                  <a class="black-button-a"
+                    href="/drive-to-tiendanube/documentation"
+                    target="_blank">
+                    <div class="login-button-text">
+                      <img class="login-button-logo" src="../images/document.png" alt="">
+                      <p class="login-button-p">Documentación</p>
                     </div>
-                    <div class="step-user-info">
-                      <div class="step-left-text" >
-                        <h4>Puedes agendar una reunión con nuestro equipo para entender el producto en detalle y hacer las preguntas que desees</h4>
-                      </div>
-                      <div class="step-right-text">
-      
-                            <div class="login-button">
-                              <button type="button" class="btn btn-outline-secondary">
-                                <a class="black-button-a" href="https://calendar.app.google/718kBfWDRgqPTxg29" target="_blank">
-                                  <div class="login-button-text">
-                                    <img class="login-button-logo" src="../images/support.png" alt="">
-                                    <p class="login-button-p">Agendar reunión</p>
-                                  </div>
-                                </a>
-                              </button>
-                            </div>
-          
-                        <!-- end clone sheet button -->
-                      </div>
-          
-                    </div>
-          
-                  </div>
-          
-                 </div>
-                 <!-- END STEP 6 -->
- 
+                  </a>
+                </button>
+              </div>
 
+              <!-- end clone sheet button -->
+            </div>
 
+          </div>
 
+        </div>
 
+      </div>
+      <!-- END STEP 6 -->
 
 
     </div>

@@ -32,6 +32,9 @@
 .group-image img {
     width: 100%
 }
+.main-title-2 {
+    text-align: left;
+}
 /** -------- CARDS -------------- **/
 
 #offcanvas-menu {
@@ -156,4 +159,24 @@
 .division-right-content {
     height: 100%;
     width: 50%;
+}
+
+/** ------------ NEW HOME 2 -------------  **/
+
+.main-division2 {
+    display: flex;
+    width: 100%;
+    padding: 5vh 0;
+}
+
+.division-text-content2 {
+    height: 100%;
+    width: 40%;
+}
+.division-right-content2 {
+    height: 100%;
+    width: 60%;
+}
+.video-container-height {
+    height: 70vh;
 }

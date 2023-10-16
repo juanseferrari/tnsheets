@@ -586,6 +586,9 @@
     align-items: center;
     justify-content: center;
 }
+.video-container-height {
+    height: 40vh;
+}
 .intro-video {
     max-width: 100%;
     border-radius: 2vh;
@@ -598,6 +601,12 @@
     font-size: 6vh;
 }
 
+/*  NEW HOME PAGE*/
+
+.division-text-content2 {
+    display: block;
+    padding: 0 1vh;
+}
 
 /** BOUNCE  **/ 
 .bounce {
