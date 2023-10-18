@@ -76,7 +76,7 @@ const mpController = {
                 "access_token": data['access_token'],
                 "refresh_token": data['refresh_token'],
                 "user_id": data['user_id'].toString(),
-                "conection": "mercado_pago",
+                "conection": "mercadopago",
                 "active": "true",
                 "user_name": mp_user_info["company_name"],
                 "user_email": mp_user_info["email"],

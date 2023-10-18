@@ -3,6 +3,7 @@
     "subtitle": "Testing",
     "link": "/",
     "image": "/images/fondo1.png",
+    "docs_link": "1234",
     "texts": [
         {"icon": "far fa-calendar-alt", "text": "9 días"},
         {"icon": "fas fa-hiking", "text": "Test"},
@@ -15,6 +16,7 @@
     "subtitle": "Testing",
     "link": "/",
     "image": "/images/fondo1.png",
+    "docs_link": "1234",
     "texts": [
         {"icon": "far fa-calendar-alt", "text": "9 días"},
         {"icon": "fas fa-hiking", "text": "Test"},

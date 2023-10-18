@@ -214,7 +214,7 @@ const mainService = {
         response_object = {
           "connection_id": connection_id,
           "subscription": true,
-          "subscription_status": user_subs_data.records[0].fields.subscription_status,
+          "subscription_status": user_subs_data.records[0].fields.subscription_status, //solucionar esto. 
           "subscription_customer_email": user_subs_data.records[0].fields.customer_email,
           "payment_status": (user_subs_data.records[0].fields.payment_status) ? user_subs_data.records[0].fields.payment_status : false,
           "expiration_date": (user_subs_data.records[0].fields.expiration_date) ? user_subs_data.records[0].fields.expiration_date : false ,
