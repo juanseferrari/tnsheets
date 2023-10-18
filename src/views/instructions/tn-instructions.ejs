@@ -6,7 +6,7 @@
     <%- include("../partials/header.ejs") %>
       <!-- Titulo del broswer-->
       <title>Sheets Central | Instrucciones</title>
-      <meta property="og:title" content="Sheets Central | Error"> <!-- Esto despues hacerlo cambiado para cada proyecto -->
+      <meta property="og:title" content="Sheets Central | Instrucciones"> <!-- Esto despues hacerlo cambiado para cada proyecto -->
     
 </head>
 
@@ -308,9 +308,9 @@
                 </div>
                 <%} else { %>
                   <div class="login-button">
-                    <button type="button" class="btn btn-outline-secondary">
+                    <button type="button" class="btn btn-outline-secondary" <%=(connection_id)?'':'disabled' %>>
                       <a class="black-button-a"
-                        href="https://buy.stripe.com/3cscQkbqI8rRae4cMN?client_reference_id=<%= connection_id %>"
+                        href="/tiendanube/premium"
                         target="_blank">
                         <div class="login-button-text">
                           <img class="login-button-logo" src="../images/rocket.png" alt="">

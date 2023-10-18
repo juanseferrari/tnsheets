@@ -99,6 +99,7 @@ const mainController = {
   res.json(response_object)
   },
   appUninstalled: async (req,res) => {
+    //funcion usada cuando se desinstala una conexion. Se guarda en la DB
     let au_store_id = req.body.store_id
     let au_event =  req.body.event
     let response_object

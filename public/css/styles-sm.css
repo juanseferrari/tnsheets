@@ -78,6 +78,17 @@
     font-size: 2vh;
 }
 
+/** ---------- NAVBAR2 ----------------*/
+
+.navbar2 {
+    margin: 1.5%;
+    max-width: 97%;
+}
+.navbar2-container {
+    display: flex;
+    width: 90%;
+}
+
 
 /** ---------- HOME ----------------*/
 
@@ -103,6 +114,10 @@
     height: 60vh;
     display: block;
     
+}
+.squared-body {
+    background: url("../images/squared_background.png") repeat 0 0 ;
+    background-size: 15%;
 }
 
 

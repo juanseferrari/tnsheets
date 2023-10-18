@@ -77,6 +77,17 @@ const tnController = {
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-b5981995bad64dc19be57d4704a76fff?pvs=4")
   },
+  getPremium: (req,res) => {
+    connection_id = ""
+    if (req.cookies.connection_id) {
+      connection_id = req.cookies.connection_id
+      let redirect_url = 'https://buy.stripe.com/3cscQkbqI8rRae4cMN?client_reference_id='+connection_id
+      console.log(redirect_url)
+      res.redirect(redirect_url)
+    } else {
+      res.redirect("/tiendanube/config")
+    }
+  },
   tnOauth: async (req, res) => {
     let code = req.query.code
     let state = req.query.state //Este es el google_id
@@ -140,7 +151,7 @@ const tnController = {
         "nickname": "[TN] " + tn_user_data['name']['es'],
         "access_token": data['access_token'],
         "user_id": data['user_id'].toString(),
-        "conection": "tienda_nube",
+        "conection": "tiendanube",
         "google_user_id": google_user_id,
         "active": "true",
         "user_name": tn_user_data['name']['es'],

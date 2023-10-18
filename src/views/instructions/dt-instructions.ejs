@@ -242,7 +242,7 @@
                 </div>
                 <%} else { %>
                   <div class="login-button">
-                    <button type="button" class="btn btn-outline-secondary">
+                    <button type="button" class="btn btn-outline-secondary" <%=(connection_id)?'':'disabled' %> >
                       <a class="black-button-a"
                         href="https://buy.stripe.com/7sIbMg1Q86jJ4TK6oq?client_reference_id=<%= connection_id %>"
                         target="_blank">

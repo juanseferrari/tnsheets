@@ -28,10 +28,11 @@ router.get('/tiendanube', tnController.tnHome);
 router.get('/tiendanube/config', tnController.instrucciones);
 router.get('/tiendanube/documentation', tnController.documentation);
 router.get('/tiendanube/oauth',tnController.tnOauth) 
+router.get('/tiendanube/premium',tnController.getPremium)  //hacerlo con todos los planes
 
 
 /* Drive to Tiendanube */
-router.get('/drive-to-tiendanube', dtController.dtHome); //dtController
+router.get('/drive-to-tiendanube', dtController.dtHome); 
 router.get('/drive-to-tiendanube/oauth',dtController.dtOauth) 
 router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
 router.get('/drive-to-tiendanube/config',dtController.instrucciones)
@@ -40,7 +41,7 @@ router.get('/drive-to-tiendanube/config',dtController.instrucciones)
 /* Mercado Pago */
 router.get('/mercadopago', mpController.mpHome);
 router.get('/mp-oauth', mpController.mpOauth); //todo a futuro que sea /mercadopago/oauth
-router.get('/mercadopago/config', mpController.instrucciones); //a futuro que sea /mercadopago/config
+router.get('/mercadopago/config', mpController.instrucciones); 
 
 /* Shopify */
 router.get('/shopify', shController.shHome);
