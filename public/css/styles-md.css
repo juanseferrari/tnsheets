@@ -197,12 +197,39 @@
 
 .login-button-navbar2 {
     margin-left: 10%;
+    width: 30%;
 }
 .user-image-navbar{
     border-radius: 50%;
-    max-height: 9vh;
+    max-height: 6vh;
+    padding: 2%;
 }
 .squared-body {
     background: url("../images/squared_background.png") repeat 0 0 ;
     background-size: 4%;
+}
+.menu-item{
+    display: flex;
+}
+.menu-item a {
+    display:flex;
+    align-items: center;
+    width: 100%;
+  }
+
+.image-navbar-container {
+    background-color: green;
+    border-radius: 20px;
+    width: 7vw;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.user-image-container {
+    max-height: 6vh;
+}
+.user-arrow {
+    font-size: 5px;
+    display: flex;
+    align-items: center;
 }
