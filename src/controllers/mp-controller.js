@@ -91,7 +91,8 @@ const mpController = {
           res.cookie("connection_id", id_conexion)
           res.cookie("mp_user_id", data['user_id'].toString())
           res.cookie("mp_user_name", mp_user_info["company_name"])
-
+          //TODO MIGRAR A REDIRECT
+          //TODO MIGRAR A connection_id
           res.render("instructions/mp-instructions", { id_conexion, title: "Instrucciones" });
 
         } catch (error) {
