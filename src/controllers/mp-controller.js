@@ -81,6 +81,7 @@ const mpController = {
                 "user_name": mp_user_info["company_name"],
                 "user_email": mp_user_info["email"],
                 "user_logo": mp_user_info["logo_url"],
+                "country": mp_user_info["country"],
                 "conection_date": new Date().toISOString(),
                 "tag": { "id": "usrOsqwIYk4a2tZsg" }
         } //end data_to_airtable_db
