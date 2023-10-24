@@ -52,7 +52,7 @@ const dtController = {
 
     res.render("menus/drive-to-tiendanube", { title: "Drive to Tiendanube", google_user_id, connection_id, user_connected });
   },
-  instrucciones: async (req, res) => {
+  configuration: async (req, res) => {
     console.log("Cookies:", req.cookies)
     connection_id = ""
     google_user_id = ""
@@ -136,7 +136,7 @@ const dtController = {
         "nickname": "[DT] " + tn_user_data['name']['es'],
         "access_token": data['access_token'],
         "user_id": data['user_id'].toString(),
-        "conection": "drive-to-tiendanube",
+        "connection": "drive-to-tiendanube",
         "google_user_id": google_user_id,
         "active": "true",
         "user_name": tn_user_data['name']['es'],
@@ -144,12 +144,12 @@ const dtController = {
         "user_logo": user_logo,
         "country": tn_user_data['country'],
         "user_url": user_url,
-        "conection_date": new Date().toISOString(),
+        "connection_date": new Date().toISOString(),
         "tag": { "id": "usrOsqwIYk4a2tZsg" }
       }
 
       try {
-        let response = await mainService.createAirtableUpsert(true, ["user_id", "conection"], fields_to_db, "prod_users")
+        let response = await mainService.createAirtableUpsert(true, ["user_id", "connection"], fields_to_db, "prod_users")
         if(response['response_status'] == 200){
           let record_id = response['id']
           //send webhook notification for app/uninstalled -> Migrarlo a un service
@@ -211,7 +211,7 @@ const dtController = {
     var data_to_airtable = {
       "fields": {
         "spreadsheet_id": spreadsheet_id,
-        "spreadsheet_conection_date": new Date().toISOString(),
+        "spreadsheet_connection_date": new Date().toISOString(),
         "connection_id": connection_id
       }
     } //end data_to_airtable

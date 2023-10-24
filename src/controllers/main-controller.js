@@ -67,7 +67,7 @@ const mainController = {
 
     var fields_to_db = {
       "webhook_url": webhook_url,
-      "webhook_conection_date": new Date().toISOString(),
+      "webhook_connection_date": new Date().toISOString(),
       "connection_id": connection_id
     }
     if (token == "sheetapi5678") {
@@ -139,14 +139,14 @@ const mainController = {
     //Paso 1: Validar el token generico (sheetapi5678)
     //Paso 2: Hacer un searchUser (tiene que existir si o si para configurar el sheet) con el connection_id. 
     //Paso 3: Validar que el google_email del usuario coincida con el sheet_email (cuando este la conexion entre google user y la base de datos)
-    //Paso 4: Hacer upsert y agregar el spreadsheet_id, spreadsheet_conection_date y connection_id. 
+    //Paso 4: Hacer upsert y agregar el spreadsheet_id, spreadsheet_connection_date y connection_id. 
     //Paso 5: Devolver en la API el connection_id, access_token y user_id. 
 
     //migrate to upsert data
     var data_to_airtable = {
       "fields": {
         "spreadsheet_id": spreadsheet_id,
-        "spreadsheet_conection_date": new Date().toISOString(),
+        "spreadsheet_connection_date": new Date().toISOString(),
         "connection_id": connection_id
       }
     } //end data_to_airtable

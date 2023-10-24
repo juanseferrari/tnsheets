@@ -25,23 +25,24 @@ const dtController = require('../controllers/dt-controller');
 /* Tiendanube */
 router.get('/', tnController.tnHome); //deberia ser /tiendanube cuando tengamos la nueva home 
 router.get('/tiendanube', tnController.tnHome);
-router.get('/tiendanube/config', tnController.instrucciones);
+router.get('/tiendanube/config', tnController.configuration);
 router.get('/tiendanube/documentation', tnController.documentation);
 router.get('/tiendanube/oauth',tnController.tnOauth) 
 router.get('/tiendanube/premium',tnController.getPremium)  //hacerlo con todos los planes
+router.get('/tiendanube/sheet',tnController.getSheet)  //hacerlo con todos los planes para que te redirija al sheet. 
 
 
 /* Drive to Tiendanube */
 router.get('/drive-to-tiendanube', dtController.dtHome); 
 router.get('/drive-to-tiendanube/oauth',dtController.dtOauth) 
 router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
-router.get('/drive-to-tiendanube/config',dtController.instrucciones)
+router.get('/drive-to-tiendanube/config',dtController.configuration) //migrarlo
 
 
 /* Mercado Pago */
 router.get('/mercadopago', mpController.mpHome);
 router.get('/mp-oauth', mpController.mpOauth); //todo a futuro que sea /mercadopago/oauth
-router.get('/mercadopago/config', mpController.instrucciones); 
+router.get('/mercadopago/config', mpController.configuration); 
 
 /* Shopify */
 router.get('/shopify', shController.shHome);
