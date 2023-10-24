@@ -125,7 +125,7 @@ const shController = {
         "nickname": "[SH] " + sh_shop_data["shop"]['name'],
         "access_token": sh_access_token,
         "user_id": sh_shop_data["shop"]['id'].toString(),
-        "conection": "shopify",
+        "connection": "shopify",
         //"google_user_id": google_user_id,
         "active": "true",
         "user_name": sh_shop_data["shop"]['name'],
@@ -133,7 +133,7 @@ const shController = {
         //"user_logo": user_logo,
         "country": sh_shop_data["shop"]['country'],
         "user_url": shop.toString(),
-        "conection_date": new Date().toISOString(),
+        "connection_date": new Date().toISOString(),
         "tag": { "id": "usrOsqwIYk4a2tZsg" }
       }
       console.log("fields_to_db")
@@ -141,7 +141,7 @@ const shController = {
       console.log("fields_to_db")
 
       try {
-        let response = await mainService.createAirtableUpsert(true, ['user_id','conection'], fields_to_db, "prod_users")
+        let response = await mainService.createAirtableUpsert(true, ['user_id','connection'], fields_to_db, "prod_users")
         if (response['error']) {
           //console.log(airtable_response['error'])
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997"

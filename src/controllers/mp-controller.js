@@ -31,8 +31,7 @@ const mpController = {
   mpHome: (req,res) => {
     res.render( "menus/mercadopago", { title: "Mercado Pago" });
   },
-  
-  instrucciones: (req,res) => {
+  configuration: (req,res) => {
     console.log("Cookies:", req.cookies)
     connection_id = ""
 
@@ -76,17 +75,17 @@ const mpController = {
                 "access_token": data['access_token'],
                 "refresh_token": data['refresh_token'],
                 "user_id": data['user_id'].toString(),
-                "conection": "mercadopago",
+                "connection": "mercadopago",
                 "active": "true",
                 "user_name": mp_user_info["company_name"],
                 "user_email": mp_user_info["email"],
                 "user_logo": mp_user_info["logo_url"],
                 "country": mp_user_info["country"],
-                "conection_date": new Date().toISOString(),
+                "connection_date": new Date().toISOString(),
                 "tag": { "id": "usrOsqwIYk4a2tZsg" }
         } //end data_to_airtable_db
         try {
-          let airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "conection"], data_to_airtable_db, "prod_users")
+          let airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "connection"], data_to_airtable_db, "prod_users")
           let id_conexion = airtable_response['id']
 
           res.cookie("connection_id", id_conexion)
