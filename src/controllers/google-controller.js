@@ -33,7 +33,9 @@ const googleController = {
   googleoauth: async (req,res) => {
     console.log(req.body)
     var google_object = jwt_decode(req.body.credential);
+    console.log("google_object")
     console.log(google_object)
+    console.log("google_object")
     var google_user_id = google_object.sub
     var email = google_object.email
     var name = google_object.name

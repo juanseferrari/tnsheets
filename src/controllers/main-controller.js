@@ -36,7 +36,23 @@ const airtable_GETrequestOptions = {
 const mainController = {
   home: async (req, res) => {
     const projectos = await mainService.projectos()
-    res.render("menus/home", { projectos });
+
+    let connection_id = ""
+    let google_user_id = ""
+    if (req.cookies.connection_id) {
+      connection_id = req.cookies.connection_id
+    }
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
+    }
+    let user_connected = await mainService.searchUser(connection_id)
+
+    res.render("menus/home", { projectos, google_user_id, connection_id, user_connected });
+  },
+  pong: async (req, res) => {
+    res.json({
+      "pong": true
+    });
   },
   contacto: (req, res) => {
     res.render("menus/contacto");
