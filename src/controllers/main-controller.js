@@ -8,6 +8,7 @@ const url = require('url');
 
 //Services
 const mainService = require("../services/main-service");
+const { google } = require("googleapis");
 
 const tn_client_id = "5434"
 const tn_client_secret = process.env.TN_CLIENT_SECRET
@@ -46,8 +47,12 @@ const mainController = {
       google_user_id = req.cookies.google_user_id
     }
     let user_connected = await mainService.searchUser(connection_id)
+    let google_user = await mainService.searchGoogleUser(google)
+    console.log("google_user")
+    console.log(google_user)
+    console.log("google_user")
 
-    res.render("menus/home", { projectos, google_user_id, connection_id, user_connected });
+    res.render("menus/home", { projectos, google_user_id, connection_id, user_connected, google_user });
   },
   pong: async (req, res) => {
     res.json({
