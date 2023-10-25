@@ -22,30 +22,30 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-            <div class="menu-item">
+            <div class="menu-item hover-element">
               <a href="/#funcionalidades">Productos</a>
             </div>
-            <div class="menu-item">
+            <div class="menu-item hover-element">
               <a href="/#precios">Documentación</a>
             </div>
-            <div class="menu-item">
+            <div class="menu-item hover-element">
               <a href="/#contacto">Contacto</a>
             </div>
             <div class="menu-item login-button-navbar2">
-              <a href="">
-                <button type="button" class="btn btn-success">Iniciar sesión</button> 
-
-                <!-- 
+              <% if (google_user_id ) { %>
                 <div class="image-navbar-container">
-                      <div class="user-arrow">
-                        <i class="fa-solid fa-chevron-down"></i>
-                      </div>
-                      <div class="user-image-container">
-                        <img src="../images/support.png" alt="" class="user-image-navbar">
-                      </div>
+                  <div class="user-arrow">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </div>
+                  <div class="user-image-container">
+                    <img src="../images/support.png" alt="" class="user-image-navbar">
+                  </div>
 
-                </div>-->
-             </a>
+              </div>
+              <%} else { %>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-button">Iniciar sesión</button> 
+                <%} %>
+
 
             </div>
           </div>

@@ -9,7 +9,8 @@
 .menu-item a {
   color: white !important
 } **/
-.menu-item:hover{
+
+.hover-element:hover {
     transform: scale(1.1);
 }
 /** -------- HOME -------------- **/

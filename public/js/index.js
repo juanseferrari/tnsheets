@@ -37,3 +37,10 @@ function scrollManagement(){
 
 }
 scrollManagement()
+
+const loginButton = document.getElementById('login-button')
+const googleSignIn = document.getElementById('google-sign-in')
+
+loginButton.addEventListener('click', () => {
+    googleSignIn.style.visibility = "visible"
+})
