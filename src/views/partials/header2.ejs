@@ -38,7 +38,12 @@
                     <i class="fa-solid fa-chevron-down"></i>
                   </div>
                   <div class="user-image-container">
-                    <img src="../images/support.png" alt="" class="user-image-navbar">
+                    <% if (google_user.user_picture_url ) { %>
+                      <!-- Arreglar esto que quedo feo -->
+                      <img src="<%= google_user.user_picture_url %>" alt="" class="user-image-navbar">
+                    <%} else { %>
+                      <img src="../images/support.png" alt="" class="user-image-navbar">
+                    <%} %>
                   </div>
 
               </div>

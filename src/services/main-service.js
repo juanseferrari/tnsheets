@@ -106,7 +106,7 @@ const mainService = {
       "name": null,
       "given_name": null,
       "family_name": null,
-      "user_picture": null,
+      "user_picture_url": null,
       "message": "no google_user_id added"
     }
 
@@ -116,9 +116,6 @@ const mainService = {
 
     //Get information about Airtable user
     const google_user_data = await this.getAirtableData(AIRTABLE_GOOGLE_USERS,google_user_id,"google_user_id")
-    console.log("google_user_data")
-    console.log(google_user_data)
-    console.log("google_user_data")
 
     if(google_user_data['error']){
       response_object.message = "Error obtaining google_user. Message: " + google_user_data['error']['message']
@@ -131,7 +128,7 @@ const mainService = {
       "name": google_user_data.name,
       "given_name": google_user_data.given_name,
       "family_name": google_user_data.family_name,
-      "user_picture": google_user_data.user_picture,
+      "user_picture_url": google_user_data.user_picture_url,
       "message": "google_user found"
     }
     return response_object

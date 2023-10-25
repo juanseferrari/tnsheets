@@ -41,7 +41,7 @@ const googleController = {
     var name = google_object.name
     var given_name = google_object.given_name
     var family_name = google_object.family_name
-    var user_picture = google_object.picture
+    var user_picture_url = google_object.picture
     //Save google_id in cookie. If cookie exists, remove google login.
     res.cookie("google_user_id", google_user_id)
 
@@ -53,7 +53,7 @@ const googleController = {
       name,
       given_name,
       family_name,
-      user_picture
+      user_picture_url
     }
     try {
         let response = await mainService.createAirtableUpsert(true,["google_user_id"],fields_to_db,"google_users")

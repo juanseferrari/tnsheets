@@ -10,13 +10,6 @@ const url = require('url');
 const mainService = require("../services/main-service");
 const { google } = require("googleapis");
 
-const tn_client_id = "5434"
-const tn_client_secret = process.env.TN_CLIENT_SECRET
-
-//TEST ENVIRONMENTS
-const test_client_id = "6107"
-const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
-
 
 //AIRTABLE VALUES
 const airtable_base_id = process.env.AIRTABLE_BASE_ID
@@ -47,10 +40,7 @@ const mainController = {
       google_user_id = req.cookies.google_user_id
     }
     let user_connected = await mainService.searchUser(connection_id)
-    let google_user = await mainService.searchGoogleUser(google)
-    console.log("google_user")
-    console.log(google_user)
-    console.log("google_user")
+    let google_user = await mainService.searchGoogleUser(google_user_id)
 
     res.render("menus/home", { projectos, google_user_id, connection_id, user_connected, google_user });
   },
@@ -184,7 +174,7 @@ const mainController = {
     if (token === "sheetapi5678") {
       //agregar un token mas seguro o algo dinamico por usuario
       try {
-        // A FUTURO: pasar esta funcion de get token a un service reusable.
+        //TODO A FUTURO: pasar esta funcion de get token a un service reusable.
         let airtabe_request = await fetch("https://api.airtable.com/v0/" + airtable_base_id + "/" + airtable_prod_table_id + "/" + connection_id, airtable_update_record)
         let airtable_response = await airtabe_request.json();
         res.json({
