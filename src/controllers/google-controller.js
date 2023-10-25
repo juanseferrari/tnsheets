@@ -31,7 +31,7 @@ const oauth2Client = new google.auth.OAuth2(
 
 const googleController = {
   googleoauth: async (req,res) => {
-    console.log(req.body)
+    //console.log(req.body)
     var google_object = jwt_decode(req.body.credential);
     console.log("google_object")
     console.log(google_object)
@@ -39,8 +39,9 @@ const googleController = {
     var google_user_id = google_object.sub
     var email = google_object.email
     var name = google_object.name
+    var given_name = google_object.given_name
     var family_name = google_object.family_name
-
+    var user_picture = google_object.picture
     //Save google_id in cookie. If cookie exists, remove google login.
     res.cookie("google_user_id", google_user_id)
 
@@ -50,7 +51,9 @@ const googleController = {
       google_user_id,
       email,
       name,
-      family_name
+      given_name,
+      family_name,
+      user_picture
     }
     try {
         let response = await mainService.createAirtableUpsert(true,["google_user_id"],fields_to_db,"google_users")

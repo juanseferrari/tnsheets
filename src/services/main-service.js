@@ -99,6 +99,45 @@ const mainService = {
 
     return response_object
   },
+  async searchGoogleUser(google_user_id){
+    let response_object = {
+      "google_user_id": null,
+      "email": null,
+      "name": null,
+      "given_name": null,
+      "family_name": null,
+      "user_picture": null,
+      "message": "no google_user_id added"
+    }
+
+    if(!google_user_id){
+      return response_object
+    }
+
+    //Get information about Airtable user
+    const google_user_data = await this.getAirtableData(AIRTABLE_GOOGLE_USERS,google_user_id,"google_user_id")
+    console.log("google_user_data")
+    console.log(google_user_data)
+    console.log("google_user_data")
+
+    if(google_user_data['error']){
+      response_object.message = "Error obtaining google_user. Message: " + google_user_data['error']['message']
+      return response_object
+    } else {
+    //Response of search user
+    response_object = {
+      "google_user_id": google_user_id,
+      "email": google_user_data.email,
+      "name": google_user_data.name,
+      "given_name": google_user_data.given_name,
+      "family_name": google_user_data.family_name,
+      "user_picture": google_user_data.user_picture,
+      "message": "google_user found"
+    }
+    return response_object
+
+    }
+  },
   async validateUserExists(connection_id){
     let response
     var get_request_options = {
@@ -193,6 +232,7 @@ const mainService = {
         },
         redirect: 'follow'
       };
+      //TODO MIGRATE TO getAirtableData
       let airtable_subs_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + AIRTABLE_SUBSCRIPTIONS + "?filterByFormula={client_reference_id}='"+connection_id+"'", get_request_options)
       let user_subs_data = await airtable_subs_response.json();
       //console.log(user_subs_data)
