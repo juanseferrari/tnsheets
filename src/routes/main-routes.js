@@ -29,7 +29,7 @@ router.get('/tiendanube/config', tnController.configuration);
 router.get('/tiendanube/documentation', tnController.documentation);
 router.get('/tiendanube/oauth',tnController.tnOauth) 
 router.get('/tiendanube/premium',tnController.getPremium)  //hacerlo con todos los planes
-router.get('/tiendanube/sheet',tnController.getSheet)  //hacerlo con todos los planes para que te redirija al sheet. 
+router.get('/tiendanube/sheet',tnController.getSheet)  //TODO hacerlo con todos los planes para que te redirija al sheet. 
 
 
 /* Drive to Tiendanube */
