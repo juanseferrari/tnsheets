@@ -8,24 +8,13 @@ const url = require('url');
 
 //Services
 const mainService = require("../services/main-service");
-const { google } = require("googleapis");
-
 
 //AIRTABLE VALUES
 const airtable_base_id = process.env.AIRTABLE_BASE_ID
 const airtable_test_table_id = "tbl3tdymJSf7Rhiv0"
 const airtable_prod_table_id = process.env.AIRTABLE_PROD_USERS
 const airtable_access_token = process.env.AIRTABLE_ACCESS_TOKEN
-const AIRTABLE_SUBSCRIPTIONS = process.env.AIRTABLE_SUBSCRIPTIONS
 
-const airtable_GETrequestOptions = {
-  method: 'GET',
-  headers: {
-    "Authorization": "Bearer " + airtable_access_token,
-    "Content-Type": "application/json"
-  },
-  redirect: 'follow'
-}
 
 const mainController = {
   home: async (req, res) => {
@@ -49,8 +38,20 @@ const mainController = {
       "pong": true
     });
   },
-  contacto: (req, res) => {
-    res.render("menus/contacto");
+  contacto: async (req, res) => {
+    let connection_id = ""
+    let google_user_id = ""
+    if (req.cookies.connection_id) {
+      connection_id = req.cookies.connection_id
+    }
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
+    }
+    let user_connected = await mainService.searchUser(connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+    
+
+    res.render("menus/contacto", { user_connected, google_user });
   },
   login: (req, res) => {
     res.render("menus/login", { title: "Login" })

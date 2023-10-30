@@ -24,16 +24,7 @@ const airtable_base_id = process.env.AIRTABLE_BASE_ID
 const airtable_test_table_id = "tbl3tdymJSf7Rhiv0"
 const airtable_prod_table_id = process.env.AIRTABLE_PROD_USERS
 const airtable_access_token = process.env.AIRTABLE_ACCESS_TOKEN
-const AIRTABLE_SUBSCRIPTIONS = process.env.AIRTABLE_SUBSCRIPTIONS
 
-const airtable_GETrequestOptions = {
-  method: 'GET',
-  headers: {
-    "Authorization": "Bearer " + airtable_access_token,
-    "Content-Type": "application/json"
-  },
-  redirect: 'follow'
-}
 
 const tnController = {
   tnHome: async (req, res) => {
@@ -46,6 +37,7 @@ const tnController = {
       google_user_id = req.cookies.google_user_id
     }
     let user_connected = await mainService.searchUser(connection_id)
+    //Agregar el google_user
 
     res.render("index", { title: "Inicio", google_user_id, connection_id, user_connected });
   },
@@ -68,9 +60,6 @@ const tnController = {
       google_user_id = req.cookies.google_user_id
     }
     let user_connected = await mainService.searchUser(connection_id)
-    console.log("user_connected")
-    console.log(user_connected)
-    console.log("user_connected")
 
     res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
   },
