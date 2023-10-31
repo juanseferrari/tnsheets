@@ -74,11 +74,16 @@ const paymentsController = {
     } else if(req.body.type == "customer.subscription.created" ) {
 
       var trial_end = new Date(req.body.data.object.trial_end * 1000);
+      let coupon_code = ""
+      if(req.body.data.object.discount){
+        coupon_code =  req.body.data.object.discount.coupon.name
+      }
  
       fields_to_db = {
       "subscription_status": req.body.data.object.status,
       "subscription_id": req.body.data.object.id,
-      "trial_end_date": trial_end.toISOString()
+      "trial_end_date": trial_end.toISOString(),
+      coupon_code
       }
       try {
         let response = await mainService.createAirtableUpsert(true,["subscription_id"],fields_to_db,"subscriptions")
