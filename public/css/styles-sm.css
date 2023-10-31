@@ -497,6 +497,8 @@
 
 .instructions-container {
     border-radius: 20px;
+    background-color: white ;
+    padding: 0 20px;
 }
 .step-block {
     display: block;
