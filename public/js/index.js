@@ -44,3 +44,6 @@ const googleSignIn = document.getElementById('google-sign-in')
 loginButton.addEventListener('click', () => {
     googleSignIn.style.visibility = "visible"
 })
+
+
+$('.dropdown-toggle').dropdown()
