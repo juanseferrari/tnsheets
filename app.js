@@ -26,10 +26,10 @@ app.use('/', indexRouter);
 
 
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+app.use((req, res, next) => {
+  let message = "Esta página no existe."
+  res.status(404).render("menus/error-page", { message })
+})
 
 // error handler
 app.use(function(err, req, res, next) {
