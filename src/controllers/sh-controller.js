@@ -19,8 +19,19 @@ const mainService = require("../services/main-service");
 
 
 const shController = {
-  shHome: (req,res) => {
-    res.render( "menus/shopify", { title: "Shopify" });
+  shHome: async (req,res) => {
+    let connection_id = ""
+    let google_user_id = ""
+    if (req.cookies.connection_id) {
+      connection_id = req.cookies.connection_id
+    }
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
+    }
+    let user_connected = await mainService.searchUser(connection_id)
+    //Agregar el google_user
+
+    res.render( "menus/shopify", { title: "Shopify", google_user_id, connection_id, user_connected });
   },
   configuration: async (req,res) => {
    
@@ -34,9 +45,6 @@ const shController = {
       google_user_id = req.cookies.google_user_id
     }
     let user_connected = await mainService.searchUser(connection_id)
-    console.log("user_connected")
-    console.log(user_connected)
-    console.log("user_connected")
 
     //res.redirect("/tiendanube/config")
     res.render("instructions/sh-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
