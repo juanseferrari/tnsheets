@@ -28,8 +28,18 @@ var mp_redirect_url = "https://www.sheetscentral.com/mp-oauth"
 
 
 const mpController = {
-  mpHome: (req,res) => {
-    res.render( "menus/mercadopago", { title: "Mercado Pago" });
+  mpHome: async (req,res) => {
+    let connection_id = ""
+    let google_user_id = ""
+    if (req.cookies.connection_id) {
+      connection_id = req.cookies.connection_id
+    }
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
+    }
+    let user_connected = await mainService.searchUser(connection_id)
+
+    res.render( "menus/mercadopago", { title: "Mercado Pago", google_user_id, connection_id, user_connected });
   },
   configuration: (req,res) => {
     console.log("Cookies:", req.cookies)

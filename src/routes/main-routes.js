@@ -8,6 +8,7 @@ const paymentsController = require('../controllers/payments-controller');
 const googleController = require('../controllers/google-controller');
 const shController = require('../controllers/sh-controller');
 const dtController = require('../controllers/dt-controller');
+const woController = require('../controllers/wo-controller');
 
 //a futuro un controller por servicio
 
@@ -49,6 +50,12 @@ router.get('/shopify', shController.shHome);
 router.get('/sh-oauth', shController.verifyRequest);
 router.get('/shopify/oauth', shController.shOauth)
 router.get('/shopify/config', shController.configuration);
+
+/* Woocommerce */
+router.get('/woocommerce', woController.woHome);
+router.get('/woocommerce/oauth', woController.woRedirect)
+router.post('/woocommerce/oauth', woController.woOauth)
+router.get('/woocommerce/config', woController.configuration);
 
 /* Future new home page. */
 router.get('/home', mainController.home);
