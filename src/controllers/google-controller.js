@@ -30,8 +30,9 @@ const oauth2Client = new google.auth.OAuth2(
 
 
 const googleController = {
-  googleLink: (req,res)=> {
-    var google_url = "https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri="+redirect_url+"&scope=email%20profile&client_id="+google_client_id
+  googleLink: async (req,res)=> {
+    var google_url = "https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri="+redirect_url+"&scope=profile&client_id="+google_client_id
+    console.log(google_url)
     res.redirect(google_url)
   },
   googleoauth: async (req,res) => {
