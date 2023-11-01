@@ -80,7 +80,7 @@ router.get('/subscription-status', paymentsController.checkSubscription)
 
 /* GOOGLE AUTH DATA */
 router.post('/google-auth',googleController.googleoauth)
-router.get('/google-auth',googleController.googleoauth) //esto aplica para la version anterior de oauth
+router.get('/google-auth',googleController.googleoauth) //esto aplica para la version anterior de oauth. SOLUCIONAR A FUTURO
 router.get('/google-login',googleController.googleLink)
 
 
