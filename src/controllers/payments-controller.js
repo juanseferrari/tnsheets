@@ -39,7 +39,6 @@ const paymentsController = {
   notificationController: async (req,res) => {
 
     let fields_to_db = {}
-    let test_mode = req.query.test_mode
 
     if(req.body.type == "checkout.session.completed") {
       // notification on checkout session
