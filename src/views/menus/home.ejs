@@ -11,6 +11,7 @@
 
 </head>
 
+<!-- <body class="main-body squared-body"> -->
 <body class="main-body squared-body">
 
   <div class="container">
@@ -19,38 +20,27 @@
         <div class="main-division2">
           <div class="division-text-content2">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Carga masivamente tus imágenes de Google Drive en Tiendanube
+              <h1 class="main-title-2">Gestiona tu e-commerce desde Google Sheets 💻
               </h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text"> Automatiza la gestión de imágenes de tu tienda con Drive to Tiendanube </h3>
+              <h3 class="explain-text"> Automatiza y gestiona tu tienda con la herramienta más usada por todas empresas de todos los tamaños </h3>
               
               <div class="login-button">
                   <button type="button" class="btn btn-outline-secondary">
-                    <a class="black-button-a" href="/drive-to-tiendanube/config">
+                    <a class="black-button-a" href="/#productos">
                       <div class="login-button-text">
                         <img class="login-button-logo" src="../images/configuration.png" alt="">
-                        <p class="login-button-p">Ir a configuración</p>
+                        <p class="login-button-p">Explorar productos</p>
                       </div>
                     </a>
                   </button>
                 </div>
 
-                      <div class="login-button">
-                        <button type="button" class="btn btn-outline-secondary">
-                          <a class="black-button-a" href="/drive-to-tiendanube/documentation" target="_blank">
-                            <div class="login-button-text">
-                              <img class="login-button-logo" src="../images/document.png" alt="">
-                              <p class="login-button-p">Ver documentación</p>
-                            </div>
-                          </a>
-                        </button>
-                      </div>
-
             </div>
 
           </div><!-- Divion left content-->
-          <div class="division-right-content2 video-container">
+          <div class="division-right-content2 video-container shadow">
             <video loop autoplay playsinline muted class="intro-video">
               <source src="../images/demo_videos/home_video_2.mp4" type="video/mp4" />
             </video>
@@ -61,11 +51,92 @@
       </div>
 
     </section>
-    <section>
+
+    <section class="" id="instruction1">
+      <div class="full-page-item">
+        <div class="main-division">
+          <div class="division-text-content">
+            <div class="division-left-content-top">
+              <h1 class="main-title-2">Automatiza las ventas de tu E-commerce</h1>
+            </div>
+            <div class="division-left-content-bottom">
+              <h3 class="explain-text"> Nueva venta → Nueva fila en tu Google Sheets </h3>
+              <h3 class="explain-text"> ¿Actualización? ¿Pago? ¿Cancelación? ¡Las filas se editan automáticamente! </h3>
+              <h3 class="explain-text"> Olvídate de descargar archivos .csv </h3>
+            </div>
+
+          </div><!-- Divion left content-->
+
+          <div class="division-text-content video-container">
+            <video loop autoplay muted class="intro-video shadow">
+              <source src="../images/productos.mp4" type="video/mp4" />
+            </video>
+          </div> <!-- Divion left content-->
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="">
+      <div class="full-page-item">
+        <div class="main-division">
+          <div class="division-text-content">
+            <div class="division-left-content-top">
+              <h1 class="main-title-2">Gestiona tus productos en un mismo lugar</h1>
+            </div>
+            <div class="division-left-content-bottom">
+              <h3 class="explain-text"> Mantén información actualizada de tus productos </h3>
+              <h3 class="explain-text"> Crea y edita productos masivamente </h3>
+              <h3 class="explain-text"> Carga imágenes desde Google Drive a tu e-commerce </h3>
+              <h3 class="explain-text"> ¡Todo desde Google Sheets! </h3>
+
+            </div>
+
+          </div><!-- Divion left content-->
+
+          <div class="division-text-content video-container">
+            <video loop autoplay muted class="intro-video shadow">
+              <source src="../images/productos.mp4" type="video/mp4" />
+            </video>
+          </div> <!-- Divion left content-->
+
+        </div>
+
+      </div>
+    </section>
+    <section class="">
+      <div class="full-page-item">
+        <div class="main-division">
+          <div class="division-text-content">
+            <div class="division-left-content-top">
+              <h1 class="main-title-2">Métricas, Dashboards, con la interfaz de siempre</h1>
+            </div>
+            <div class="division-left-content-bottom">
+              <h3 class="explain-text"> Sigue usando las mismas funciones de Google Sheets </h3>
+              <h3 class="explain-text"> Crea filtros, fórmulas, tablas dinámicas, notas... </h3>
+              <h3 class="explain-text"> Crea tus propios gráficos, agrega colores, ¡lo que quieras!</h3>
+            </div>
+
+          </div><!-- Divion left content-->
+
+          <div class="division-text-content video-container">
+            <video loop autoplay muted class="intro-video shadow">
+              <source src="../images/productos.mp4" type="video/mp4" />
+            </video>
+          </div> <!-- Divion left content-->
+
+        </div>
+
+      </div>
+    </section>
+    <section id="productos">
+      <h1 class="main-title"> Productos </h1>
+
       <div class="flex card-container">
         <% for (projecto of projectos) { %>
           <%- include("../partials/card.ejs") %>
-            <% } %>
+        <% } %>
       </div>
     </section>
 
@@ -77,7 +148,9 @@
 
   </div>
 
+  <%- include("../partials/contact-form.ejs") %>
 
+  <%- include("../partials/footer2.ejs") %>
 
   <!--   <%- include("../partials/footer.ejs") %>   -->
 </body>

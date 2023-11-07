@@ -38,17 +38,11 @@ const tnController = {
     }
     let user_connected = await mainService.searchUser(connection_id)
     //Agregar el google_user
+    console.log("user_connected")
+    console.log(user_connected)
+    console.log("user_connected")
 
     res.render("index", { title: "Inicio", google_user_id, connection_id, user_connected });
-  },
-  instruccionesOld: (req, res) => {
-    //! deprecar por la nueva version despues.
-    console.log("Cookies:", req.cookies)
-    id_conexion = ""
-    if (req.cookies.connection_id) {
-      id_conexion = req.cookies.connection_id
-    }
-    res.render("instructions/instrucciones", { title: "Instrucciones", id_conexion })
   },
   configuration: async (req, res) => {
     connection_id = ""

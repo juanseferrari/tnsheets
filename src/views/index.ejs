@@ -32,7 +32,7 @@
 
         </div>
 
-        <% if (connection_id ) { %>
+        <% if (connection_id && user_connected.active == 'true' ) { %>
           <div class="login-button">
             <button type="button" class="btn btn-outline-secondary">
               <a class="black-button-a" href="/tiendanube/config" >
