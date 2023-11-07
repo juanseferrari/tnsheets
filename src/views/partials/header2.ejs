@@ -1,12 +1,11 @@
 <header>
   <nav class="navbar sticky-top navbar-expand-lg navbar-light top-navbar shadow navbar2">
     <div class="container">
-      
       <div>
         <a class="navbar-brand" href="#">
           <img src="../images/sheets_central_logo.png" alt="" class="logo-image">
         </a>
-        
+
         <a class="navbar-brand" href="/">Sheets Central</a>
       </div>
 
@@ -23,15 +22,15 @@
           </div>
           <div class="offcanvas-body">
             <div class="menu-item hover-element">
-              <a href="/#funcionalidades">Funcionalidades</a>
+              <a href="/#funcionalidades">Productos</a>
             </div>
             <div class="menu-item hover-element">
-              <a href="/#precios">Precios</a>
+              <a href="/#precios">Documentación</a>
             </div>
             <div class="menu-item hover-element">
               <a href="/#contacto">Contacto</a>
             </div>
-            
+
             <div class="menu-item login-button-navbar2">
               <% if (google_user_id ) { %>
                 <a href="/account">
@@ -42,20 +41,21 @@
                     <div class="user-image-container">
                       <% if (google_user.user_picture_url ) { %>
                         <img src="<%= google_user.user_picture_url %>" alt="" class="user-image-navbar">
-                      <%} else { %>
-                        <img src="../images/support.png" alt="" class="user-image-navbar">
-                      <%} %>
+                        <%} else { %>
+                          <img src="../images/support.png" alt="" class="user-image-navbar">
+                          <%} %>
                     </div>
-  
+
                   </div>
                 </a>
-              <%} else { %>
-                <!-- 
+                <%} else { %>
+                  <!-- 
                 <a href="/google-login">
                   <button type="button" class="btn btn-login" id="login-button">Iniciar sesión</button> 
                 </a>-->
-                <button type="button" class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-button">Iniciar sesión</button>
-                <%} %>
+                  <button type="button" class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal"
+                    id="login-button">Iniciar sesión</button>
+                  <%} %>
             </div>
 
           </div>
@@ -64,21 +64,26 @@
       </div>
 
     </div>
+
+    <!-- <div class="subnavbar shadow"></div> -->
+
   </nav>
 </header>
 
 
-          <!-- LOGIN Modal SI NO VAMOS A USAR EL MODAL, SACARLO. -->
-          <div class="modal fade" id="loginModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Iniciar sesión a Sheets Central</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <%- include("../partials/buttons/google-login.ejs") %>
-                </div>
-              </div>
-            </div>
-          </div>
+
+<!-- LOGIN Modal SI NO VAMOS A USAR EL MODAL, SACARLO. -->
+<div class="modal fade" id="loginModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Iniciar sesión a Sheets Central</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%- include("../partials/buttons/google-login.ejs") %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -19,10 +19,10 @@ const mainService = {
   projectos() {
     return projects
   },
-  async searchUser(connection_id){
+  async searchUser(connection_id) {
     let response_object
 
-    if(!connection_id){
+    if (!connection_id) {
       response_object = {
         "connection_id": null,
         "nickname": null,
@@ -52,7 +52,7 @@ const mainService = {
     const airtable_payment_status = await this.validatePaymentSubscription(connection_id)
 
 
-    if(airtable_payment_status.subscription_status){
+    if (airtable_payment_status.subscription_status) {
       var subscription_status = airtable_payment_status.subscription_status
       var customer_email = airtable_payment_status.subscription_customer_email
     } else {
@@ -61,45 +61,45 @@ const mainService = {
     }
 
     //Get information about Airtable user
-    const airtable_user_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + AIRTABLE_PROD_USERS + "/"+connection_id, get_request_options)
+    const airtable_user_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + AIRTABLE_PROD_USERS + "/" + connection_id, get_request_options)
     if (airtable_user_response.status === 200) {
-    let user_data = await airtable_user_response.json();
+      let user_data = await airtable_user_response.json();
 
-    //console.log("user_data")
-    //console.log(user_data)
-    //console.log("user_data")
+      //console.log("user_data")
+      //console.log(user_data)
+      //console.log("user_data")
 
-    //Response of search user
-    response_object = {
-      "connection_id": user_data.id,
-      "nickname": user_data.fields.nickname,
-      "user_id": user_data.fields.user_id,
-      "user_name": user_data.fields.user_name,
-      "user_logo": user_data.fields.user_logo,
-      "connection": user_data.fields.connection,
-      "connection_date": user_data.fields.connection_date,
-      "spreadsheet_id": user_data.fields.spreadsheet_id,
-      "webhook_url": user_data.fields.webhook_url,
-      "active": user_data.fields.active,
-      "subscription_status": subscription_status,
-      "subscription_customer_email": customer_email
-    }
+      //Response of search user
+      response_object = {
+        "connection_id": user_data.id,
+        "nickname": user_data.fields.nickname,
+        "user_id": user_data.fields.user_id,
+        "user_name": user_data.fields.user_name,
+        "user_logo": user_data.fields.user_logo,
+        "connection": user_data.fields.connection,
+        "connection_date": user_data.fields.connection_date,
+        "spreadsheet_id": user_data.fields.spreadsheet_id,
+        "webhook_url": user_data.fields.webhook_url,
+        "active": user_data.fields.active,
+        "subscription_status": subscription_status,
+        "subscription_customer_email": customer_email
+      }
 
     } else {
       //user not found
       response_object = {
         "error": {
-            "type": "CONNECTION_NOT_FOUND",
-            "message": "connection_id not found"
+          "type": "CONNECTION_NOT_FOUND",
+          "message": "connection_id not found"
         }
-    }
+      }
     }
 
 
 
     return response_object
   },
-  async searchGoogleUser(google_user_id){
+  async searchGoogleUser(google_user_id) {
     let response_object = {
       "google_user_id": null,
       "email": null,
@@ -110,32 +110,32 @@ const mainService = {
       "message": "no google_user_id added"
     }
 
-    if(!google_user_id){
+    if (!google_user_id) {
       return response_object
     }
 
     //Get information about Airtable user
-    const google_user_data = await this.getAirtableData(AIRTABLE_GOOGLE_USERS,google_user_id,"google_user_id")
+    const google_user_data = await this.getAirtableData(AIRTABLE_GOOGLE_USERS, google_user_id, "google_user_id")
 
-    if(google_user_data['error']){
+    if (google_user_data['error']) {
       response_object.message = "Error obtaining google_user. Message: " + google_user_data['error']['message']
       return response_object
     } else {
-    //Response of search user
-    response_object = {
-      "google_user_id": google_user_id,
-      "email": google_user_data.email,
-      "name": google_user_data.name,
-      "given_name": google_user_data.given_name,
-      "family_name": google_user_data.family_name,
-      "user_picture_url": google_user_data.user_picture_url,
-      "message": "google_user found"
-    }
-    return response_object
+      //Response of search user
+      response_object = {
+        "google_user_id": google_user_id,
+        "email": google_user_data.email,
+        "name": google_user_data.name,
+        "given_name": google_user_data.given_name,
+        "family_name": google_user_data.family_name,
+        "user_picture_url": google_user_data.user_picture_url,
+        "message": "google_user found"
+      }
+      return response_object
 
     }
   },
-  async validateUserExists(connection_id){
+  async validateUserExists(connection_id) {
     let response
     var get_request_options = {
       method: 'GET',
@@ -145,20 +145,20 @@ const mainService = {
       },
       redirect: 'follow'
     };
-    const airtable_user_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + AIRTABLE_PROD_USERS + "/"+connection_id, get_request_options)
+    const airtable_user_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + AIRTABLE_PROD_USERS + "/" + connection_id, get_request_options)
     if (airtable_user_response.status === 200) {
-      response =  true
+      response = true
     } else {
       //user not found
-      response =  false
+      response = false
     }
     return response
   },
-  async getAccountInfo(user_id,token,platform){
+  async getAccountInfo(user_id, token, platform) {
     let response_object = {}
     let headers = {}
     let url = ""
-    if(platform == "mp"){
+    if (platform == "mp") {
       //MERCADO PAGO
       headers = {
         "Content-Type": "application/json",
@@ -169,7 +169,7 @@ const mainService = {
         method: 'GET',
         headers: headers
       };
-  
+
       let response = await fetch(url, requestOptions)
       let data = await response.json();
       response_object = {
@@ -179,20 +179,20 @@ const mainService = {
         "logo_url": data['thumbnail']['picture_url']
       }
 
-    } else if (platform == "tn"){
+    } else if (platform == "tn") {
       // TIENDA NUBE
       headers = {
         "Content-Type": "application/json",
         "Authentication": token,
         "User-Agent": "Sheets Central"
       }
-      url = "https://api.tiendanube.com/v1/"+user_id+"/store"
+      url = "https://api.tiendanube.com/v1/" + user_id + "/store"
 
       var requestOptions = {
         method: 'GET',
         headers: headers
       };
-  
+
       let response = await fetch(url, requestOptions)
       let data = await response.json();
       response_object = {
@@ -220,7 +220,7 @@ const mainService = {
 
     //validar si el usuario existe
     let user_exists = await this.validateUserExists(connection_id)
-    if(user_exists) {
+    if (user_exists) {
       var get_request_options = {
         method: 'GET',
         headers: {
@@ -230,12 +230,12 @@ const mainService = {
         redirect: 'follow'
       };
       //TODO MIGRATE TO getAirtableData
-      let airtable_subs_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + AIRTABLE_SUBSCRIPTIONS + "?filterByFormula={client_reference_id}='"+connection_id+"'", get_request_options)
+      let airtable_subs_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + AIRTABLE_SUBSCRIPTIONS + "?filterByFormula={client_reference_id}='" + connection_id + "'", get_request_options)
       let user_subs_data = await airtable_subs_response.json();
       //console.log(user_subs_data)
-      if(user_subs_data.records.length == 0) {
+      if (user_subs_data.records.length == 0) {
         //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
-       // console.log("amount of records: 0")
+        // console.log("amount of records: 0")
         response_object = {
           "connection_id": connection_id,
           "subscription": false,
@@ -254,34 +254,34 @@ const mainService = {
           "subscription_status": user_subs_data.records[0].fields.subscription_status, //solucionar esto. 
           "subscription_customer_email": user_subs_data.records[0].fields.customer_email,
           "payment_status": (user_subs_data.records[0].fields.payment_status) ? user_subs_data.records[0].fields.payment_status : false,
-          "expiration_date": (user_subs_data.records[0].fields.expiration_date) ? user_subs_data.records[0].fields.expiration_date : false ,
+          "expiration_date": (user_subs_data.records[0].fields.expiration_date) ? user_subs_data.records[0].fields.expiration_date : false,
           "message": "subscription or payment found."
         }
       } else {
         //console.log("amount of records: more")
         response_object = {
           "error": {
-              "type": "SUBSCRIPTION_ERROR",
-              "message": "More than one subscription found."
+            "type": "SUBSCRIPTION_ERROR",
+            "message": "More than one subscription found."
           }
-        }     
+        }
       }
     } else {
       response_object = {
         "error": {
-            "type": "CONNECTION_ID_NOT_FOUND",
-            "message": "connection_id was not found or incorrect."
+          "type": "CONNECTION_ID_NOT_FOUND",
+          "message": "connection_id was not found or incorrect."
         }
+      }
     }
-    }
 
 
-    
- 
 
-  return response_object
+
+
+    return response_object
   },
-  async createAirtableUpsert(upsert,fields_to_merge_on,fields,table) {
+  async createAirtableUpsert(upsert, fields_to_merge_on, fields, table) {
     //funcion generica que hace upsert en airtable
 
     let return_object
@@ -289,13 +289,13 @@ const mainService = {
 
     //validation of airtable table
     let airtable_table = ""
-    if(table == "prod_users") {
+    if (table == "prod_users") {
       airtable_table = AIRTABLE_PROD_USERS
-    } else if (table == "test_users"){
+    } else if (table == "test_users") {
       airtable_table = AIRTABLE_TEST_USERS
-    } else if (table == "subscriptions"){
+    } else if (table == "subscriptions") {
       airtable_table = AIRTABLE_SUBSCRIPTIONS
-    } else if (table == "google_users"){
+    } else if (table == "google_users") {
       airtable_table = AIRTABLE_GOOGLE_USERS
     } else {
       return_object = {
@@ -306,7 +306,7 @@ const mainService = {
 
     //validation if upsert true
 
-    if(upsert){
+    if (upsert) {
       data_to_airtable_db = {
         "performUpsert": {
           "fieldsToMergeOn": fields_to_merge_on
@@ -345,7 +345,7 @@ const mainService = {
 
     try {
       //console.log("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + airtable_table)
-      const airtabe_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + airtable_table, airtable_upsert)
+      const airtabe_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + airtable_table, airtable_upsert)
       //console.log(airtabe_response)
       var data = await airtabe_response.json();
       //console.log("airtable data response")
@@ -356,7 +356,7 @@ const mainService = {
         // Process the data when the status code is 200
         response_object = {
           "status": "success",
-          "response_status":airtabe_response.status,
+          "response_status": airtabe_response.status,
           "id": data['records'][0]['id']
           //necesito mandar el id de cierta forma. 
         }
@@ -373,55 +373,55 @@ const mainService = {
     //en el return devolver un objecto que sea el status de la suscripcion
     return response_object;
   },
-  async getAirtableData(table,id,filter){
+  async getAirtableData(table, id, filter) {
     let response_object
     var get_request_options = {
-        method: 'GET',
-        headers: {
-          "Authorization": "Bearer " + AIRTABLE_ACCESS_TOKEN,
-          "Content-Type": "application/json"
-        },
-        redirect: 'follow'
-      };
-      let airtable_response = await fetch("https://api.airtable.com/v0/"+ AIRTABLE_BASE_ID + "/" + table + "?filterByFormula={"+filter+"}='"+id+"'", get_request_options)
-      let user_response_data = await airtable_response.json();
-      //console.log("user_response_data")
-      //console.log(user_response_data)
-      //console.log("user_response_data")
+      method: 'GET',
+      headers: {
+        "Authorization": "Bearer " + AIRTABLE_ACCESS_TOKEN,
+        "Content-Type": "application/json"
+      },
+      redirect: 'follow'
+    };
+    let airtable_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + table + "?filterByFormula={" + filter + "}='" + id + "'", get_request_options)
+    let user_response_data = await airtable_response.json();
+    //console.log("user_response_data")
+    //console.log(user_response_data)
+    //console.log("user_response_data")
 
-      if(user_response_data.records.length == 0) {
-        //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
-         console.log("amount of records: 0")
-        response_object = {
-          "error": {
-              "type": "NO_DATA_FOUND",
-              "message": "No record found with that id on that table."
-          }
-        }     
-      } else if (user_response_data.records.length == 1) {
-        //console.log("amount of records: 1")
-        response_object = user_response_data.records[0]['fields']
-        //console.log("user_response_data.records[0]['fields']")
-        //console.log(user_response_data.records[0]['fields'])
-        //console.log("user_response_data.records[0]['fields']")
-
-      } else {
-        //console.log("amount of records: more")
-        response_object = {
-          "error": {
-              "type": "OBTENTION_OF_DATA_ERROR",
-              "message": "More than one value found."
-          }
-        }     
+    if (user_response_data.records.length == 0) {
+      //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
+      console.log("amount of records: 0")
+      response_object = {
+        "error": {
+          "type": "NO_DATA_FOUND",
+          "message": "No record found with that id on that table."
+        }
       }
-    
- 
+    } else if (user_response_data.records.length == 1) {
+      //console.log("amount of records: 1")
+      response_object = user_response_data.records[0]['fields']
+      //console.log("user_response_data.records[0]['fields']")
+      //console.log(user_response_data.records[0]['fields'])
+      //console.log("user_response_data.records[0]['fields']")
 
-  return response_object
+    } else {
+      //console.log("amount of records: more")
+      response_object = {
+        "error": {
+          "type": "OBTENTION_OF_DATA_ERROR",
+          "message": "More than one value found."
+        }
+      }
+    }
+
+
+
+    return response_object
   },
-  async changeUserPlan(subscription_id, action){
+  async changeUserPlan(subscription_id, action) {
     let return_object = {}
-    let subscription_data = await this.getAirtableData(AIRTABLE_SUBSCRIPTIONS,subscription_id,"subscription_id")
+    let subscription_data = await this.getAirtableData(AIRTABLE_SUBSCRIPTIONS, subscription_id, "subscription_id")
     let user_data = await this.searchUser(subscription_data['client_reference_id'])
 
     console.log("webhook_url")
@@ -457,34 +457,44 @@ const mainService = {
         // Process the data when the status code is 200
         return_object = {
           "status": "success",
-          "response_status":sc_response.status
+          "response_status": sc_response.status
         }
       } else {
         console.log(sc_response)
         response_object = data
       }
 
-    } catch(error){
+    } catch (error) {
       return_object = {
         "error": {
-            "type": "UNABLE_TO_CHANGE_USER_PLAN",
-            "message": "It was not possible to change the user plan."
+          "type": "UNABLE_TO_CHANGE_USER_PLAN",
+          "message": "It was not possible to change the user plan."
         }
-    }
+      }
 
     }
     return return_object
 
   },
-  async getSubscriptionData(subscription_id){
+  async getSubscriptionData(subscription_id) {
 
   },
-  getUserToken(connection_id){
+  getUserToken(connection_id) {
     //a futuro agregar un servicio que para cualquier plataforma te traiga el access token del usuario
     //este servicio tiene que manejar la gestion del refresh token tambien de alguna forma. 
   },
-  refreshToken(connection_id){
+  refreshToken(connection_id) {
     //a futuro hacer una funcion para refreshear el access token. 
+  },
+  async hashValues(value1, value2, value3) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(value1 + value2 + value3);
+
+    const buffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(buffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+    return hashHex;
   }
 };
 

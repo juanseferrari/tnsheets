@@ -33,14 +33,15 @@
 
               <div class="url_div">
                 <div>
-                  <label for="shopify_url" class="form-label">Ingresar la URL de tu tienda de Woocommerce</label>
-                  <input class="form-control form-control-lg" id="shopify_url" type="text" placeholder="https://www.example.com" aria-label=".form-control-lg example">
+                  <label for="woocommerce_url" class="form-label">Ingresar la URL de tu tienda de Woocommerce</label>
+                  <input class="form-control form-control-lg" id="woocommerce_url" type="text" placeholder="https://www.example.com" aria-label=".form-control-lg example">
+                  <div id="errorContainer"></div>
+
                 </div>
                 <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
+                  <button type="button" class="btn btn-outline-secondary" id="woocommerce_button">
                     <a class="black-button-a"
-                      href="/home"
-                      target="_blank">
+                      target="_blank" >
                       <div class="login-button-text">
                         <img class="login-button-logo" src="../images/logos/woocommerce_logo.png" alt="">
                         <p class="login-button-p">Login Woocommerce</p>
@@ -74,6 +75,8 @@
 
   </body>
   <script src="/js/contact.js"></script>
+  <script src="/js/login.js"></script>
+
   <script src="https://smtpjs.com/v3/smtp.js"></script> <!-- Esto es el servicio para enviar mails -->
 
 

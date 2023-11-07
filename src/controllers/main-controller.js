@@ -5,11 +5,12 @@ const path = require("path");
 const fs = require("fs");
 const fetch = require('node-fetch');
 const url = require('url');
+const crypto = require('crypto');
 
 //Services
 const mainService = require("../services/main-service");
 
-//AIRTABLE VALUES
+//AIRTABLE VALUES -> ESTO NO DEBERIA ESTAR ACA, MIGRAR AL SERVICE
 const airtable_base_id = process.env.AIRTABLE_BASE_ID
 const airtable_test_table_id = "tbl3tdymJSf7Rhiv0"
 const airtable_prod_table_id = process.env.AIRTABLE_PROD_USERS
@@ -199,6 +200,33 @@ const mainController = {
         }
       })
     }
+
+  },
+  getTokenGeneric2: async (req,res) => {
+
+    var connection_id = req.body.connection_id
+    var connection = req.body.connection
+    var sheet_email = req.body.sheet_email
+    var spreadsheet_id = req.body.spreadsheet_id
+
+  
+  mainService.hashValues(connection_id, connection, "sheetapi5678")
+      .then(hash => {
+          console.log('Hash:', hash);
+          //validate that hash are equal and that are OK
+
+          //Save into DB
+
+          //Return access tokens and user_id 
+          res.json({
+            "hash": hash
+          })
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+
+
 
   }
 };

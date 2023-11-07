@@ -64,6 +64,9 @@ const woController = {
 
     //GET STORE INFO
 
+    //wp/v2/users
+    //normal url we have the data of logo. 
+
     //SAVE DATA INTO AIRTABLE
 
         //Save token in Airtable

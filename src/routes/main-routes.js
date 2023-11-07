@@ -61,6 +61,7 @@ router.get('/woocommerce/config', woController.configuration);
 router.get('/home', mainController.home);
 router.get('/pricing', mainController.pricing);
 router.get('/error',mainController.errorPage)
+router.get('/account',mainController.home)
 
 
 /* Contacto. */
@@ -78,6 +79,7 @@ router.get('/mp/getAccessToken/:Id', mpController.getTokenMP) //migrar a POST y 
 router.post('/webhook-connection', mainController.webhookConnection)
 router.post('/tn/uninstalled', mainController.appUninstalled)
 router.post('/get-token', mainController.getTokenGeneric)
+router.post('/get-token2', mainController.getTokenGeneric2)
 
 /* STRIPE APIS*/
 //notificaciones de stripe
