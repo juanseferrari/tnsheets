@@ -24,7 +24,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 
 
-
+// Middleware to handle JavaScript files in the 'public/js' folder
+app.use('/js', (req, res, next) => {
+  // Check if the request URL starts with '/js'
+  if (req.originalUrl.startsWith('/js')) {
+    // If it does, skip the error handling middleware and serve the JavaScript file directly
+    return next();
+  }
+  // If not, continue to the next middleware (your existing error-handling middleware)
+  next();
+});
 
 app.use((req, res, next) => {
   let message = "Esta página no existe."
