@@ -89,7 +89,13 @@
 .small-logo {
     display: none;
 }
-
+/* ----------- FOOTER  ---------------  **/
+ 
+.footer-tos {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+}
 
 /* ----------- FORM  ---------------  **/
 .contact-form button {

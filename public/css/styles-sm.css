@@ -360,7 +360,7 @@
 .footer {
     bottom: 0;
     width: 100%;
-    background-color: #f5a067;
+    background-color: white;
     height: 6vh;
     margin: 10vh 5% 0 5%;
 }
@@ -370,6 +370,22 @@
 .fixed-footer {
     position: fixed;
     bottom: 0;
+}
+.footer-tos {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.footer-tos p, .footer-tos a {
+    color: black;
+    font-size: 20px
+}
+.footer-tos p:hover,a:hover {
+    color: black;
+}
+.footer2 {
+    padding: 0 10%;
+    background-color: white;
 }
 
 /*  ---------------- LEGALES  -----------------  **/
