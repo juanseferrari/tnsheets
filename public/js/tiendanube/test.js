@@ -1,7 +1,9 @@
 (function () {
     // Your JavaScript
-    const switchCheckbox = document.getElementById('mySwitch');
-
+    var switchCheckbox = document.getElementById('mySwitch');
+    console.log("switchCheckbox")
+    console.log(switchCheckbox)
+    console.log("switchCheckbox")
 
     function showEnvironmentDiv(environmentAmount) {
         // Get the div element with class "table-subtotal"
@@ -174,7 +176,8 @@
         //Chequear si tiene el producto cargado como bono ambiental.
 
         for (let p = 0; p < LS.cart.items.length; p++) {
-            if (LS.cart.items[p].id == 190409457) {
+            if (LS.cart.items[p].variant_id == 764647295) {
+                console.log("existe el producto bono")
                 switchCheckbox.checked = true;
             }
         }
@@ -185,6 +188,13 @@
         let environmentAmount = 10
 
         showEnvironmentDiv(environmentAmount)
+
+        if (switchCheckbox) {
+            // Add your event listener and other logic here
+            console.log("existe switchCheckbox")
+          } else {
+            console.error("Element with ID 'mySwitch' not found");
+          }
 
         // Check the state of the switch when it is clicked
         switchCheckbox.addEventListener('change', function () {
@@ -198,7 +208,6 @@
 
             } else {
                 //REMOVE PRODUCT. 
-
                 console.log('Switch is OFF');
             }
         });
