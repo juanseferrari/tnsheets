@@ -1,5 +1,4 @@
 (async function () {
-    const switchCheckbox = document.getElementById('mySwitch');
 
     async function showEnvironmentDiv(environmentAmount) {
         var subtotalDiv = document.querySelector('.table-subtotal');
@@ -100,6 +99,7 @@
         `;
 
         document.head.appendChild(style);
+
     }
 
     async function addProductToCart() {
@@ -144,15 +144,20 @@
         console.log("checked");
     }
 
+    const switchCheckbox = document.getElementById('mySwitch');
+
     console.log(window.location.pathname);
+
+    let environmentAmount = 10;
+    await showEnvironmentDiv(environmentAmount);
 
     if (window.location.pathname.startsWith('/checkout/v3/next/')) {
         console.log("next path");
 
-        let environmentAmount = 10;
-        await showEnvironmentDiv(environmentAmount);
+
 
         for (const item of LS.cart.items) {
+            //validar que el item este seleccionado
             if (item.variant_id == 764647295) {
                 console.log("existe el producto bono");
                 switchCheckbox.checked = true;
@@ -176,6 +181,7 @@
         });
 
     } else {
+        document.getElementsByClassName("switch-container").style.display = "none"
         console.log("start path");
     }
 
