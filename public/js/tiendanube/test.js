@@ -1,11 +1,13 @@
 (function () {
     // Your JavaScript
+    const switchCheckbox = document.getElementById('mySwitch');
 
-    function showEnvironmentDiv(environmentAmount){
+
+    function showEnvironmentDiv(environmentAmount) {
         // Get the div element with class "table-subtotal"
         var subtotalDiv = document.querySelector('.table-subtotal');
         var newDiv = document.createElement('div');
-       
+
         // Set the HTML content of the subtotalDiv using innerHTML
         newDiv.innerHTML = `
        <div class="switch-container">
@@ -22,17 +24,17 @@
        
        </div>
        `;
-       
+
         subtotalDiv.appendChild(newDiv);
-       
-       
-       
+
+
+
         // Set the height of the parent div to 20px
         //subtotalDiv.style.height = '20px';
-       
+
         // Create a style element
         var style = document.createElement('style');
-       
+
         // Set the CSS rules as text content
         style.textContent = `
         .switch-container {
@@ -111,52 +113,106 @@
         border-radius: 50%;
        }
        `;
-       
+
         // Append the style element to the document's head
         document.head.appendChild(style);
-       
-       } //End function add EnvironmentDiv
 
+    } //End function add EnvironmentDiv
 
-       //Check pathname
-        console.log(window.location.pathname)
-        // Check the current URL path
-        if (window.location.pathname.startsWith('/checkout/v3/next/')) {
-            
-            console.log("next path")
+    function addProductToCart() {
+        console.log("addProductToCart")
+        if (LS.cart.items) {
+            console.log("LSproduct")
+            const list = [
+                { pid: 190409457, vid: 764647295 }
+            ];
 
-            //Fetch amount to show
-            let environmentAmount = 109
+            list.forEach(item => {
+                const data = new URLSearchParams();
+                data.append('add_to_cart', item.pid);
+                data.append('variant_id', item.vid);
 
-            showEnvironmentDiv(environmentAmount)
-
-
-            // Get the checkbox element
-            var switchCheckbox = document.getElementById('mySwitch');
-
-            // Check the state of the switch when it is clicked
-            switchCheckbox.addEventListener('change', function () {
-                if (switchCheckbox.checked) {
-                    console.log('Switch is ON');
-                    //Add product to cart for the amount given. 
-
-
-
-                } else {
-                    console.log('Switch is OFF');
-                }
+                fetch('/comprar/', {
+                    method: 'POST',
+                    body: data,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('success');
+                        } else {
+                            console.log('error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
             });
 
-        } else {
-        console.log("start path")
 
         }
+    }
+    // Wait for 1 second (1000 milliseconds) and then reload the page
+    function reloadPageAfterDelay() {
+        setTimeout(function () {
+            // Reload the page after 1 second1
+            window.location.reload();
+        }, 200); // 1000 milliseconds = 1 second
+        switchCheckbox.checked = true;
+        console.log("checked")
+    }
+
+
+
+    //Check pathname
+    console.log(window.location.pathname)
+    // Check the current URL path
+    if (window.location.pathname.startsWith('/checkout/v3/next/')) {
+
+        //Chequear si tiene el producto cargado como bono ambiental.
+
+        for (let p = 0; p < LS.cart.items.length; p++) {
+            if (LS.cart.items[p].id == 190409457) {
+                switchCheckbox.checked = true;
+            }
+        }
+
+        console.log("next path")
+
+        //Fetch amount to show
+        let environmentAmount = 10
+
+        showEnvironmentDiv(environmentAmount)
+
+        // Check the state of the switch when it is clicked
+        switchCheckbox.addEventListener('change', function () {
+            if (switchCheckbox.checked) {
+                console.log('Switch is ON');
+                //Add product to cart for the amount given. 
+                addProductToCart()
+
+                // Call the function to initiate the delay and page reload
+                reloadPageAfterDelay();
+
+            } else {
+                //REMOVE PRODUCT. 
+
+                console.log('Switch is OFF');
+            }
+        });
+
+    } else {
+        console.log("start path")
+
+    }
 
 
 
 
 
-   
+
 
 
 

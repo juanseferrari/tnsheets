@@ -12,7 +12,7 @@
 .top-navbar {
     background-color: #f8f6eaff;
     height: 10vh;
-    max-height: 10vh;
+    max-height: 12vh;
     border-radius: 15px ;
 }
 
@@ -141,6 +141,9 @@
     border-radius: 10px;
     margin-bottom: 5vh;
 
+}
+.navbar-brand-container {
+    max-height: 10%;
 }
 
 /** ---------- HOME ----------------*/
