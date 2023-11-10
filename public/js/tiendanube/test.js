@@ -173,14 +173,7 @@
     // Check the current URL path
     if (window.location.pathname.startsWith('/checkout/v3/next/')) {
 
-        //Chequear si tiene el producto cargado como bono ambiental.
 
-        for (let p = 0; p < LS.cart.items.length; p++) {
-            if (LS.cart.items[p].variant_id == 764647295) {
-                console.log("existe el producto bono")
-                switchCheckbox.checked = true;
-            }
-        }
 
         console.log("next path")
 
@@ -188,6 +181,15 @@
         let environmentAmount = 10
 
         showEnvironmentDiv(environmentAmount)
+
+                //Chequear si tiene el producto cargado como bono ambiental.
+
+                for (let p = 0; p < LS.cart.items.length; p++) {
+                    if (LS.cart.items[p].variant_id == 764647295) {
+                        console.log("existe el producto bono")
+                        switchCheckbox.checked = true;
+                    }
+                }
 
         if (switchCheckbox) {
             // Add your event listener and other logic here
