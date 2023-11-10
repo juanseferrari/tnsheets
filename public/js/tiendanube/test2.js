@@ -1,7 +1,7 @@
 (async function () {
     const switchCheckbox = document.getElementById('mySwitch');
 
-    function showEnvironmentDiv(environmentAmount) {
+    async function showEnvironmentDiv(environmentAmount) {
         var subtotalDiv = document.querySelector('.table-subtotal');
         var newDiv = document.createElement('div');
 
@@ -150,7 +150,7 @@
         console.log("next path");
 
         let environmentAmount = 10;
-        showEnvironmentDiv(environmentAmount);
+        await showEnvironmentDiv(environmentAmount);
 
         for (const item of LS.cart.items) {
             if (item.variant_id == 764647295) {
