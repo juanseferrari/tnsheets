@@ -1,7 +1,9 @@
 (function () {
     // Your JavaScript
-    const switchCheckbox = document.getElementById('mySwitch');
-
+    let switchCheckbox = document.getElementById('mySwitch');
+    console.log("switchCheckbox1")
+    console.log(switchCheckbox)
+    console.log("switchCheckbox1")
 
     function showEnvironmentDiv(environmentAmount) {
         // Get the div element with class "table-subtotal"
@@ -116,7 +118,10 @@
 
         // Append the style element to the document's head
         document.head.appendChild(style);
-
+        switchCheckbox = document.getElementById('mySwitch');
+        console.log("switchCheckbox2")
+        console.log(switchCheckbox)
+        console.log("switchCheckbox2")
     } //End function add EnvironmentDiv
 
     function addProductToCart() {
@@ -186,6 +191,11 @@
         let environmentAmount = 10
 
         showEnvironmentDiv(environmentAmount)
+
+        switchCheckbox = document.getElementById('mySwitch');
+        console.log("switchCheckbox3")
+        console.log(switchCheckbox)
+        console.log("switchCheckbox3")
 
         // Check the state of the switch when it is clicked
         switchCheckbox.addEventListener('change', function () {
