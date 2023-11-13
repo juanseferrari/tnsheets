@@ -1,4 +1,4 @@
-(async function () {
+(function () {
 
     async function showEnvironmentDiv(environmentAmount) {
         var subtotalDiv = document.querySelector('.table-subtotal');
@@ -144,14 +144,14 @@
         console.log("checked");
     }
 
-    document.addEventListener('DOMContentLoaded', function (){
-        const switchCheckbox = document.getElementById('mySwitch');
 
         console.log(window.location.pathname);
     
         let environmentAmount = 10;
         showEnvironmentDiv(environmentAmount);
-    
+
+        let switchCheckbox = document.getElementById('mySwitch');
+
         if (window.location.pathname.startsWith('/checkout/v3/next/')) {
             console.log("next path");
     
@@ -206,6 +206,4 @@
         console.log(LS.cart.contact);
         console.log("CART CONTACT");
 
-    })
- 
-})();
+    });

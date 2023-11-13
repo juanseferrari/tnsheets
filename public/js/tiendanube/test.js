@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded',function () {
+(function () {
     
     // Your JavaScript
-    var switchCheckbox = document.getElementById('mySwitch');
-    console.log("switchCheckbox")
+    let switchCheckbox = document.getElementById('mySwitch');
+    console.log("switchCheckbox1")
     console.log(switchCheckbox)
-    console.log("switchCheckbox")
+    console.log("switchCheckbox1")
 
     function showEnvironmentDiv(environmentAmount) {
         // Get the div element with class "table-subtotal"
@@ -119,6 +119,11 @@ document.addEventListener('DOMContentLoaded',function () {
 
         // Append the style element to the document's head
         document.head.appendChild(style);
+        switchCheckbox = document.getElementById('mySwitch');
+        console.log("switchCheckbox2")
+        console.log(switchCheckbox)
+        console.log("switchCheckbox2")
+
 
     } //End function add EnvironmentDiv
 
@@ -182,6 +187,11 @@ document.addEventListener('DOMContentLoaded',function () {
         let environmentAmount = 10
 
         showEnvironmentDiv(environmentAmount)
+
+        switchCheckbox = document.getElementById('mySwitch');
+        console.log("switchCheckbox3")
+        console.log(switchCheckbox)
+        console.log("switchCheckbox3")
 
                 //Chequear si tiene el producto cargado como bono ambiental.
 
