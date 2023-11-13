@@ -1,10 +1,7 @@
 (function () {
-    
     // Your JavaScript
-    let switchCheckbox = document.getElementById('mySwitch');
-    console.log("switchCheckbox1")
-    console.log(switchCheckbox)
-    console.log("switchCheckbox1")
+    const switchCheckbox = document.getElementById('mySwitch');
+
 
     function showEnvironmentDiv(environmentAmount) {
         // Get the div element with class "table-subtotal"
@@ -119,11 +116,6 @@
 
         // Append the style element to the document's head
         document.head.appendChild(style);
-        switchCheckbox = document.getElementById('mySwitch');
-        console.log("switchCheckbox2")
-        console.log(switchCheckbox)
-        console.log("switchCheckbox2")
-
 
     } //End function add EnvironmentDiv
 
@@ -179,7 +171,14 @@
     // Check the current URL path
     if (window.location.pathname.startsWith('/checkout/v3/next/')) {
 
+        //Chequear si tiene el producto cargado como bono ambiental.
 
+        for (let p = 0; p < LS.cart.items.length; p++) {
+            if (LS.cart.items[p].id == 190409457) {
+                console.log("item 190409457 existe")
+                switchCheckbox.checked = true;
+            }
+        }
 
         console.log("next path")
 
@@ -187,27 +186,6 @@
         let environmentAmount = 10
 
         showEnvironmentDiv(environmentAmount)
-
-        switchCheckbox = document.getElementById('mySwitch');
-        console.log("switchCheckbox3")
-        console.log(switchCheckbox)
-        console.log("switchCheckbox3")
-
-                //Chequear si tiene el producto cargado como bono ambiental.
-
-                for (let p = 0; p < LS.cart.items.length; p++) {
-                    if (LS.cart.items[p].variant_id == 764647295) {
-                        console.log("existe el producto bono")
-                        switchCheckbox.checked = true;
-                    }
-                }
-
-        if (switchCheckbox) {
-            // Add your event listener and other logic here
-            console.log("existe switchCheckbox")
-          } else {
-            console.error("Element with ID 'mySwitch' not found");
-          }
 
         // Check the state of the switch when it is clicked
         switchCheckbox.addEventListener('change', function () {
@@ -221,6 +199,7 @@
 
             } else {
                 //REMOVE PRODUCT. 
+
                 console.log('Switch is OFF');
             }
         });
@@ -230,34 +209,19 @@
 
     }
 
-
-
-
-
-
-
-
-
-
-
     console.log("LS")
     console.log(LS)
     console.log("LS")
-
     console.log("CART ITEMS")
     console.log(LS.cart.items)
     console.log("CART ITEMS")
-
     console.log("CART SHIPPING ADDRESS")
     console.log(LS.cart.shippingAddress)
     console.log("CART SHIPPING ADDRESS")
-
     console.log("CART SUBTOTAL")
     console.log(LS.cart.subtotal)
     console.log("CART SUBTOTAL")
-
     console.log("CART CONTACT")
     console.log(LS.cart.contact)
     console.log("CART CONTACT")
-});
-
+})();
