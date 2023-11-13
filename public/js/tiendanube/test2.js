@@ -144,64 +144,68 @@
         console.log("checked");
     }
 
-    const switchCheckbox = document.getElementById('mySwitch');
+    document.addEventListener('DOMContentLoaded', function (){
+        const switchCheckbox = document.getElementById('mySwitch');
 
-    console.log(window.location.pathname);
-
-    let environmentAmount = 10;
-    await showEnvironmentDiv(environmentAmount);
-
-    if (window.location.pathname.startsWith('/checkout/v3/next/')) {
-        console.log("next path");
-
-
-
-        for (const item of LS.cart.items) {
-            //validar que el item este seleccionado
-            if (item.variant_id == 764647295) {
-                console.log("existe el producto bono");
-                switchCheckbox.checked = true;
+        console.log(window.location.pathname);
+    
+        let environmentAmount = 10;
+        showEnvironmentDiv(environmentAmount);
+    
+        if (window.location.pathname.startsWith('/checkout/v3/next/')) {
+            console.log("next path");
+    
+    
+    
+            for (const item of LS.cart.items) {
+                //validar que el item este seleccionado
+                if (item.variant_id == 764647295) {
+                    console.log("existe el producto bono");
+                    switchCheckbox.checked = true;
+                }
             }
-        }
-
-        if (switchCheckbox) {
-            console.log("existe switchCheckbox");
-        } else {
-            console.error("Element with ID 'mySwitch' not found");
-        }
-
-        switchCheckbox.addEventListener('change', async function () {
-            if (switchCheckbox.checked) {
-                console.log('Switch is ON');
-                await addProductToCart();
-                reloadPageAfterDelay();
+    
+            if (switchCheckbox) {
+                console.log("existe switchCheckbox");
             } else {
-                console.log('Switch is OFF');
+                console.error("Element with ID 'mySwitch' not found");
             }
-        });
+    
+            switchCheckbox.addEventListener('change', async function () {
+                if (switchCheckbox.checked) {
+                    console.log('Switch is ON');
+                    await addProductToCart();
+                    reloadPageAfterDelay();
+                } else {
+                    console.log('Switch is OFF');
+                }
+            });
+    
+        } else {
+            document.getElementsByClassName("switch-container").style.display = "none"
+            console.log("start path");
+        }
+    
+        console.log("LS");
+        console.log(LS);
+        console.log("LS");
+    
+        console.log("CART ITEMS");
+        console.log(LS.cart.items);
+        console.log("CART ITEMS");
+    
+        console.log("CART SHIPPING ADDRESS");
+        console.log(LS.cart.shippingAddress);
+        console.log("CART SHIPPING ADDRESS");
+    
+        console.log("CART SUBTOTAL");
+        console.log(LS.cart.subtotal);
+        console.log("CART SUBTOTAL");
+    
+        console.log("CART CONTACT");
+        console.log(LS.cart.contact);
+        console.log("CART CONTACT");
 
-    } else {
-        document.getElementsByClassName("switch-container").style.display = "none"
-        console.log("start path");
-    }
-
-    console.log("LS");
-    console.log(LS);
-    console.log("LS");
-
-    console.log("CART ITEMS");
-    console.log(LS.cart.items);
-    console.log("CART ITEMS");
-
-    console.log("CART SHIPPING ADDRESS");
-    console.log(LS.cart.shippingAddress);
-    console.log("CART SHIPPING ADDRESS");
-
-    console.log("CART SUBTOTAL");
-    console.log(LS.cart.subtotal);
-    console.log("CART SUBTOTAL");
-
-    console.log("CART CONTACT");
-    console.log(LS.cart.contact);
-    console.log("CART CONTACT");
+    })
+ 
 })();
