@@ -1,9 +1,6 @@
 (function () {
     // Your JavaScript
     let switchCheckbox = document.getElementById('mySwitch');
-    console.log("switchCheckbox1")
-    console.log(switchCheckbox)
-    console.log("switchCheckbox1")
 
     function showEnvironmentDiv(environmentAmount) {
         // Get the div element with class "table-subtotal"
@@ -119,15 +116,14 @@
         // Append the style element to the document's head
         document.head.appendChild(style);
         switchCheckbox = document.getElementById('mySwitch');
-        console.log("switchCheckbox2")
-        console.log(switchCheckbox)
-        console.log("switchCheckbox2")
     } //End function add EnvironmentDiv
 
     function addProductToCart() {
         console.log("addProductToCart")
         if (LS.cart.items) {
             console.log("LSproduct")
+            //datos hardocodeados, esto deberia ser dinamico por cada usuario despues. 
+            //aplicar la lógica del store_id
             const list = [
                 { pid: 190409457, vid: 764647295 }
             ];
@@ -179,8 +175,8 @@
         //Chequear si tiene el producto cargado como bono ambiental.
 
         for (let p = 0; p < LS.cart.items.length; p++) {
-            if (LS.cart.items[p].id == 190409457) {
-                console.log("item 190409457 existe")
+            if (LS.cart.items[p].variant_id == 764647295) {
+                console.log("variant 764647295 existe")
                 switchCheckbox.checked = true;
             }
         }
@@ -188,14 +184,12 @@
         console.log("next path")
 
         //Fetch amount to show
+        //Fetch function that sends the whole information of the order and returns the amount to display.
         let environmentAmount = 10
 
-        showEnvironmentDiv(environmentAmount)
+        //function that edits the product variant price for the one of that session.
 
-        switchCheckbox = document.getElementById('mySwitch');
-        console.log("switchCheckbox3")
-        console.log(switchCheckbox)
-        console.log("switchCheckbox3")
+        showEnvironmentDiv(environmentAmount)
 
         // Check the state of the switch when it is clicked
         switchCheckbox.addEventListener('change', function () {
