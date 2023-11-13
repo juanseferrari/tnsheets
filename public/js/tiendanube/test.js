@@ -174,12 +174,7 @@
 
         //Chequear si tiene el producto cargado como bono ambiental.
 
-        for (let p = 0; p < LS.cart.items.length; p++) {
-            if (LS.cart.items[p].variant_id == 764647295) {
-                console.log("variant 764647295 existe")
-                switchCheckbox.checked = true;
-            }
-        }
+
 
         console.log("next path")
 
@@ -190,6 +185,13 @@
         //function that edits the product variant price for the one of that session.
 
         showEnvironmentDiv(environmentAmount)
+
+        for (let p = 0; p < LS.cart.items.length; p++) {
+            if (LS.cart.items[p].variant_id == 764647295) {
+                console.log("variant 764647295 existe")
+                switchCheckbox.checked = true;
+            }
+        }
 
         // Check the state of the switch when it is clicked
         switchCheckbox.addEventListener('change', function () {
