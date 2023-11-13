@@ -1,4 +1,5 @@
-(function () {
+document.addEventListener('DOMContentLoaded',function () {
+    
     // Your JavaScript
     var switchCheckbox = document.getElementById('mySwitch');
     console.log("switchCheckbox")
@@ -248,5 +249,5 @@
     console.log("CART CONTACT")
     console.log(LS.cart.contact)
     console.log("CART CONTACT")
-})();
+});
 
