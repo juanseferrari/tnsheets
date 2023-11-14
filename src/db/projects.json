@@ -148,7 +148,7 @@
         "texts": [
             {
                 "icon": "fa-solid fa-table",
-                "text": "¿Deseas crear una integración custom con Google Sheets?"
+                "text": "¿Integración custom con Google Sheets?"
             },
             {
                 "icon": "fa-solid fa-lightbulb",

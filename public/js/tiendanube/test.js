@@ -155,6 +155,44 @@
 
         }
     }
+
+    function removeProductToCart() {
+        console.log("removeProductToCart")
+        if (LS.cart.items) {
+            console.log("LSproduct")
+            //datos hardocodeados, esto deberia ser dinamico por cada usuario despues. 
+            //aplicar la lógica del store_id
+            const list = [
+                { pid: 190409457, vid: 764647295 }
+            ];
+
+            list.forEach(item => {
+                const data = new URLSearchParams();
+                data.append('delete_from_cart', item.pid);
+                data.append('variant_id', item.vid);
+
+                fetch('/comprar/', {
+                    method: 'POST',
+                    body: data,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('success');
+                        } else {
+                            console.log('error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+
+
+        }
+    }
     // Wait for 1 second (1000 milliseconds) and then reload the page
     function reloadPageAfterDelay() {
         setTimeout(function () {
@@ -205,8 +243,12 @@
 
             } else {
                 //REMOVE PRODUCT. 
-
                 console.log('Switch is OFF');
+                //Remove product from cart for the amount given. 
+                removeProductToCart()
+
+                // Call the function to initiate the delay and page reload
+                reloadPageAfterDelay();
             }
         });
 

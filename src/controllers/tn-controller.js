@@ -196,6 +196,35 @@ const tnController = {
 
     } /** Fin del else error */
   },
+  appUninstalled: async (req,res) => {
+    //funcion usada cuando se desinstala una conexion. Se guarda en la DB
+    let au_store_id = req.body.store_id
+    let au_event =  req.body.event
+    let response_object
+    if(au_event == "app/uninstalled"){
+    var fields_to_db = {
+        "active": "false",
+        "uninstalled_date": new Date().toISOString(),
+        "user_id": au_store_id.toString()
+      }
+    try {
+      let response = await mainService.createAirtableUpsert(true, ["user_id"], fields_to_db, "prod_users")
+      response_object = response
+      console.log(response)
+      } catch (error) {
+        response_object = error
+        console.log(response)
+      }
+    } else {
+      response_object = {
+        "error": {
+          "type": "NOTIFICATION_NOT_SUPPORTED",
+          "message": "This notification type is not supported."
+        }
+      }
+    }
+    res.json(response_object)
+  },
   getTokenTN: async (req, res) => {
     //todo A FUTURO: esta funcion deberia ser connectSheet y se aplicaria para todas las conexiones.
     //deberiamos validar la suscripcion

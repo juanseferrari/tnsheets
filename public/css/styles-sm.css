@@ -245,9 +245,7 @@
 .card-text-title {
     display: flex;
 }
-.card-text-title h2,p {
-    text-align: center;
-}
+
 .card-info-elements {
     margin-top: 1vh;
 }
