@@ -376,18 +376,74 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding: 30px 0;
+    text-align: center;
 }
 .footer-tos p, .footer-tos a {
     color: black;
-    font-size: 20px
+    font-size: 15px
 }
 .footer-tos p:hover,a:hover {
     color: black;
 }
 .footer2 {
-    padding: 0 10%;
-    background-color: white;
+    padding: 3% 10%;
+    background-color: #f8fbfdff;
+    flex-direction: column-reverse;
+    margin-top: 40px;
 }
+
+.social-div {
+    text-align: center;
+  }
+
+  .social-title {
+    margin-bottom: 20px;
+  }
+  .social-title a {
+    color: black;
+    font-size: 30px;
+}
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px; /* Adjust the width and height for the desired size */
+    height: 70px;
+    font-size: 24px; /* Adjust the font-size for the desired icon size */
+    border-radius: 50%;
+    margin: 0 10px;
+    background-color: #fff; /* Set the background color to the one that corresponds to the social platform */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  .social-icon i {
+    font-size: 40px;
+}
+
+  .social-icon:hover {
+    background-color: #e6e6e6; /* Change the background color on hover */
+    transform: scale(1.1); /* Add a scale effect on hover */
+  }
+
+  .fa-whatsapp {
+    color: #25d366; /* WhatsApp color */
+  }
+
+  .fa-linkedin-in {
+    color: #0077b5; /* LinkedIn color */
+  }
+
+  .fa-youtube {
+    color: #ff0000; /* YouTube color */
+  }
 
 /*  ---------------- LEGALES  -----------------  **/
 
@@ -459,6 +515,7 @@
     background-color: white;
     padding: 1vh 2vh;
     transition: all 0.3s ease;
+    transform: 0.3s ease;
 }
 .login-button button:hover {
     transform: scale(1.1);

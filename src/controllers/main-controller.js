@@ -171,8 +171,9 @@ const mainController = {
               "connection": response.fields.connection,
               "user_url": response.fields.user_url,
               "active": response.fields.active,
-              "country": response.fields.country
-
+              "country": response.fields.country,
+              "user_name": response.fields.user_name,
+              "user_logo": response.fields.user_logo
             }
 
           } catch (error) {

@@ -90,13 +90,24 @@
     display: none;
 }
 /* ----------- FOOTER  ---------------  **/
- 
+.footer2 {
+    flex-direction: row;
+    justify-content: space-between;
+}
 .footer-tos {
-    width: 70%;
+    width: 40%;
     display: flex;
     justify-content: space-between;
 }
-
+.social-div {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 60%;
+}
+.social-title{
+    margin: 0 15px 0 0 ;
+}
 /* ----------- FORM  ---------------  **/
 .contact-form button {
     width: 40%;
