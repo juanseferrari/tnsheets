@@ -29,6 +29,8 @@ const mainService = {
         "user_id": null,
         "user_name": null,
         "user_logo": null,
+        "country": null,
+        "user_url": null,
         "connection": null,
         "connection_date": null,
         "spreadsheet_id": null,
@@ -76,6 +78,8 @@ const mainService = {
         "user_id": user_data.fields.user_id,
         "user_name": user_data.fields.user_name,
         "user_logo": user_data.fields.user_logo,
+        "country": user_data.fields.country,
+        "user_url": user_data.fields.user_url,
         "connection": user_data.fields.connection,
         "connection_date": user_data.fields.connection_date,
         "spreadsheet_id": user_data.fields.spreadsheet_id,
@@ -415,8 +419,105 @@ const mainService = {
       }
     }
 
+    return response_object
+  },
+  async getAirtableDataById(connection_id, table) {
+    console.log("getAirtableDataById")
+    let response_object
+
+    let airtable_table = ""
+    if (table == "prod_users") {
+      airtable_table = AIRTABLE_PROD_USERS
+    } else if (table == "test_users") {
+      airtable_table = AIRTABLE_TEST_USERS
+    } else if (table == "subscriptions") {
+      airtable_table = AIRTABLE_SUBSCRIPTIONS
+    } else if (table == "google_users") {
+      airtable_table = AIRTABLE_GOOGLE_USERS
+    } else {
+      response_object = {
+        "error": "unsupported table"
+      }
+      return response_object
+    }
+
+    var get_request_options = {
+      method: 'GET',
+      headers: {
+        "Authorization": "Bearer " + AIRTABLE_ACCESS_TOKEN,
+        "Content-Type": "application/json"
+      },
+      redirect: 'follow'
+    };
+    let airtable_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + airtable_table + "/" + connection_id, get_request_options)
+    let user_response_data = await airtable_response.json();
+    console.log("user_response_data")
+    console.log(user_response_data)
+    console.log("user_response_data")
+
+    if (user_response_data.error) {
+      //Error al obtener informacion del usuario
+      response_object = {
+        "error": {
+          "type": "INVALID_CONNECTION_ID",
+          "message": "No record found with that connection_id."
+        }
+      }
+    } else{
+      //console.log("amount of records: 1")
+      response_object = user_response_data
+      console.log("user_response_data")
+      console.log(user_response_data)
+      console.log("user_response_data")
+
+    }
+    return response_object
+  },
 
 
+  async editAirtableDataById(connection_id, table, fields) {
+    console.log("editAirtableDataById")
+    let response_object
+
+    let airtable_table = ""
+    if (table == "prod_users") {
+      airtable_table = AIRTABLE_PROD_USERS
+    } else if (table == "test_users") {
+      airtable_table = AIRTABLE_TEST_USERS
+    } else if (table == "subscriptions") {
+      airtable_table = AIRTABLE_SUBSCRIPTIONS
+    } else if (table == "google_users") {
+      airtable_table = AIRTABLE_GOOGLE_USERS
+    } else {
+      response_object = {
+        "error": "unsupported table"
+      }
+      return response_object
+    }
+
+    var data_to_airtable = {
+      "fields": fields
+    }
+
+    var patch_request_options = {
+      method: 'PATCH',
+      headers: {
+        "Authorization": "Bearer " + AIRTABLE_ACCESS_TOKEN,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data_to_airtable),
+      redirect: 'follow'
+    };
+    let airtable_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + airtable_table + "/" + connection_id, patch_request_options)
+    let user_response_data = await airtable_response.json();
+
+    if (user_response_data.error) {
+      //Error al obtener informacion del usuario
+      response_object = user_response_data
+    } else{
+      //console.log("amount of records: 1")
+      response_object = user_response_data
+    }
     return response_object
   },
   async changeUserPlan(subscription_id, action) {

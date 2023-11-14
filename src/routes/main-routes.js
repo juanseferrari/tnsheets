@@ -15,12 +15,13 @@ const woController = require('../controllers/wo-controller');
 /**
  * Nomenclatura general:
  * TODOOO kebab-case
- * TODOOO en ingles las urls
  * /tiendanube/ -> Esto indica el servicio que vamos a invocar
- * /tn/oauth -> Este es el redirect url a usar para cada servicio
- * /tn -> La home del servicio
- * /tn/instructions -> las instrucciones y ahi mostramos el token. A futuro puede estar todo englobado en un mismo servicio.
- * /api -> Apis publicas de sheets central. A futuro podemos hacer como una api que te devuelva los tokens.
+ * /tiendanube/oauth -> Este es el redirect url a usar para cada servicio
+ * /tiendanube -> La home del servicio
+ * /tiendanube/config -> las instrucciones y ahi mostramos el token. A futuro puede estar todo englobado en un mismo servicio.
+ * /tiendanube/documentation -> Documentacion del servicio
+ * /tiendanube/documentation -> Documentacion del servicio
+
 
 
 /* Tiendanube */
@@ -31,13 +32,14 @@ router.get('/tiendanube/documentation', tnController.documentation);
 router.get('/tiendanube/oauth',tnController.tnOauth) 
 router.get('/tiendanube/premium',tnController.getPremium)  //hacerlo con todos los planes
 router.get('/tiendanube/sheet',tnController.getSheet)  //TODO hacerlo con todos los planes para que te redirija al sheet. 
+router.post('/tn/uninstalled', tnController.appUninstalled)
 
 
 /* Drive to Tiendanube */
 router.get('/drive-to-tiendanube', dtController.dtHome); 
 router.get('/drive-to-tiendanube/oauth',dtController.dtOauth) 
 router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
-router.get('/drive-to-tiendanube/config',dtController.configuration) //migrarlo
+router.get('/drive-to-tiendanube/config',dtController.configuration) 
 
 
 /* Mercado Pago */
@@ -74,12 +76,10 @@ router.get('/terms-and-conditions', mainController.terms);
 
 /* PUBLIC APIS*/
 //tienen que ser kebab-case
-router.post('/tn/get-token', tnController.getTokenTN) //sheet-configuration -> esta funcion deberia ser la misma para todos los sheets usados.
-router.get('/mp/getAccessToken/:Id', mpController.getTokenMP) //migrar a POST y que sea mp/get-token
+router.post('/tn/get-token', tnController.getTokenTN) //deprecar a futuro
+router.get('/mp/getAccessToken/:Id', mpController.getTokenMP) //TODO migrar a POST y que sea sheet-configuration
 router.post('/webhook-connection', mainController.webhookConnection)
-router.post('/tn/uninstalled', mainController.appUninstalled)
-router.post('/get-token', mainController.getTokenGeneric)
-router.post('/get-token2', mainController.getTokenGeneric2)
+router.post('/sheet-configuration', mainController.sheetConfiguration)
 
 /* STRIPE APIS*/
 //notificaciones de stripe
