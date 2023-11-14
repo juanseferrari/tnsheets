@@ -46,4 +46,3 @@ loginButton.addEventListener('click', () => {
 })
 
 
-$('.dropdown-toggle').dropdown()
