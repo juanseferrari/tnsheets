@@ -35,8 +35,9 @@
     width: 100%;
 }
 .logo-image {
-    height: 10vh;
-    width: 10vh;
+    max-height: 10vh;
+    height: 9.5vh;
+    width: 9.5vh;
 }
 
 
@@ -515,12 +516,18 @@
     background-color: white;
     padding: 1vh 2vh;
     transition: all 0.3s ease;
-    transform: 0.3s ease;
 }
 .login-button button:hover {
     transform: scale(1.1);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
     background-color: white;
+}
+.login-button-navbar2 button {
+    transition: all 0.3s ease;
+}
+.login-button-navbar2 button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
 }
 .login-button-text {
     display: flex;

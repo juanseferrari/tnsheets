@@ -82,7 +82,8 @@ const paymentsController = {
       "subscription_status": req.body.data.object.status,
       "subscription_id": req.body.data.object.id,
       "trial_end_date": trial_end.toISOString(),
-      coupon_code
+      coupon_code,
+      "test_mode": req.query.test_mode ? req.query.test_mode : "false"
       }
       try {
         let response = await mainService.createAirtableUpsert(true,["subscription_id"],fields_to_db,"subscriptions")
@@ -97,6 +98,8 @@ const paymentsController = {
       fields_to_db = {
       "subscription_status": req.body.data.object.status,
       "subscription_id": req.body.data.object.id,
+      "test_mode": req.query.test_mode ? req.query.test_mode : "false"
+
       }
       try {
         let response = await mainService.createAirtableUpsert(true,["subscription_id"],fields_to_db,"subscriptions")
@@ -111,6 +114,7 @@ const paymentsController = {
       fields_to_db = {
         "subscription_status": req.body.data.object.status,
         "subscription_id": req.body.data.object.id,
+        "test_mode": req.query.test_mode ? req.query.test_mode : "false"
         }
         try {
           let response = await mainService.createAirtableUpsert(true,["subscription_id"],fields_to_db,"subscriptions")
@@ -145,7 +149,8 @@ const paymentsController = {
       fields_to_db = {
         "payment_status": req.body.data.object.status,
         "payment_intent_id": req.body.data.object.id,
-        "expiration_date": date30
+        "expiration_date": date30,
+        "test_mode": req.query.test_mode ? req.query.test_mode : "false"
         }
         try {
           let response = await mainService.createAirtableUpsert(true,["payment_intent_id"],fields_to_db,"subscriptions")
