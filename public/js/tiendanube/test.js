@@ -162,16 +162,10 @@
             console.log("LSproduct")
             //datos hardocodeados, esto deberia ser dinamico por cada usuario despues. 
             //aplicar la lógica del store_id
-            const list = [
-                { pid: 190409457, vid: 764647295 }
-            ];
-
-            list.forEach(item => {
-                const data = new URLSearchParams();
-                data.append('delete_from_cart', item.pid);
-                data.append('variant_id', item.vid);
-
-                fetch('/comprar/', {
+            const data = new URLSearchParams();
+            data.append('quantity[' + encodeURIComponent('1496922410') + ']', 0);
+  
+                fetch('/update/', {
                     method: 'POST',
                     body: data,
                     headers: {
@@ -188,10 +182,12 @@
                     .catch(error => {
                         console.error('Error:', error);
                     });
-            });
+
 
 
         }
+        switchCheckbox.checked = false;
+
     }
     // Wait for 1 second (1000 milliseconds) and then reload the page
     function reloadPageAfterDelay() {
@@ -245,10 +241,10 @@
                 //REMOVE PRODUCT. 
                 console.log('Switch is OFF');
                 //Remove product from cart for the amount given. 
-                removeProductToCart()
+                removeProductToCart();
 
                 // Call the function to initiate the delay and page reload
-                reloadPageAfterDelay();
+                //reloadPageAfterDelay();
             }
         });
 
