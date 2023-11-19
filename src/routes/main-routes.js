@@ -25,7 +25,6 @@ const woController = require('../controllers/wo-controller');
 
 
 /* Tiendanube */
-router.get('/', tnController.tnHome); //deberia ser /tiendanube cuando tengamos la nueva home 
 router.get('/tiendanube', tnController.tnHome);
 router.get('/tiendanube/config', tnController.configuration);
 router.get('/tiendanube/documentation', tnController.documentation);
@@ -38,32 +37,35 @@ router.post('/tn/uninstalled', tnController.appUninstalled)
 /* Drive to Tiendanube */
 router.get('/drive-to-tiendanube', dtController.dtHome); 
 router.get('/drive-to-tiendanube/oauth',dtController.dtOauth) 
-router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
 router.get('/drive-to-tiendanube/config',dtController.configuration) 
+router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
 
 
 /* Mercado Pago */
 router.get('/mercadopago', mpController.mpHome);
 router.get('/mp-oauth', mpController.mpOauth); //todo a futuro que sea /mercadopago/oauth
 router.get('/mercadopago/config', mpController.configuration); 
+router.get('/mercadopago/documentation', mpController.documentation); 
 
 /* Shopify */
 router.get('/shopify', shController.shHome);
 router.get('/sh-oauth', shController.verifyRequest);
 router.get('/shopify/oauth', shController.shOauth)
 router.get('/shopify/config', shController.configuration);
+router.get('/shopify/documentation', shController.documentation);
 
 /* Woocommerce */
 router.get('/woocommerce', woController.woHome);
 router.get('/woocommerce/oauth', woController.woRedirect)
 router.post('/woocommerce/oauth', woController.woOauth)
 router.get('/woocommerce/config', woController.configuration);
+router.get('/woocommerce/documentation', woController.documentation);
 
 /* Future new home page. */
+router.get('/', mainController.home); 
 router.get('/home', mainController.home);
-router.get('/pricing', mainController.pricing);
-router.get('/error',mainController.errorPage)
-router.get('/account',mainController.home)
+router.get('/documentation', mainController.documentation); 
+router.get('/account',mainController.account);
 
 
 /* Contacto. */
@@ -76,8 +78,7 @@ router.get('/terms-and-conditions', mainController.terms);
 
 /* PUBLIC APIS*/
 //tienen que ser kebab-case
-router.post('/tn/get-token', tnController.getTokenTN) //deprecar a futuro
-router.get('/mp/getAccessToken/:Id', mpController.getTokenMP) //TODO migrar a POST y que sea sheet-configuration
+router.post('/tn/get-token', tnController.getTokenTN) //deprecar a futuro y que quede solo sheet-configuration
 router.post('/webhook-connection', mainController.webhookConnection)
 router.post('/sheet-configuration', mainController.sheetConfiguration)
 

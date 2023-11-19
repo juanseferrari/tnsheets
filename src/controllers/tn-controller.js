@@ -37,16 +37,22 @@ const tnController = {
       google_user_id = req.cookies.google_user_id
     }
     let user_connected = await mainService.searchUser(connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
     //Agregar el google_user
     console.log("user_connected")
     console.log(user_connected)
     console.log("user_connected")
 
-    res.render("index", { title: "Inicio", google_user_id, connection_id, user_connected });
+    //Path for documentation link
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];  
+    console.log("firstPath: "+ firstPath)
+
+    res.render("menus/tiendanube", { title: "Inicio", google_user_id, connection_id, user_connected,google_user,firstPath });
   },
   configuration: async (req, res) => {
-    connection_id = ""
-    google_user_id = ""
+    let connection_id = ""
+    let google_user_id = ""
     if (req.cookies.connection_id) {
       connection_id = req.cookies.connection_id
     }
@@ -54,8 +60,15 @@ const tnController = {
       google_user_id = req.cookies.google_user_id
     }
     let user_connected = await mainService.searchUser(connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+    
+    //Path for documentation link
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];  
+    console.log("firstPath: "+ firstPath)
 
-    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
+
+    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected,google_user, google_user_id, firstPath})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-b5981995bad64dc19be57d4704a76fff?pvs=4")

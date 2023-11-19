@@ -10,12 +10,6 @@ const crypto = require('crypto');
 //Services
 const mainService = require("../services/main-service");
 
-//AIRTABLE VALUES -> ESTO NO DEBERIA ESTAR ACA, MIGRAR AL SERVICE
-const airtable_base_id = process.env.AIRTABLE_BASE_ID
-const airtable_test_table_id = "tbl3tdymJSf7Rhiv0"
-const airtable_prod_table_id = process.env.AIRTABLE_PROD_USERS
-const airtable_access_token = process.env.AIRTABLE_ACCESS_TOKEN
-
 
 const mainController = {
   home: async (req, res) => {
@@ -32,7 +26,12 @@ const mainController = {
     let user_connected = await mainService.searchUser(connection_id)
     let google_user = await mainService.searchGoogleUser(google_user_id)
 
-    res.render("menus/home", { projectos, google_user_id, connection_id, user_connected, google_user });
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];
+    console.log("firstPath: " + firstPath)
+
+
+    res.render("index", { projectos, google_user_id, google_user });
   },
   pong: async (req, res) => {
     res.json({
@@ -50,25 +49,131 @@ const mainController = {
     }
     let user_connected = await mainService.searchUser(connection_id)
     let google_user = await mainService.searchGoogleUser(google_user_id)
-    
 
-    res.render("menus/contacto", { user_connected, google_user });
+
+    res.render("menus/contacto", { google_user_id, connection_id, user_connected, google_user });
+  },
+  account: async (req, res) => {
+    const projectos = await mainService.projectos()
+
+    // ----- GOOGLE DATA ------ 
+    let google_user_id = ""
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
+    }
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+    let google_connections = await mainService.getConnectionsByGoogleUser(google_user_id)
+
+    // ----- COOKIE DATA ----- 
+    let cookie_connections = []
+    let amount_of_results = 0
+
+    if(req.cookies.connection_id){
+      cookie_connections.push({
+        "id": req.cookies.connection_id,
+        "connection": "tiendanube",
+        "title": "Tiendanube"
+      })
+      amount_of_results++
+    }
+    if(req.cookies.dt_connection_id){
+      cookie_connections.push({
+        "id": req.cookies.dt_connection_id,
+        "connection": "drive-to-tiendanube",
+        "title": "Drive to Tiendanube"
+
+      })
+      amount_of_results++
+    }
+    if(req.cookies.mp_connection_id){
+      cookie_connections.push({
+        "id": req.cookies.mp_connection_id,
+        "connection": "mercadopago",
+        "title": "Mercado Pago"
+      })
+      amount_of_results++
+
+    }
+    if(req.cookies.wo_connection_id){
+      cookie_connections.push({
+        "id": req.cookies.wo_connection_id,
+        "connection": "woocommerce",
+        "title": "Woocommerce"
+      })
+      amount_of_results++
+    }
+    if(req.cookies.sh_connection_id){
+      cookie_connections.push({
+        "id": req.cookies.sh_connection_id,
+        "connection": "shopify",
+        "title": "Shopify"
+      })
+      amount_of_results++
+    }
+    //let user_connected = await mainService.searchUser(connection_id)
+
+
+
+    let connections = {
+      google_connections,
+      "cookie_connections": {
+        amount_of_results,
+        records: cookie_connections
+      }
+    }
+
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];
+    console.log("firstPath: " + firstPath)
+
+
+    //IF google_connections.error -> Devolver que no se puede acceder o llevar a la home
+    if (google_connections.error) {
+      let message = "Primero debes iniciar sesión para loguearte"
+      //TODO hacer el login page
+      res.render("menus/error-page", { message })
+    } else {
+      //Para cada una de las conexiones que tenga el usuario, traer la data (ni si quiera, podria solo poner estas conectado, ir a config o conectar. )
+      //Traer el array de projectos y mostrarlos en la pagina de
+      res.render("menus/account", { projectos, google_user_id, google_user, connections });
+    }
+
   },
   login: (req, res) => {
     res.render("menus/login", { title: "Login" })
   },
-  pricing: (req, res) => {
-    res.render("menus/pricing", { title: "Pricing" })
+  documentation: (req, res) => {
+    res.redirect("https://sheetscentral.notion.site/Documentaci-n-890e7b0a5d6c47f2a2b82d2061ca0ef8")
   },
-  privacy: (req, res) => {
-    res.render("menus/privacy-policy", {})
+  privacy: async (req, res) => {
+    let connection_id = ""
+    let google_user_id = ""
+    if (req.cookies.connection_id) {
+      connection_id = req.cookies.connection_id
+    }
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
+    }
+    let user_connected = await mainService.searchUser(connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+
+
+    res.render("menus/privacy-policy", { google_user_id, connection_id, user_connected, google_user })
   },
-  terms: (req, res) => {
-    res.render("menus/terms-and-conditions", {})
-  },
-  errorPage: (req, res) => {
-    let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
-    res.render("menus/error-page", { message })
+  terms: async (req, res) => {
+    let connection_id = ""
+    let google_user_id = ""
+    if (req.cookies.connection_id) {
+      connection_id = req.cookies.connection_id
+    }
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
+    }
+    let user_connected = await mainService.searchUser(connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+
+
+    res.render("menus/terms-and-conditions", { google_user_id, connection_id, user_connected, google_user })
   },
   webhookConnection: async (req, res) => {
     //receive webhooks url and connection id and save into DB to keep tracking
@@ -109,10 +214,10 @@ const mainController = {
         }
       }
     }
-  res.json(response_object)
+    res.json(response_object)
   },
 
-  sheetConfiguration: async (req,res) => {
+  sheetConfiguration: async (req, res) => {
     // funcion usada para obtener el token desde Google App Script. Es una funcion generica para todas las conexiones
     var sheet_email = req.body.sheet_email
     var connection_id = req.body.connection_id
@@ -140,11 +245,11 @@ const mainController = {
       sheet_email
     }
 
-  
-      await mainService.hashValues(connection_id, connection, "sheetapi5678").then(async hash  => {
+
+    await mainService.hashValues(connection_id, connection, "sheetapi5678").then(async hash => {
       console.log('Hash:', hash);
       //validate that hash are equal and that are OK
-      if(hash === income_hash){
+      if (hash === income_hash) {
         //Paso 1 OK como para devolver la info
         console.log("hash equal")
 
@@ -155,9 +260,9 @@ const mainController = {
           //Paso 2 OK usuario existe
 
           try {
-          //Paso 4 Upsert para agregar la info
+            //Paso 4 Upsert para agregar la info
             let response = await mainService.editAirtableDataById(connection_id, "prod_users", fields_to_db)
-          
+
             console.log("response editAirtableDataById")
             console.log(response)
             console.log("response editAirtableDataById")
@@ -188,27 +293,27 @@ const mainController = {
           }
         }
 
-          } else {
-          response_object = {
-              "error": {
-                "type": "INVALID_HASH",
-                "message": "Hash provided is incorrect."
-              }
-            }
+      } else {
+        response_object = {
+          "error": {
+            "type": "INVALID_HASH",
+            "message": "Hash provided is incorrect."
           }
+        }
+      }
 
-      })
+    })
       .catch(error => {
-          console.error('Error:', error);
-          response_object = {
-            "error": {
-              "type": "GENERIC_ERROR",
-              "message": "There was an error while trying to obtain the hash."
-            }
+        console.error('Error:', error);
+        response_object = {
+          "error": {
+            "type": "GENERIC_ERROR",
+            "message": "There was an error while trying to obtain the hash."
           }
+        }
       });
 
-      res.json(response_object)
+    res.json(response_object)
 
   }
 };

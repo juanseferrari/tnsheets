@@ -84,29 +84,30 @@ function signOut() {
 
 
 function showError(errorMessage) {
-  const errorContainer = document.getElementById('errorContainer');
+  const errorContainer = document.getElementById('error-container');
   errorContainer.innerHTML = `<i class="fas fa-exclamation-circle error-icon"></i>${errorMessage}`;
 }
 function hideError() {
-  const errorContainer = document.getElementById('errorContainer');
+  const errorContainer = document.getElementById('error-container');
   errorContainer.innerHTML = ""
 }
+
 /** WOOCOMMERCE LOGIN VALIDATIONS */
-var login_url = document.getElementById("woocommerce_url")
-var login_button = document.getElementById("woocommerce_button")
+var wo_login_url = document.getElementById("woocommerce_url")
+var wo_login_button = document.getElementById("woocommerce_button")
 
 
 
-login_button.addEventListener('click', () => {
+wo_login_button.addEventListener('click', () => {
   console.log("clicked on woocommerce")
-  console.log(login_url.value)
-  var url_valid = isUrlValid(login_url.value)
+  console.log(wo_login_url.value)
+  var url_valid = isUrlValid(wo_login_url.value)
   console.log("isUrlValid: "+ url_valid)
 
   if(url_valid){
     console.log("VALID!")
     hideError()
-    var final_url = extractBaseUrl(login_url.value)
+    var final_url = extractBaseUrl(wo_login_url.value)
     console.log("final_url: "+ final_url)
     // similar behavior as clicking on a link
     //window.location.href = "http://stackoverflow.com";

@@ -412,10 +412,8 @@ const mainService = {
     } else {
       //console.log("amount of records: more")
       response_object = {
-        "error": {
-          "type": "OBTENTION_OF_DATA_ERROR",
-          "message": "More than one value found."
-        }
+        "amount_of_results": user_response_data.records.length,
+        "records": user_response_data.records
       }
     }
 
@@ -519,6 +517,41 @@ const mainService = {
       response_object = user_response_data
     }
     return response_object
+  }, 
+  async getConnectionsByGoogleUser(google_user_id) {
+    console.log("getConnectionsByGoogleUser")
+    let response_object
+
+    if(google_user_id === "" || !google_user_id || google_user_id === undefined || google_user_id === null){
+      response_object = {
+        "error": {
+          "type": "NO GOOGLE_USER PROVIDED",
+          "message": "You need to add a google_user_id to return information"
+        }
+      }
+    } else {
+      let connections_data = await this.getAirtableData(AIRTABLE_PROD_USERS, google_user_id, "google_user_id")
+    
+      let records_to_response = []
+
+      for(let i = 0; i < connections_data.records.length; i++){
+        let record_object = {
+          "id": connections_data.records[i].id,
+          "connection": connections_data.records[i].fields.connection
+        }
+        records_to_response.push(record_object)
+
+      }
+
+      response_object = {
+        "amount_of_results": connections_data.amount_of_results,
+        "records": records_to_response
+      }
+  
+    }
+
+    return response_object
+
   },
   async changeUserPlan(subscription_id, action) {
     let return_object = {}

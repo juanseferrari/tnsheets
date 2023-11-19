@@ -27,34 +27,68 @@ const airtable_access_token = process.env.AIRTABLE_ACCESS_TOKEN
 
 const dtController = {
   dtHome: async (req, res) => {
-    let connection_id = ""
-    let google_user_id = ""
-    if (req.cookies.connection_id) {
-      connection_id = req.cookies.connection_id
+    let dt_connection_id = ""
+
+    if (req.cookies.dt_connection_id) {
+      dt_connection_id = req.cookies.dt_connection_id
+    } else if (req.cookies.connection_id){
+      let user_connected_2 = await mainService.searchUser(req.cookies.connection_id)
+      if(user_connected_2.connection == "drive-to-tiendanube"){
+        dt_connection_id = req.cookies.connection_id
+      }
+
     }
+    console.log("dt_connection_id")
+    console.log(dt_connection_id)
+    console.log("dt_connection_id")
+
+    let google_user_id = ""
     if (req.cookies.google_user_id) {
       google_user_id = req.cookies.google_user_id
     }
-    let user_connected = await mainService.searchUser(connection_id)
-    console.log("user_connected")
-    console.log(user_connected)
-    console.log("user_connected")
 
-    res.render("menus/drive-to-tiendanube", { title: "Drive to Tiendanube", google_user_id, connection_id, user_connected });
+    let user_connected = await mainService.searchUser(dt_connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+
+    //Path for documentation link
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];  
+    console.log("firstPath: "+ firstPath)
+
+
+    res.render("menus/drive-to-tiendanube", { title: "Drive to Tiendanube", google_user_id, dt_connection_id, user_connected, google_user,  firstPath });
   },
   configuration: async (req, res) => {
-    console.log("Cookies:", req.cookies)
-    connection_id = ""
-    google_user_id = ""
-    if (req.cookies.connection_id) {
-      connection_id = req.cookies.connection_id
+    let dt_connection_id = ""
+
+    if (req.cookies.dt_connection_id) {
+      dt_connection_id = req.cookies.dt_connection_id
+    } else if (req.cookies.connection_id){
+      let user_connected_2 = await mainService.searchUser(req.cookies.connection_id)
+      if(user_connected_2.connection == "drive-to-tiendanube"){
+        dt_connection_id = req.cookies.connection_id
+      }
+
     }
+    console.log("dt_connection_id")
+    console.log(dt_connection_id)
+    console.log("dt_connection_id")
+
+    let google_user_id = ""
     if (req.cookies.google_user_id) {
       google_user_id = req.cookies.google_user_id
     }
-    let user_connected = await mainService.searchUser(connection_id)
 
-    res.render("instructions/dt-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
+
+    let user_connected = await mainService.searchUser(dt_connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+
+    //Path for documentation link
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];  
+    console.log("firstPath: "+ firstPath)    
+
+    res.render("instructions/dt-instructions", { title: "Instrucciones", dt_connection_id, user_connected,google_user, google_user_id, firstPath})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-72f6a9435253493885209eab1d671c10?pvs=4")
@@ -160,14 +194,14 @@ const dtController = {
             if(tn_app_data['id']){
                 //SALIO TODO OK
                 //save cookie
-                res.cookie("connection_id", record_id)
+                res.cookie("dt_connection_id", record_id)
                 res.cookie("tn_user_name", tn_user_data['name']['es'])
           
                 res.redirect("/drive-to-tiendanube/config")
             } else {
                 //Fallo la generacion del app/uninstalled, pero hago el rendering igual
                 //save cookie
-                res.cookie("connection_id", record_id)
+                res.cookie("dt_connection_id", record_id)
                 res.cookie("tn_user_name",  tn_user_data['name']['es'])
 
                 res.redirect("/drive-to-tiendanube/config")
@@ -184,63 +218,6 @@ const dtController = {
         }
 
     } /** Fin del else error */
-  },
-  getTokenTN: async (req, res) => {
-    //todo A FUTURO: esta funcion deberia ser connectSheet y se aplicaria para todas las conexiones.
-    //deberiamos validar la suscripcion
-    // funcion usada para obtener el token desde GAS
-    let token = req.body.token
-    let spreadsheet_id = req.body.spreadsheet_id
-    var connection_id = req.body.connection_id
-
-    //TODO migrate to upsert data
-    //TODO agregar validacion del email y del tipo de connection. Si es tienda_nube/shopify, etc se tiene que enviar directo desde el Google Sheet. 
-    var data_to_airtable = {
-      "fields": {
-        "spreadsheet_id": spreadsheet_id,
-        "spreadsheet_connection_date": new Date().toISOString(),
-        "connection_id": connection_id
-      }
-    } //end data_to_airtable
-
-    var airtable_update_record = {
-      method: 'PATCH',
-      headers: {
-        "Authorization": "Bearer " + airtable_access_token,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data_to_airtable),
-      redirect: 'follow'
-    }
-    //FUTURO, AGREGAR LA VALIDACION DEL SPREADSHEET ID
-    if (token === "sheetapi5678") {
-      //agregar un token mas seguro o algo dinamico por usuario
-      try {
-        // A FUTURO: pasar esta funcion de get token a un service reusable.
-        let airtabe_request = await fetch("https://api.airtable.com/v0/" + airtable_base_id + "/" + airtable_prod_table_id + "/" + connection_id, airtable_update_record)
-        let airtable_response = await airtabe_request.json();
-        res.json({
-          "id": airtable_response.id,
-          "access_token": airtable_response.fields.access_token,
-          "store_id": airtable_response.fields.user_id
-        })
-      } catch (error) {
-        res.json({
-          "error": {
-            "type": "CONNECTION_NOT_FOUND",
-            "message": "The connection_id provided is incorrect or not found."
-          }
-        })
-      }
-    } else {
-      res.json({
-        "error": {
-          "type": "INVALID_TOKEN",
-          "message": "Token provided is incorrect."
-        }
-      })
-    }
-
   }
 
 };
