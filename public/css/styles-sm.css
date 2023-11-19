@@ -543,7 +543,7 @@
 }
 
 
-#errorContainer {
+#error-container {
     color: red;
     margin-top: 5px;
 }
@@ -669,6 +669,7 @@
     display: flex;
     align-items: center;
     text-align: center;
+    justify-content: center;
     margin-bottom: 2vh;
 }
 .step-3 {
@@ -794,7 +795,7 @@
 
 .division-text-content2 {
     display: block;
-    padding: 0 1vh;
+    padding: 0 2vh;
 }
 
 /** BOUNCE  **/ 

@@ -3,6 +3,7 @@
         "title": "Tiendanube",
         "subtitle": "Testing",
         "link": "/tiendanube",
+        "connection_name": "tiendanube",
         "image": "/images/tiendanube_logo_2.jpeg",
         "docs_link": "1234",
         "cta_text": "Ver más",
@@ -23,9 +24,34 @@
         ]
     },
     {
+        "title": "Drive to Tiendanube",
+        "subtitle": "Testing",
+        "link": "/drive-to-tiendanube",
+        "connection_name": "drive-to-tiendanube",
+        "image": "/images/logos/drive-to-tiendanube_logo.png",
+        "docs_link": "1234",
+        "cta_text": "Ver más",
+        "version": "V 1.2",
+        "texts": [
+            {
+                "icon": "fa-brands fa-google-drive",
+                "text": "Importación de imágenes"
+            },
+            {
+                "icon": "fa-solid fa-shirt",
+                "text": "Importación de productos"
+            },
+            {
+                "icon": "fa-regular fa-image",
+                "text": "Carga masiva de imágenes"
+            }
+        ]
+    },
+    {
         "title": "Mercado Pago",
         "subtitle": "Testing",
         "link": "/mercadopago",
+        "connection_name": "mercadopago",
         "image": "/images/logos/mercadopago_logo.png",
         "docs_link": "1234",
         "cta_text": "Ver más",
@@ -45,33 +71,12 @@
             }
         ]
     },
-    {
-        "title": "Drive to Tiendanube",
-        "subtitle": "Testing",
-        "link": "/drive-to-tiendanube",
-        "image": "/images/logos/drive-to-tiendanube_logo.png",
-        "docs_link": "1234",
-        "cta_text": "Ver más",
-        "version": "V 1.1",
-        "texts": [
-            {
-                "icon": "fa-brands fa-google-drive",
-                "text": "Importación de imágenes"
-            },
-            {
-                "icon": "fa-solid fa-shirt",
-                "text": "Importación de productos"
-            },
-            {
-                "icon": "fa-regular fa-image",
-                "text": "Carga masiva de imágenes"
-            }
-        ]
-    },
+ 
     {
         "title": "Shopify",
         "subtitle": "Testing",
         "link": "/shopify",
+        "connection_name": "shopify",
         "image": "/images/logos/shopify3_logo.png",
         "docs_link": "1234",
         "cta_text": "Ver más",
@@ -95,6 +100,7 @@
         "title": "Woocommerce",
         "subtitle": "Testing",
         "link": "/woocommerce",
+        "connection_name": "woocommerce",
         "image": "/images/logos/woocommerce2_logo.jpeg",
         "docs_link": "1234",
         "cta_text": "Ver más",
@@ -117,10 +123,11 @@
     {
         "title": "Revolut Business",
         "subtitle": "Testing",
-        "link": "/revsheet",
+        "link": "/contacto",
+        "connection_name": "revsheet",
         "image": "/images/logos/revolut_logo.png",
         "docs_link": "1234",
-        "cta_text": "Ver más",
+        "cta_text": "Contactar",
         "version": "V 1.2",
         "texts": [
             {
@@ -141,6 +148,7 @@
         "title": "Integración Custom",
         "subtitle": "Testing",
         "link": "/contacto",
+        "connection_name": "custom",
         "image": "/images/logos/sheets2_logo.png",
         "docs_link": "1234",
         "cta_text": "Contactar",

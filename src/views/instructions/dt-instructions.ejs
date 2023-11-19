@@ -26,7 +26,7 @@
 
       <!-- STEP 1 -->
       <div id="step1">
-        <% if (connection_id) { %>
+        <% if (dt_connection_id) { %>
           <!-- step-block si ya esta logueado-->
           <div class="step-block step-ok">
             <div class="step-title">
@@ -177,7 +177,7 @@
                       <!-- A futuro agregar validacion de cookie por si el usuario no esta logueado -->
                       <label for="id-conexion">ID de Conexión</label>
                       <input type="text" class="form-control" id="id-conexion" aria-describedby="basic-addon2"
-                        value="<%= connection_id ? connection_id : '' %>">
+                        value="<%= dt_connection_id ? dt_connection_id : '' %>">
                     </div>
                     <div class="input-group-item2">
                       <button class="btn btn-success shadow" onclick="return copyToClipboard(event, this);"><i
@@ -244,9 +244,9 @@
                 </div>
                 <%} else { %>
                   <div class="login-button">
-                    <button type="button" class="btn btn-outline-secondary" <%=(connection_id)?'':'disabled' %> >
+                    <button type="button" class="btn btn-outline-secondary" <%=(dt_connection_id)?'':'disabled' %> >
                       <a class="black-button-a"
-                        href="https://buy.stripe.com/7sIbMg1Q86jJ4TK6oq?client_reference_id=<%= connection_id %>"
+                        href="https://buy.stripe.com/7sIbMg1Q86jJ4TK6oq?client_reference_id=<%= dt_connection_id %>"
                         target="_blank">
                         <div class="login-button-text">
                           <img class="login-button-logo" src="../images/rocket.png" alt="">

@@ -20,34 +20,51 @@ const mainService = require("../services/main-service");
 
 const woController = {
   woHome: async (req,res) => {
-    let connection_id = ""
+    let wo_connection_id = ""
     let google_user_id = ""
-    if (req.cookies.connection_id) {
-      connection_id = req.cookies.connection_id
+    if (req.cookies.wo_connection_id) {
+      wo_connection_id = req.cookies.wo_connection_id
     }
     if (req.cookies.google_user_id) {
       google_user_id = req.cookies.google_user_id
     }
-    let user_connected = await mainService.searchUser(connection_id)
+    let user_connected = await mainService.searchUser(wo_connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+
     //Agregar el google_user
 
-    res.render( "menus/woocommerce", { title: "Woocommerce", google_user_id, connection_id, user_connected });
+      //Path for documentation link
+      var pathSegments = req.url.split('/');
+      var firstPath = pathSegments[1];  
+      console.log("firstPath: "+ firstPath)    
+  
+
+    res.render( "menus/woocommerce", { title: "Woocommerce", google_user_id, wo_connection_id, user_connected,google_user, firstPath });
   },
   configuration: async (req,res) => {
    
     console.log("Cookies:", req.cookies)
-    connection_id = ""
-    google_user_id = ""
-    if (req.cookies.connection_id) {
-      connection_id = req.cookies.connection_id
+    let wo_connection_id = ""
+    let google_user_id = ""
+    if (req.cookies.wo_connection_id) {
+      wo_connection_id = req.cookies.wo_connection_id
     }
     if (req.cookies.google_user_id) {
       google_user_id = req.cookies.google_user_id
     }
-    let user_connected = await mainService.searchUser(connection_id)
+    let user_connected = await mainService.searchUser(wo_connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
 
-    //res.redirect("/tiendanube/config")
-    res.render("instructions/wo-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
+      //Path for documentation link
+      var pathSegments = req.url.split('/');
+      var firstPath = pathSegments[1];  
+      console.log("firstPath: "+ firstPath)    
+  
+
+    res.render("instructions/wo-instructions", { title: "Instrucciones", wo_connection_id, user_connected,google_user, google_user_id, firstPath})
+  },
+  documentation: (req,res) => {
+    res.redirect("https://sheetscentral.notion.site/Woocommerce-6eafd7faecc44b9c94e0732d48e18a63")
   },
   woOauth: async (req,res) => {
     //URL 
@@ -100,7 +117,7 @@ const woController = {
             //OK with connection. 
   
             //save connection_id cookie
-            res.cookie("connection_id", response['id'])
+            res.cookie("wo_connection_id", response['id'])
             //redirect user to instructions page
             res.redirect('/woocommerce/config')
           }

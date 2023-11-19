@@ -20,34 +20,53 @@ const mainService = require("../services/main-service");
 
 const shController = {
   shHome: async (req,res) => {
-    let connection_id = ""
-    let google_user_id = ""
-    if (req.cookies.connection_id) {
-      connection_id = req.cookies.connection_id
+    let sh_connection_id = ""
+    if (req.cookies.sh_connection_id) {
+      sh_connection_id = req.cookies.sh_connection_id
     }
+
+    let google_user_id = ""
     if (req.cookies.google_user_id) {
       google_user_id = req.cookies.google_user_id
     }
-    let user_connected = await mainService.searchUser(connection_id)
+    let user_connected = await mainService.searchUser(sh_connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+    
     //Agregar el google_user
 
-    res.render( "menus/shopify", { title: "Shopify", google_user_id, connection_id, user_connected });
+      //Path for documentation link
+      var pathSegments = req.url.split('/');
+      var firstPath = pathSegments[1];  
+      console.log("firstPath: "+ firstPath)    
+  
+
+    res.render( "menus/shopify", { title: "Shopify", google_user_id, sh_connection_id, user_connected,google_user, firstPath });
   },
   configuration: async (req,res) => {
    
-    console.log("Cookies:", req.cookies)
-    connection_id = ""
-    google_user_id = ""
-    if (req.cookies.connection_id) {
-      connection_id = req.cookies.connection_id
+    let sh_connection_id = ""
+    if (req.cookies.sh_connection_id) {
+      sh_connection_id = req.cookies.sh_connection_id
     }
+
+    let google_user_id = ""
     if (req.cookies.google_user_id) {
       google_user_id = req.cookies.google_user_id
     }
-    let user_connected = await mainService.searchUser(connection_id)
+    let user_connected = await mainService.searchUser(sh_connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+
+      //Path for documentation link
+      var pathSegments = req.url.split('/');
+      var firstPath = pathSegments[1];  
+      console.log("firstPath: "+ firstPath)    
+  
 
     //res.redirect("/tiendanube/config")
-    res.render("instructions/sh-instructions", { title: "Instrucciones", connection_id, user_connected, google_user_id})
+    res.render("instructions/sh-instructions", { title: "Instrucciones", sh_connection_id, user_connected,google_user, google_user_id, firstPath})
+  },
+  documentation: (req,res) => {
+    res.redirect("https://sheetscentral.notion.site/Shopify-b36aaefaf3f040b6ac8fccb9d8912a0e")
   },
   verifyRequest: async (req,res) => {
     console.log("req.query")
@@ -81,12 +100,18 @@ const shController = {
 
     if(areEqual) {
       console.log('Digests match. Redirecting user.');
+
+      let google_user_id = ""
+      if (req.cookies.google_user_id) {
+        google_user_id = req.cookies.google_user_id
+      }
+
       //res.json({"ok": true})
-      res.redirect(301,`https://${shop}/admin/oauth/authorize?client_id=${sh_client_id}&scope=${scopes}&redirect_uri=${sh_prod_redirect_url}&state=${state}`)
+      res.redirect(301,`https://${shop}/admin/oauth/authorize?client_id=${sh_client_id}&scope=${scopes}&redirect_uri=${sh_prod_redirect_url}&state=${google_user_id}`)
     } else {
       console.log('Digests do not match.');
       //render error page because there was an error
-      let message = "Unable to access this page"
+      let message = "Shopify url is incorrect. Try again with a new url."
       res.render("menus/error-page", { message })
     }
   },  
@@ -157,8 +182,8 @@ const shController = {
         } else {
           //OK with connection. 
 
-          //save connection_id cookie
-          res.cookie("connection_id", response['id'])
+          //save sh_connection_id cookie
+          res.cookie("sh_connection_id", response['id'])
           //redirect user to instructions page
           res.redirect('/shopify/config')
       

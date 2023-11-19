@@ -163,7 +163,7 @@
             //datos hardocodeados, esto deberia ser dinamico por cada usuario despues. 
             //aplicar la lógica del store_id
             const data = new URLSearchParams();
-            data.append('quantity[' + encodeURIComponent('1496922410') + ']', 0);
+            data.append('quantity[1500061560]', 0);
   
                 fetch('/update/', {
                     method: 'POST',
@@ -189,6 +189,47 @@
         switchCheckbox.checked = false;
 
     }
+
+    function removeProductFromCart2() {
+        const cartItems = document.querySelectorAll(".js-cart-item");
+      
+        cartItems.forEach((item) => {
+          const itemId = item.dataset.itemId;
+          console.log("itemId: "+ itemId)
+          const quantity = {};
+          quantity[itemId] = 0;
+      
+          const data = new URLSearchParams();
+          data.append('quantity', JSON.stringify(quantity));
+
+          console.log("data remove: "+ data)
+      
+          fetch("/cart/update/", {
+            method: "POST",
+            body: data,
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          })
+            .then((response) => {
+              if (response.ok) {
+                console.log("success remove cart");
+              } else {
+                console.log("error remove cart");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+      
+        alert(
+          "Se borrarán todas las variantes y la página se actualizará. Por favor, espere."
+        );
+        window.location.reload();
+      }
+
+
     // Wait for 1 second (1000 milliseconds) and then reload the page
     function reloadPageAfterDelay() {
         setTimeout(function () {
@@ -241,7 +282,7 @@
                 //REMOVE PRODUCT. 
                 console.log('Switch is OFF');
                 //Remove product from cart for the amount given. 
-                removeProductToCart();
+                removeProductFromCart2();
 
                 // Call the function to initiate the delay and page reload
                 //reloadPageAfterDelay();

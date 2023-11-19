@@ -27,7 +27,7 @@
 
       <!-- STEP 1 -->
       <div id="step1">
-        <% if (connection_id) { %>
+        <% if (wo_connection_id) { %>
           <!-- step-block si ya esta logueado-->
           <div class="step-block step-ok">
             <div class="step-title">
@@ -35,7 +35,7 @@
                 <i class="fa-solid fa-circle-check"></i>
               </div>
               <div class="step-text">
-                <p>Paso 1: Login Tiendanube</p>
+                <p>Paso 1: Login Woocommerce</p>
               </div>
             </div>
 
@@ -44,7 +44,7 @@
                 <% if (user_connected.user_logo) { %>
                   <img class="step-user-info-logo" src="<%= user_connected.user_logo %>" alt="">
                   <%} else { %>
-                    <img class="step-user-info-logo" src="../images/tiendanube_logo3.png" alt="">
+                    <img class="step-user-info-logo" src="../images/logos/woocommerce2_logo.png" alt="">
                     <% } %>
 
               </div>
@@ -77,11 +77,11 @@
               </div>
               <div class="step-user-info">
                 <div class="step-left-text">
-                  <h4>Inicia sesión con Tienda Nube para comenzar a usar Sheets Central </h4>
+                  <h4>Inicia sesión con Woocommerce para comenzar a usar Sheets Central </h4>
                 </div>
                 <div class="step-right-text">
                   <!-- Login con tienda nube button-->
-                  <%- include("../partials/buttons/tn-button.ejs") %>
+                  <%- include("../partials/buttons/wo-button.ejs") %>
                 </div>
 
               </div>
@@ -178,7 +178,7 @@
                       <!-- A futuro agregar validacion de cookie por si el usuario no esta logueado -->
                       <label for="id-conexion">ID de Conexión</label>
                       <input type="text" class="form-control" id="id-conexion" aria-describedby="basic-addon2"
-                        value="<%= connection_id ? connection_id : '' %>">
+                        value="<%= wo_connection_id ? wo_connection_id : '' %>">
                     </div>
                     <div class="input-group-item2">
                       <button class="btn btn-success shadow" onclick="return copyToClipboard(event, this);"><i
@@ -311,7 +311,7 @@
                   <div class="login-button">
                     <button type="button" class="btn btn-outline-secondary">
                       <a class="black-button-a"
-                        href="https://buy.stripe.com/3cscQkbqI8rRae4cMN?client_reference_id=<%= connection_id %>"
+                        href="https://buy.stripe.com/3cscQkbqI8rRae4cMN?client_reference_id=<%= wo_connection_id %>"
                         target="_blank">
                         <div class="login-button-text">
                           <img class="login-button-logo" src="../images/rocket.png" alt="">

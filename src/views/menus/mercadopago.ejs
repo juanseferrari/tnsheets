@@ -18,33 +18,70 @@
 
 
 
-    <div class=" container">
-      <section class="" >
-        <div class="full-page-item">
-          <h1 class="main-title">Tu gestión de Mercado Pago, ahora en Google Sheets💻</h1>
-          <h3 class="main-text">
-            Todos los negocios, desde las multinacionales hasta los micro emprendimientos, usan hojas de cálculo para su gestión. Usa lo mejor de los dos mundos. 
-          </h3>
-          <div class="main-image">
-            <img src="../images/fondo1.png" alt="" class="shadow rounded">
-    
-          </div>
-          <%- include("../partials/buttons/mp-button.ejs") %>
-          <!--- 
-          <div class="mp-button">
-            <button type="button" class="btn btn-outline-secondary">
-              <a href="https://auth.mercadopago.com/authorization?client_id=8414965337573666&response_type=code&platform_id=mp&redirect_uri=https://www.sheetscentral.com/mp-oauth">Login Mercado Pago</a>
-            </button>
-          </div>
-          -->
-          <div class="arrow">
-            <i class="fa-solid fa-angles-down bounce"></i>
-          </div>
-        </div>
-      </section>
 
- 
+
+
+<div class="container">
+  <h1 class="main-title">Mercado Pago</h1>
+
+  <section class="" id="mercadopago">
+    <div class="full-page-item">
+      <div class="main-division2">
+        <div class="division-text-content2">
+          <div class="division-left-content-top">
+            <h1 class="main-title-2">Tu gestión de Mercado Pago, ahora en Google Sheets💻
+            </h1>
+          </div>
+          <div class="division-left-content-bottom">
+            <h3 class="explain-text"> Todos los negocios, desde las multinacionales hasta los micro emprendimientos, usan hojas de cálculo para su gestión. Usa lo mejor de los dos mundos. </h3>
+
+            <% if (mp_connection_id && user_connected.connection == 'mercadopago' && user_connected.active == 'true' ) { %>
+              <div class="login-button">
+                <button type="button" class="btn btn-outline-secondary">
+                  <a class="black-button-a" href="/mercadopago/config" >
+                    <div class="login-button-text">
+                      <img class="login-button-logo" src="../images/configuration.png" alt="">
+                      <p class="login-button-p">Ir a configuración</p>
+                    </div>
+                  </a>
+                </button>
+              </div> 
+            <%} else { %>
+              <%- include("../partials/buttons/mp-button.ejs") %>
+              <%} %>
+
+            <div class="login-button">
+              <button type="button" class="btn btn-outline-secondary">
+                <a class="black-button-a"
+                  href="/mercadopago/documentation"
+                  target="_blank">
+                  <div class="login-button-text">
+                    <img class="login-button-logo" src="../images/document.png" alt="">
+                    <p class="login-button-p">Ver documentación</p>
+                  </div>
+                </a>
+              </button>
+            </div>
+
+          </div>
+
+        </div><!-- Divion left content-->
+        <div class="division-right-content2 video-container shadow">
+          <video loop autoplay playsinline muted class="intro-video">
+            <source src="../images/demo_videos/home_video_2.mp4" type="video/mp4" />
+          </video>
+        </div><!-- Divion right content-->
+
+      </div>
+
     </div>
+
+  </section>
+
+</div>
+    
+
+
     <%- include("../partials/contact-form.ejs") %> 
 
    <%- include("../partials/footer.ejs") %> 

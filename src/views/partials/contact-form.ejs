@@ -22,9 +22,11 @@
         <label for="message">Mensaje</label>
       </div>
 
-      <% if (user_connected.connection_id) { %>
-        <input type="hidden" id="user_id" name="user_id" value="<%= user_connected.user_id %>">
-      <%} %>
+      <% if (typeof user_connected !=='undefined' ) { %>
+        <% if (user_connected.connection_id) { %>
+          <input type="hidden" id="user_id" name="user_id" value="<%= user_connected.user_id %>">
+        <%} %>
+      <% } %>
   
       <div class="send-buttons">
         <!--<button type="submit" class="btn btn-primary send-button">Enviar por mail</button>-->

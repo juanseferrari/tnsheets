@@ -20,7 +20,7 @@
 
     <div class=" container">
 
-   <section class="" id="shopify">
+   <section class="" id="woocommerce">
       <div class="full-page-item">
         <div class="main-division2">
           <div class="division-text-content2">
@@ -32,10 +32,11 @@
               <h3 class="explain-text"> La herramienta que todas las empresas usan.  </h3>
 
               <div class="url_div">
+                <!-- AGREGAR EL IF wo_connection_id -->
                 <div>
                   <label for="woocommerce_url" class="form-label">Ingresar la URL de tu tienda de Woocommerce</label>
                   <input class="form-control form-control-lg" id="woocommerce_url" type="text" placeholder="https://www.example.com" aria-label=".form-control-lg example">
-                  <div id="errorContainer"></div>
+                  <div id="error-container"></div>
 
                 </div>
                 <div class="login-button">
@@ -55,9 +56,9 @@
             </div>
 
           </div><!-- Divion left content-->
-          <div class="division-right-content2 video-container">
+          <div class="division-right-content2 video-container shadow">
             <video loop autoplay playsinline muted class="intro-video">
-              <source src="../images/inicio-dt1.mp4" type="video/mp4" />
+              <source src="../images/demo_videos/home_video_2.mp4" type="video/mp4" />
             </video>
           </div><!-- Divion right content-->
 

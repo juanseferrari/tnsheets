@@ -29,26 +29,49 @@ var mp_redirect_url = "https://www.sheetscentral.com/mp-oauth"
 
 const mpController = {
   mpHome: async (req,res) => {
-    let connection_id = ""
+    let mp_connection_id = ""
     let google_user_id = ""
-    if (req.cookies.connection_id) {
-      connection_id = req.cookies.connection_id
+    if (req.cookies.mp_connection_id) {
+      mp_connection_id = req.cookies.mp_connection_id
     }
     if (req.cookies.google_user_id) {
       google_user_id = req.cookies.google_user_id
     }
-    let user_connected = await mainService.searchUser(connection_id)
+    let user_connected = await mainService.searchUser(mp_connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
 
-    res.render( "menus/mercadopago", { title: "Mercado Pago", google_user_id, connection_id, user_connected });
+      //Path for documentation link
+      var pathSegments = req.url.split('/');
+      var firstPath = pathSegments[1];  
+      console.log("firstPath: "+ firstPath)    
+  
+
+    res.render( "menus/mercadopago", { title: "Mercado Pago", google_user_id, mp_connection_id, user_connected, google_user, firstPath });
   },
-  configuration: (req,res) => {
+  configuration: async (req,res) => {
     console.log("Cookies:", req.cookies)
-    connection_id = ""
-
-    if(req.cookies.connection_id){
-      id_conexion = req.cookies.connection_id
+    
+    let mp_connection_id = ""
+    let google_user_id = ""
+    if (req.cookies.mp_connection_id) {
+      mp_connection_id = req.cookies.mp_connection_id
     }
-    res.render("instructions/mp-instructions", {title: "Instrucciones",connection_id})
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
+    }
+    let user_connected = await mainService.searchUser(mp_connection_id)
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+
+      //Path for documentation link
+      var pathSegments = req.url.split('/');
+      var firstPath = pathSegments[1];  
+      console.log("firstPath: "+ firstPath)    
+
+      
+    res.render("instructions/mp-instructions", {title: "Instrucciones",mp_connection_id,user_connected, google_user, google_user_id, firstPath})
+  },
+  documentation: (req,res) => {
+    res.redirect("https://sheetscentral.notion.site/Mercado-Pago-b65c0b5feb5545c795f277bfe6c5ef04")
   },
   mpOauth: async (req,res) => {
     let code = req.query.code
@@ -98,13 +121,11 @@ const mpController = {
           let airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "connection"], data_to_airtable_db, "prod_users")
           let id_conexion = airtable_response['id']
 
-          res.cookie("connection_id", id_conexion)
+          res.cookie("mp_connection_id", id_conexion)
           res.cookie("mp_user_id", data['user_id'].toString())
           res.cookie("mp_user_name", mp_user_info["company_name"])
-          //TODO MIGRAR A REDIRECT
-          //TODO MIGRAR A connection_id
-          res.render("instructions/mp-instructions", { id_conexion, title: "Instrucciones" });
 
+          res.redirect("/mercadopago/config")
         } catch (error) {
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282991"
           res.render("menus/error-page", { message })
@@ -116,28 +137,6 @@ const mpController = {
   },  
   getTokenMP: async (req,res) => {
     //WIP AGREGARLE LO DEL REFRESH TOKEN
-    //WIP MIGRARLO A AIRTABLE
-
-    let token = req.query.token
-    if(token === "sheetapi5678"){
-      try {
-        const user = await MpUser.findById(req.params.Id)
-        res.json({
-          "id": user._id,
-          "access_token": user.mp_access_token,
-          "user_id": user.mp_user_id
-        })
-    } catch (error) {
-        res.json({
-          "error": "Usuario no encontrado",
-          "errorName": error.name
-        })
-    }
-    } else {
-      res.json({
-        "error": "Token invalido"
-      })
-    }
 
   },   
   
