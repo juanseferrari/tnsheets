@@ -1,6 +1,7 @@
 // ***** Global requires *****
 const path = require("path");
 const fs = require("fs");
+const { response } = require("express");
 
 
 //AIRTABLE VALUES
@@ -531,16 +532,23 @@ const mainService = {
       }
     } else {
       let connections_data = await this.getAirtableData(AIRTABLE_PROD_USERS, google_user_id, "google_user_id")
-    
+ 
       let records_to_response = []
 
-      for(let i = 0; i < connections_data.records.length; i++){
-        let record_object = {
-          "id": connections_data.records[i].id,
-          "connection": connections_data.records[i].fields.connection
+      if(connections_data.error){
+        response_object = {
+          "amount_of_results": 0,
+          "records": []
         }
-        records_to_response.push(record_object)
-
+      } else {
+        for(let i = 0; i < connections_data.records.length; i++){
+          let record_object = {
+            "id": connections_data.records[i].id,
+            "connection": connections_data.records[i].fields.connection
+          }
+          records_to_response.push(record_object)
+  
+        }
       }
 
       response_object = {
@@ -549,7 +557,6 @@ const mainService = {
       }
   
     }
-
     return response_object
 
   },
