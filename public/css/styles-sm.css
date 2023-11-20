@@ -35,7 +35,7 @@
     width: 100%;
 }
 .logo-image {
-    max-height: 10vh;
+    max-height: 9.5vh;
     height: 9.5vh;
     width: 9.5vh;
 }
@@ -86,7 +86,6 @@
     margin: 1.5%;
     max-width: 97%;
     max-height: 10%;
-    display: block;
 }
 .navbar2-container {
     display: flex;
