@@ -87,10 +87,6 @@
     max-width: 97%;
     max-height: 10%;
 }
-.navbar2-container {
-    display: flex;
-    width: 90%;
-}
 .btn-login {
     background-color: #9cbb78ff;
     width: 80%;
@@ -141,9 +137,6 @@
     border-radius: 10px;
     margin-bottom: 5vh;
 
-}
-.navbar-brand-container {
-    max-height: 10%;
 }
 
 /** ---------- HOME ----------------*/
