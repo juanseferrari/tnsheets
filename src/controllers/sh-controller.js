@@ -73,6 +73,10 @@ const shController = {
     console.log(req.query)
     console.log("req.query")
 
+    //example url: 
+    var example_url = `https://quickstart-1893efc4.myshopify.com/admin/oauth/authorize?client_id=${sh_client_id}&scope=${scopes}&redirect_uri=${sh_prod_redirect_url}`
+    console.log(example_url)
+
     const originalHMAC = req.query.hmac
     let shop = req.query.shop
     const queryParameters = req.query;
@@ -138,7 +142,12 @@ const shController = {
     } else {
       //access token obtained correctly
       let data = await response.json();
+      console.log("shopify data")
+      console.log(data)
+      console.log("shopify data")
+
       let sh_access_token = data['access_token']
+
 
       //GET SHOP DATA
       var GETrequestOptions = {
@@ -150,7 +159,10 @@ const shController = {
         };
         let sh_request_data = await fetch(`https://${shop}/admin/api/2023-07/shop.json`, GETrequestOptions)
         let sh_shop_data = await sh_request_data.json();
-       
+        console.log("sh_shop_data")
+        console.log(sh_shop_data)
+        console.log("sh_shop_data")
+
 
       //Save token in Airtable
       var fields_to_db = {
