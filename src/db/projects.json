@@ -156,7 +156,7 @@
         "texts": [
             {
                 "icon": "fa-solid fa-table",
-                "text": "¿Integración custom con Google Sheets?"
+                "text": "Automatización custom"
             },
             {
                 "icon": "fa-solid fa-lightbulb",
@@ -164,7 +164,7 @@
             },
             {
                 "icon": "fa-solid fa-circle-nodes",
-                "text": "Creamos integraciones a medida"
+                "text": "Integraciones a medida"
             }
         ]
     }
