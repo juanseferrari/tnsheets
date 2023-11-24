@@ -222,14 +222,15 @@
 
             //Existe un solo SKU
             console.log("EXISTE UN SOLO SKU ")
-            const quantity = { [result[0].id]: 0 };
-        
-    
-            console.log("quantity: "+ quantity)
-        
+
+            let item_id = result[0].id.toString()
+            console.log("item_id")
+            console.log(item_id)
+            console.log("item_id")
+
             await fetch("/cart/update/", {
               method: "POST",
-              body:  JSON.stringify({ quantity }),
+              body:  JSON.stringify({ quantity: {item_id: 0}}),
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
               },
