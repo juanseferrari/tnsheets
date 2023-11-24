@@ -124,14 +124,10 @@
             console.log("LSproduct")
             //datos hardocodeados, esto deberia ser dinamico por cada usuario despues. 
             //aplicar la lógica del store_id
-            const list = [
-                { pid: 190409457, vid: 764647295 }
-            ];
-
-            list.forEach(item => {
                 const data = new URLSearchParams();
-                data.append('add_to_cart', item.pid);
-                data.append('variant_id', item.vid);
+                data.append('add_to_cart', 191980378); //product_id
+                data.append('variant_id', 771992910); //variant_id
+                data.append('quantity', 4); //quantity
 
                 fetch('/comprar/', {
                     method: 'POST',
@@ -150,7 +146,6 @@
                     .catch(error => {
                         console.error('Error:', error);
                     });
-            });
 
 
         }
@@ -194,6 +189,7 @@
         const cartItems = document.querySelectorAll(".js-cart-item");
       
         cartItems.forEach((item) => {
+            console.log("item: " + JSON.parse(item))
           const itemId = item.dataset.itemId;
           console.log("itemId: "+ itemId)
           const quantity = {};
@@ -202,7 +198,7 @@
           const data = new URLSearchParams();
           data.append('quantity', JSON.stringify(quantity));
 
-          console.log("data remove: "+ data)
+          console.log("data: "+ data)
       
           fetch("/cart/update/", {
             method: "POST",

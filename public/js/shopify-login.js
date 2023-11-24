@@ -49,11 +49,18 @@ sh_login_button.addEventListener('click', (e) => {
   console.log("clicked on shopify")
   console.log(sh_login_url.value)
   var url_valid = isUrlValid(sh_login_url.value)
+  //DO A HEAD REQUEST TO CHECK IF THE POWERED BY IS FROM SHOPIFY
   console.log("isUrlValid: "+ url_valid)
 
   if(url_valid){
     console.log("VALID!")
     hideError() 
+    let final_url = sh_login_url.value
+    console.log("final_url: "+ final_url)
+    //https://quickstart-1893efc4.myshopify.com/admin/oauth/authorize?client_id=75abca07b3318a56f4073ec4ccb16e90&scope=read_products,write_products,read_customers,read_orders,read_inventory,write_inventory&redirect_uri=http://localhost:5001/shopify/oauth
+    var redirection_url = final_url + "/admin/oauth/authorize?client_id=75abca07b3318a56f4073ec4ccb16e90&scope=read_products,write_products,read_customers,read_orders,read_inventory,write_inventory&redirect_uri=https://www.sheetscentral.com/shopify/oauth"  
+    console.log(redirection_url)
+    window.location.href = redirection_url
   } else {
     e.preventDefault()
     showError("Invalid url")
