@@ -7,11 +7,11 @@ const crypto = require('crypto');
 
 
 //SHOPIFY CREDENTIALS PROD
-const sh_client_id = "9acb8be0a8e01c48a864ee381db4f45f"
-const sh_client_secret = "bcdb404ea553bca5d5ef5f82a607a0ec"
+const sh_client_id = "75abca07b3318a56f4073ec4ccb16e90"
+const sh_client_secret = "85cf4f19f554f3971b2f6ac3b7c3123d"
 const sh_test_redirect_url = "http://localhost:5001/shopify/oauth"
 const sh_prod_redirect_url = "https://www.sheetscentral.com/shopify/oauth"
-const scopes = 'read_products,write_products,read_customers,read_orders'
+const scopes = 'read_products,write_products,read_customers,read_orders,read_inventory,write_inventory'
 var state = '1234'
 
 //SERVICES
@@ -239,7 +239,7 @@ const shController = {
         });
 
 
-      // https://quickstart-1893efc4.myshopify.com/admin/oauth/authorize?client_id=9acb8be0a8e01c48a864ee381db4f45f&scope=read_products,write_products,read_customers,read_orders&redirect_uri=http://localhost:5001/shopify/oauth
+      // https://quickstart-1893efc4.myshopify.com/admin/oauth/authorize?client_id=75abca07b3318a56f4073ec4ccb16e90&scope=read_products,write_products,read_customers,read_orders,read_inventory,write_inventory&redirect_uri=http://localhost:5001/shopify/oauth
 
 
 
