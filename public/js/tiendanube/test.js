@@ -167,45 +167,11 @@
         }
     }
 
-    function removeProductToCart() {
-        console.log("removeProductToCart")
-        if (LS.cart.items) {
-            console.log("LSproduct")
-            //datos hardocodeados, esto deberia ser dinamico por cada usuario despues. 
-            //aplicar la lógica del store_id
-            const data = new URLSearchParams();
-            data.append('quantity[1500061560]', 0);
-  
-                fetch('/update/', {
-                    method: 'POST',
-                    body: data,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            console.log('success');
-                        } else {
-                            console.log('error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-
-
-
-        }
-        switchCheckbox.checked = false;
-
-    }
-
-    function removeProductFromCart2() {
+    function removeProductFromCart() {
         const cartItems = document.querySelectorAll(".js-cart-item");
       
         cartItems.forEach((item) => {
-            console.log("item: " + JSON.parse(item))
+        console.log("item: " + JSON.parse(item))
           const itemId = item.dataset.itemId;
           console.log("itemId: "+ itemId)
           const quantity = {};
@@ -235,10 +201,6 @@
             });
         });
       
-        alert(
-          "Se borrarán todas las variantes y la página se actualizará. Por favor, espere."
-        );
-        window.location.reload();
       }
 
 
@@ -294,8 +256,9 @@
                 //REMOVE PRODUCT. 
                 console.log('Switch is OFF');
                 //Remove product from cart for the amount given. 
-                removeProductFromCart2();
+                removeProductFromCart();
 
+                console.log("log after remove product")
                 // Call the function to initiate the delay and page reload
                 //reloadPageAfterDelay();
             }
