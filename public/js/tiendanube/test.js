@@ -1,6 +1,22 @@
 (function () {
+
+//FLUJOS DENTRO DEL JAVASCRIPT
+
+//VALIDAR QUE EL BONO AMBIENTAL EXISTA EN PRODUCTOS. SI NO EXISTE, CREAR EL PRODUCTO. SINO DEVOLVER ESE DATO
+
+//ESTO SE PUEDE HACER EN EL PASO ANTERIOR AL CHECKOUT. 
+
+//MOSTRAR EL BONO AMBIENTAL EN ESE CHECKOUT (EL BONO AMBIENTAL PUEDE SER UNA IMAGEN O MEJORA DEL CHECKOUT)
+
+
+
+
     // Your JavaScript
     let switchCheckbox = document.getElementById('mySwitch');
+
+    //OBTENER INFO DEL SHIPPING Y CALCULAR DISTANCIA Y DEVOLVER EL environmentAmount
+
+    
 
     function showEnvironmentDiv(environmentAmount) {
         // Get the div element with class "table-subtotal"
@@ -258,8 +274,8 @@
         showEnvironmentDiv(environmentAmount)
 
         for (let p = 0; p < LS.cart.items.length; p++) {
-            if (LS.cart.items[p].variant_id == 764647295) {
-                console.log("variant 764647295 existe")
+            if (LS.cart.items[p].variant_id == 771992910) {
+                console.log("variant 771992910 existe")
                 switchCheckbox.checked = true;
             }
         }
