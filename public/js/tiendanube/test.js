@@ -167,9 +167,12 @@
         }
     }
 
-    function removeProductFromCart() {
+    function removeProductsFromCart() {
         const cartItems = document.querySelectorAll(".js-cart-item");
-      
+        console.log("cartItems")
+        console.log(cartItems)
+        console.log("cartItems")
+
         cartItems.forEach((item) => {
         console.log("item: " + JSON.parse(item))
           const itemId = item.dataset.itemId;
@@ -202,6 +205,55 @@
         });
       
       }
+
+    async function removeUniqueProductFromCart(){
+        let items_on_cart = LS.cart.items
+        console.log("items_on_cart")
+        console.log(items_on_cart)
+        console.log("items_on_cart")
+
+        var result = items_on_cart.filter(obj => {
+            return obj.sku === "BSG1234A"
+          })
+        console.log("result")
+        console.log(result)
+        console.log("result")
+        if(result.length === 1){
+
+            //Existe un solo SKU
+            console.log("EXISTE UN SOLO SKU ")
+            const quantity = { [result[0].id]: 0 };
+        
+    
+            console.log("quantity: "+ quantity)
+        
+            await fetch("/cart/update/", {
+              method: "POST",
+              body:  JSON.stringify({ quantity }),
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+            })
+              .then((response) => {
+                if (response.ok) {
+                  console.log("success remove cart");
+                  console.log(response)
+                } else {
+                  console.log("error remove cart");
+                  console.log(response)
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+
+        }
+
+
+
+   
+
+    }
 
 
     // Wait for 1 second (1000 milliseconds) and then reload the page
@@ -256,7 +308,7 @@
                 //REMOVE PRODUCT. 
                 console.log('Switch is OFF');
                 //Remove product from cart for the amount given. 
-                removeProductFromCart();
+                removeUniqueProductFromCart()
 
                 console.log("log after remove product")
                 // Call the function to initiate the delay and page reload
