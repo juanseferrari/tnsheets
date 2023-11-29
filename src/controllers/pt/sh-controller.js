@@ -15,7 +15,8 @@ const scopes = 'read_products,write_products,read_customers,read_orders,read_inv
 var state = '1234'
 
 //SERVICES
-const mainService = require("../services/main-service");
+//const mainService = require("../services/main-service");
+const mainService = require("../../services/main-service");
 
 
 const shController = {
@@ -40,7 +41,7 @@ const shController = {
     console.log("firstPath: " + firstPath)
 
 
-    res.render("menus/shopify", { title: "Shopify", google_user_id, sh_connection_id, user_connected, google_user, firstPath });
+    res.render("menus/en/shopify", { title: "Shopify", google_user_id, sh_connection_id, user_connected, google_user, firstPath });
   },
   configuration: async (req, res) => {
 

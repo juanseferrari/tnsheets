@@ -7,7 +7,7 @@ const fetch = require('node-fetch');
 const url = require('url');
 
 //Services
-const mainService = require("../services/main-service");
+const mainService = require("../../services/main-service");
 
 //Sheets Central tokens. 
 const dt_client_id = "7342"

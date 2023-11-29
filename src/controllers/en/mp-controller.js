@@ -21,7 +21,7 @@ const mp_test_client_secret = process.env.MP_TEST_CLIENT_SECRET
 
 
 //SERVICES
-const mainService = require("../services/main-service");
+const mainService = require("../../services/main-service");
 
 
 var mp_redirect_url = "https://www.sheetscentral.com/mp-oauth"

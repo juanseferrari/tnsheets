@@ -1,16 +1,17 @@
 var express = require('express');
 var router = express.Router();
 
-const mainController = require('../controllers/main-controller');
-const tnController = require('../controllers/tn-controller');
-const mpController = require('../controllers/mp-controller');
+const mainController = require('../controllers/es/main-controller');
+
+// Apps controllers
+const tnController = require('../controllers/es/tn-controller');
+const mpController = require('../controllers/es/mp-controller');
+const shController = require('../controllers/es/sh-controller');
+const dtController = require('../controllers/es/dt-controller');
+const woController = require('../controllers/es/wo-controller');
+
 const paymentsController = require('../controllers/payments-controller');
 const googleController = require('../controllers/google-controller');
-const shController = require('../controllers/sh-controller');
-const dtController = require('../controllers/dt-controller');
-const woController = require('../controllers/wo-controller');
-
-//a futuro un controller por servicio
 
 /**
  * Nomenclatura general:
@@ -76,8 +77,9 @@ router.get('/privacy-policy', mainController.privacy);
 router.get('/terms-and-conditions', mainController.terms);
 
 
-/* PUBLIC APIS*/
-//tienen que ser kebab-case
+/*  --------------------- PUBLIC APIS --------------------- */
+//TODO migrar a /api/  en el api router
+//Notificaciones que vienen de los sheets.
 router.post('/tn/get-token', tnController.getTokenTN) //deprecar a futuro y que quede solo sheet-configuration
 router.post('/webhook-connection', mainController.webhookConnection)
 router.post('/sheet-configuration', mainController.sheetConfiguration)
