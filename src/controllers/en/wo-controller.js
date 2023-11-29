@@ -15,7 +15,7 @@ const scopes = 'read_products,write_products,read_customers,read_orders'
 var state = '1234'
 
 //SERVICES
-const mainService = require("../services/main-service");
+const mainService = require("../../services/main-service");
 
 
 const woController = {

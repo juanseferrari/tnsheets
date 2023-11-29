@@ -6,8 +6,10 @@ var logger = require('morgan');
 
 require('dotenv/config')
 
-const indexRouter = require('./src/routes/main-routes');
-
+const esRouter = require('./src/routes/es-routes');
+const enRouter = require('./src/routes/en-routes');
+const ptRouter = require('./src/routes/pt-routes');
+const apiRouter = require('./src/routes/api-routes');
 
 var app = express();
 
@@ -21,8 +23,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-
+app.use('/', esRouter);
+app.use('/en/', enRouter);
+app.use('/pt/', ptRouter);
+app.use('/api/', apiRouter);
 
 // Middleware to handle JavaScript files in the 'public/js' folder
 app.use('/js', (req, res, next) => {
