@@ -64,6 +64,7 @@ const googleController = {
     }
     try {
         let response = await mainService.createAirtableUpsert(true,["google_user_id"],fields_to_db,"google_users")
+        //hacer analisis si el response es correcto.
         res.redirect("/");
       } catch (error) {
         //render info of error
