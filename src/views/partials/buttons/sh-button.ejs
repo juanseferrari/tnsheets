@@ -1,10 +1,19 @@
-<div class="login-button">
-    <button type="button" class="btn btn-outline-secondary">
-      <a class="tn-button-a" href="https://www.tiendanube.com/apps/5434/authorize" target="_blank">
+<div class="url_div">
+  <!-- AGREGAR CASO EN QUE EL USUARIO YA ESTE LOGUEADO -->
+  <div>
+    <label for="shopify_url" class="form-label">Ingresar la URL de tu tienda de Shopify</label>
+    <input class="form-control form-control-lg" id="shopify_url" type="text" placeholder="https://www.example.com" aria-label=".form-control-lg example">
+    <div id="error-container"></div>
+  </div>
+  <div class="login-button">
+    <button type="button" class="btn btn-outline-secondary" id="shopify_button">
+      <a class="black-button-a">
+        <!-- CAMBIAR ESTO -->
         <div class="login-button-text">
-          <img class="login-button-logo" src="../images/tiendanube_logo.png" alt="">
-          <p class="login-button-p">Login Tiendanube</p>
+          <img class="login-button-logo" src="/images/logos/shopify_logo.png" alt="">
+          <p class="login-button-p">Login Shopify</p>
         </div>
       </a>
     </button>
+  </div>
 </div>
