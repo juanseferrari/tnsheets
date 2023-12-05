@@ -74,10 +74,7 @@ function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
     sessionStorage.clear();
-    info_div.style.display = "none"
-    logout_element.style.display = "none"
-    login_element.style.display = "block"
-
+ 
     console.log('User signed out.');
   });
 }
