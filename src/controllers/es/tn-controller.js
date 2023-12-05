@@ -67,7 +67,6 @@ const tnController = {
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)
 
-
     res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected,google_user, google_user_id, firstPath})
   },
   documentation: (req,res) => {

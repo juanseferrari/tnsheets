@@ -35,13 +35,13 @@
               <a href="/#contacto">Contacto</a>
             </div>
 
-            <div class="menu-item login-button-navbar2">
+            <div class="menu-item login-button-navbar2 hover-element">
               <% if (typeof google_user_id !=='undefined' ) { %>
                 <% if (google_user_id ) { %>
                   <a href="/account">
                     <div class="image-navbar-container">
                       <div class="user-arrow">
-                        <i class="fa-solid fa-chevron-down"></i>
+                        <i class="fa-solid fa-user"></i>
                       </div>
                       <div class="user-image-container">
                         <% if (google_user.user_picture_url ) { %>

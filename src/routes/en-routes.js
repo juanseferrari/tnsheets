@@ -21,6 +21,7 @@ const woController = require('../controllers/en/wo-controller');
  * /tiendanube/documentation -> Documentacion del servicio
 
 
+//LOS DE AUTH EN DIFERENTES IDIOMAS DEBERIAMOS SACARALO DE ACA
 
 /* Tiendanube */
 router.get('/tiendanube', tnController.tnHome);

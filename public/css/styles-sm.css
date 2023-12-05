@@ -93,7 +93,7 @@
 }
 
 .login-button-navbar2 {
-    margin-left: 10%;
+    margin-top: 10%;
     width: 100%;
 }
 .user-image-navbar{
@@ -638,6 +638,8 @@
 }
 .step-user-info {
     display: block;
+    margin-bottom: 2vh;
+
 }
 .step-user-info-logo {
     height: 100%;
@@ -662,7 +664,6 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    margin-bottom: 2vh;
 }
 .step-3 {
     display: block;

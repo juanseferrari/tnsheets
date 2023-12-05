@@ -94,6 +94,7 @@ const dtController = {
     res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-72f6a9435253493885209eab1d671c10?pvs=4")
   },
   dtOauth: async (req, res) => {
+    /**EL OAUTH DEBERIA SER UNO SOLO PARA TODOS LOS IDIOMAS.  */
     let code = req.query.code
     let state = req.query.state //Este es el google_id
 
