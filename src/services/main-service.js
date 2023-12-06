@@ -2,6 +2,7 @@
 const path = require("path");
 const fs = require("fs");
 const { response } = require("express");
+const { connect } = require("http2");
 
 
 //AIRTABLE VALUES
@@ -407,7 +408,10 @@ const mainService = {
       }
     } else if (user_response_data.records.length == 1) {
       //console.log("amount of records: 1")
-      response_object = user_response_data.records[0]['fields']
+      response_object = {
+        "id": user_response_data.records[0]['id'],
+        ...user_response_data.records[0]['fields']
+      }
       //console.log("user_response_data.records[0]['fields']")
       //console.log(user_response_data.records[0]['fields'])
       //console.log("user_response_data.records[0]['fields']")
@@ -534,7 +538,7 @@ const mainService = {
       }
     } else {
       let connections_data = await this.getAirtableData(AIRTABLE_PROD_USERS, google_user_id, "google_user_id")
- 
+
       let records_to_response = []
 
       if(connections_data.error){
@@ -542,7 +546,16 @@ const mainService = {
           "amount_of_results": 0,
           "records": []
         }
+      } else if(!connections_data.records){
+        response_object = {
+          "amount_of_results": 1,
+          "records": [{
+            "id": connections_data.id,
+            "connection": connections_data.connection
+          }]
+        }
       } else {
+
         for(let i = 0; i < connections_data.records.length; i++){
           let record_object = {
             "id": connections_data.records[i].id,
@@ -551,14 +564,20 @@ const mainService = {
           records_to_response.push(record_object)
   
         }
+        response_object = {
+          "amount_of_results": connections_data.amount_of_results,
+          "records": records_to_response
+        }
       }
 
-      response_object = {
-        "amount_of_results": connections_data.amount_of_results,
-        "records": records_to_response
-      }
+
   
     }
+
+    console.log("response_object")
+    console.log(response_object)
+    console.log("response_object")
+
     return response_object
 
   },
