@@ -541,6 +541,8 @@ const mainService = {
 
       let records_to_response = []
 
+      //TODO
+      //Agregar informacion extra de las conexiones, por ejemplo: Nombre tienda (para multiusuario),
       if(connections_data.error){
         response_object = {
           "amount_of_results": 0,

@@ -152,6 +152,11 @@ const apiController = {
 
     res.json(response_object)
 
+  },
+  logs: async (req,res) => {
+    //API FOR LOGS 
+    //when users connect things and use the product, save it in a DB.
+    //Save it into google console DB???? Airtable?
   }
 };
 
