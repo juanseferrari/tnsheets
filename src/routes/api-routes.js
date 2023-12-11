@@ -18,6 +18,8 @@ router.get('/subscription-status', paymentsController.checkSubscription)
 
 /* GOOGLE AUTH DATA */
 router.post('/google-auth',googleController.googleoauth)
+router.post('/google-auth2',googleController.googleoauth2)
+
 //router.get('/google-login',googleController.googleLink)
 
 
