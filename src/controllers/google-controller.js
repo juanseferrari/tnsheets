@@ -71,6 +71,13 @@ const googleController = {
         console.log(error)
         res.json(error)
       }
+  },
+  googleoauth2: async (req,res) => {
+    console.log(req.body)
+    res.json({
+      "body": req.body
+    })
+
   }
 };
 
