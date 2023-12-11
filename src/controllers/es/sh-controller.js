@@ -194,6 +194,7 @@ const shController = {
             "connection": "shopify",
             //"google_user_id": google_user_id,
             "active": "true",
+            "uninstalled_date": "",
             "user_name": data["shop"]['name'],
             "user_email": data["shop"]['email'],
             //"user_logo": user_logo,
