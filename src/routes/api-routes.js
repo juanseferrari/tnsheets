@@ -15,6 +15,7 @@ router.post('/sheet-configuration', apiController.sheetConfiguration)
 //notificaciones de stripe
 router.post('/payment-webhooks', paymentsController.notificationController)
 router.get('/subscription-status', paymentsController.checkSubscription)
+router.post('/redeem-payment', paymentsController.redeemPayment)
 
 /* GOOGLE AUTH DATA */
 router.post('/google-auth',googleController.googleoauth)
