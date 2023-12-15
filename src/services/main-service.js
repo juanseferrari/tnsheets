@@ -1,8 +1,8 @@
 // ***** Global requires *****
 const path = require("path");
 const fs = require("fs");
-const { response } = require("express");
-const { connect } = require("http2");
+
+const paymentService = require("../services/payment-service")
 
 
 //AIRTABLE VALUES
@@ -11,6 +11,7 @@ const AIRTABLE_TEST_USERS = process.env.AIRTABLE_TEST_USERS
 const AIRTABLE_PROD_USERS = process.env.AIRTABLE_PROD_USERS
 const AIRTABLE_ACCESS_TOKEN = process.env.AIRTABLE_ACCESS_TOKEN
 const AIRTABLE_SUBSCRIPTIONS = process.env.AIRTABLE_SUBSCRIPTIONS
+const AIRTABLE_PAYMENTS = process.env.AIRTABLE_PAYMENTS
 const AIRTABLE_GOOGLE_USERS = process.env.AIRTABLE_GOOGLE_USERS
 
 // ***** Database folder *****
@@ -54,7 +55,7 @@ const mainService = {
       redirect: 'follow'
     };
     //Get information about payment subscription
-    const airtable_payment_status = await this.validatePaymentSubscription(connection_id)
+    const airtable_payment_status = await paymentService.validatePaymentSubscription(connection_id)
 
 
     if (airtable_payment_status.subscription_status) {
@@ -218,77 +219,6 @@ const mainService = {
     return response_object
 
   },
-  async validatePaymentSubscription(connection_id) {
-    //TODO cambiarlo todo esto, esta atado con alambres horrible
-
-    //validar que el usuario esta pago OK
-    //en el return devolver un objecto que sea el status de la suscripcion
-    let response_object
-
-
-    //validar si el usuario existe
-    let user_exists = await this.validateUserExists(connection_id)
-    if (user_exists) {
-      var get_request_options = {
-        method: 'GET',
-        headers: {
-          "Authorization": "Bearer " + AIRTABLE_ACCESS_TOKEN,
-          "Content-Type": "application/json"
-        },
-        redirect: 'follow'
-      };
-      //TODO MIGRATE TO getAirtableData
-      let airtable_subs_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + AIRTABLE_SUBSCRIPTIONS + "?filterByFormula={client_reference_id}='" + connection_id + "'", get_request_options)
-      let user_subs_data = await airtable_subs_response.json();
-      //console.log(user_subs_data)
-      if (user_subs_data.records.length == 0) {
-        //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
-        // console.log("amount of records: 0")
-        response_object = {
-          "connection_id": connection_id,
-          "subscription": false,
-          "subscription_status": "no subscription",
-          "subscription_customer_email": null,
-          "payment_status": false,
-          "expiration_date": false,
-          "message": "Connection do not have any current subscription or payment."
-        }
-      } else if (user_subs_data.records.length == 1) {
-        //console.log("amount of records: 1")
-        console.log(user_subs_data.records[0].fields)
-        response_object = {
-          "connection_id": connection_id,
-          "subscription": true,
-          "subscription_status": user_subs_data.records[0].fields.subscription_status, //solucionar esto. 
-          "subscription_customer_email": user_subs_data.records[0].fields.customer_email,
-          "payment_status": (user_subs_data.records[0].fields.payment_status) ? user_subs_data.records[0].fields.payment_status : false,
-          "expiration_date": (user_subs_data.records[0].fields.expiration_date) ? user_subs_data.records[0].fields.expiration_date : false,
-          "message": "subscription or payment found."
-        }
-      } else {
-        //console.log("amount of records: more")
-        response_object = {
-          "error": {
-            "type": "SUBSCRIPTION_ERROR",
-            "message": "More than one subscription found."
-          }
-        }
-      }
-    } else {
-      response_object = {
-        "error": {
-          "type": "CONNECTION_ID_NOT_FOUND",
-          "message": "connection_id was not found or incorrect."
-        }
-      }
-    }
-
-
-
-
-
-    return response_object
-  },
   async createAirtableUpsert(upsert, fields_to_merge_on, fields, table) {
     //funcion generica que hace upsert en airtable
 
@@ -305,6 +235,9 @@ const mainService = {
       airtable_table = AIRTABLE_SUBSCRIPTIONS
     } else if (table == "google_users") {
       airtable_table = AIRTABLE_GOOGLE_USERS
+    } else if (table == "payments") {
+      airtable_table = AIRTABLE_PAYMENTS
+
     } else {
       return_object = {
         "error": "unsupported table"
@@ -393,36 +326,40 @@ const mainService = {
     };
     let airtable_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + table + "?filterByFormula={" + filter + "}='" + id + "'", get_request_options)
     let user_response_data = await airtable_response.json();
-    //console.log("user_response_data")
-    //console.log(user_response_data)
-    //console.log("user_response_data")
 
-    if (user_response_data.records.length == 0) {
-      //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
-      console.log("amount of records: 0")
-      response_object = {
-        "error": {
-          "type": "NO_DATA_FOUND",
-          "message": "No record found with that id on that table."
+    if (user_response_data.error) {
+      response_object = user_response_data
+    } else {
+      if (user_response_data.records.length == 0) {
+        //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
+        console.log("amount of records: 0")
+        response_object = {
+          "error": {
+            "type": "NO_DATA_FOUND",
+            "message": "No record found with that id on that table."
+          }
+        }
+      } else if (user_response_data.records.length == 1) {
+        //console.log("amount of records: 1")
+        response_object = {
+          "id": user_response_data.records[0]['id'],
+          ...user_response_data.records[0]['fields']
+        }
+        //console.log("user_response_data.records[0]['fields']")
+        //console.log(user_response_data.records[0]['fields'])
+        //console.log("user_response_data.records[0]['fields']")
+
+      } else {
+        //console.log("amount of records: more")
+        response_object = {
+          "amount_of_results": user_response_data.records.length,
+          "records": user_response_data.records
         }
       }
-    } else if (user_response_data.records.length == 1) {
-      //console.log("amount of records: 1")
-      response_object = {
-        "id": user_response_data.records[0]['id'],
-        ...user_response_data.records[0]['fields']
-      }
-      //console.log("user_response_data.records[0]['fields']")
-      //console.log(user_response_data.records[0]['fields'])
-      //console.log("user_response_data.records[0]['fields']")
 
-    } else {
-      //console.log("amount of records: more")
-      response_object = {
-        "amount_of_results": user_response_data.records.length,
-        "records": user_response_data.records
-      }
     }
+
+
 
     return response_object
   },
@@ -439,6 +376,8 @@ const mainService = {
       airtable_table = AIRTABLE_SUBSCRIPTIONS
     } else if (table == "google_users") {
       airtable_table = AIRTABLE_GOOGLE_USERS
+    } else if (table == "payments") {
+      airtable_table = AIRTABLE_PAYMENTS
     } else {
       response_object = {
         "error": "unsupported table"
@@ -468,7 +407,7 @@ const mainService = {
           "message": "No record found with that connection_id."
         }
       }
-    } else{
+    } else {
       //console.log("amount of records: 1")
       response_object = user_response_data
       console.log("user_response_data")
@@ -478,9 +417,7 @@ const mainService = {
     }
     return response_object
   },
-
-
-  async editAirtableDataById(connection_id, table, fields) {
+  async editAirtableDataById(id, table, fields) {
     console.log("editAirtableDataById")
     let response_object
 
@@ -493,6 +430,8 @@ const mainService = {
       airtable_table = AIRTABLE_SUBSCRIPTIONS
     } else if (table == "google_users") {
       airtable_table = AIRTABLE_GOOGLE_USERS
+    } else if (table == "payments") {
+      airtable_table = AIRTABLE_PAYMENTS
     } else {
       response_object = {
         "error": "unsupported table"
@@ -513,23 +452,23 @@ const mainService = {
       body: JSON.stringify(data_to_airtable),
       redirect: 'follow'
     };
-    let airtable_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + airtable_table + "/" + connection_id, patch_request_options)
+    let airtable_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + airtable_table + "/" + id, patch_request_options)
     let user_response_data = await airtable_response.json();
 
     if (user_response_data.error) {
       //Error al obtener informacion del usuario
       response_object = user_response_data
-    } else{
+    } else {
       //console.log("amount of records: 1")
       response_object = user_response_data
     }
     return response_object
-  }, 
+  },
   async getConnectionsByGoogleUser(google_user_id) {
     console.log("getConnectionsByGoogleUser")
     let response_object
 
-    if(google_user_id === "" || !google_user_id || google_user_id === undefined || google_user_id === null){
+    if (google_user_id === "" || !google_user_id || google_user_id === undefined || google_user_id === null) {
       response_object = {
         "error": {
           "type": "NO GOOGLE_USER PROVIDED",
@@ -543,12 +482,12 @@ const mainService = {
 
       //TODO
       //Agregar informacion extra de las conexiones, por ejemplo: Nombre tienda (para multiusuario),
-      if(connections_data.error){
+      if (connections_data.error) {
         response_object = {
           "amount_of_results": 0,
           "records": []
         }
-      } else if(!connections_data.records){
+      } else if (!connections_data.records) {
         response_object = {
           "amount_of_results": 1,
           "records": [{
@@ -558,13 +497,13 @@ const mainService = {
         }
       } else {
 
-        for(let i = 0; i < connections_data.records.length; i++){
+        for (let i = 0; i < connections_data.records.length; i++) {
           let record_object = {
             "id": connections_data.records[i].id,
             "connection": connections_data.records[i].fields.connection
           }
           records_to_response.push(record_object)
-  
+
         }
         response_object = {
           "amount_of_results": connections_data.amount_of_results,
@@ -573,7 +512,7 @@ const mainService = {
       }
 
 
-  
+
     }
 
     console.log("response_object")

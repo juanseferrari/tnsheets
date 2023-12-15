@@ -78,16 +78,16 @@ router.get('/terms-and-conditions', mainController.terms);
 
 
 /*  --------------------- PUBLIC APIS --------------------- */
-//TODO migrar a /api/  en el api router
+//TODO DEPRECAR EN EL FUTURO. VAN A ESTAR EN API ROUTES
 //Notificaciones que vienen de los sheets.
 router.post('/tn/get-token', tnController.getTokenTN) //deprecar a futuro y que quede solo sheet-configuration
-router.post('/webhook-connection', mainController.webhookConnection)
-router.post('/sheet-configuration', mainController.sheetConfiguration)
+router.post('/webhook-connection', mainController.webhookConnection) //eliminar despues y migrar todo a api/webhook-connection
+router.post('/sheet-configuration', mainController.sheetConfiguration) 
 
 /* STRIPE APIS*/
 //notificaciones de stripe
-router.post('/payment-webhooks', paymentsController.notificationController)
-router.get('/subscription-status', paymentsController.checkSubscription)
+router.post('/payment-webhooks', paymentsController.notificationController) //eliminar despues y que quede en /api/payment-webhooks
+router.get('/subscription-status', paymentsController.checkSubscription) //eliminar despues y que sea /api/subscription-status
 
 
 /* GOOGLE AUTH DATA */
