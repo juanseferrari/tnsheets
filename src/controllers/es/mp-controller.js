@@ -110,6 +110,7 @@ const mpController = {
                 "user_id": data['user_id'].toString(),
                 "connection": "mercadopago",
                 "active": "true",
+                "uninstalled_date": null,
                 "user_name": mp_user_info["company_name"],
                 "user_email": mp_user_info["email"],
                 "user_logo": mp_user_info["logo_url"],

@@ -149,6 +149,7 @@ const tnController = {
         "connection": "tiendanube",
         "google_user_id": google_user_id,
         "active": "true",
+        "uninstalled_date": null,
         "user_name": tn_user_data['name']['es'],
         "user_email": tn_user_data['email'],
         "user_logo": user_logo,
