@@ -7,7 +7,6 @@ const url = require('url');
 //Services
 const mainService = require("../services/main-service");
 const paymentsService = require("../services/payment-service");
-const { response } = require("express");
 
 
 const paymentsController = {
@@ -192,18 +191,23 @@ const paymentsController = {
   },
   redeemPayment: async (req,res) => {
 
+    let statusCode
+
     var connection_id = req.body.connection_id
     var redeem_user_email = req.body.redeem_user_email
     console.log("connection_id: "+ connection_id)
 
     let response_object = {}
-
+    
     let payment_response = await paymentsService.getPaymentsByConnId(connection_id)
     //GET ALL PAYMENTS BY CONNECTION_ID
+
     console.log("payment_response")
     console.log(payment_response)
     console.log("payment_response")
+
     if(payment_response.error){
+      statusCode = 200
       response_object = {
         error: {
           type: 'NO_DATA_FOUND',
@@ -219,7 +223,8 @@ const paymentsController = {
       }
       try {
         let response = await mainService.editAirtableDataById(payment_response.id, "payments", fields_to_db)
-          response_object = {
+        statusCode = 201
+        response_object = {
             "connection_id": response.fields.client_reference_id,
             "redeemed": response.fields.redeemed,
             "redeemed_date": response.fields.redeemed_date,
@@ -227,6 +232,7 @@ const paymentsController = {
           }
       
         } catch (error) {
+          statusCode = 200
           response_object = response_object = {
             error: {
               type: 'ERROR_WHILE_REDEMPTION',
@@ -240,10 +246,8 @@ const paymentsController = {
     } else if (payment_response.records.length > 0){
       const unredeemedRecords = payment_response.records.filter(record => record.fields.redeemed == "false");
       let credit_quantity = 0
-      console.log("unredeemedRecords")
-      console.log(unredeemedRecords)
-      console.log("unredeemedRecords")
       if(unredeemedRecords.length === 0){
+        statusCode = 200
         response_object = {
           error: {
             type: 'NO_PAYMENTS_TO_REDEEM',
@@ -254,9 +258,6 @@ const paymentsController = {
 
 
       for(let i = 0; i<unredeemedRecords.length; i++){
-        console.log("unredeemedRecords");
-        console.log(unredeemedRecords[i]);
-        console.log("unredeemedRecords");
 
         //Edit Airtable data to make the redeemed.
 
@@ -268,9 +269,9 @@ const paymentsController = {
         try {
           let response = await mainService.editAirtableDataById(unredeemedRecords[i].id, "payments", fields_to_db)
           credit_quantity = credit_quantity + response.fields.credit_quantity
-          console.log(credit_quantity)
         
           } catch (error) {
+            statusCode = 200
             response_object = response_object = {
               error: {
                 type: 'ERROR_WHILE_REDEMPTION',
@@ -282,6 +283,7 @@ const paymentsController = {
           }
           
       }
+      statusCode = 201
       response_object = {
         "connection_id": connection_id,
         "redeemed": "true",
@@ -294,6 +296,7 @@ const paymentsController = {
 
       
     } else {
+      statusCode = 500
       response_object = {
         error: {
           type: 'INTERNAL_ERROR',
@@ -303,9 +306,7 @@ const paymentsController = {
     }
 
 
-
-    res.json(response_object)
-
+    res.status(statusCode).json(response_object)
   },
 
   cancelSubscription: async (req,res) => {

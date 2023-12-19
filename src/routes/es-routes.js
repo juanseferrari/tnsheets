@@ -32,6 +32,7 @@ router.get('/tiendanube/documentation', tnController.documentation);
 router.get('/tiendanube/oauth',tnController.tnOauth) 
 router.get('/tiendanube/premium',tnController.getPremium)  //hacerlo con todos los planes
 router.get('/tiendanube/sheet',tnController.getSheet)  //TODO hacerlo con todos los planes para que te redirija al sheet. 
+router.post('/tiendanube/uninstalled', tnController.appUninstalled)
 router.post('/tn/uninstalled', tnController.appUninstalled)
 
 
@@ -45,6 +46,8 @@ router.get('/drive-to-tiendanube/documentation',dtController.documentation)
 /* Mercado Pago */
 router.get('/mercadopago', mpController.mpHome);
 router.get('/mp-oauth', mpController.mpOauth); //todo a futuro que sea /mercadopago/oauth
+router.get('/mercadopago/oauth', mpController.mpOauth); //todo a futuro que sea /mercadopago/oauth
+
 router.get('/mercadopago/config', mpController.configuration); 
 router.get('/mercadopago/documentation', mpController.documentation); 
 
