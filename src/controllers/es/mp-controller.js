@@ -135,7 +135,38 @@ const mpController = {
       
       }
 
-  },  
+  },
+  appUninstalled: async (req,res) => {
+    //funcion usada cuando se desinstala una conexion. Se guarda en la DB
+    let user_id = req.body.user_id
+    let event =  req.body.action
+
+    let response_object
+    if(event == "application.deauthorized"){
+    var fields_to_db = {
+        "active": "false",
+        "connection": "mercadopago",
+        "uninstalled_date": new Date().toISOString(),
+        "user_id": user_id.toString()
+      }
+    try {
+      let response = await mainService.createAirtableUpsert(true, ["user_id","connection"], fields_to_db, "prod_users")
+      response_object = response
+      console.log(response)
+      } catch (error) {
+        response_object = error
+        console.log(response)
+      }
+    } else {
+      response_object = {
+        "error": {
+          "type": "MP_NOTIFICATION_NOT_SUPPORTED",
+          "message": "This notification type is not supported."
+        }
+      }
+    }
+    res.json(response_object)
+  },
   getTokenMP: async (req,res) => {
     //WIP AGREGARLE LO DEL REFRESH TOKEN
 

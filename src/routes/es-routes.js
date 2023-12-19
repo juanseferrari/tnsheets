@@ -58,6 +58,7 @@ router.get('/mercadopago/oauth', mpController.mpOauth); //todo a futuro que sea 
 
 router.get('/mercadopago/config', mpController.configuration); 
 router.get('/mercadopago/documentation', mpController.documentation); 
+router.post('/mercadopago/uninstalled', mpController.appUninstalled)
 
 /* Shopify */
 router.get('/shopify', shController.shHome);
