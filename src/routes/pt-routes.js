@@ -26,36 +26,27 @@ const woController = require('../controllers/pt/wo-controller');
 router.get('/tiendanube', tnController.tnHome);
 router.get('/tiendanube/config', tnController.configuration);
 router.get('/tiendanube/documentation', tnController.documentation);
-router.get('/tiendanube/oauth',tnController.tnOauth) 
 router.get('/tiendanube/premium',tnController.getPremium)  //hacerlo con todos los planes
-router.get('/tiendanube/sheet',tnController.getSheet)  //TODO hacerlo con todos los planes para que te redirija al sheet. 
-router.post('/tn/uninstalled', tnController.appUninstalled)
 
 
 /* Drive to Tiendanube */
 router.get('/drive-to-tiendanube', dtController.dtHome); 
-router.get('/drive-to-tiendanube/oauth',dtController.dtOauth) 
 router.get('/drive-to-tiendanube/config',dtController.configuration) 
 router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
 
 
 /* Mercado Pago */
 router.get('/mercadopago', mpController.mpHome);
-router.get('/mp-oauth', mpController.mpOauth); //todo a futuro que sea /mercadopago/oauth
 router.get('/mercadopago/config', mpController.configuration); 
 router.get('/mercadopago/documentation', mpController.documentation); 
 
 /* Shopify */
 router.get('/shopify', shController.shHome);
-router.get('/sh-oauth', shController.verifyRequest);
-router.get('/shopify/oauth', shController.shOauth)
 router.get('/shopify/config', shController.configuration);
 router.get('/shopify/documentation', shController.documentation);
 
 /* Woocommerce */
 router.get('/woocommerce', woController.woHome);
-router.get('/woocommerce/oauth', woController.woRedirect)
-router.post('/woocommerce/oauth', woController.woOauth)
 router.get('/woocommerce/config', woController.configuration);
 router.get('/woocommerce/documentation', woController.documentation);
 
