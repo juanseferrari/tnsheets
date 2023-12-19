@@ -13,6 +13,9 @@ const woController = require('../controllers/es/wo-controller');
 const paymentsController = require('../controllers/payments-controller');
 const googleController = require('../controllers/google-controller');
 
+// Middlewares
+const checkAuth = require('../middlewares/check-auth');
+
 /**
  * Nomenclatura general:
  * TODOOO kebab-case
@@ -35,6 +38,11 @@ router.get('/tiendanube/sheet',tnController.getSheet)  //TODO hacerlo con todos 
 router.post('/tiendanube/uninstalled', tnController.appUninstalled)
 router.post('/tn/uninstalled', tnController.appUninstalled)
 
+/* Tiendanube usando connId */
+router.get('/tiendanube/:connId/config', checkAuth,tnController.getConnection)
+
+/* Tiendanube usando Middlewares */
+router.get('/tiendanube/error2', tnController.tnHome)
 
 /* Drive to Tiendanube */
 router.get('/drive-to-tiendanube', dtController.dtHome); 

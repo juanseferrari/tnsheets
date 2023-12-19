@@ -300,6 +300,30 @@ const tnController = {
   getSheet: async (req,res) => {
     //Funcion que valida si existe connection_id y abre el sheet.
     //Si no existe connection_id redirigir al login page.
+  },
+  getConnection: async (req,res) => {
+    console.log(req.params.connId)
+    let user_connected = req.user_connected
+    let connection_id = req.params.connId
+    
+    let google_user_id = ""
+    if (req.cookies.google_user_id) {
+      google_user_id = req.cookies.google_user_id
+    }
+    let google_user = await mainService.searchGoogleUser(google_user_id)
+
+
+    console.log("user_connected 2")
+    console.log(user_connected)
+    console.log("user_connected 2")
+
+    //Path for documentation link
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];  
+    console.log("firstPath: "+ firstPath)
+
+    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user, google_user_id, firstPath})
+
   }
 
 };

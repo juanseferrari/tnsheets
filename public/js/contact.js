@@ -6,6 +6,7 @@ const contact_user_id = document.querySelector("#user_id")
 
 goToWapp.addEventListener("click", function(e){
     e.preventDefault()
+    console.log("CLICKED")
     let text_to_send = ""
     if(contact_user_id){
       text_to_send = "Nombre: " + name_contact.value + "%0aEmail: "+ email_contact.value +  "%0aUser: "+ contact_user_id.value +  "%0aMensaje: "+ text_contact.value
