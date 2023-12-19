@@ -1,3 +1,7 @@
+/** SHOPIFY LOGIN VALIDATIONS */
+var sh_login_url = document.getElementById("shopify_url")
+var sh_login_button = document.getElementById("shopify_button")
+
 
 /** GENERIC FUNCTIONS */
 function isUrlValid(string) {
@@ -30,18 +34,18 @@ function isUrlValid(string) {
 
 function showError(errorMessage) {
   const errorContainer = document.getElementById('error-container');
-  errorContainer.innerHTML = `<i class="fas fa-exclamation-circle error-icon"></i>${errorMessage}`;
+  errorContainer.innerHTML = `${errorMessage}`;
+  sh_login_url.classList.add("is-invalid")
+
 }
 function hideError() {
   const errorContainer = document.getElementById('error-container');
   errorContainer.innerHTML = ""
+  sh_login_url.classList.remove("is-invalid")
 }
 
 
 
-/** SHOPIFY LOGIN VALIDATIONS */
-var sh_login_url = document.getElementById("shopify_url")
-var sh_login_button = document.getElementById("shopify_button")
 
 
 
