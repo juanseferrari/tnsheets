@@ -83,6 +83,14 @@ const dtController = {
     let user_connected = await mainService.searchUser(dt_connection_id)
     let google_user = await mainService.searchGoogleUser(google_user_id)
 
+
+    console.log("user_connected")
+    console.log(user_connected)
+    console.log("user_connected")
+
+    console.log("google_user")
+    console.log(google_user)
+    console.log("google_user")
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];  
@@ -185,7 +193,7 @@ const dtController = {
             },
             body: JSON.stringify({
               "event": "app/uninstalled",
-              "url": "https://www.sheetscentral.com/tn/uninstalled"
+              "url": "https://www.sheetscentral.com/drive-to-tiendanube/uninstalled"
             }),
             redirect: 'follow'
           };
@@ -220,7 +228,38 @@ const dtController = {
         }
 
     } /** Fin del else error */
-  }
+  },
+  appUninstalled: async (req,res) => {
+    //funcion usada cuando se desinstala una conexion. Se guarda en la DB
+    let au_store_id = req.body.store_id
+    let au_event =  req.body.event
+    let response_object
+    if(au_event == "app/uninstalled"){
+    var fields_to_db = {
+        "active": "false",
+        "connection": "drive-to-tiendanube",
+        "uninstalled_date": new Date().toISOString(),
+        "user_id": au_store_id.toString()
+      }
+    try {
+      let response = await mainService.createAirtableUpsert(true, ["user_id","connection"], fields_to_db, "prod_users")
+      response_object = response
+      console.log(response)
+      } catch (error) {
+        response_object = error
+        console.log(response)
+      }
+    } else {
+      response_object = {
+        "error": {
+          "type": "NOTIFICATION_NOT_SUPPORTED",
+          "message": "This notification type is not supported."
+        }
+      }
+    }
+    res.json(response_object)
+  },
+
 
 };
 

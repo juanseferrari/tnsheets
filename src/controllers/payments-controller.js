@@ -264,7 +264,7 @@ const paymentsController = {
         let fields_to_db = {
           "redeemed": "true",
           "redeemed_date": new Date().toISOString(),
-          "redeem_user_email": redeem_user_email
+          redeem_user_email 
         }
         try {
           let response = await mainService.editAirtableDataById(unredeemedRecords[i].id, "payments", fields_to_db)
@@ -304,7 +304,6 @@ const paymentsController = {
         }
       }
     }
-
 
     res.status(statusCode).json(response_object)
   },

@@ -128,11 +128,11 @@
                   <div class="login-button">
                     <button type="button" class="btn btn-outline-secondary">
                       <a class="sheet-button-a"
-                        href="https://docs.google.com/spreadsheets/d/17Z08jgncc7HZbRaiJ63n6mnBQIo3sjFSc4g7Yxttta8/copy"
+                        href="https://docs.google.com/spreadsheets/d/12yiJHJR9DKRRzgr4SDEta66h6irmSnQ5FdApSYcvOSU/copy"
                         target="_blank">
                         <div class="login-button-text">
                           <img class="login-button-logo" src="/images/logos/sheets_logo.png" alt="">
-                          <p class="login-button-p">Clonar Sheet (v1.2)</p>
+                          <p class="login-button-p">Clonar Sheet (v1.3)</p>
                         </div>
                       </a>
                     </button>
@@ -204,72 +204,86 @@
 
       </div>
 
-      <!-- STEP 4 PREMIUM -->
-      <!-- 
-
-      <div id="step4">
-        <div class="step-block step-ok">
-          <div class="step-title">
-            <div class="step-check">
-              <i class="fa-regular fa-circle"></i>
-            </div>
-            <div class="step-text">
-              <p>Paso 4 (recomendado): Obtener Premium. ¡Carga ilimitada por 30 días!</p>
-            </div>
-          </div>
-          <div class="step-user-info">
-            <div class="step-left-text">
-              <div>
-                <h4>Obten Drive to Tiendanube Premium y carga imágenes de forma ilimitada por 30 días. </h4>
-
-              </div>
-
-
-
-            </div>
-            <div class="step-right-text">
-              <% if (user_connected.subscription_status=='active' || user_connected.subscription_status=='trialing' ) {
-                %>
-                <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
-                    <a class="black-button-a"
-                      href="https://billing.stripe.com/p/login/9AQbJG39y5kL2eQ6oo?prefilled_email=<%=user_connected.subscription_customer_email %>"
-                      target="_blank">
-                      <div class="login-button-text">
-                        <img class="login-button-logo" src="/images/configuration.png" alt="">
-                        <p class="login-button-p">Gestionar plan</p>
-                      </div>
-                    </a>
-                  </button>
-                </div>
-                <%} else { %>
-                  <div class="login-button">
-                    <button type="button" class="btn btn-outline-secondary" <%=(dt_connection_id)?'':'disabled' %> >
-                      <a class="black-button-a"
-                        href="https://buy.stripe.com/7sIbMg1Q86jJ4TK6oq?client_reference_id=<%= dt_connection_id %>"
-                        target="_blank">
-                        <div class="login-button-text">
-                          <img class="login-button-logo" src="/images/rocket.png" alt="">
-                          <p class="login-button-p">Obtener premium</p>
-                        </div>
-                      </a>
-                    </button>
-                  </div>
-                  <% } %>
-
-
-
-            </div>
-
-          </div>
-
+   <!-- STEP 4  -->
+   <div id="step4">
+    <div class="step-block step-ok">
+      <div class="step-title">
+        <div class="step-text">
+          <p>Comprar créditos</p>
         </div>
+      </div>
+      <div class="step-user-info">
+
+
+        <!-- PRICING DT-->
+
+        <div class="container" id="precios">
+          <!-- CHECKS -->
+          <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+              <symbol id="check" viewBox="0 0 16 16">
+                  <title>Check</title>
+                  <path
+                      d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+              </symbol>
+          </svg>
+      
+      
+          <main>
+              <div class="row row-cols-1 row-cols-md-2 mb-3 text-center">
+                  <!-- Despues cambiar el row-cols-md-2 por row-cols-md-3 -->
+      
+                  <div class="col">
+                      <div class="card mb-4 rounded-3 shadow-sm">
+                          <div class="card-header py-3">
+                              <h4 class="my-0 fw-normal">Pack 250</h4>
+                          </div>
+                          <div class="card-body">
+                              <h1 class="card-title pricing-card-title">U$S 5<small class="text-muted fw-light"></small>
+                              </h1>
+                              <ul class="list-unstyled mt-3 mb-4">
+                                  <li>Carga 250 imágenes de forma masiva desde Google Drive a Tiendanube.</li>
+                              </ul>
+                              <a class="btn w-100 btn btn-lg btn-outline-dark" href="https://buy.stripe.com/bIY17CdyQcI7bi85kq?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>" target="_blank" role="button">Comprar pack</a>
+                          </div>
+                      </div>
+                  </div>
+      
+                  <div class="col">
+                      <div class="card mb-4 rounded-3 shadow-sm">
+                          <div class="card-header py-3 premium-color">
+                              <h4 class="my-0 fw-normal">Pack 1000</h4>
+                          </div>
+                          <div class="card-body">
+                              <h1 class="card-title pricing-card-title">U$S 15</h1>
+                              <ul class="list-unstyled mt-3 mb-4">
+                                <li>Carga 1000 imágenes masivamente desde Google Drive a Tiendanube.</li>
+                              </ul>
+                              <a class="btn w-100 btn btn-lg btn-outline-dark" href="https://buy.stripe.com/cN2bMg52kbE32LC004?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>"  target="_blank"    role="button">Comprar pack</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+      
+      
+          </main>
+      
+      
+      </div>
+
+
+
+      <!-- END PRICIING DT-->
+
 
       </div>
-    -->
 
+    </div>
+
+  </div>
+  <!-- END STEP 4 -->
+     
       <!-- STEP 5  -->
-      <div id="step4">
+      <div id="step5">
         <div class="step-block step-ok no-border">
           <div class="step-title">
             <div class="step-text">
@@ -301,7 +315,7 @@
         </div>
 
       </div>
-      <!-- END STEP 6 -->
+      <!-- END STEP 5 -->
 
 
     </div>

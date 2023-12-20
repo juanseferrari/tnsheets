@@ -217,11 +217,12 @@ const tnController = {
     if(au_event == "app/uninstalled"){
     var fields_to_db = {
         "active": "false",
+        "connection": "tiendanube",
         "uninstalled_date": new Date().toISOString(),
         "user_id": au_store_id.toString()
       }
     try {
-      let response = await mainService.createAirtableUpsert(true, ["user_id"], fields_to_db, "prod_users")
+      let response = await mainService.createAirtableUpsert(true, ["user_id","connection"], fields_to_db, "prod_users")
       response_object = response
       console.log(response)
       } catch (error) {

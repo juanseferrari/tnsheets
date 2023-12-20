@@ -49,6 +49,7 @@ router.get('/drive-to-tiendanube', dtController.dtHome);
 router.get('/drive-to-tiendanube/oauth',dtController.dtOauth) 
 router.get('/drive-to-tiendanube/config',dtController.configuration) 
 router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
+router.post('/drive-to-tiendanube/uninstalled', dtController.appUninstalled)
 
 
 /* Mercado Pago */
