@@ -49,15 +49,6 @@
     justify-content: center;
 
 }
-.menu-item {
-    text-align: center;
-    padding: 1vh;
-}
-.menu-item a {
-    color: black
-}
-
-
 
 
 .offcanvas-body a{
@@ -107,8 +98,12 @@
 }
 .menu-item{
     display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 1vh;
 }
 .menu-item a {
+    color: black;
     display:flex;
     align-items: center;
     justify-content: center;
