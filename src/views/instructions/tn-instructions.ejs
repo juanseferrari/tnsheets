@@ -108,7 +108,11 @@
           </div>
           <div class="step-user-info">
             <div class="step-left-text">
-              <h4>Paso completado! Desde aqui puedes abrir tu Sheet: </h4>
+              <% if (user_connected.spreadsheet_id) { %>
+                <h4>Paso completado! Desde aqui puedes abrir tu Sheet: </h4>
+                <%} else { %>
+                  <h4>Clona el siguiente Google Sheet en tu propia cuenta de Google</h4>
+                <% } %>
             </div>
             <div class="step-right-text">
               <% if (user_connected.spreadsheet_id) { %>
@@ -146,7 +150,7 @@
 
 
           <!-- New Sheet version-->
-          <% if (!user_connected.sheet_version ) { %>
+          <% if (!user_connected.sheet_version && user_connected.spreadsheet_id ) { %>
 
           <div class="step-user-info">
             <div class="step-left-text">
