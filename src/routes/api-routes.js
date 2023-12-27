@@ -10,6 +10,7 @@ const googleController = require('../controllers/google-controller');
 //tienen que ser kebab-case
 router.post('/webhook-connection', apiController.webhookConnection)
 router.post('/sheet-configuration', apiController.sheetConfiguration)
+router.post('/sheet-log', apiController.sheetLog)
 
 /* STRIPE APIS*/
 //notificaciones de stripe

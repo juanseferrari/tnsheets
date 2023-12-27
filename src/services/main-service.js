@@ -14,6 +14,17 @@ const AIRTABLE_SUBSCRIPTIONS = process.env.AIRTABLE_SUBSCRIPTIONS
 const AIRTABLE_PAYMENTS = process.env.AIRTABLE_PAYMENTS
 const AIRTABLE_GOOGLE_USERS = process.env.AIRTABLE_GOOGLE_USERS
 
+
+//TERMINAR
+const airtableConfig = {
+  prod_users: AIRTABLE_PROD_USERS,
+  test_users: AIRTABLE_TEST_USERS,
+  subscriptions: AIRTABLE_SUBSCRIPTIONS,
+  google_users: AIRTABLE_GOOGLE_USERS,
+  payments: AIRTABLE_PAYMENTS,
+  // Add new tables here as needed
+};
+
 // ***** Database folder *****
 const projectsFilePath = path.join(__dirname, "../db/projects.json");
 const projects = JSON.parse(fs.readFileSync(projectsFilePath, "utf-8"));

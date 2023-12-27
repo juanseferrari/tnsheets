@@ -53,7 +53,6 @@ const apiController = {
     }
     res.json(response_object)
   },
-
   sheetConfiguration: async (req, res) => {
     // funcion usada para obtener el token desde Google App Script. Es una funcion generica para todas las conexiones
     var sheet_email = req.body.sheet_email
@@ -153,7 +152,7 @@ const apiController = {
     res.json(response_object)
 
   },
-  logs: async (req,res) => {
+  sheetLog: async (req,res) => {
     //API FOR LOGS 
     //when users connect things and use the product, save it in a DB.
     //Save it into google console DB???? Airtable?

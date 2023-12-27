@@ -39,7 +39,7 @@ router.post('/tiendanube/uninstalled', tnController.appUninstalled)
 router.post('/tn/uninstalled', tnController.appUninstalled)
 
 /* Tiendanube usando connId */
-router.get('/tiendanube/:connId/config', checkAuth,tnController.getConnection)
+router.get('/tiendanube/:connId/config', checkAuth, tnController.getConnection)
 
 /* Tiendanube usando Middlewares */
 router.get('/tiendanube/error2', tnController.tnHome)
