@@ -13,6 +13,7 @@ const AIRTABLE_ACCESS_TOKEN = process.env.AIRTABLE_ACCESS_TOKEN
 const AIRTABLE_SUBSCRIPTIONS = process.env.AIRTABLE_SUBSCRIPTIONS
 const AIRTABLE_PAYMENTS = process.env.AIRTABLE_PAYMENTS
 const AIRTABLE_GOOGLE_USERS = process.env.AIRTABLE_GOOGLE_USERS
+const AIRTABLE_LOGS = process.env.AIRTABLE_LOGS
 
 
 //TERMINAR
@@ -22,6 +23,7 @@ const airtableConfig = {
   subscriptions: AIRTABLE_SUBSCRIPTIONS,
   google_users: AIRTABLE_GOOGLE_USERS,
   payments: AIRTABLE_PAYMENTS,
+  logs: AIRTABLE_LOGS,
   // Add new tables here as needed
 };
 
@@ -235,21 +237,9 @@ const mainService = {
 
     let return_object
     let data_to_airtable_db
-
-    //validation of airtable table
-    let airtable_table = ""
-    if (table == "prod_users") {
-      airtable_table = AIRTABLE_PROD_USERS
-    } else if (table == "test_users") {
-      airtable_table = AIRTABLE_TEST_USERS
-    } else if (table == "subscriptions") {
-      airtable_table = AIRTABLE_SUBSCRIPTIONS
-    } else if (table == "google_users") {
-      airtable_table = AIRTABLE_GOOGLE_USERS
-    } else if (table == "payments") {
-      airtable_table = AIRTABLE_PAYMENTS
-
-    } else {
+    let method = "PATCH"
+    let airtable_table = airtableConfig[table];
+    if (!airtable_table) {
       return_object = {
         "error": "unsupported table"
       }
@@ -270,6 +260,7 @@ const mainService = {
         ]
       } //end subs_data_to_airtable_db
     } else {
+      method = "POST"
       data_to_airtable_db = {
         "records": [
           {
@@ -280,13 +271,13 @@ const mainService = {
     }
 
     //console.log("data_to_airtable_db")
-    //console.log(data_to_airtable_db)
+    //console.log(JSON.stringify(data_to_airtable_db))
     //console.log("data_to_airtable_db")
 
 
     //console.log(JSON.stringify(data_to_airtable_db))
     var airtable_upsert = {
-      method: 'PATCH',
+      method: method,
       headers: {
         "Authorization": "Bearer " + AIRTABLE_ACCESS_TOKEN,
         "Content-Type": "application/json"
@@ -313,7 +304,6 @@ const mainService = {
           //necesito mandar el id de cierta forma. 
         }
       } else {
-        console.log(data)
         response_object = data
       }
     } catch (error) {
@@ -378,22 +368,12 @@ const mainService = {
     console.log("getAirtableDataById")
     let response_object
 
-    let airtable_table = ""
-    if (table == "prod_users") {
-      airtable_table = AIRTABLE_PROD_USERS
-    } else if (table == "test_users") {
-      airtable_table = AIRTABLE_TEST_USERS
-    } else if (table == "subscriptions") {
-      airtable_table = AIRTABLE_SUBSCRIPTIONS
-    } else if (table == "google_users") {
-      airtable_table = AIRTABLE_GOOGLE_USERS
-    } else if (table == "payments") {
-      airtable_table = AIRTABLE_PAYMENTS
-    } else {
-      response_object = {
+    let airtable_table = airtableConfig[table];
+    if (!airtable_table) {
+      return_object = {
         "error": "unsupported table"
       }
-      return response_object
+      return return_object
     }
 
     var get_request_options = {
@@ -432,22 +412,12 @@ const mainService = {
     console.log("editAirtableDataById")
     let response_object
 
-    let airtable_table = ""
-    if (table == "prod_users") {
-      airtable_table = AIRTABLE_PROD_USERS
-    } else if (table == "test_users") {
-      airtable_table = AIRTABLE_TEST_USERS
-    } else if (table == "subscriptions") {
-      airtable_table = AIRTABLE_SUBSCRIPTIONS
-    } else if (table == "google_users") {
-      airtable_table = AIRTABLE_GOOGLE_USERS
-    } else if (table == "payments") {
-      airtable_table = AIRTABLE_PAYMENTS
-    } else {
-      response_object = {
+    let airtable_table = airtableConfig[table];
+    if (!airtable_table) {
+      return_object = {
         "error": "unsupported table"
       }
-      return response_object
+      return return_object
     }
 
     var data_to_airtable = {

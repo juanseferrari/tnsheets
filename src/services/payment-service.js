@@ -87,7 +87,7 @@ const paymentService = {
 
     return response_object
   },
-  async getPaymentsByConnId(connection_id){
+  async getPaymentsByConnId(connection_id) {
     const mainService = require("../services/main-service");
 
     try {
@@ -97,7 +97,52 @@ const paymentService = {
       return error
     }
 
-  }
+  },
+  async unredeemedPayments(connection_id) {
+    const mainService = require("../services/main-service");
+
+    let response_object
+    let credit_quantity = 0
+    try {
+      const payments_data = await mainService.getAirtableData(AIRTABLE_PAYMENTS, connection_id, "client_reference_id")
+
+
+      if (payments_data.id && payments_data.redeemed == "false") {
+        response_object = {
+          "to_redeem": true,
+          "amount": payments_data.credit_quantity
+        }
+      } else if (payments_data.records) {
+        const unredeemedRecords = payments_data.records.filter(record => record.fields.redeemed == "false");
+
+        if (unredeemedRecords.length === 0) {
+          response_object = {
+            "to_redeem": false,
+            "amount": 0
+          }
+        } else {
+          for (let i = 0; i < unredeemedRecords.length; i++) {
+            credit_quantity = credit_quantity + unredeemedRecords[i].fields.credit_quantity
+          }
+          response_object = {
+            "to_redeem": true,
+            "amount": credit_quantity
+          }
+        }
+
+      } else {
+        response_object = {
+          "to_redeem": false,
+          "amount": 0
+        }
+      }
+
+      return response_object
+    } catch (error) {
+      return error
+    }
+  },
+
   //agregar aca todos los servicios asociados con los pagos:
   //changeUserPlan
   //getSubscriptionData

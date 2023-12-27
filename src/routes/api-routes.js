@@ -10,7 +10,7 @@ const googleController = require('../controllers/google-controller');
 //tienen que ser kebab-case
 router.post('/webhook-connection', apiController.webhookConnection)
 router.post('/sheet-configuration', apiController.sheetConfiguration)
-router.post('/sheet-log', apiController.sheetLog)
+router.post('/sheet-logs', apiController.sheetLogs) //API for logging user data.
 
 /* STRIPE APIS*/
 //notificaciones de stripe
@@ -24,5 +24,14 @@ router.post('/google-auth2',googleController.googleoauth2)
 
 //router.get('/google-login',googleController.googleLink)
 
+router.use((req, res, next) => {
+    let message = {
+        "error": {
+          "type": "URL_NOT_FOUND",
+          "message": "The API you are trying to access does not exist."
+        }
+      }
+    res.status(404).json(message)
+  })
 
 module.exports = router;
