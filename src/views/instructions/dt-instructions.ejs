@@ -212,6 +212,11 @@
           <p>Comprar créditos</p>
         </div>
       </div>
+      <% if (unredeemedPayments.to_redeem) { %>
+        <p>Créditos por canjear: <strong><%= unredeemedPayments.amount %></strong></p>
+        <p>Para canjear el crédito debes ir al Google Sheet y clickear en Sheets Central > Canjear Créditos</p>
+        <br>
+      <%  } %>
       <div class="step-user-info">
 
 

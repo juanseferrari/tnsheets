@@ -8,6 +8,7 @@ const url = require('url');
 
 //Services
 const mainService = require("../../services/main-service");
+const paymentService = require("../../services/payment-service");
 
 //Sheets Central tokens. 
 const dt_client_id = "7342"
@@ -60,6 +61,7 @@ const dtController = {
   },
   configuration: async (req, res) => {
     let dt_connection_id = ""
+    console.log("dt_connection_id: " + dt_connection_id)
 
     if (req.cookies.dt_connection_id) {
       dt_connection_id = req.cookies.dt_connection_id
@@ -70,9 +72,8 @@ const dtController = {
       }
 
     }
-    console.log("dt_connection_id")
-    console.log(dt_connection_id)
-    console.log("dt_connection_id")
+    console.log("dt_connection_id: " + dt_connection_id)
+
 
     let google_user_id = ""
     if (req.cookies.google_user_id) {
@@ -83,20 +84,15 @@ const dtController = {
     let user_connected = await mainService.searchUser(dt_connection_id)
     let google_user = await mainService.searchGoogleUser(google_user_id)
 
+    let unredeemedPayments = await paymentService.unredeemedPayments(dt_connection_id)
 
-    console.log("user_connected")
-    console.log(user_connected)
-    console.log("user_connected")
 
-    console.log("google_user")
-    console.log(google_user)
-    console.log("google_user")
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)    
 
-    res.render("instructions/dt-instructions", { title: "Instrucciones", dt_connection_id, user_connected,google_user, google_user_id, firstPath})
+    res.render("instructions/dt-instructions", { title: "Instrucciones", dt_connection_id, user_connected,google_user, google_user_id, firstPath, unredeemedPayments})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-72f6a9435253493885209eab1d671c10?pvs=4")

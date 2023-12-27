@@ -152,10 +152,59 @@ const apiController = {
     res.json(response_object)
 
   },
-  sheetLog: async (req,res) => {
+  sheetLogs: async (req,res) => {
     //API FOR LOGS 
     //when users connect things and use the product, save it in a DB.
-    //Save it into google console DB???? Airtable?
+    //Save it into google console DB???? Airtable
+    
+    var token = req.body.token
+    var connection_id = req.body.connection_id
+    var spreadsheet_id = req.body.spreadsheet_id
+    var function_name = req.body.function_name
+    var user_email = req.body.user_email
+    var sheet_version = req.body.sheet_version
+    var connection = req.body.connection
+    var quantity_of_data = req.body.quantity_of_data
+
+    var fields_to_db = {
+      connection_id,
+      spreadsheet_id,
+      function_name,
+      user_email,
+      sheet_version,
+      connection,
+      "quantity_of_data": quantity_of_data.toString(),
+      "log_date": new Date().toISOString()
+    }
+
+    if (token == "sheetapi5678") {
+      let user_exists = await mainService.validateUserExists(connection_id)
+      if (user_exists) {
+        try {
+          let response = await mainService.createAirtableUpsert(false, "", fields_to_db, "logs")
+          response_object = response
+        } catch (error) {
+          response_object = error
+        }
+      } else {
+        response_object = {
+          "error": {
+            "type": "CONNECTION_ID_NOT_FOUND",
+            "message": "connection_id was not found or incorrect."
+          }
+        }
+      }
+
+    } else {
+      response_object = {
+        "error": {
+          "type": "INVALID_TOKEN",
+          "message": "Token provided is incorrect."
+        }
+      }
+    }
+    res.json(response_object)
+    
   }
 };
 
