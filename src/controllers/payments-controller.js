@@ -46,16 +46,18 @@ const paymentsController = {
       // agregar subscripcion en airtable
 
 
-      //Check if payment link is ones of Drive to Tiendanube: test250, test1000, prod250, prod1000
-      var DTPaymentLinks = ["plink_1Nw1TvAg6dy5e6eQA5Tf7y5e", "plink_1ONhYRAg6dy5e6eQfclNcahl", "plink_1ONhuqAg6dy5e6eQTNCUMuzo" , "plink_1ONhsLAg6dy5e6eQP6wqmMMP"];
+      //Check if payment link is ones of Drive to Tiendanube: test250, test1000, prod250, prod1000, test20000, prod20000 
+      var DTPaymentLinks = ["plink_1Nw1TvAg6dy5e6eQA5Tf7y5e", "plink_1ONhYRAg6dy5e6eQfclNcahl", "plink_1ONhuqAg6dy5e6eQTNCUMuzo" , "plink_1ONhsLAg6dy5e6eQP6wqmMMP", "plink_1OS0GvAg6dy5e6eQSE0AXzka", "plink_1OS0LPAg6dy5e6eQEG5290Ng"];
       
       if(DTPaymentLinks.includes(req.body.data.object.payment_link)){
         console.log("is a DT payment")
         let credit_quantity = 0
         if(req.body.data.object.payment_link == "plink_1ONhYRAg6dy5e6eQfclNcahl" || req.body.data.object.payment_link == "plink_1ONhsLAg6dy5e6eQP6wqmMMP"){
           credit_quantity = 1000 
+        } else if(req.body.data.object.payment_link == "plink_1OS0GvAg6dy5e6eQSE0AXzka" || req.body.data.object.payment_link == "plink_1OS0LPAg6dy5e6eQEG5290Ng") {
+          credit_quantity = 20000 
         } else {
-          credit_quantity = 250 
+          credit_quantity = 250
         }
        
         fields_to_db = {
