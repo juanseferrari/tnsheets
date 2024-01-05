@@ -8,6 +8,8 @@
 /** --------- NAVBAR ------------ **/
 .navbar {
     padding: 0;
+    margin: 1.5%;
+    max-width: 97%;
 }
 .top-navbar {
     background-color: #f8f6eaff;
@@ -17,7 +19,7 @@
 }
 
 .btn-menu {
-    background-color: #9cbb78ff ;
+    background-color: var(--color-secondary) ;
     height: 4.5vh;
     width: 4.5vh;
     padding: 0;
@@ -37,12 +39,54 @@
 .logo-image {
     max-height: 9.5vh;
     height: 9.5vh;
-    width: 9.5vh;
 }
 
+.menu-item{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 1vh;
+}
+.menu-item a {
+    color: black;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 
+.btn-login {
+    /**  background-color: #9cbb78ff ; **/
+    background-color: var(--color-secondary) ;
+    width: 80%;
+    border-radius: 20px;
+}
 
+.login-button-navbar {
+    margin-top: 10%;
+    width: 100%;
+}
+.user-image-navbar{
+    border-radius: 50%;
+    max-height: 7vh;
+    padding: 10%;
+}
 
+.image-navbar-container {
+    background-color: var(--color-secondary);
+    border-radius: 20px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.user-arrow {
+    font-size: 5px;
+    display: flex;
+    align-items: center;
+    padding-left: 10%
+}
 
 .offcanvas-body {
     display: block;
@@ -73,58 +117,6 @@
 
 /** ---------- NAVBAR2 ----------------*/
 
-.navbar2 {
-    margin: 1.5%;
-    max-width: 97%;
-}
-.btn-login {
-    background-color: #9cbb78ff;
-    width: 80%;
-    border-radius: 20px;
-}
-
-.login-button-navbar2 {
-    margin-top: 10%;
-    width: 100%;
-}
-.user-image-navbar{
-    border-radius: 50%;
-    max-height: 7vh;
-    padding: 10%;
-}
-.squared-body {
-    background: url("../images/squared_background.png") repeat 0 0 ;
-    background-size: 4%;
-}
-.menu-item{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    padding: 1vh;
-}
-.menu-item a {
-    color: black;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
-
-.image-navbar-container {
-    background-color: #9cbb78ff;
-    border-radius: 20px;
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    
-}
-
-.user-arrow {
-    font-size: 5px;
-    display: flex;
-    align-items: center;
-    padding-left: 10%
-}
 
 .subnavbar {
     height: 6vh;
@@ -133,6 +125,9 @@
     margin-bottom: 5vh;
 
 }
+
+
+
 
 /** ---------- HOME ----------------*/
 
@@ -170,8 +165,8 @@
     text-align: center;
 }
 
-#productos, #contacto{
-    padding-top: 10vh
+#contacto{
+    padding-bottom: 40px;
 }
 
 
@@ -228,7 +223,7 @@
 }
 
 .card-text-content h2 {
-    font-size: 4vh;
+    font-size: 3.2vh;
     padding-top: 5px;
 }
 .card-text-content p {
@@ -382,7 +377,6 @@
     padding: 3% 10%;
     background-color: #f8fbfdff;
     flex-direction: column-reverse;
-    margin-top: 40px;
 }
 
 .social-div {
@@ -513,10 +507,10 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
     background-color: white;
 }
-.login-button-navbar2 button {
+.login-button-navbar button {
     transition: all 0.3s ease;
 }
-.login-button-navbar2 button:hover {
+.login-button-navbar button:hover {
     transform: scale(1.1);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
 }
@@ -741,7 +735,7 @@
 .division-text-content {
     display: block;
     height: 45vh;
-    padding: 0 1vh;
+    padding: 0 2vh;
 }
 .division-right-content {
     display: block;
@@ -776,12 +770,6 @@
     border-radius: 2vh;
 }
 
-.arrow {
-    text-align: center;
-}
-.arrow i {
-    font-size: 6vh;
-}
 
 /*  NEW HOME PAGE*/
 

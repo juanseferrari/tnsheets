@@ -5,10 +5,67 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+/* COLOR VARIABLES */
+
+:root {
+    --color-primary: #0f8241;
+    --color-secondary: #10A84b;
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-background: #f5fbf7;
+    --color-background2: #108241;
+
+  }
+
+
+/* Montserrat Normal font */
+
+@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url('/fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+
+/* Montserrat Bold font */
+@font-face {
+    font-family: 'Montserrat-Bold';
+    src: url('/fonts/montserrat/Montserrat-SemiBold.ttf') format('truetype');
+}
+
+/* Goldman Normal font */
+
+@font-face {
+    font-family: 'Goldman-Regular';
+    src: url('/fonts/goldman/GoldmanSans_Md.ttf') format('truetype');
+}
+
+/* Goldman Thin font */
+@font-face {
+    font-family: 'Goldman-Bold';
+    src: url('/fonts/montserrat/GoldmanSans_Bd.ttf') format('truetype');
+}
+  
+  
+
+h2,h3,h4,h6, p, li,a,label, button, th, td {
+    font-family: 'Montserrat-Regular', sans-serif;
+
+}
+h1 {
+    font-family: 'Montserrat-Bold', sans-serif;
+
+}
+strong {
+    font-family: 'Montserrat-Bold', sans-serif;
+
+}
+
+/*
 h1,h2,h3,h4,h6, p, li,a,label, button, th, td {
     font-family: 'Jost', sans-serif;
 
 }
+*/
 a {
     text-decoration: none;
 }
@@ -30,7 +87,6 @@ a {
 
 
 body {
-    padding-top: 10vh;
     max-width: 100% !important;
 }
 
@@ -72,19 +128,11 @@ ul {
 .background-white {
     background-color: white!important;
 }
-/** -------------------- Full page ------------------- **/ 
-.section-fullpage{
-    height: 100vh;
-    scroll-snap-align: start;
 
+.squared-body {
+    background: url("../images/squared_background.png") repeat 0 0 ;
+    background-size: 4%;
 }
-.container-fullpage {
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
-    height: 100vh;
-
-}
-
 
 
 

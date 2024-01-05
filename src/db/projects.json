@@ -7,7 +7,7 @@
         "image": "/images/tiendanube_logo_2.jpeg",
         "docs_link": "1234",
         "cta_text": "Ver más",
-        "version": "V 2.2",
+        "version": "V 2.3",
         "texts": [
             {
                 "icon": "fa-solid fa-cart-shopping",
@@ -31,7 +31,7 @@
         "image": "/images/logos/drive-to-tiendanube_logo.png",
         "docs_link": "1234",
         "cta_text": "Ver más",
-        "version": "V 1.3",
+        "version": "V 1.4",
         "texts": [
             {
                 "icon": "fa-brands fa-google-drive",
@@ -55,7 +55,7 @@
         "image": "/images/logos/mercadopago_logo.png",
         "docs_link": "1234",
         "cta_text": "Ver más",
-        "version": "V 1.2",
+        "version": "V 1.1",
         "texts": [
             {
                 "icon": "fa-solid fa-money-bill-1",

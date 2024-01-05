@@ -6,10 +6,24 @@ var sh_login_button = document.getElementById("shopify_button")
 /** GENERIC FUNCTIONS */
 function isUrlValid(string) {
   try {
-    new URL(string);
+     let url =  new URL(string);
+     console.log("url: " + url )
+
+    // Validate the scheme
+      if (!['http:', 'https:'].includes(url.protocol.toLowerCase())) {
+        return false;
+      }
+          // Extract the domain (remove 'www.' if present)
+    let domain = url.hostname.toLowerCase().replace(/^www\./, '');
+    console.log(domain)
+    // Check if the domain has a dot (.)
+    if (!domain.includes('.')) {
+      return false;
+    }
+   
     return true;
   } catch (err) {
-    console.log("url error: " + err)
+    console.log("err: " + err)
     return false;
   }
  }
@@ -72,3 +86,15 @@ sh_login_button.addEventListener('click', (e) => {
 
 
 })
+
+/**  
+   // Add event listener for input changes
+   sh_login_url.addEventListener('click', function () {
+    var inputValue = sh_login_url.value;
+    console.log(inputValue)
+    if (inputValue === '') {
+      // If empty, add the default value
+      sh_login_url.value = 'https://www.';
+    }
+  });
+  */

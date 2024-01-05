@@ -13,9 +13,24 @@ if(checkIfLoggedIn()){
 /** GENERIC FUNCTIONS */
 function isUrlValid(string) {
   try {
-    new URL(string);
+     let url =  new URL(string);
+     console.log("url: " + url )
+
+    // Validate the scheme
+      if (!['http:', 'https:'].includes(url.protocol.toLowerCase())) {
+        return false;
+      }
+          // Extract the domain (remove 'www.' if present)
+    let domain = url.hostname.toLowerCase().replace(/^www\./, '');
+    console.log(domain)
+    // Check if the domain has a dot (.)
+    if (!domain.includes('.')) {
+      return false;
+    }
+   
     return true;
   } catch (err) {
+    console.log("err: " + err)
     return false;
   }
  }
@@ -117,7 +132,19 @@ wo_login_button.addEventListener('click', () => {
 
 
 })
-var url = "https://woo-generously-furry-wombat.wpcomstaging.com/"
+  
+   // Add event listener for input changes
+   /**  
+   wo_login_url.addEventListener('click', function () {
+    var inputValue = wo_login_url.value;
+    console.log(inputValue)
+    if (inputValue === '') {
+      // If empty, add the default value
+      wo_login_url.value = 'https://www.';
+    }
+  });
 
+var url = "https://woo-generously-furry-wombat.wpcomstaging.com/"
+*/
 
 

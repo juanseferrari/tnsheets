@@ -13,14 +13,12 @@
 
 <!-- <body class="main-body squared-body"> -->
 <body class="main-body">
-
-  <div class="container">
-    <section class="" id="">
-      <div class="full-page-item">
+    <section class="" id="" style="background-color: #f5fbf7;padding: 30px 0;">
+      <div class="full-page-item container">
         <div class="main-division2">
           <div class="division-text-content2">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Gestiona tu negocio desde Google Sheets 💻
+              <h1 class="main-title-2"><strong>Gestiona tu negocio desde Google Sheets</strong>
               </h1>
             </div>
             <div class="division-left-content-bottom">
@@ -60,8 +58,12 @@
 
     </section>
 
+    <div >
+      <img src="/images/designs/divider1.png" alt="" style="width: 100%; transform: rotate(180deg);">
+    </div>
+
     <section class="" id="instruction1">
-      <div class="full-page-item">
+      <div class="full-page-item container">
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
@@ -87,7 +89,7 @@
     </section>
 
     <section class="">
-      <div class="full-page-item">
+      <div class="full-page-item container">
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
@@ -114,7 +116,7 @@
       </div>
     </section>
     <section class="">
-      <div class="full-page-item">
+      <div class="full-page-item container">
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
@@ -140,14 +142,19 @@
 
       </div>
     </section>
-    <section id="productos">
-      <h1 class="main-title">Productos</h1>
 
-      <div class="flex card-container">
-        <% for (projecto of projectos) { %>
-          <%- include("./partials/card.ejs") %>
-        <% } %>
+    <section id="productos">
+      <div class="full-page-item container">
+        <h1 class="main-title">Productos</h1>
+
+        <div class="flex card-container">
+          <% for (projecto of projectos) { %>
+            <%- include("./partials/card.ejs") %>
+          <% } %>
+        </div>
       </div>
+
+
     </section>
 
 
@@ -156,7 +163,6 @@
 
 
 
-  </div>
 
   <%- include("./partials/contact-form.ejs") %>
 
