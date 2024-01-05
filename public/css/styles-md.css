@@ -79,7 +79,7 @@
 }
 
 .card-info-elements h6,i {
-    font-size: 2.3vh;
+    font-size: 2.1vh;
 
 }
 
@@ -103,6 +103,7 @@
     width: 60%;
 }
 .social-title{
+    display: none;
     margin: 0 15px 0 0 ;
 }
 /* ----------- FORM  ---------------  **/
@@ -208,7 +209,7 @@
 
 /** ---------- NAVBAR2 ----------------*/
 
-.navbar2 {
+.navbar {
     margin: 1%;
     max-width: 98%;
     max-height: 10%;
@@ -223,11 +224,12 @@
     align-items: flex-end;
 }
 
-.login-button-navbar2 {
+.login-button-navbar {
     margin-top: 0;
-    margin-left: 10%;
+    margin-left: 2%;
     width: 30%;
 }
+
 .user-image-navbar{
     border-radius: 50%;
     max-height: 6vh;

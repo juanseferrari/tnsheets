@@ -16,7 +16,6 @@ const AIRTABLE_GOOGLE_USERS = process.env.AIRTABLE_GOOGLE_USERS
 const AIRTABLE_LOGS = process.env.AIRTABLE_LOGS
 
 
-//TERMINAR
 const airtableConfig = {
   prod_users: AIRTABLE_PROD_USERS,
   test_users: AIRTABLE_TEST_USERS,

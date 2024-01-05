@@ -109,39 +109,17 @@
           <div class="step-user-info">
             <div class="step-left-text">
               <% if (user_connected.spreadsheet_id) { %>
-                <h4>Paso completado! Desde aqui puedes abrir tu Sheet: </h4>
+                <h4>Paso completado! Desde aquí puedes abrir tu Sheet: </h4>
                 <%} else { %>
                   <h4>Clona el siguiente Google Sheet en tu propia cuenta de Google</h4>
                 <% } %>
             </div>
             <div class="step-right-text">
               <% if (user_connected.spreadsheet_id) { %>
-                <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
-                    <a class="sheet-button-a"
-                      href="https://docs.google.com/spreadsheets/d/<%= user_connected.spreadsheet_id %>"
-                      target="_blank">
-                      <div class="login-button-text">
-                        <img class="login-button-logo" src="/images/logos/sheets_logo.png" alt="">
-                        <p class="login-button-p">Abrir Sheet</p>
-                      </div>
-                    </a>
-                  </button>
-                </div>
+                  <%- include("../partials/sheets_buttons/tn-sheet.ejs", {buttonText: "Abrir Sheet", url:  "https://docs.google.com/spreadsheets/d/" + user_connected.spreadsheet_id }) %>
                 <%} else { %>
-                  <div class="login-button">
-                    <button type="button" class="btn btn-outline-secondary">
-                      <a class="sheet-button-a"
-                        href="https://docs.google.com/spreadsheets/d/11ZjZ165kaZgqlEg1ufS7lAlda_ZbRLuYhCB-EOTIUm4/copy"
-                        target="_blank">
-                        <div class="login-button-text">
-                          <img class="login-button-logo" src="/images/logos/sheets_logo.png" alt="">
-                          <p class="login-button-p">Clonar Sheet (v2.2)</p>
-                        </div>
-                      </a>
-                    </button>
-                  </div>
-                  <% } %>
+                  <%- include("../partials/sheets_buttons/tn-sheet.ejs", {buttonText: false, url: false}) %>
+                <% } %>
 
                     <!-- end clone sheet button -->
             </div>
@@ -157,20 +135,8 @@
               <h4>🚀 ¡Nueva versión disponible! 🚀</h4>
             </div>
             <div class="step-right-text">
-                <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
-                    <a class="sheet-button-a"
-                      href="https://docs.google.com/spreadsheets/d/11ZjZ165kaZgqlEg1ufS7lAlda_ZbRLuYhCB-EOTIUm4/copy"
-                      target="_blank">
-                      <div class="login-button-text">
-                        <img class="login-button-logo" src="/images/logos/sheets_logo.png" alt="">
-                        <p class="login-button-p">Clonar Sheet (v2.2)</p>
-                      </div>
-                    </a>
-                  </button>
-                </div>
-
-                    <!-- end clone sheet button -->
+              <%- include("../partials/sheets_buttons/tn-sheet.ejs", {buttonText: false, url: false}) %>
+              <!-- end clone sheet button -->
             </div>
 
           </div>

@@ -18,47 +18,75 @@
   <!-- End Google Tag Manager (noscript) -->
 
 
+    <section class="" id="" style="background-color: #f5fbf7">
+      <h1 class="main-title">Tiendanube</h1>
 
-  <div class="container">
-    <section class="">
-      <div class="full-page-item">
-        <h1 class="main-title">Tu gestión de Tiendanube, en Google Sheets💻</h1>
-        <h3 class="main-text">
-          Todos los negocios, desde las multinacionales hasta los micro emprendimientos, usan hojas de cálculo para su
-          gestión. Usa lo mejor de los dos mundos.
-        </h3>
-        <div class="main-image">
-          <img src="/images/tn_fondo1.png" alt="" class="shadow rounded">
+      <div class="full-page-item container">
+        <div class="main-division2">
+          <div class="division-text-content2">
+            <div class="division-left-content-top">
+              <h1 class="main-title-2">Tu gestión de Tiendanube, en Google Sheets
+              </h1>
+            </div>
+            <div class="division-left-content-bottom">
+              <h3 class="explain-text"> Todos los negocios, desde las multinacionales hasta los micro emprendimientos, usan hojas de cálculo para su
+                gestión. Usa lo mejor de los dos mundos.</h3>
+
+              <% if (connection_id && user_connected.connection == 'tiendanube' && user_connected.active == 'true' ) { %>
+                <div class="login-button">
+                  <button type="button" class="btn btn-outline-secondary">
+                    <a class="black-button-a" href="/drive-to-tiendanube/config" >
+                      <div class="login-button-text">
+                        <img class="login-button-logo" src="/images/configuration.png" alt="">
+                        <p class="login-button-p">Ir a configuración</p>
+                      </div>
+                    </a>
+                  </button>
+                </div> 
+              <%} else { %>
+                <%- include("../partials/buttons/tn-button.ejs") %>
+                <%} %>
+
+              <div class="login-button">
+                <button type="button" class="btn btn-outline-secondary">
+                  <a class="black-button-a"
+                    href="/tiendanube/documentation"
+                    target="_blank">
+                    <div class="login-button-text">
+                      <img class="login-button-logo" src="/images/document.png" alt="">
+                      <p class="login-button-p">Ver documentación</p>
+                    </div>
+                  </a>
+                </button>
+              </div>
+
+            </div>
+
+          </div><!-- Divion left content-->
+          <div class="division-right-content2 video-container">
+            <div class="main-image">
+              <img src="/images/tn_fondo1.png" alt="" class="shadow rounded">
+            </div>
+          </div><!-- Divion right content-->
 
         </div>
 
-        <% if (connection_id && user_connected.active == 'true' ) { %>
-          <div class="login-button">
-            <button type="button" class="btn btn-outline-secondary">
-              <a class="black-button-a" href="/tiendanube/config" >
-                <div class="login-button-text">
-                  <img class="login-button-logo" src="/images/configuration.png" alt="">
-                  <p class="login-button-p">Ir a configuración</p>
-                </div>
-              </a>
-            </button>
-          </div> 
-        <%} else { %>
-          <%- include("../partials/buttons/tn-button.ejs") %>
-          <%} %>
-
-
-
-
-        <div class="arrow">
-          <i class="fa-solid fa-angles-down bounce"></i>
-        </div>
       </div>
 
     </section>
 
+    <div >
+      <img src="/images/designs/divider1.png" alt="" style="width: 100%; transform: rotate(180deg);">
+    </div>
+
+
+
+
+
+
+
     <section class="" id="funcionalidades">
-      <div class="full-page-item">
+      <div class="full-page-item container">
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
@@ -83,7 +111,7 @@
     </section>
 
     <section class="">
-      <div class="full-page-item">
+      <div class="full-page-item container">
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
@@ -108,7 +136,7 @@
       </div>
     </section>
     <section class="" data-color="green">
-      <div class="full-page-item">
+      <div class="full-page-item container">
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
@@ -129,7 +157,6 @@
       </div>
 
     </section>
-  </div>
 
   <div class="login-button">
     <button type="button" class="btn btn-outline-secondary">

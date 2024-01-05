@@ -9,21 +9,6 @@ const url = require('url');
 //Services
 const mainService = require("../../services/main-service");
 
-//Sheets Central tokens. 
-const dt_client_id = "7342"
-const dt_client_secret = process.env.DT_CLIENT_SECRET
-
-//TEST ENVIRONMENTS
-const test_client_id = "6107"
-const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
-
-
-//AIRTABLE VALUES
-//idealmente aca no deberia haber ninguna variable de airtable, tiene que estar todo en el service
-const airtable_base_id = process.env.AIRTABLE_BASE_ID
-const airtable_test_table_id = "tbl3tdymJSf7Rhiv0"
-const airtable_prod_table_id = process.env.AIRTABLE_PROD_USERS
-const airtable_access_token = process.env.AIRTABLE_ACCESS_TOKEN
 
 const dtController = {
   dtHome: async (req, res) => {
