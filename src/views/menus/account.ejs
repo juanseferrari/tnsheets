@@ -9,7 +9,7 @@
 
   </head>
 
-  <body class="squared-body">
+  <body>
       <!-- Google Tag Manager (noscript) -->
      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KMHPBPS"
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -21,7 +21,6 @@
         <div class="container border instructions-container shadow">
 
           <div id="step1">
-            <% if (google_user.google_user_id) { %>
               <!-- step-block si ya esta logueado-->
               <div class="step-block step-ok">
                 <div class="step-title">
@@ -29,7 +28,8 @@
                     <p>Cuenta</p>
                   </div>
                 </div>
-    
+                <% if (google_user.google_user_id) { %>
+
                 <div class="step-user-info">
                   <div class="step-user-info-image">
                     <% if (google_user.user_picture_url) { %>
@@ -47,13 +47,15 @@
                    
     
                 </div>
+                <%} else {%>
+                  <%- include("../partials/buttons/google-login.ejs") %>
+                <%}%>
                 
               </div>
               
-              <%} %>
-               
+
+
           </div>
-          <!-- END STEP 1 -->
   
           <h1 class="main-title">Conexiones</h1>
 
@@ -62,7 +64,7 @@
               <div class="step-block step-ok">
                 <div class="step-user-info">
                   <div class="step-left-text">
-                    <h4><%= connection.title %></h4>
+                    <h4><%= connection.user_name %></h4>
                   </div>
                   <div class="step-right-text">            
                     <div class="login-button">
@@ -85,9 +87,49 @@
               </div>
       
             </div>
-          <% } %>     
+          <% } %>   
+          <% for (gconnection of connections.google_connections.records) { %>
+            <div>
+              <div class="step-block step-ok">
+                <div class="step-user-info">
+                  <div class="step-left-text">
+                    <h4><%= gconnection.user_name %></h4>
+                  </div>
+                  <div class="step-right-text">            
+                    <div class="login-button">
+                      <button type="button" class="btn btn-outline-secondary">
+                        <a class="black-button-a" href="/<%= gconnection.connection %>/<%= gconnection.id %>/config" >
+                          <div class="login-button-text">
+                            <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
+                            <p class="login-button-p">Ir a configuración</p>
+                          </div>
+                        </a>
+                      </button>
+                    </div> 
+                      
+      
+                          <!-- end clone sheet button -->
+                  </div>
+      
+                </div>
+      
+              </div>
+      
+            </div>
+          <% } %>   
+
+          <% if (google_user.google_user_id) { %>
+            <h1 class="main-title">Agregar más cuentas</h1>
+            <div class="step-block">
+              <%- include("../partials/buttons/tn-button.ejs") %>
+            </div>
+            <% } %>   
+
+
+
+
     
-    
+  
           <div class="g_id_signout">
             <div class="login-button">
               <button type="button" class="btn btn-outline-secondary" id="signout_button">

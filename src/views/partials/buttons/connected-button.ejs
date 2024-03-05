@@ -1,0 +1,48 @@
+
+<div class="menu-item login-button-navbar">
+
+<% if (navbar_data.active === true) { %>
+    <a href="/account">
+        <div class="image-navbar-container hover-element">
+          <div class="user-arrow">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <div class="user-image-container">
+            <img src="<%= navbar_data.logo_url %>" alt="" class="user-image-navbar">
+          </div>
+        </div>
+      </a>
+<% } else { %>
+    <!-- Show login button -->
+    <button type="button" class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-button">Iniciar sesión</button>
+<% }  %>
+</div>
+
+<!-- OLD VERSION  
+<div class="menu-item login-button-navbar">
+    <% if (typeof google_user.google_user_id !=='undefined' ) { %>
+      <% if (google_user.google_user_id ) { %>
+        <a href="/account">
+          <div class="image-navbar-container hover-element">
+            <div class="user-arrow">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="user-image-container">
+              <% if (google_user.user_picture_url ) { %>
+                <img src="<%= google_user.user_picture_url %>" alt="" class="user-image-navbar">
+                <%} else { %>
+                  <img src="/images/icons/support.png" alt="" class="user-image-navbar">
+                <%} %>
+            </div>
+          </div>
+        </a>
+        <%} else { %>
+        <button type="button" class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-button">Iniciar sesión</button>
+          <%} %>
+     <% } else { %>
+        <button type="button" class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-button">Iniciar sesión</button>
+    <% } %>
+
+
+  </div>
+-->

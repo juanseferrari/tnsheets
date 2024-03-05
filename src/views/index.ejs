@@ -3,7 +3,7 @@
 
 <head>
 
-  <%- include("./partials/head.ejs") %>
+    <%- include("./partials/head.ejs") %>
     <%- include("./partials/header.ejs") %>
       <!-- Titulo del broswer-->
       <title>Sheets Central</title>
@@ -18,28 +18,47 @@
         <div class="main-division2">
           <div class="division-text-content2">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Gestiona tu negocio desde Google Sheets
+              <h1 class="main-title-2">Tu gestión de Tiendanube, en Google Sheets
               </h1>
             </div>
             <div class="division-left-content-bottom">
               <h3 class="explain-text">Automatiza y gestiona tu tienda con la herramienta más usada por todas empresas de todos los tamaños </h3>
               
-              <div class="login-button">
+              <% if (connection_id && user_connected.connection == 'tiendanube' && user_connected.active == 'true' ) { %>
+                <div class="login-button">
                   <button type="button" class="btn btn-outline-secondary">
-                    <a class="black-button-a" href="/#productos">
+                    <a class="black-button-a" href="/drive-to-tiendanube/config" >
                       <div class="login-button-text">
-                        <img class="login-button-logo" src="/images/icons/sheet-icon.png" alt="">
-                        <p class="login-button-p">Explorar productos</p>
+                        <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
+                        <p class="login-button-p">Ir a configuración</p>
                       </div>
                     </a>
                   </button>
-                </div>
+                </div> 
+              <%} else { %>
+                <%- include("./partials/buttons/tn-button.ejs") %>
+                <%} %>
+
+              <div class="login-button">
+                <button type="button" class="btn btn-outline-secondary">
+
+                  <a class="black-button-a"
+                    href="/tiendanube/documentation"
+                    target="_blank">
+                    <div class="login-button-text">
+                      <img class="login-button-logo" src="/images/icons/document.png" alt="">
+                      <p class="login-button-p">Ver documentación</p>
+                    </div>
+                  </a>
+                </button>
+              </div>
 
             </div>
 
           </div><!-- Divion left content-->
           <div class="division-right-content2 video-container shadow">
-            <video loop autoplay playsinline muted class="intro-video">
+            <!-- Agregar poster="poster.png" en el video-->
+            <video loop autoplay playsinline muted class="intro-video" >
               <video:thumbnail_loc>https://www.sheetscentral.com/images/sheets_central_logo.png</video:thumbnail_loc>
               <video:title>Sheets Central home video title</video:title>
               <video:description>
@@ -67,7 +86,7 @@
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Automatiza las ventas de tu E-commerce</h1>
+              <h1 class="main-title-2">Automatiza las ventas de tu tienda</h1>
             </div>
             <div class="division-left-content-bottom">
               <h3 class="explain-text"> Nueva venta → Nueva fila en tu Google Sheets </h3>
@@ -120,7 +139,7 @@
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Métricas, Dashboards, con la interfaz de siempre ¡y más!</h1>
+              <h1 class="main-title-2">Métricas, Dashboards, filtros ¡y más!</h1>
             </div>
             <div class="division-left-content-bottom">
               <h3 class="explain-text"> Sigue usando las mismas funciones de Google Sheets </h3>
@@ -133,10 +152,12 @@
           </div><!-- Divion left content-->
 
           <div class="division-text-content video-container">
+            
             <video loop autoplay muted class="intro-video shadow">
               <source src="/images/demo_videos/dashboards-home-1.mp4" type="video/mp4" />
             </video>
           </div> <!-- Divion left content-->
+
 
         </div>
 
@@ -162,7 +183,9 @@
 
 
 
-
+    <%- include("./partials/pricing-section2.ejs") %>
+    <%- include("./partials/compare-plans2.ejs") %>
+  
 
   <%- include("./partials/contact-form.ejs") %>
 

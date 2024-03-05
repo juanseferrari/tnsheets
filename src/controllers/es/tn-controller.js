@@ -18,56 +18,50 @@ const test_client_id = "6107"
 const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
 
 
-//AIRTABLE VALUES
-//idealmente aca no deberia haber ninguna variable de airtable, tiene que estar todo en el service
-const airtable_base_id = process.env.AIRTABLE_BASE_ID
-const airtable_test_table_id = "tbl3tdymJSf7Rhiv0"
-const airtable_prod_table_id = process.env.AIRTABLE_PROD_USERS
-const airtable_access_token = process.env.AIRTABLE_ACCESS_TOKEN
-
-
 const tnController = {
   tnHome: async (req, res) => {
-    let connection_id = ""
-    let google_user_id = ""
-    if (req.cookies.connection_id) {
-      connection_id = req.cookies.connection_id
-    }
-    if (req.cookies.google_user_id) {
-      google_user_id = req.cookies.google_user_id
-    }
+
+    let google_user = res.locals.google_user
+    let connection_id = res.locals.connection_id
+    let navbar_data = res.locals.navbar_data
+
     let user_connected = await mainService.searchUser(connection_id)
-    let google_user = await mainService.searchGoogleUser(google_user_id)
-    //Agregar el google_user
-    console.log("user_connected")
-    console.log(user_connected)
-    console.log("user_connected")
+
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)
 
-    res.render("menus/tiendanube", { title: "Inicio", google_user_id, connection_id, user_connected,google_user,firstPath });
+    res.render("menus/tiendanube", { title: "Inicio", connection_id, user_connected,google_user,navbar_data,firstPath });
   },
   configuration: async (req, res) => {
-    let connection_id = ""
-    let google_user_id = ""
-    if (req.cookies.connection_id) {
-      connection_id = req.cookies.connection_id
-    }
-    if (req.cookies.google_user_id) {
-      google_user_id = req.cookies.google_user_id
-    }
+
+    let google_user = res.locals.google_user
+    let connection_id = res.locals.connection_id
+    let navbar_data = res.locals.navbar_data
     let user_connected = await mainService.searchUser(connection_id)
-    let google_user = await mainService.searchGoogleUser(google_user_id)
-    
+
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)
 
-    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected,google_user, google_user_id, firstPath})
+    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user,navbar_data, firstPath})
+  },
+  configuration2: async (req, res) => {
+
+    let google_user = res.locals.google_user
+    let connection_id = req.params.connId
+    let navbar_data = res.locals.navbar_data
+    let user_connected = await mainService.searchUser(connection_id)
+
+    //Path for documentation link
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];  
+    console.log("firstPath: "+ firstPath)
+
+    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user,navbar_data, firstPath})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-b5981995bad64dc19be57d4704a76fff?pvs=4")
@@ -84,6 +78,8 @@ const tnController = {
     }
   },
   tnOauth: async (req, res) => {
+    let navbar_data = res.locals.navbar_data
+
     let code = req.query.code
     let state = req.query.state //Este es el google_id
 
@@ -108,7 +104,7 @@ const tnController = {
     if (data['error']) {
       //WIP despues manejar bien este error handling. 
       let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
-      res.render("menus/error-page", { message })
+      res.render("menus/error-page", { message, navbar_data })
     } else {
       /** FUNCIONO OK EL OAUTH */
 
@@ -204,7 +200,7 @@ const tnController = {
         }
         } catch (error) {
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282999"
-          res.render("menus/error-page", { message })
+          res.render("menus/error-page", { message,navbar_data })
         }
 
     } /** Fin del else error */
@@ -239,93 +235,10 @@ const tnController = {
     }
     res.json(response_object)
   },
-  getTokenTN: async (req, res) => {
-    //todo A FUTURO: esta funcion deberia ser connectSheet y se aplicaria para todas las conexiones.
-    //deberiamos validar la suscripcion
-    // funcion usada para obtener el token desde GAS
-    let token = req.body.token
-    let spreadsheet_id = req.body.spreadsheet_id
-    var connection_id = req.body.connection_id
-    var sheet_version = req.body.sheet_version
-
-    //TODO migrate to upsert data
-    //TODO agregar validacion del email y del tipo de connection. Si es tienda_nube/shopify, etc se tiene que enviar directo desde el Google Sheet. 
-    var data_to_airtable = {
-      "fields": {
-        "spreadsheet_id": spreadsheet_id,
-        "spreadsheet_connection_date": new Date().toISOString(),
-        "connection_id": connection_id,
-        "sheet_version": sheet_version
-      }
-    } //end data_to_airtable
-
-    var airtable_update_record = {
-      method: 'PATCH',
-      headers: {
-        "Authorization": "Bearer " + airtable_access_token,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data_to_airtable),
-      redirect: 'follow'
-    }
-    //FUTURO, AGREGAR LA VALIDACION DEL SPREADSHEET ID
-    if (token === "sheetapi5678") {
-      //agregar un token mas seguro o algo dinamico por usuario
-      try {
-        // A FUTURO: pasar esta funcion de get token a un service reusable.
-        let airtabe_request = await fetch("https://api.airtable.com/v0/" + airtable_base_id + "/" + airtable_prod_table_id + "/" + connection_id, airtable_update_record)
-        let airtable_response = await airtabe_request.json();
-        res.json({
-          "id": airtable_response.id,
-          "access_token": airtable_response.fields.access_token,
-          "store_id": airtable_response.fields.user_id
-        })
-      } catch (error) {
-        res.json({
-          "error": {
-            "type": "CONNECTION_NOT_FOUND",
-            "message": "The connection_id provided is incorrect or not found."
-          }
-        })
-      }
-    } else {
-      res.json({
-        "error": {
-          "type": "INVALID_TOKEN",
-          "message": "Token provided is incorrect."
-        }
-      })
-    }
-
-  },
   getSheet: async (req,res) => {
     //Funcion que valida si existe connection_id y abre el sheet.
     //Si no existe connection_id redirigir al login page.
   },
-  getConnection: async (req,res) => {
-    console.log(req.params.connId)
-    let user_connected = req.user_connected
-    let connection_id = req.params.connId
-    
-    let google_user_id = ""
-    if (req.cookies.google_user_id) {
-      google_user_id = req.cookies.google_user_id
-    }
-    let google_user = await mainService.searchGoogleUser(google_user_id)
-
-
-    console.log("user_connected 2")
-    console.log(user_connected)
-    console.log("user_connected 2")
-
-    //Path for documentation link
-    var pathSegments = req.url.split('/');
-    var firstPath = pathSegments[1];  
-    console.log("firstPath: "+ firstPath)
-
-    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user, google_user_id, firstPath})
-
-  }
 
 };
 

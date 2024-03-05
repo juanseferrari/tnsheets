@@ -68,10 +68,13 @@
 }
 .user-image-navbar{
     border-radius: 50%;
-    max-height: 7vh;
+    height: 6vh;
+    max-width: 7vh;
     padding: 10%;
 }
-
+.user-image-container {
+    max-height: 7vh;
+}
 .image-navbar-container {
     background-color: var(--color-secondary);
     border-radius: 20px;
@@ -97,7 +100,7 @@
 
 .offcanvas-body a{
     text-decoration: none;
-    font-size: 4vh;
+    font-size: 3.5vh;
     color: black;
 }
 .offcanvas {
@@ -109,6 +112,7 @@
 .offcanvas-header {
     padding-top: 2vh;
     padding-right: 2vh;
+    margin-top: 4vh;
 }
 .btn-close {
     font-size: 2vh;
@@ -124,6 +128,11 @@
     border-radius: 10px;
     margin-bottom: 5vh;
 
+}
+
+.menu-lang {
+    display: flex;
+    align-items: center;
 }
 
 
@@ -225,6 +234,8 @@
 .card-text-content h2 {
     font-size: 3.2vh;
     padding-top: 5px;
+    display: flex;
+    align-items: center;
 }
 .card-text-content p {
     font-size: 1.5vh;
@@ -621,6 +632,7 @@
 .step-title {
     font-size: 3vh;
     display: flex;
+    font-weight: 700;
 }
 .step-check {
     color: green;
@@ -753,8 +765,9 @@
 }
 
 .explain-text {
-    padding: 1vh;
+    padding: 1vh 0;
     font-size: 2.5vh;
+    text-align: center;
 }
 .video-container {
     display: flex;

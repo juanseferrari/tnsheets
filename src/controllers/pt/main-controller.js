@@ -31,6 +31,8 @@ const mainController = {
     console.log("firstPath: " + firstPath)
 
 
+    res.cookie("sc_lang", "ES")
+
     res.render("index", { projectos, google_user_id, google_user });
   },
   pong: async (req, res) => {

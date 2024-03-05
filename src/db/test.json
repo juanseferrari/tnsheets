@@ -1,0 +1,751 @@
+{
+    "kind": "admin#reports#usageReports",
+    "etag": "\"rNVw6s4PoMfwBW7LDetdt3OSpR6BZyHF4-IZC6b9NGw/vrs_YVhHMzv05mB5BMANJPv7bpo\"",
+    "usageReports": [
+      {
+        "kind": "admin#reports#usageReport",
+        "date": "2023-12-01",
+        "etag": "\"rNVw6s4PoMfwBW7LDetdt3OSpR6BZyHF4-IZC6b9NGw/Uwx34cPCF9g-QG2mGbsYyqLYNoY\"",
+        "entity": {
+          "type": "USER",
+          "customerId": "C04i45xn9",
+          "userEmail": "admin@sheetscentral.com",
+          "profileId": "110519386138343813910"
+        },
+        "parameters": [
+          {
+            "name": "docs:num_owned_items_created",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_items_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_items_edited",
+            "intValue": "2"
+          },
+          {
+            "name": "docs:num_owned_items_viewed",
+            "intValue": "1"
+          },
+          {
+            "name": "docs:num_owned_google_documents_created",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_documents_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_documents_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_documents_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_spreadsheets_created",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_spreadsheets_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_spreadsheets_edited",
+            "intValue": "2"
+          },
+          {
+            "name": "docs:num_owned_google_spreadsheets_viewed",
+            "intValue": "1"
+          },
+          {
+            "name": "docs:num_owned_google_presentations_created",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_presentations_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_presentations_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_presentations_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_forms_created",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_forms_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_forms_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_forms_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_drawings_created",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_drawings_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_drawings_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_google_drawings_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_other_types_created",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_other_types_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_other_types_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "docs:num_owned_other_types_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "classroom:num_courses_created",
+            "intValue": "0"
+          },
+          {
+            "name": "classroom:num_posts_created",
+            "intValue": "0"
+          },
+          {
+            "name": "gmail:num_emails_sent",
+            "intValue": "1"
+          },
+          {
+            "name": "gmail:num_spam_emails_received",
+            "intValue": "0"
+          },
+          {
+            "name": "gmail:num_emails_received",
+            "intValue": "1"
+          },
+          {
+            "name": "gmail:is_gmail_enabled",
+            "boolValue": true
+          },
+          {
+            "name": "gmail:last_webmail_time",
+            "datetimeValue": "2023-12-01T16:06:21.000Z"
+          },
+          {
+            "name": "gmail:last_interaction_time",
+            "datetimeValue": "2023-12-01T16:06:21.000Z"
+          },
+          {
+            "name": "gmail:last_access_time",
+            "datetimeValue": "2023-12-02T04:05:47.000Z"
+          },
+          {
+            "name": "gmail:num_emails_exchanged",
+            "intValue": "2"
+          },
+          {
+            "name": "drive:num_owned_items_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_edited",
+            "intValue": "2"
+          },
+          {
+            "name": "drive:num_owned_items_viewed",
+            "intValue": "1"
+          },
+          {
+            "name": "drive:num_owned_google_documents_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_documents_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_documents_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_documents_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_spreadsheets_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_spreadsheets_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_spreadsheets_edited",
+            "intValue": "2"
+          },
+          {
+            "name": "drive:num_owned_google_spreadsheets_viewed",
+            "intValue": "1"
+          },
+          {
+            "name": "drive:num_owned_google_presentations_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_presentations_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_presentations_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_presentations_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_forms_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_forms_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_forms_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_forms_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_drawings_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_drawings_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_drawings_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_drawings_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_other_types_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_other_types_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_other_types_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_other_types_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_items_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_items_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_items_edited",
+            "intValue": "2"
+          },
+          {
+            "name": "drive:num_items_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_documents_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_documents_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_documents_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_documents_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_spreadsheets_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_spreadsheets_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_spreadsheets_edited",
+            "intValue": "2"
+          },
+          {
+            "name": "drive:num_google_spreadsheets_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_presentations_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_presentations_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_presentations_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_presentations_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_forms_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_forms_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_forms_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_forms_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_drawings_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_drawings_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_drawings_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_drawings_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_other_types_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_other_types_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_other_types_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_other_types_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_documents_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_documents_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_documents_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_spreadsheets_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_spreadsheets_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_spreadsheets_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_presentations_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_presentations_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_presentations_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_forms_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_forms_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_forms_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_drawings_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_drawings_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_drawings_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_other_types_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_other_types_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_other_types_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_public_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_public_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_public_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_anyone_with_link_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_anyone_with_link_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_anyone_with_link_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_shared_externally_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_shared_externally_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_shared_externally_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_anyone_in_domain_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_anyone_in_domain_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_anyone_in_domain_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_anyone_in_domain_with_link_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_anyone_in_domain_with_link_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_anyone_in_domain_with_link_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_shared_internally_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_shared_internally_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_shared_internally_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_private_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_private_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_private_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_unknown_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_unknown_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_items_with_visibility_unknown_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_external_items_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_external_items_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_external_items_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_internal_items_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_internal_items_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_internal_items_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_sites_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_sites_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_sites_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_sites_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_sites_created",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_sites_trashed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_sites_edited",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_google_sites_viewed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_sites_delta",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_sites_added",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:num_owned_google_sites_removed",
+            "intValue": "0"
+          },
+          {
+            "name": "drive:last_active_usage_time",
+            "datetimeValue": "2023-12-02T02:48:18.000Z"
+          },
+          {
+            "name": "accounts:first_name",
+            "stringValue": "Sheets"
+          },
+          {
+            "name": "accounts:last_name",
+            "stringValue": "Central"
+          },
+          {
+            "name": "accounts:is_disabled",
+            "boolValue": false
+          },
+          {
+            "name": "accounts:disabled_reason"
+          },
+          {
+            "name": "accounts:creation_time",
+            "datetimeValue": "2023-08-28T21:17:03.000Z"
+          },
+          {
+            "name": "accounts:last_login_time",
+            "datetimeValue": "2023-11-23T09:45:02.000Z"
+          },
+          {
+            "name": "accounts:last_sso_time",
+            "datetimeValue": "1970-01-01T00:00:00.000Z"
+          },
+          {
+            "name": "accounts:is_2sv_enrolled",
+            "boolValue": false
+          },
+          {
+            "name": "accounts:is_2sv_enforced",
+            "boolValue": false
+          },
+          {
+            "name": "accounts:is_super_admin",
+            "boolValue": true
+          },
+          {
+            "name": "accounts:is_delegated_admin",
+            "boolValue": false
+          },
+          {
+            "name": "accounts:drive_used_quota_in_mb",
+            "intValue": "328"
+          },
+          {
+            "name": "accounts:gmail_used_quota_in_mb",
+            "intValue": "0"
+          },
+          {
+            "name": "accounts:gplus_photos_used_quota_in_mb",
+            "intValue": "0"
+          },
+          {
+            "name": "accounts:total_quota_in_mb",
+            "intValue": "30720"
+          },
+          {
+            "name": "accounts:used_quota_in_mb",
+            "intValue": "328"
+          },
+          {
+            "name": "accounts:is_suspended",
+            "boolValue": false
+          },
+          {
+            "name": "accounts:is_archived",
+            "boolValue": false
+          },
+          {
+            "name": "accounts:num_authorized_apps",
+            "intValue": "31"
+          },
+          {
+            "name": "accounts:used_quota_in_percentage",
+            "intValue": "1"
+          },
+          {
+            "name": "accounts:num_security_keys",
+            "intValue": "0"
+          },
+          {
+            "name": "accounts:is_less_secure_apps_access_allowed",
+            "boolValue": false
+          },
+          {
+            "name": "accounts:admin_set_name",
+            "stringValue": "Sheets Central"
+          },
+          {
+            "name": "accounts:user_has_overridden_name",
+            "boolValue": false
+          },
+          {
+            "name": "accounts:password_length_compliance",
+            "stringValue": "COMPLIANT"
+          },
+          {
+            "name": "accounts:password_strength",
+            "stringValue": "STRONG"
+          }
+        ]
+      }
+    ]
+  }
+  

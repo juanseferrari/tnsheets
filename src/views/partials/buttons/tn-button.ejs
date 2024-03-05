@@ -1,7 +1,7 @@
-<div class="login-button">
-    <button type="button" class="btn btn-outline-secondary">
-      <% if (google_user_id) { %>
-        <a class="tn-button-a" href="https://www.tiendanube.com/apps/5434/authorize?state=<%= google_user_id %>" target="_blank">
+<div class="login-button validation-button">
+    <button type="button" class="btn btn-outline-secondary" id="tiendanube-button">
+      <% if (google_user.google_user_id) { %>
+        <a class="tn-button-a" href="https://www.tiendanube.com/apps/5434/authorize?state=<%= google_user.google_user_id %>" target="_blank">
           <%} else { %>
         <a class="tn-button-a" href="https://www.tiendanube.com/apps/5434/authorize" target="_blank">
        <% } %>
