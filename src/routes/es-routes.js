@@ -14,6 +14,8 @@ const woController = require('../controllers/es/wo-controller');
 const checkAuth = require('../middlewares/check-auth');
 const generalMid = require('../middlewares/general-mid');
 
+const googleController = require('../controllers/google-controller');
+
 /**
  * Nomenclatura general:
  * TODOOO kebab-case
@@ -79,6 +81,9 @@ router.post('/woocommerce/oauth',generalMid, woController.woOauth)
 router.get('/woocommerce/documentation', woController.documentation);
 
 
+/* GOOGLE AUTH DATA */
+router.post('/google-auth',googleController.googleoauth)
+router.get('/google-auth',tnController.tnHome) //google login viejo, sacar
 
 
 /* Contacto. */
