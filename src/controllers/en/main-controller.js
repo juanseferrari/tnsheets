@@ -27,6 +27,11 @@ const mainController = {
     let google_user = await mainService.searchGoogleUser(google_user_id)
 
     var pathSegments = req.url.split('/');
+    console.log("pathSegments")
+    console.log(pathSegments)
+    console.log("pathSegments")
+    res.cookie("sc_lang", "EN")
+
     var firstPath = pathSegments[1];
     console.log("firstPath: " + firstPath)
 

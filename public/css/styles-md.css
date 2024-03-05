@@ -37,6 +37,9 @@
     text-align: left;
     padding-top: 15%;
 }
+.explain-text{
+    text-align: left;
+}
 /** -------- CARDS -------------- **/
 
 #offcanvas-menu {
@@ -220,7 +223,7 @@
 }
 .container-menu {
     display: flex;
-    width: 60%;
+    width: 70%;
     align-items: flex-end;
 }
 
@@ -230,11 +233,6 @@
     width: 30%;
 }
 
-.user-image-navbar{
-    border-radius: 50%;
-    max-height: 6vh;
-    padding: 10%;
-}
 .squared-body {
     background: url("../images/squared_background.png") repeat 0 0 ;
     background-size: 4%;
@@ -255,9 +253,7 @@
     justify-content: space-between;
     
 }
-.user-image-container {
-    max-height: 6vh;
-}
+
 .user-arrow {
     font-size: 5px;
     display: flex;

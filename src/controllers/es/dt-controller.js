@@ -14,42 +14,15 @@ const paymentService = require("../../services/payment-service");
 const dt_client_id = "7342"
 const dt_client_secret = process.env.DT_CLIENT_SECRET
 
-//TEST ENVIRONMENTS
-const test_client_id = "6107"
-const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
-
-
-//AIRTABLE VALUES
-//idealmente aca no deberia haber ninguna variable de airtable, tiene que estar todo en el service
-const airtable_base_id = process.env.AIRTABLE_BASE_ID
-const airtable_test_table_id = "tbl3tdymJSf7Rhiv0"
-const airtable_prod_table_id = process.env.AIRTABLE_PROD_USERS
-const airtable_access_token = process.env.AIRTABLE_ACCESS_TOKEN
 
 const dtController = {
+
   dtHome: async (req, res) => {
-    let dt_connection_id = ""
-
-    if (req.cookies.dt_connection_id) {
-      dt_connection_id = req.cookies.dt_connection_id
-    } else if (req.cookies.connection_id){
-      let user_connected_2 = await mainService.searchUser(req.cookies.connection_id)
-      if(user_connected_2.connection == "drive-to-tiendanube"){
-        dt_connection_id = req.cookies.connection_id
-      }
-
-    }
-    console.log("dt_connection_id")
-    console.log(dt_connection_id)
-    console.log("dt_connection_id")
-
-    let google_user_id = ""
-    if (req.cookies.google_user_id) {
-      google_user_id = req.cookies.google_user_id
-    }
+    let google_user = res.locals.google_user
+    let dt_connection_id = res.locals.dt_connection_id
+    let navbar_data = res.locals.navbar_data
 
     let user_connected = await mainService.searchUser(dt_connection_id)
-    let google_user = await mainService.searchGoogleUser(google_user_id)
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
@@ -57,32 +30,14 @@ const dtController = {
     console.log("firstPath: "+ firstPath)
 
 
-    res.render("menus/drive-to-tiendanube", { title: "Drive to Tiendanube", google_user_id, dt_connection_id, user_connected, google_user,  firstPath });
+    res.render("menus/drive-to-tiendanube", { title: "Drive to Tiendanube", google_user, dt_connection_id, user_connected,navbar_data, firstPath });
   },
   configuration: async (req, res) => {
-    let dt_connection_id = ""
-    console.log("dt_connection_id: " + dt_connection_id)
 
-    if (req.cookies.dt_connection_id) {
-      dt_connection_id = req.cookies.dt_connection_id
-    } else if (req.cookies.connection_id){
-      let user_connected_2 = await mainService.searchUser(req.cookies.connection_id)
-      if(user_connected_2.connection == "drive-to-tiendanube"){
-        dt_connection_id = req.cookies.connection_id
-      }
-
-    }
-    console.log("dt_connection_id: " + dt_connection_id)
-
-
-    let google_user_id = ""
-    if (req.cookies.google_user_id) {
-      google_user_id = req.cookies.google_user_id
-    }
-
-
+    let google_user = res.locals.google_user
+    let dt_connection_id = res.locals.dt_connection_id
+    let navbar_data = res.locals.navbar_data
     let user_connected = await mainService.searchUser(dt_connection_id)
-    let google_user = await mainService.searchGoogleUser(google_user_id)
 
     let unredeemedPayments = await paymentService.unredeemedPayments(dt_connection_id)
 
@@ -92,12 +47,31 @@ const dtController = {
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)    
 
-    res.render("instructions/dt-instructions", { title: "Instrucciones", dt_connection_id, user_connected,google_user, google_user_id, firstPath, unredeemedPayments})
+    res.render("instructions/dt-instructions", { title: "Instrucciones", dt_connection_id, user_connected,google_user, navbar_data, firstPath, unredeemedPayments})
+  },
+  configuration2: async (req, res) => {
+
+    let google_user = res.locals.google_user
+    let dt_connection_id = req.params.connId
+    let navbar_data = res.locals.navbar_data
+    let user_connected = await mainService.searchUser(dt_connection_id)
+
+    let unredeemedPayments = await paymentService.unredeemedPayments(dt_connection_id)
+
+
+    //Path for documentation link
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];  
+    console.log("firstPath: "+ firstPath)    
+
+    res.render("instructions/dt-instructions", { title: "Instrucciones", dt_connection_id, user_connected,google_user, navbar_data, firstPath, unredeemedPayments})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-72f6a9435253493885209eab1d671c10?pvs=4")
   },
   dtOauth: async (req, res) => {
+    let navbar_data = res.locals.navbar_data
+
     /**EL OAUTH DEBERIA SER UNO SOLO PARA TODOS LOS IDIOMAS.  */
     let code = req.query.code
     let state = req.query.state //Este es el google_id
@@ -123,7 +97,7 @@ const dtController = {
     if (data['error']) {
       //WIP despues manejar bien este error handling. 
       let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
-      res.render("menus/error-page", { message })
+      res.render("menus/error-page", { message,navbar_data })
     } else {
       /** FUNCIONO OK EL OAUTH */
 
@@ -220,7 +194,7 @@ const dtController = {
         }
         } catch (error) {
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282999"
-          res.render("menus/error-page", { message })
+          res.render("menus/error-page", { message,navbar_data })
         }
 
     } /** Fin del else error */

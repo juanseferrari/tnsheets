@@ -29,16 +29,13 @@ var mp_redirect_url = "https://www.sheetscentral.com/mp-oauth"
 
 const mpController = {
   mpHome: async (req,res) => {
-    let mp_connection_id = ""
-    let google_user_id = ""
-    if (req.cookies.mp_connection_id) {
-      mp_connection_id = req.cookies.mp_connection_id
-    }
-    if (req.cookies.google_user_id) {
-      google_user_id = req.cookies.google_user_id
-    }
+
+    let google_user = res.locals.google_user
+    let navbar_data = res.locals.navbar_data
+
+    let mp_connection_id = res.locals.mp_connection_id
+
     let user_connected = await mainService.searchUser(mp_connection_id)
-    let google_user = await mainService.searchGoogleUser(google_user_id)
 
       //Path for documentation link
       var pathSegments = req.url.split('/');
@@ -46,21 +43,16 @@ const mpController = {
       console.log("firstPath: "+ firstPath)    
   
 
-    res.render( "menus/mercadopago", { title: "Mercado Pago", google_user_id, mp_connection_id, user_connected, google_user, firstPath });
+    res.render( "menus/mercadopago", { title: "Mercado Pago", mp_connection_id, user_connected, google_user, navbar_data, firstPath });
   },
   configuration: async (req,res) => {
-    console.log("Cookies:", req.cookies)
-    
-    let mp_connection_id = ""
-    let google_user_id = ""
-    if (req.cookies.mp_connection_id) {
-      mp_connection_id = req.cookies.mp_connection_id
-    }
-    if (req.cookies.google_user_id) {
-      google_user_id = req.cookies.google_user_id
-    }
+
+    let google_user = res.locals.google_user
+    let navbar_data = res.locals.navbar_data
+
+    let mp_connection_id = res.locals.mp_connection_id
+
     let user_connected = await mainService.searchUser(mp_connection_id)
-    let google_user = await mainService.searchGoogleUser(google_user_id)
 
       //Path for documentation link
       var pathSegments = req.url.split('/');
@@ -68,12 +60,14 @@ const mpController = {
       console.log("firstPath: "+ firstPath)    
 
       
-    res.render("instructions/mp-instructions", {title: "Instrucciones",mp_connection_id,user_connected, google_user, google_user_id, firstPath})
+    res.render("instructions/mp-instructions", {title: "Instrucciones",mp_connection_id,user_connected, google_user,navbar_data, firstPath})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Mercado-Pago-b65c0b5feb5545c795f277bfe6c5ef04")
   },
   mpOauth: async (req,res) => {
+    let navbar_data = res.locals.navbar_data
+
     let code = req.query.code
     let date_now = new Date();
     var requestOptions = {
@@ -96,7 +90,7 @@ const mpController = {
     if(data['error']){
       //ERROR AL CONECTARSE CON MP
       let message = "No hemos podido validar la conexión con Mercado Pago. Por favor intente nuevamente."
-      res.render("menus/error-page", { message })
+      res.render("menus/error-page", { message,navbar_data })
       } else {
         /** FUNCIONO OK EL OAUTH */
 
@@ -129,7 +123,7 @@ const mpController = {
           res.redirect("/mercadopago/config")
         } catch (error) {
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282991"
-          res.render("menus/error-page", { message })
+          res.render("menus/error-page", { message ,navbar_data})
         }
 
       

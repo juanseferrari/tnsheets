@@ -20,19 +20,13 @@ const mainService = require("../../services/main-service");
 
 const shController = {
   shHome: async (req, res) => {
-    let sh_connection_id = ""
-    if (req.cookies.sh_connection_id) {
-      sh_connection_id = req.cookies.sh_connection_id
-    }
+    let google_user = res.locals.google_user
+    let navbar_data = res.locals.navbar_data
 
-    let google_user_id = ""
-    if (req.cookies.google_user_id) {
-      google_user_id = req.cookies.google_user_id
-    }
+    let sh_connection_id = res.locals.sh_connection_id
+
     let user_connected = await mainService.searchUser(sh_connection_id)
-    let google_user = await mainService.searchGoogleUser(google_user_id)
 
-    //Agregar el google_user
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
@@ -40,35 +34,30 @@ const shController = {
     console.log("firstPath: " + firstPath)
 
 
-    res.render("menus/shopify", { title: "Shopify", google_user_id, sh_connection_id, user_connected, google_user, firstPath });
+    res.render("menus/shopify", { title: "Shopify", sh_connection_id, user_connected, google_user, navbar_data, firstPath });
   },
   configuration: async (req, res) => {
+    let google_user = res.locals.google_user
+    let navbar_data = res.locals.navbar_data
 
-    let sh_connection_id = ""
-    if (req.cookies.sh_connection_id) {
-      sh_connection_id = req.cookies.sh_connection_id
-    }
+    let sh_connection_id = res.locals.sh_connection_id
 
-    let google_user_id = ""
-    if (req.cookies.google_user_id) {
-      google_user_id = req.cookies.google_user_id
-    }
     let user_connected = await mainService.searchUser(sh_connection_id)
-    let google_user = await mainService.searchGoogleUser(google_user_id)
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];
     console.log("firstPath: " + firstPath)
 
-
     //res.redirect("/tiendanube/config")
-    res.render("instructions/sh-instructions", { title: "Instrucciones", sh_connection_id, user_connected, google_user, google_user_id, firstPath })
+    res.render("instructions/sh-instructions", { title: "Instrucciones", sh_connection_id, user_connected, google_user,navbar_data, firstPath })
   },
   documentation: (req, res) => {
     res.redirect("https://sheetscentral.notion.site/Shopify-b36aaefaf3f040b6ac8fccb9d8912a0e")
   },
   verifyRequest: async (req, res) => {
+    let navbar_data = res.locals.navbar_data
+
     console.log("req.query")
     console.log(req.query)
     console.log("req.query")
@@ -116,10 +105,12 @@ const shController = {
       console.log('Digests do not match.');
       //render error page because there was an error
       let message = "Shopify url is incorrect. Try again with a new url."
-      res.render("menus/error-page", { message })
+      res.render("menus/error-page", { message, navbar_data })
     }
   },
   shOauth: async (req, res) => {
+    let navbar_data = res.locals.navbar_data
+
 
     function isSuccessfulStatus(status) {
       return status >= 200 && status < 300;
@@ -143,7 +134,7 @@ const shController = {
       //error trying to get client credentials. 
       console.log("NO access token")
       let message = "Unable to retrieve access token. Error: 19716"
-      res.render("menus/error-page", { message })
+      res.render("menus/error-page", { message, navbar_data })
     } else {
       //access token obtained correctly
       let data = await response.json();
@@ -212,7 +203,7 @@ const shController = {
             if (response['error']) {
               //console.log(airtable_response['error'])
               let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997"
-              res.render("menus/error-page", { message })
+              res.render("menus/error-page", { message, navbar_data })
             } else {
               //OK with connection. 
 
@@ -225,7 +216,7 @@ const shController = {
 
           } catch (error) {
             let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997 " + error
-            res.render("menus/error-page", { message })
+            res.render("menus/error-page", { message,navbar_data })
           }
 
 
@@ -236,7 +227,7 @@ const shController = {
           console.error('Error:', error);
           //aca hacer una pagina con error
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 12997 (" + error + ")"
-          res.render("menus/error-page", { message })
+          res.render("menus/error-page", { message, navbar_data })
         });
 
 

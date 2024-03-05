@@ -450,13 +450,15 @@ const mainService = {
 
     if (google_user_id === "" || !google_user_id || google_user_id === undefined || google_user_id === null) {
       response_object = {
-        "error": {
-          "type": "NO GOOGLE_USER PROVIDED",
-          "message": "You need to add a google_user_id to return information"
-        }
+        "amount_of_results": 0,
+        "records": []
       }
     } else {
       let connections_data = await this.getAirtableData(AIRTABLE_PROD_USERS, google_user_id, "google_user_id")
+
+      console.log("connections_data")
+      console.log(connections_data)
+      console.log("connections_data")
 
       let records_to_response = []
 
@@ -472,7 +474,12 @@ const mainService = {
           "amount_of_results": 1,
           "records": [{
             "id": connections_data.id,
-            "connection": connections_data.connection
+            "connection": connections_data.connection,
+            "user_id": connections_data.user_id,
+            "user_name": connections_data.user_name,
+            "user_logo": connections_data.user_logo,
+            "user_url": connections_data.user_url,
+            "country": connections_data.country
           }]
         }
       } else {
@@ -480,7 +487,12 @@ const mainService = {
         for (let i = 0; i < connections_data.records.length; i++) {
           let record_object = {
             "id": connections_data.records[i].id,
-            "connection": connections_data.records[i].fields.connection
+            "connection": connections_data.records[i].fields.connection,
+            "user_id": connections_data.records[i].fields.user_id,
+            "user_name": connections_data.records[i].fields.user_name,
+            "user_logo": connections_data.records[i].fields.user_logo,
+            "user_url": connections_data.records[i].fields.user_url,
+            "country": connections_data.records[i].fieldscountry
           }
           records_to_response.push(record_object)
 
@@ -495,9 +507,6 @@ const mainService = {
 
     }
 
-    console.log("response_object")
-    console.log(response_object)
-    console.log("response_object")
 
     return response_object
 
