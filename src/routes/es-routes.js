@@ -83,8 +83,6 @@ router.get('/woocommerce/documentation', woController.documentation);
 
 /* GOOGLE AUTH DATA */
 router.post('/google-auth',googleController.googleoauth)
-router.get('/google-auth',tnController.tnHome) //google login viejo, sacar
-
 
 /* Contacto. */
 router.get('/contacto',generalMid, mainController.contacto);

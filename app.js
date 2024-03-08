@@ -40,8 +40,9 @@ app.use('/js', (req, res, next) => {
 });
 
 app.use((req, res, next) => {
+  let navbar_data = { active: false, name: '', logo_url: '' }
   let message = "Esta página no existe."
-  res.status(404).render("menus/error-page", { message })
+  res.status(404).render("menus/error-page", { message,navbar_data })
 })
 
 // error handler
