@@ -27,6 +27,9 @@ const tnController = {
 
     let user_connected = await mainService.searchUser(connection_id)
 
+    console.log("navbar_data")
+    console.log(navbar_data)
+    console.log("navbar_data")
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
