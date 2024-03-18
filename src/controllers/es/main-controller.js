@@ -63,10 +63,10 @@ const mainController = {
     var firstPath = pathSegments[1];
     console.log("firstPath: " + firstPath)
 
-    if (connections.length == 0) {
-      res.redirect("/")
-    } else {
+    if(google_user.google_user_id || connections.length > 0){
       res.render("menus/account", { projectos, google_user, connections, navbar_data });
+    } else {
+      res.redirect("/")
     }
 
   },
