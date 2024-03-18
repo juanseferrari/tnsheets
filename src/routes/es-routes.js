@@ -86,6 +86,7 @@ router.post('/google-auth',googleController.googleoauth)
 
 /* Contacto. */
 router.get('/contacto',generalMid, mainController.contacto);
+router.get('/whatsapp',generalMid, mainController.whatsapp);
 
 /* Legales. */
 router.get('/privacy-policy', generalMid, mainController.privacy);

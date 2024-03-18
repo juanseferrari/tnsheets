@@ -52,6 +52,7 @@ const mainService = {
         "sheet_version": null,
         "webhook_url": null,
         "active": null,
+        "plan": null,
         "subscription_status": null,
         "subscription_customer_email": null
       }
@@ -102,6 +103,7 @@ const mainService = {
         "sheet_version": user_data.fields.sheet_version,
         "webhook_url": user_data.fields.webhook_url,
         "active": user_data.fields.active,
+        "plan": user_data.fields.plan,
         "subscription_status": subscription_status,
         "subscription_customer_email": customer_email
       }
@@ -455,11 +457,7 @@ const mainService = {
       }
     } else {
       let connections_data = await this.getAirtableData(AIRTABLE_PROD_USERS, google_user_id, "google_user_id")
-
-      console.log("connections_data")
-      console.log(connections_data)
-      console.log("connections_data")
-
+     
       let records_to_response = []
 
       //TODO
@@ -470,40 +468,25 @@ const mainService = {
           "records": []
         }
       } else if (!connections_data.records) {
-        response_object = {
+
+        let user = await this.searchUser(connections_data.id)
+        response_object = 
+        {
           "amount_of_results": 1,
-          "records": [{
-            "id": connections_data.id,
-            "connection": connections_data.connection,
-            "user_id": connections_data.user_id,
-            "user_name": connections_data.user_name,
-            "user_logo": connections_data.user_logo,
-            "user_url": connections_data.user_url,
-            "country": connections_data.country
-          }]
+          "records": [user]
         }
       } else {
 
         for (let i = 0; i < connections_data.records.length; i++) {
-          let record_object = {
-            "id": connections_data.records[i].id,
-            "connection": connections_data.records[i].fields.connection,
-            "user_id": connections_data.records[i].fields.user_id,
-            "user_name": connections_data.records[i].fields.user_name,
-            "user_logo": connections_data.records[i].fields.user_logo,
-            "user_url": connections_data.records[i].fields.user_url,
-            "country": connections_data.records[i].fieldscountry
-          }
-          records_to_response.push(record_object)
 
+          let user = await this.searchUser(connections_data.records[i].id)
+          records_to_response.push(user)
         }
         response_object = {
           "amount_of_results": connections_data.amount_of_results,
           "records": records_to_response
         }
       }
-
-
 
     }
 

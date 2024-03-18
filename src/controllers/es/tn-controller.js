@@ -148,6 +148,7 @@ const tnController = {
         "connection": "tiendanube",
         "google_user_id": google_user_id,
         "active": "true",
+        "plan": "free",
         "uninstalled_date": null,
         "user_name": tn_user_data['name']['es'],
         "user_email": tn_user_data['email'],
@@ -216,6 +217,7 @@ const tnController = {
     if(au_event == "app/uninstalled"){
     var fields_to_db = {
         "active": "false",
+        "plan": "inactive",
         "connection": "tiendanube",
         "uninstalled_date": new Date().toISOString(),
         "user_id": au_store_id.toString()

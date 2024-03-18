@@ -44,6 +44,10 @@ const mainController = {
 
     res.render("menus/contacto", { connection_id, user_connected, google_user, navbar_data });
   },
+  whatsapp: async (req, res) => {
+    let message = req.query.message
+    res.redirect("https://api.whatsapp.com/send/?phone=%2B34628770275&text="+message+"&type=phone_number&app_absent=0")
+  },
   account: async (req, res) => {
     const projectos = await mainService.projectos()
 
@@ -51,17 +55,17 @@ const mainController = {
     let navbar_data = res.locals.navbar_data
     let connections = res.locals.connections
 
+    console.log("connections")
+    console.log(connections)
+    console.log("connections")
+
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];
     console.log("firstPath: " + firstPath)
 
-    //IF google_connections.error -> Devolver que no se puede acceder o llevar a la home
-    if (connections.google_connections.error && connections.cookie_connections.amount_of_results == 0) {
-
+    if (connections.length == 0) {
       res.redirect("/")
     } else {
-      //Para cada una de las conexiones que tenga el usuario, traer la data (ni si quiera, podria solo poner estas conectado, ir a config o conectar. )
-      //Traer el array de projectos y mostrarlos en la pagina de
       res.render("menus/account", { projectos, google_user, connections, navbar_data });
     }
 

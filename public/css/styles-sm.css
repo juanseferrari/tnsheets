@@ -716,6 +716,15 @@
 }
 
 
+/** ------------------ ACCOUNT ----------------- **/
+
+.account-table th {
+    text-align: center;
+
+}
+.account-table .login-button {
+    margin: 0;
+}
 /*  ---------------- MP INDEX  -----------------  **/
 
 .mp-button {
