@@ -57,44 +57,56 @@
 
 
           </div>
-  
-          <h1 class="main-title">Conexiones</h1>
+
+          <% if (connections.length == 0) { %>
+
+            <h1 class="main-title">Agrega tu primera conexión</h1>
+            <div class="step-block">
+              <%- include("../partials/buttons/tn-button.ejs") %>
+            </div>
+
+            <%} else {%>
+              <h1 class="main-title">Conexiones</h1>
  
-          <div class=" table-responsive">
+              <div class=" table-responsive">
+    
+                <table class="table table-bordered account-table">
+                  <thead class="table-light">
+                    <tr>
+                      <th scope="col">Conexión</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Configuración</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <% for (connection of connections) { %>
+                      <td scope="row"><%= connection.connection %> </th>
+                      <td><%= connection.user_name %></td>
+                      <td>
+                        <div class="login-button">
+                          <button type="button" class="btn btn-outline-secondary">
+                            <a class="black-button-a" href="/<%= connection.connection %>/<%= connection.connection_id %>/config" >
+                              <div class="login-button-text">
+                                <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
+                              </div>
+                            </a>
+                          </button>
+                        </div> 
+                      </td>
+                    </tr>     
+                    <% } %>   
+                  </tbody>
+                </table>
+    
+              </div>
 
-            <table class="table table-bordered account-table">
-              <thead class="table-light">
-                <tr>
-                  <th scope="col">Conexión</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Configuración</th>
-                </tr>
-              </thead>
-              <tbody class="table-group-divider">
-                <% for (connection of connections) { %>
-                  <td scope="row"><%= connection.connection %> </th>
-                  <td><%= connection.user_name %></td>
-                  <td>
-                    <div class="login-button">
-                      <button type="button" class="btn btn-outline-secondary">
-                        <a class="black-button-a" href="/<%= connection.connection %>/<%= connection.connection_id %>/config" >
-                          <div class="login-button-text">
-                            <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
-                          </div>
-                        </a>
-                      </button>
-                    </div> 
-                  </td>
-                </tr>     
-                <% } %>   
-              </tbody>
-            </table>
+            <%}%>
 
-          </div>
+ 
 
 
 
-          <% if (google_user.google_user_id) { %>
+          <% if (google_user.google_user_id && connections.length > 0) { %>
             <h1 class="main-title">Agregar más cuentas</h1>
             <div class="step-block">
               <%- include("../partials/buttons/tn-button.ejs") %>
