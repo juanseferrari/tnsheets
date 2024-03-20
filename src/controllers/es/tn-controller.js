@@ -73,7 +73,7 @@ const tnController = {
     connection_id = ""
     if (req.cookies.connection_id) {
       connection_id = req.cookies.connection_id
-      let redirect_url = 'https://buy.stripe.com/3cscQkbqI8rRae4cMN?client_reference_id='+connection_id
+      let redirect_url = 'https://buy.stripe.com/3cscQkbqI8rRae4cMN?utm_source=tn_config&client_reference_id='+connection_id
       console.log(redirect_url)
       res.redirect(redirect_url)
     } else {
