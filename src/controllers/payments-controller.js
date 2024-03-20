@@ -39,6 +39,11 @@ const paymentsController = {
   },
   notificationController: async (req, res) => {
 
+    let utm_source = req.query.utm_source
+    console.log("utm_source")
+    console.log(utm_source)
+    console.log("utm_source")
+
     let fields_to_db = {}
 
     if (req.body.type == "checkout.session.completed") {
@@ -70,6 +75,7 @@ const paymentsController = {
           "payment_intent_id": req.body.data.object.payment_intent,
           "payment_status": req.body.data.object.payment_status,
           "redeemed": "false",
+          "utm_source": utm_source ? utm_source : "",
           credit_quantity,
           "internal_product": "DT-" + credit_quantity,
           "tag": { "id": "usrOsqwIYk4a2tZsg" },
@@ -121,7 +127,6 @@ const paymentsController = {
       if (req.body.data.object.discount) {
         coupon_code = req.body.data.object.discount.coupon.name
       }
-
       fields_to_db = {
         "subscription_status": req.body.data.object.status,
         "subscription_id": req.body.data.object.id,
