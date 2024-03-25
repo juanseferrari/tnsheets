@@ -75,6 +75,7 @@
                     <tr>
                       <th scope="col">Conexión</th>
                       <th scope="col">Nombre</th>
+                      <th scope="col">Plan</th>
                       <th scope="col">Configuración</th>
                     </tr>
                   </thead>
@@ -82,6 +83,7 @@
                     <% for (connection of connections) { %>
                       <td scope="row"><%= connection.connection %> </th>
                       <td><%= connection.user_name %></td>
+                      <td><%= connection.plan %></td>
                       <td>
                         <div class="login-button">
                           <button type="button" class="btn btn-outline-secondary">
