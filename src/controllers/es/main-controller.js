@@ -24,7 +24,7 @@ const mainController = {
     const projectos = await mainService.projectos()
 
     var pathSegments = req.url.split('/');
-    var firstPath = pathSegments[1];
+    var firstPath = undefined;
     console.log("firstPath: " + firstPath)
 
     res.render("index", { projectos, google_user, user_connected, connection_id, dt_connection_id, navbar_data, firstPath });
