@@ -67,7 +67,7 @@ const tnController = {
     res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user,navbar_data, firstPath})
   },
   documentation: (req,res) => {
-    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-b5981995bad64dc19be57d4704a76fff?pvs=4")
+    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-01ee5d985cff4c759afa414a2cdf1c8d")
   },
   getPremium: (req,res) => {
     connection_id = ""
