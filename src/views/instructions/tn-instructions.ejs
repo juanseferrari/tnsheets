@@ -128,7 +128,7 @@
 
 
           <!-- New Sheet version-->
-          <% if (!user_connected.sheet_version && user_connected.spreadsheet_id ) { %>
+          <% if ((!user_connected.sheet_version || user_connected.sheet_version !== '2.4') && user_connected.spreadsheet_id) { %>
 
           <div class="step-user-info">
             <div class="step-left-text">
@@ -268,7 +268,7 @@
                   <% } %>
             </div>
             <div class="step-text">
-              <p>Paso 5 (recomendado): Obtener Premium. 15 días de prueba!</p>
+              <p>Obtener Premium. 15 días de prueba!</p>
             </div>
           </div>
           <div class="step-user-info">
