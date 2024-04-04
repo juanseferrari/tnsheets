@@ -166,6 +166,10 @@ const apiController = {
     var connection = req.body.connection
     var quantity_of_data = req.body.quantity_of_data
 
+    if(!quantity_of_data || quantity_of_data === undefined){
+      quantity_of_data = "error"
+    }
+
     var fields_to_db = {
       connection_id,
       spreadsheet_id,
