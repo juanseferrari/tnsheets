@@ -4,26 +4,26 @@
 <section style="background-color: #f5fbf7">
 <div class="container" id="contacto">
   <div class="p-3">
-    <h1 class="main-title">Contacto</h1>
+    <h1 class="main-title"><%= lang_object.text.contact_title %></h1>
     <h3 class="main-text">
-      Estamos aquí para ayudarte. Responderemos rápidamente porque valoramos tu tiempo.
+      <%= lang_object.text.contact_subtitle %>
     </h3>
   </div>
   <div class="contact-form">
     <form>
       <div class="form-floating mb-3">
         <input type="text" class="form-control" id="name" placeholder="Juan Perez" style="height:8vh">
-        <label for="name">Nombre y Apellido</label>
+        <label for="name"><%= lang_object.text.contact_name %></label>
       </div>
       <div class="form-floating mb-3">
         <input type="email" class="form-control" id="email" placeholder="juan@gmail.com" style="height:8vh">
-        <label for="email">Email</label>
+        <label for="email"><%= lang_object.text.contact_email %></label>
       </div>
 
       <div class="form-floating mb-3">
         <input type="text" class="form-control form-message" placeholder="Leave a comment here" id="message"
           style="height: 25vh"></input>
-        <label for="message">Mensaje</label>
+        <label for="message"><%= lang_object.text.contact_message %></label>
       </div>
 
       <% if (typeof user_connected !=='undefined' ) { %>
@@ -34,7 +34,7 @@
   
       <div class="send-buttons">
         <!--<button type="submit" class="btn btn-primary send-button">Enviar por mail</button>-->
-        <button type="submit" class="btn color-wapp send-button" id="goToWapp">Enviar mensaje por Whatsapp</button>
+        <button type="submit" class="btn color-wapp send-button" id="goToWapp"><%= lang_object.text.contact_button %></button>
       </div>
 
 

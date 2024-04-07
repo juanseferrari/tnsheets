@@ -14,10 +14,12 @@ const mainService = require("../../services/main-service");
 const mainController = {
   home: async (req, res) => {
 
+    //locals
     let google_user = res.locals.google_user
     let connection_id = res.locals.connection_id
     let dt_connection_id = res.locals.dt_connection_id
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
 
     let user_connected = await mainService.searchUser(connection_id)
 
@@ -27,7 +29,7 @@ const mainController = {
     var firstPath = undefined;
     console.log("firstPath: " + firstPath)
 
-    res.render("index", { projectos, google_user, user_connected, connection_id, dt_connection_id, navbar_data, firstPath });
+    res.render("index", { projectos, google_user, user_connected, connection_id, dt_connection_id, navbar_data, firstPath, lang_object });
   },
   pong: async (req, res) => {
     res.json({
@@ -39,10 +41,11 @@ const mainController = {
     let google_user = res.locals.google_user
     let connection_id = res.locals.connection_id
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
 
     let user_connected = await mainService.searchUser(connection_id)
 
-    res.render("menus/contacto", { connection_id, user_connected, google_user, navbar_data });
+    res.render("menus/contacto", { connection_id, user_connected, google_user, navbar_data,lang_object });
   },
   whatsapp: async (req, res) => {
     let message = req.query.message
@@ -54,17 +57,14 @@ const mainController = {
     let google_user = res.locals.google_user
     let navbar_data = res.locals.navbar_data
     let connections = res.locals.connections
-
-    console.log("connections")
-    console.log(connections)
-    console.log("connections")
+    let lang_object = res.locals.lang_object
 
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];
     console.log("firstPath: " + firstPath)
 
     if(google_user.google_user_id || connections.length > 0){
-      res.render("menus/account", { projectos, google_user, connections, navbar_data });
+      res.render("menus/account", { projectos, google_user, connections, navbar_data,lang_object });
     } else {
       res.redirect("/")
     }
@@ -78,11 +78,15 @@ const mainController = {
   },
   privacy: async (req, res) => {
     let navbar_data = res.locals.navbar_data
-    res.render("menus/privacy-policy", { navbar_data })
+    let lang_object = res.locals.lang_object
+
+    res.render("menus/privacy-policy", { navbar_data, lang_object })
   },
   terms: async (req, res) => {
     let navbar_data = res.locals.navbar_data
-    res.render("menus/terms-and-conditions", { navbar_data })
+    let lang_object = res.locals.lang_object
+
+    res.render("menus/terms-and-conditions", { navbar_data,lang_object })
   }
 };
 

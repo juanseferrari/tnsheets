@@ -118,6 +118,12 @@
     font-size: 2vh;
 }
 
+.dropdown-item {
+    cursor: pointer;
+    font-size: 1em !important;
+}
+
+
 
 /** ---------- NAVBAR2 ----------------*/
 
@@ -132,10 +138,31 @@
 
 .menu-lang {
     display: flex;
+    justify-content: center;
     align-items: center;
+    background-color: transparent;
 }
 
+/* WORLD FLAGS (https://www.worldometers.info/geography/flags-of-the-world/) 
 
+a:lang(es):after
+{
+  content: url(https://www.worldometers.info/img/flags/sp-flag.gif);
+  height: 1em; 
+  width: 1em; 
+}
+
+a:lang(en):after
+{
+  content: url(https://www.worldometers.info/img/flags/uk-flag.gif);
+
+}
+a:lang(pt):after
+{
+  content: url(https://www.worldometers.info/img/flags/br-flag.gif);
+
+}
+*/
 
 
 /** ---------- HOME ----------------*/
@@ -301,6 +328,16 @@
 }
 .enterprise-color h4 {
     color:white;
+}
+.compare-plans-header th {
+    width: 22%;
+}
+.compare-plans-header th:first-child {
+    width: 34%;
+}
+
+.compare-plans-row td:first-child{
+    text-align: left !important;
 }
 
 

@@ -1,102 +1,54 @@
 <div class="container" id="compare-plans">
 
-    <h1 class="display-6 text-center mb-4">Comparar planes</h1>
+    <h1 class="display-6 text-center mb-4"><%= lang_object.text.plan_title %></h1>
 
 
 <div class="table-responsive">
     <table class="table text-center">
-        <thead>
+        <thead class="compare-plans-header">
             <tr>
-                <th style="width: 34%;"></th>
-                <th style="width: 22%;">Free</th>
-                <th style="width: 22%;">Premium</th>
-                <th style="width: 22%;">Enterprise</th>
+                <% for (var i = 0; i < lang_object.text.plan_headers.length; i++) { %>
+                    <th><%= lang_object.text.plan_headers[i] %></th>
+                <% } %>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <th scope="row" class="text-start">Histórico de ventas</th>
-                <td>Últimas 50 ventas</td>
-                <td>Histórico</td>
-                <td>Histórico</td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-start">Nuevas ventas</th>
-                <td>Manual</td>
-                <td>Automático</td>
-                <td>Automático</td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-start">Soporte</th>
-                <td>Documentación</td>
-                <td>Preferencial</td>
-                <td>Semanal</td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-start">Dashboards</th>
-                <td><i class="fa-solid fa-check"></i></td>
-                <td><i class="fa-solid fa-check"></td>
-                <td><i class="fa-solid fa-check"></td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-start">Importación de productos</th>
-                <td><i class="fa-solid fa-check"></i></td>
-                <td><i class="fa-solid fa-check"></td>
-                <td><i class="fa-solid fa-check"></td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-start">Importación de categorías</th>
-                <td><i class="fa-solid fa-check"></i></td>
-                <td><i class="fa-solid fa-check"></td>
-                <td><i class="fa-solid fa-check"></td>
-            </tr>
+        <tbody class="compare-plans-body">
+            <% for (var i = 0; i < lang_object.text.plan_first_block.length; i++) { %>
+                <tr class="compare-plans-row">
+                    <% for (var j = 0; j < lang_object.text.plan_first_block[i].length; j++) { %>
+                        <td><%= lang_object.text.plan_first_block[i][j] %></td>
+                    <% } %>
+                </tr>
+            <% } %>
+            <% for (var i = 0; i < lang_object.text.plan_first_check.length; i++) { %>
+                <tr>
+                    <th scope="row" class="text-start"><%= lang_object.text.plan_first_check[i] %></th>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></td>
+                    <td><i class="fa-solid fa-check"></td>
+                </tr>
+            <% } %>  
         </tbody>
 
         <tbody>
-            <tr>
-                <th scope="row" class="text-start">Edición de precios y stock</th>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td><i class="fa-solid fa-check"></td>
-                <td><i class="fa-solid fa-check"></td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-start">Creación de productos y variantes</th>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td><i class="fa-solid fa-check"></td>
-                <td><i class="fa-solid fa-check"></td>
-            </tr>       
-            <tr>
-                <th scope="row" class="text-start">Acceso temprano a nuevas funcionalidades</th>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td><i class="fa-solid fa-check"></td>
-                <td><i class="fa-solid fa-check"></td>
-            </tr>        
+            <% for (var i = 0; i < lang_object.text.plan_second_check.length; i++) { %>
+                <tr>
+                    <th scope="row" class="text-start"><%= lang_object.text.plan_second_check[i] %></th>
+                    <td><i class="fa-solid fa-xmark"></i></td>
+                    <td><i class="fa-solid fa-check"></td>
+                    <td><i class="fa-solid fa-check"></td>
+                </tr>
+            <% } %>        
         </tbody>
         <tbody>
-            <tr>
-                <th scope="row" class="text-start">Customizaciones especiales</th>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td><i class="fa-solid fa-check"></td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-start"><a href="https://lookerstudio.google.com/reporting/f3d39e35-340a-4375-a964-cf94b48bfcd8/page/p_tcnmcua89c" target="_blank">Dashboards en Looker Studio</a></th>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td><i class="fa-solid fa-check"></td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-start">Integraciones con servicios externos</th>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td>A requerimiento</td>
-            </tr>
-            <tr>
-                <th scope="row" class="text-start">Diseño de tienda</th>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td><i class="fa-solid fa-xmark"></i></td>
-                <td>A requerimiento</td>
-            </tr>
+            <% for (var i = 0; i < lang_object.text.plan_third_check.length; i++) { %>
+                <tr>
+                    <th scope="row" class="text-start"><%= lang_object.text.plan_third_check[i] %></th>
+                    <td><i class="fa-solid fa-xmark"></i></td>
+                    <td><i class="fa-solid fa-xmark"></i></td>
+                    <td><i class="fa-solid fa-check"></td>
+                </tr>
+            <% } %>   
         </tbody>
     </table>
 </div>

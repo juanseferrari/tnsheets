@@ -20,17 +20,17 @@
 
 
     <section class="" id="" style="background-color: #f5fbf7">
-      <h1 class="main-title">Drive to Tiendanube</h1>
+      <h1 class="main-title"><%= lang_object.text.dt_main_title %></h1>
 
       <div class="full-page-item container">
         <div class="main-division2">
           <div class="division-text-content2">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Carga masivamente tus imágenes de Google Drive en Tiendanube
+              <h1 class="main-title-2"><%= lang_object.text.dt_subtitle %>
               </h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text"> Automatiza la gestión de imágenes de tu tienda con Drive to Tiendanube </h3>
+              <h3 class="explain-text"><%= lang_object.text.dt_second_title %> </h3>
 
               <% if (dt_connection_id && user_connected.connection == 'drive-to-tiendanube' && user_connected.active == 'true' ) { %>
                 <div class="login-button">
@@ -38,7 +38,7 @@
                     <a class="black-button-a" href="/drive-to-tiendanube/config" >
                       <div class="login-button-text">
                         <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
-                        <p class="login-button-p">Ir a configuración</p>
+                        <p class="login-button-p"><%= lang_object.text.config_button %></p>
                       </div>
                     </a>
                   </button>
@@ -54,7 +54,7 @@
                     target="_blank">
                     <div class="login-button-text">
                       <img class="login-button-logo" src="/images/icons/document.png" alt="">
-                      <p class="login-button-p">Ver documentación</p>
+                      <p class="login-button-p"><%= lang_object.text.docs_button %></p>
                     </div>
                   </a>
                 </button>
@@ -81,7 +81,7 @@
     
 
     <section class="container" data-color="green">
-      <h1 class="main-title">Ver demo</h1>
+      <h1 class="main-title"><%= lang_object.text.see_demo %></h1>
       <div class="video-container-height">
         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/lz_Pm_7qolE?si=aFDcNgQuWJf1k01U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
@@ -95,6 +95,7 @@
 
 </body>
 <script src="https://smtpjs.com/v3/smtp.js"></script> <!-- Esto es el servicio para enviar mails -->
+<script src="./js/index.js"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
