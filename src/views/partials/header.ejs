@@ -22,20 +22,76 @@
           </div>
           <div class="offcanvas-body">
             <div class="menu-item hover-element">
-              <a href="/#productos">Productos</a>
+              <a href="/#productos"><%= lang_object.text.header_products%></a>
             </div>
             <div class="menu-item hover-element">
-              <% if (typeof firstPath !== 'undefined' ) { %>
-                <a href="/<%= firstPath %>/documentation" target="_blank">Documentación</a>
+              <% if (typeof firstPath !=='undefined' ) { %>
+                <a href="/<%= firstPath %>/documentation" target="_blank"><%= lang_object.text.header_docs %></a>
                 <% } else { %>
-                  <a href="/documentation" target="_blank">Documentación</a>
+                  <a href="/documentation" target="_blank"><%= lang_object.text.header_docs %></a>
                   <% } %>
             </div>
             <div class="menu-item hover-element">
-              <a href="/#contacto">Contacto</a>
+              <a href="/#contacto"><%= lang_object.text.header_contact %></a>
             </div>
-            <!-- BOTON DE LOGIN / ACCOUNT-->
-            <%- include("../partials/buttons/connected-button.ejs") %>
+            <div class="menu-lang">
+              <div class="dropdown">
+                <% if (typeof lang_object !== 'undefined' ) { %>
+                  <button id="mainButton" class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <%= lang_object.lang.toUpperCase(); %>
+                  </button>
+                <% } else { %>
+                  <button id="mainButton" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    ES
+                  </button>
+                <% } %>
+                <ul class="dropdown-menu">
+                  <% if (typeof firstPath !=='undefined' ) { %>
+                    <li><a class="dropdown-item es" lang="es" onclick="switchLanguage('es')">ES</a></li>
+                    <!-- <li><a class="dropdown-item en"  onclick="switchLanguage('en')">EN</a></li>-->
+                    <li><a class="dropdown-item pt" lang="pt" onclick="switchLanguage('pt')" >PT</a></li>
+                  <% } else { %>
+                    <li><a class="dropdown-item es" lang="es" onclick="switchLanguage('es')">ES</a></li>
+                    <!-- <li><a class="dropdown-item en" onclick="switchLanguage('en')">EN</a></li>-->
+                    <li><a class="dropdown-item pt" lang="pt" onclick="switchLanguage('pt')">PT</a></li>
+                  <% } %>
+                </ul>
+              </div>
+              
+            </div>
+
+            <div class="menu-item login-button-navbar">
+              <% if (typeof google_user.google_user_id !=='undefined' ) { %>
+                <% if (google_user.google_user_id ) { %>
+                  <a href="/account">
+                    <div class="image-navbar-container hover-element">
+                      <div class="user-arrow">
+                        <i class="fa-solid fa-user"></i>
+                      </div>
+                      <div class="user-image-container">
+                        <% if (google_user.user_picture_url ) { %>
+                          <img src="<%= google_user.user_picture_url %>" alt="" class="user-image-navbar">
+                          <%} else { %>
+                            <img src="/images/icons/support.png" alt="" class="user-image-navbar">
+                          <%} %>
+                      </div>
+                    </div>
+                  </a>
+                  <%} else { %>
+                    <!-- 
+                  <a href="/google-login">
+                    <button type="button" class="btn btn-login" id="login-button">Iniciar sesión</button> 
+                  </a>-->
+                  <button type="button" class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-button"><%= lang_object.text.header_login %></button>
+
+                    <%} %>
+               <% } else { %>
+                  <button type="button" class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-button"><%= lang_object.text.header_login %></button>
+              <% } %>
+
+
+            </div>
+
           </div>
         </div>
 
@@ -56,7 +112,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Iniciar sesión a Sheets Central</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= lang_object.text.header_login %></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

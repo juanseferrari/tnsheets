@@ -24,39 +24,41 @@ const tnController = {
     let google_user = res.locals.google_user
     let connection_id = res.locals.connection_id
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
 
     let user_connected = await mainService.searchUser(connection_id)
-
-    console.log("navbar_data")
-    console.log(navbar_data)
-    console.log("navbar_data")
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)
 
-    res.render("menus/tiendanube", { title: "Inicio", connection_id, user_connected,google_user,navbar_data,firstPath });
+    res.render("menus/tiendanube", { connection_id, user_connected,google_user,navbar_data,firstPath,lang_object });
   },
   configuration: async (req, res) => {
 
     let google_user = res.locals.google_user
     let connection_id = res.locals.connection_id
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
+
     let user_connected = await mainService.searchUser(connection_id)
+
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)
 
-    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user,navbar_data, firstPath})
+    res.render("instructions/tn-instructions", { connection_id, user_connected, google_user,navbar_data, firstPath, lang_object})
   },
   configuration2: async (req, res) => {
 
     let google_user = res.locals.google_user
     let connection_id = req.params.connId
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
+
     let user_connected = await mainService.searchUser(connection_id)
 
     //Path for documentation link
@@ -64,7 +66,7 @@ const tnController = {
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)
 
-    res.render("instructions/tn-instructions", { title: "Instrucciones", connection_id, user_connected, google_user,navbar_data, firstPath})
+    res.render("instructions/tn-instructions", { connection_id, user_connected, google_user,navbar_data, firstPath, lang_object})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-01ee5d985cff4c759afa414a2cdf1c8d")
@@ -82,6 +84,7 @@ const tnController = {
   },
   tnOauth: async (req, res) => {
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
 
     let code = req.query.code
     let state = req.query.state //Este es el google_id
@@ -107,7 +110,7 @@ const tnController = {
     if (data['error']) {
       //WIP despues manejar bien este error handling. 
       let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
-      res.render("menus/error-page", { message, navbar_data })
+      res.render("menus/error-page", { message, navbar_data, lang_object })
     } else {
       /** FUNCIONO OK EL OAUTH */
 
@@ -204,7 +207,7 @@ const tnController = {
         }
         } catch (error) {
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282999"
-          res.render("menus/error-page", { message,navbar_data })
+          res.render("menus/error-page", { message,navbar_data, lang_object })
         }
 
     } /** Fin del else error */

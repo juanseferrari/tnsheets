@@ -9,12 +9,18 @@ function checkCookie() {
         document.getElementById("google-sign-in").style.display = "none";
     }
 }
+function setCookie(cookieName, cookieValue, expirationDays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+}
 
+// Function to get a cookie value by name
 function getCookie(cookieName) {
     var name = cookieName + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var cookieArray = decodedCookie.split(';');
-    
     for (var i = 0; i < cookieArray.length; i++) {
         var cookie = cookieArray[i];
         while (cookie.charAt(0) === ' ') {
@@ -62,5 +68,31 @@ loginButton2.addEventListener('click', (e) => {
     }
 })
 
+ // Function to switch language and add active class
+ function switchLanguage(lang) {
+    // Remove 'active' class from all language links
+    var languageLinks = document.querySelectorAll('.dropdown-item');
+    languageLinks.forEach(function(link) {
+      link.classList.remove('active');
+    });
 
+    // Add 'active' class to the clicked language link
+    var clickedLink = document.querySelector('.dropdown-item.' + lang);
+    clickedLink.classList.add('active');
+    // Update main button text
+    var mainButton = document.getElementById('mainButton');
+    mainButton.textContent = lang.toUpperCase();
+    
+
+    // Check if sc_lang cookie already exists
+    var existingLangCookie = getCookie("sc_lang");
+        if (existingLangCookie) {
+            // Update the value of the existing sc_lang cookie
+            document.cookie = "sc_lang=" + lang + "; path=/;";
+        } else {
+            // Create a new sc_lang cookie
+            document.cookie = "sc_lang=" + lang + "; path=/;";
+        }
+    window.location.reload();
+  }
 

@@ -6,8 +6,9 @@
     <%- include("../partials/header.ejs") %>
       <!-- Titulo del broswer-->
       <title>Sheets Central | Instrucciones</title>
-      <meta property="og:title" content="Sheets Central | Instrucciones"> <!-- Esto despues hacerlo cambiado para cada proyecto -->
-    
+      <meta property="og:title" content="Sheets Central | Instrucciones">
+      <!-- Esto despues hacerlo cambiado para cada proyecto -->
+
 </head>
 
 <body>
@@ -19,7 +20,7 @@
 
   <div class="main-container">
     <h1 class="main-title">
-      <%= title %>
+      <%= lang_object.text.config_title %>
     </h1>
 
     <div class="container border instructions-container shadow">
@@ -34,7 +35,9 @@
                 <i class="fa-solid fa-circle-check"></i>
               </div>
               <div class="step-text">
-                <p>Paso 1: Login Tiendanube</p>
+                <p>
+                  <%= lang_object.text.config_step1_title %>
+                </p>
               </div>
             </div>
 
@@ -54,7 +57,7 @@
                 <% if (user_connected.subscription_status=='active' ) { %>
                   <h4>Plan: Premium</h4>
                   <%} else if (user_connected.subscription_status=='trialing' ) { %>
-                    <h4>Plan: Premium - Período de prueba</h4>
+                    <h4>Plan: Premium - Trialing</h4>
                     <% } else { %>
                       <h4>Plan: Free</h4>
                       <% } %>
@@ -71,12 +74,16 @@
                   <i class="fa-regular fa-circle"></i>
                 </div>
                 <div class="step-text">
-                  <p>Paso 1: Login Tiendanube</p>
+                  <p>
+                    <%= lang_object.text.config_step1_title %>
+                  </p>
                 </div>
               </div>
               <div class="step-user-info">
                 <div class="step-left-text">
-                  <h4>Inicia sesión con Tienda Nube para comenzar a usar Sheets Central </h4>
+                  <h4>
+                    <%= lang_object.text.config_step1_subtitle %>
+                  </h4>
                 </div>
                 <div class="step-right-text">
                   <!-- Login con tienda nube button-->
@@ -103,44 +110,54 @@
                   <% } %>
             </div>
             <div class="step-text">
-              <p>Paso 2: Clonar Google Sheet</p>
+              <p>
+                <%= lang_object.text.config_step2_title %>
+              </p>
             </div>
           </div>
           <div class="step-user-info">
             <div class="step-left-text">
               <% if (user_connected.spreadsheet_id) { %>
-                <h4>Paso completado! Desde aquí puedes abrir tu Sheet: </h4>
+                <h4>
+                  <%= lang_object.text.config_step2_ok %>
+                </h4>
                 <%} else { %>
-                  <h4>Clona el siguiente Google Sheet en tu propia cuenta de Google</h4>
-                <% } %>
+                  <h4>
+                    <%= lang_object.text.config_step2_config %>
+                  </h4>
+                  <% } %>
             </div>
             <div class="step-right-text">
               <% if (user_connected.spreadsheet_id) { %>
-                  <%- include("../partials/sheets_buttons/tn-sheet.ejs", {buttonText: "Abrir Sheet", url:  "https://docs.google.com/spreadsheets/d/" + user_connected.spreadsheet_id }) %>
-                <%} else { %>
-                  <%- include("../partials/sheets_buttons/tn-sheet.ejs", {buttonText: false, url: false}) %>
-                <% } %>
+                <%- include("../partials/sheets_buttons/tn-sheet.ejs", {buttonText: lang_object.text.sheet_open_button ,
+                  url: "https://docs.google.com/spreadsheets/d/" + user_connected.spreadsheet_id }) %>
+                  <%} else { %>
+                    <%- include("../partials/sheets_buttons/tn-sheet.ejs", {buttonText: false, url: false}) %>
+                      <% } %>
 
-                    <!-- end clone sheet button -->
+                        <!-- end clone sheet button -->
             </div>
 
           </div>
 
 
           <!-- New Sheet version-->
-          <% if ((!user_connected.sheet_version || user_connected.sheet_version !== '2.4') && user_connected.spreadsheet_id) { %>
+          <% if ((!user_connected.sheet_version || user_connected.sheet_version !=='2.4' ) &&
+            user_connected.spreadsheet_id) { %>
 
-          <div class="step-user-info">
-            <div class="step-left-text">
-              <h4>🚀 ¡Nueva versión disponible! 🚀</h4>
-            </div>
-            <div class="step-right-text">
-              <%- include("../partials/sheets_buttons/tn-sheet.ejs", {buttonText: false, url: false}) %>
-              <!-- end clone sheet button -->
-            </div>
+            <div class="step-user-info">
+              <div class="step-left-text">
+                <h4>
+                  <%= lang_object.text.config_step2_new_version %>
+                </h4>
+              </div>
+              <div class="step-right-text">
+                <%- include("../partials/sheets_buttons/tn-sheet.ejs", {buttonText: false, url: false}) %>
+                  <!-- end clone sheet button -->
+              </div>
 
-          </div>
-            <%}  %>
+            </div>
+            <%} %>
 
         </div>
 
@@ -161,30 +178,41 @@
                   <% } %>
             </div>
             <div class="step-text">
-              <p>Paso 3: Configurar Sheets Central</p>
+              <p>
+                <%= lang_object.text.config_step3_title %>
+              </p>
             </div>
           </div>
           <div class="step-user-info">
             <div class="step-left-text">
               <div class="step-3">
-                <h3 class="small-text">1. Abre el Google Sheet recién clonado</h3>
-                <h3 class="small-text">2. Copia el siguiente ID de Conexión:</h3>
+                <h3 class="small-text">
+                  <%= lang_object.text.config_step3_1 %>
+                </h3>
+                <h3 class="small-text">
+                  <%= lang_object.text.config_step3_2 %>
+                </h3>
                 <div class="contact-form-ins">
                   <div class="input-group width-100">
                     <div class="input-group-item1">
                       <!-- A futuro agregar validacion de cookie por si el usuario no esta logueado -->
-                      <label for="id-conexion">ID de Conexión</label>
+                      <label for="id-conexion">
+                        <%= lang_object.text.connection_id %>
+                      </label>
                       <input type="text" class="form-control" id="id-conexion" aria-describedby="basic-addon2"
                         value="<%= connection_id ? connection_id : '' %>">
                     </div>
                     <div class="input-group-item2">
                       <button class="btn btn-success shadow" onclick="return copyToClipboard(event, this);"><i
-                          class="fa-regular fa-copy"></i> Copiar</button>
+                          class="fa-regular fa-copy"></i>
+                        <%= lang_object.text.copy_button %>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <h3 class="small-text">3. Pega el ID de Conexión en el Google Sheet, bajo el menu Sheets Central >
-                  Configuración de cuenta </h3>
+                <h3 class="small-text">
+                  <%= lang_object.text.config_step3_3 %>
+                </h3>
               </div>
 
 
@@ -217,25 +245,19 @@
                   <% } %>
             </div>
             <div class="step-text">
-              <p>Paso 4: Configuración de URL</p>
+              <p>
+                <%= lang_object.text.config_step4_title %>
+              </p>
             </div>
           </div>
           <div class="step-user-info">
             <div class="step-left-text">
               <div>
-                <h4>Para automatizar la gestión de Sheets Central, realiza la configuración de URL. Para hacerlo, sigue
-                  los siguientes pasos: </h4>
-                <p class="step-left-p">1. Dentro del Google Sheet ya clonado, debes ir a Extensiones > Apps Script </p>
-                <p class="step-left-p">2. Dentro de App Script, hacer click en el botón "Implementar" > "Nueva
-                  implementación" </p>
-                <p class="step-left-p">3. Crea una nueva implementación. Importante que Cualquier usuario tenga acceso
-                </p>
-                <p class="step-left-p">4. Esperar Carga </p>
-                <p class="step-left-p">5. Copiar URL de Aplicación Web </p>
-                <p class="step-left-p">6. Volver al Sheet y click en Sheets Central > Configuración de URL </p>
-                <p class="step-left-p">7. Pegar URL de la Aplicación Web y click en Aceptar </p>
-                <p class="step-left-p">8. ¡Listo! Configuración completada </p>
-
+                <% for (var i=0; i < lang_object.text.config_step4_steps.length; i++) { %>
+                  <p class="step-left-p">
+                    <%= lang_object.text.config_step4_steps[i] %>
+                  </p>
+                  <% } %>
               </div>
 
 
@@ -268,19 +290,22 @@
                   <% } %>
             </div>
             <div class="step-text">
-              <p>Obtener Premium. 15 días de prueba!</p>
+              <p>
+                <%= lang_object.text.config_premium %>
+              </p>
             </div>
           </div>
           <div class="step-user-info">
             <div class="step-left-text">
               <div>
-                <h4>Obten Sheets Central Premium y desbloquea todas las funcionalidades </h4>
-                <p class="step-left-p">Prueba Sheets Central Premium por <span class="step-left-span">15 días
-                    gratis</span>. No se te cobrará hasta pasados los 15 días.</p>
-                <p class="step-left-p">Funcionalidades extra como edición de productos, edición de stock, ventas
-                  automáticas, soporte preferencial y más!</p>
+                <h4>
+                  <%= lang_object.text.config_premium_subtitle %>
+                </h4>
+                <br>
                 <button type="button" class="btn btn-outline-secondary shador btn-functionalities ">
-                  <a href="/tiendanube/#compare-plans">Ver funcionalidades</a>
+                  <a href="/tiendanube/#compare-plans">
+                    <%= lang_object.text.see_funcionalities %>
+                  </a>
                 </button>
 
 
@@ -299,7 +324,9 @@
                       target="_blank">
                       <div class="login-button-text">
                         <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
-                        <p class="login-button-p">Gestionar plan</p>
+                        <p class="login-button-p">
+                          <%= lang_object.text.manage_plan %>
+                        </p>
                       </div>
                     </a>
                   </button>
@@ -307,12 +334,12 @@
                 <%} else { %>
                   <div class="login-button">
                     <button type="button" class="btn btn-outline-secondary" <%=(connection_id)?'':'disabled' %>>
-                      <a class="black-button-a"
-                        href="/tiendanube/premium"
-                        target="_blank">
+                      <a class="black-button-a" href="/tiendanube/premium" target="_blank">
                         <div class="login-button-text">
                           <img class="login-button-logo" src="/images/icons/rocket.png" alt="">
-                          <p class="login-button-p">Obtener premium</p>
+                          <p class="login-button-p">
+                            <%= lang_object.text.get_premium %>
+                          </p>
                         </div>
                       </a>
                     </button>
@@ -332,26 +359,31 @@
 
       <!-- STEP 6  -->
       <div id="step6">
-        <div class="step-block step-ok <%= (user_connected.subscription_status=='active' || user_connected.subscription_status=='trialing') ? '': 'no-border' %> ">
+        <div
+          class="step-block step-ok <%= (user_connected.subscription_status=='active' || user_connected.subscription_status=='trialing') ? '': 'no-border' %> ">
           <div class="step-title">
             <div class="step-text">
-              <p>Material adicional</p>
+              <p>
+                <%= lang_object.text.config_additional_title %>
+              </p>
             </div>
           </div>
           <div class="step-user-info">
             <div class="step-left-text">
-              <h4>Revisa nuestra documentación para conocer en detalle Sheets Central </h4>
+              <h4>
+                <%= lang_object.text.config_additional_subtitle %>
+              </h4>
             </div>
             <div class="step-right-text">
 
               <div class="login-button">
                 <button type="button" class="btn btn-outline-secondary">
-                  <a class="black-button-a"
-                    href="/tiendanube/documentation"
-                    target="_blank">
+                  <a class="black-button-a" href="/tiendanube/documentation" target="_blank">
                     <div class="login-button-text">
                       <img class="login-button-logo" src="/images/icons/document.png" alt="">
-                      <p class="login-button-p">Documentación</p>
+                      <p class="login-button-p">
+                        <%= lang_object.text.docs_button %>
+                      </p>
                     </div>
                   </a>
                 </button>
@@ -366,63 +398,22 @@
 
       </div>
       <!-- END STEP 6 -->
-
-
-      <% if (user_connected.subscription_status=='active' || user_connected.subscription_status=='trialing' ) { %>
-        <!-- STEP 7  -->
-        <div id="step7">
-          <div class="step-block step-ok  no-border">
-            <div class="step-title">
-              <div class="step-text">
-                <p>Agenda una reunión</p>
-              </div>
-            </div>
-            <div class="step-user-info">
-              <div class="step-left-text">
-                <h4>Puedes agendar una reunión con nuestro equipo para entender el producto en detalle y hacer las
-                  preguntas que desees</h4>
-              </div>
-              <div class="step-right-text">
-
-                <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
-                    <a class="black-button-a" href="https://calendar.app.google/718kBfWDRgqPTxg29" target="_blank">
-                      <div class="login-button-text">
-                        <img class="login-button-logo" src="/images/icons/support.png" alt="">
-                        <p class="login-button-p">Agendar reunión</p>
-                      </div>
-                    </a>
-                  </button>
-                </div>
-
-                <!-- end clone sheet button -->
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-        <!-- END STEP 7 -->
-
-
-        <% } %></div>
-
-
-
     </div>
 
 
-    <%- include("../partials/footer.ejs") %>
-</body>
-<script>
 
-</script>
+  </div>
+
+
+  <%- include("../partials/footer.ejs") %>
+</body>
+
 <!-- Google OAUTH JS code-->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://apis.google.com/js/api.js" async defer></script>
 
 <script src="/js/instrucciones.js"></script>
+<script src="/js/index.js"></script>
 
 
 

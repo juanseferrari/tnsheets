@@ -32,6 +32,7 @@ const mpController = {
 
     let google_user = res.locals.google_user
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
 
     let mp_connection_id = res.locals.mp_connection_id
 
@@ -43,12 +44,13 @@ const mpController = {
       console.log("firstPath: "+ firstPath)    
   
 
-    res.render( "menus/mercadopago", { title: "Mercado Pago", mp_connection_id, user_connected, google_user, navbar_data, firstPath });
+    res.render( "menus/mercadopago", { title: "Mercado Pago", mp_connection_id, user_connected, google_user, navbar_data, firstPath, lang_object });
   },
   configuration: async (req,res) => {
 
     let google_user = res.locals.google_user
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
 
     let mp_connection_id = res.locals.mp_connection_id
 
@@ -60,7 +62,7 @@ const mpController = {
       console.log("firstPath: "+ firstPath)    
 
       
-    res.render("instructions/mp-instructions", {title: "Instrucciones",mp_connection_id,user_connected, google_user,navbar_data, firstPath})
+    res.render("instructions/mp-instructions", {title: "Instrucciones",mp_connection_id,user_connected, google_user,navbar_data, firstPath, lang_object})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Mercado-Pago-b65c0b5feb5545c795f277bfe6c5ef04")

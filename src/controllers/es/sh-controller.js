@@ -22,6 +22,7 @@ const shController = {
   shHome: async (req, res) => {
     let google_user = res.locals.google_user
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
 
     let sh_connection_id = res.locals.sh_connection_id
 
@@ -34,11 +35,12 @@ const shController = {
     console.log("firstPath: " + firstPath)
 
 
-    res.render("menus/shopify", { title: "Shopify", sh_connection_id, user_connected, google_user, navbar_data, firstPath });
+    res.render("menus/shopify", { title: "Shopify", sh_connection_id, user_connected, google_user, navbar_data, firstPath,lang_object});
   },
   configuration: async (req, res) => {
     let google_user = res.locals.google_user
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
 
     let sh_connection_id = res.locals.sh_connection_id
 
@@ -50,13 +52,14 @@ const shController = {
     console.log("firstPath: " + firstPath)
 
     //res.redirect("/tiendanube/config")
-    res.render("instructions/sh-instructions", { title: "Instrucciones", sh_connection_id, user_connected, google_user,navbar_data, firstPath })
+    res.render("instructions/sh-instructions", { title: "Instrucciones", sh_connection_id, user_connected, google_user,navbar_data, firstPath,lang_object })
   },
   documentation: (req, res) => {
     res.redirect("https://sheetscentral.notion.site/Shopify-b36aaefaf3f040b6ac8fccb9d8912a0e")
   },
   verifyRequest: async (req, res) => {
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
 
     console.log("req.query")
     console.log(req.query)
@@ -105,10 +108,12 @@ const shController = {
       console.log('Digests do not match.');
       //render error page because there was an error
       let message = "Shopify url is incorrect. Try again with a new url."
-      res.render("menus/error-page", { message, navbar_data })
+      res.render("menus/error-page", { message, navbar_data, lang_object })
     }
   },
   shOauth: async (req, res) => {
+    let lang_object = res.locals.lang_object
+
     let navbar_data = res.locals.navbar_data
 
 
@@ -134,7 +139,7 @@ const shController = {
       //error trying to get client credentials. 
       console.log("NO access token")
       let message = "Unable to retrieve access token. Error: 19716"
-      res.render("menus/error-page", { message, navbar_data })
+      res.render("menus/error-page", { message, navbar_data, lang_object })
     } else {
       //access token obtained correctly
       let data = await response.json();
@@ -216,7 +221,7 @@ const shController = {
 
           } catch (error) {
             let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997 " + error
-            res.render("menus/error-page", { message,navbar_data })
+            res.render("menus/error-page", { message,navbar_data, lang_object})
           }
 
 
@@ -227,7 +232,7 @@ const shController = {
           console.error('Error:', error);
           //aca hacer una pagina con error
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 12997 (" + error + ")"
-          res.render("menus/error-page", { message, navbar_data })
+          res.render("menus/error-page", { message, navbar_data, lang_object })
         });
 
 

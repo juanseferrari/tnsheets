@@ -21,6 +21,7 @@ const dtController = {
     let google_user = res.locals.google_user
     let dt_connection_id = res.locals.dt_connection_id
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
 
     let user_connected = await mainService.searchUser(dt_connection_id)
 
@@ -30,13 +31,15 @@ const dtController = {
     console.log("firstPath: "+ firstPath)
 
 
-    res.render("menus/drive-to-tiendanube", { title: "Drive to Tiendanube", google_user, dt_connection_id, user_connected, navbar_data, firstPath });
+    res.render("menus/drive-to-tiendanube", { google_user, dt_connection_id, user_connected, navbar_data, firstPath, lang_object });
   },
   configuration: async (req, res) => {
 
     let google_user = res.locals.google_user
     let dt_connection_id = res.locals.dt_connection_id
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
+
     let user_connected = await mainService.searchUser(dt_connection_id)
 
     let unredeemedPayments = await paymentService.unredeemedPayments(dt_connection_id)
@@ -47,13 +50,15 @@ const dtController = {
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)    
 
-    res.render("instructions/dt-instructions", { title: "Instrucciones", dt_connection_id, user_connected,google_user, navbar_data, firstPath, unredeemedPayments})
+    res.render("instructions/dt-instructions", { dt_connection_id, user_connected,google_user, navbar_data, firstPath, unredeemedPayments, lang_object})
   },
   configuration2: async (req, res) => {
 
     let google_user = res.locals.google_user
     let dt_connection_id = req.params.connId
     let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
+
     let user_connected = await mainService.searchUser(dt_connection_id)
 
     let unredeemedPayments = await paymentService.unredeemedPayments(dt_connection_id)
@@ -64,7 +69,7 @@ const dtController = {
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)    
 
-    res.render("instructions/dt-instructions", { title: "Instrucciones", dt_connection_id, user_connected,google_user, navbar_data, firstPath, unredeemedPayments})
+    res.render("instructions/dt-instructions", {dt_connection_id, user_connected,google_user, navbar_data, firstPath, unredeemedPayments, lang_object})
   },
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-72f6a9435253493885209eab1d671c10?pvs=4")

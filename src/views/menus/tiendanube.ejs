@@ -19,26 +19,22 @@
 
 
     <section class="" id="" style="background-color: #f5fbf7">
-      <h1 class="main-title">Tiendanube</h1>
-
+      <h1 class="main-title"><%= lang_object.text.tn_main_title %></h1>
       <div class="full-page-item container">
         <div class="main-division2">
           <div class="division-text-content2">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Tu gestión de Tiendanube, en Google Sheets
-              </h1>
+              <h1 class="main-title-2"><%= lang_object.text.tn_title %></h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text"> Todos los negocios, desde las multinacionales hasta los micro emprendimientos, usan hojas de cálculo para su
-                gestión. Usa lo mejor de los dos mundos.</h3>
-
+              <h3 class="explain-text"><%= lang_object.text.tn_subtitle %></h3>
               <% if (connection_id && user_connected.connection == 'tiendanube' && user_connected.active == 'true' ) { %>
                 <div class="login-button">
                   <button type="button" class="btn btn-outline-secondary">
                     <a class="black-button-a" href="/drive-to-tiendanube/config" >
                       <div class="login-button-text">
                         <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
-                        <p class="login-button-p">Ir a configuración</p>
+                        <p class="login-button-p"><%= lang_object.text.config_button %></p>
                       </div>
                     </a>
                   </button>
@@ -54,7 +50,7 @@
                     target="_blank">
                     <div class="login-button-text">
                       <img class="login-button-logo" src="/images/icons/document.png" alt="">
-                      <p class="login-button-p">Ver documentación</p>
+                      <p class="login-button-p"><%= lang_object.text.docs_button %></p>
                     </div>
                   </a>
                 </button>
@@ -90,12 +86,12 @@
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Automatiza tus ventas de Tiendanube</h1>
+              <h1 class="main-title-2"><%= lang_object.text.tn_title_section1 %></h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text"> Cada nueva venta agrega un nuevo registro en tu planilla </h3>
-              <h3 class="explain-text"> Por cada actualización, se editan las filas que correspondan </h3>
-              <h3 class="explain-text"> Olvidate de descargar ventas y cargarlas manualmente </h3>
+              <% for (var i = 0; i < lang_object.text.tn_text_section1.length; i++) { %>
+                <h3 class="explain-text"> <%= lang_object.text.tn_text_section1[i] %> </h3>
+              <% } %>
             </div>
 
           </div><!-- Divion left content-->
@@ -115,14 +111,13 @@
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Importa tus productos directamente desde Google Sheets</h1>
+              <h1 class="main-title-2"><%= lang_object.text.tn_title_section2 %></h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text"> Mantené actualizado tu stock en tiempo real </h3>
-              <h3 class="explain-text"> Tus productos, en un solo lugar </h3>
-              <h3 class="explain-text"> Edita tus productos y tus precios</h3>
+              <% for (var i = 0; i < lang_object.text.tn_text_section2.length; i++) { %>
+                <h3 class="explain-text"> <%= lang_object.text.tn_text_section2[i] %> </h3>
+              <% } %>
             </div>
-
           </div><!-- Divion left content-->
 
           <div class="division-text-content video-container">
@@ -140,12 +135,12 @@
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">El resto, ¡como ya conoces!</h1>
+              <h1 class="main-title-2"><%= lang_object.text.tn_title_section3 %></h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text"> Seguí usando las mismas funciones de Google Sheets </h3>
-              <h3 class="explain-text"> Crea filtros, fórmulas, tablas dinámicas, notas ... </h3>
-              <h3 class="explain-text"> Crea tus propios gráficos, agrega colores, lo que quieras! </h3>
+              <% for (var i = 0; i < lang_object.text.tn_text_section3.length; i++) { %>
+                <h3 class="explain-text"> <%= lang_object.text.tn_text_section3[i] %> </h3>
+              <% } %>
             </div>
           </div> <!-- Divion left content-->
           <div class="division-right-content video-container">
@@ -163,7 +158,7 @@
       <a class="black-button-a" href="/tiendanube/documentation" target="_blank">
         <div class="login-button-text">
           <img class="login-button-logo" src="/images/icons/document.png" alt="">
-          <p class="login-button-p">Ver documentación</p>
+          <p class="login-button-p"><%= lang_object.text.docs_button %></p>
         </div>
       </a>
     </button>

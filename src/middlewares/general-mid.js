@@ -1,6 +1,7 @@
 const path = require("path");
 
 const mainService = require("../services/main-service");
+const langService = require("../services/lang-service");
 
 
 const commonVariablesMiddleware = async (req, res, next) => {
@@ -9,6 +10,15 @@ const commonVariablesMiddleware = async (req, res, next) => {
     let amount_of_results = 0
     let navbar_data
     let connections = []
+    let lang_object
+
+    //LANGUAGE VARIABLES
+    if(req.cookies.sc_lang){
+        console.log("sc_lang: " + req.cookies.sc_lang)
+        lang_object = await langService.language(req.cookies.sc_lang)
+    } else {
+        lang_object = await langService.language("es")
+    }
 
     // GOOGLE USER
     let google_user_id = ""
@@ -173,7 +183,8 @@ const commonVariablesMiddleware = async (req, res, next) => {
         sh_connection_id,
         wo_connection_id,
         navbar_data,
-        connections
+        connections,
+        lang_object
         // Add more variables as needed
     };
     next();

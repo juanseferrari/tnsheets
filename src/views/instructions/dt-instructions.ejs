@@ -19,7 +19,7 @@
 
   <div class="main-container">
     <h1 class="main-title">
-      <%= title %>
+      <%= lang_object.text.config_title %>
     </h1>
 
     <div class="container border instructions-container">
@@ -34,7 +34,8 @@
                 <i class="fa-solid fa-circle-check"></i>
               </div>
               <div class="step-text">
-                <p>Paso 1: Login Tiendanube</p>
+                <p><%= lang_object.text.config_step1_title %>
+                </p>
               </div>
             </div>
 
@@ -51,13 +52,6 @@
                 <h3>
                   <%= user_connected.user_name %>
                 </h3>
-                <% if (user_connected.subscription_status=='active' ) { %>
-                  <h4>Plan: Premium</h4>
-                  <%} else if (user_connected.subscription_status=='trialing' ) { %>
-                    <h4>Plan: Premium - Período de prueba</h4>
-                    <% } else { %>
-                      <h4>Plan: Free</h4>
-                      <% } %>
               </div>
 
 
@@ -71,12 +65,12 @@
                   <i class="fa-regular fa-circle"></i>
                 </div>
                 <div class="step-text">
-                  <p>Paso 1: Login Tiendanube</p>
+                  <p><%= lang_object.text.config_step1_title %></p>
                 </div>
               </div>
               <div class="step-user-info">
                 <div class="step-left-text">
-                  <h4>Inicia sesión para comenzar a usar Drive to Tiendanube</h4>
+                  <h4><%= lang_object.text.dt_config_step1_subtitle %></h4>
                 </div>
                 <div class="step-right-text">
                   <!-- Login con tienda nube button-->
@@ -103,12 +97,13 @@
                   <% } %>
             </div>
             <div class="step-text">
-              <p>Paso 2: Clonar Google Sheet</p>
+              <p> <%= lang_object.text.config_step2_title %>
+              </p>
             </div>
           </div>
           <div class="step-user-info">
             <div class="step-left-text">
-              <h4>Clona el siguiente Google Sheet en tu propia cuenta de Google </h4>
+              <h4><%= lang_object.text.config_step2_config %></h4>
             </div>
             <div class="step-right-text">
               <% if (user_connected.spreadsheet_id) { %>
@@ -119,7 +114,7 @@
                       target="_blank">
                       <div class="login-button-text">
                         <img class="login-button-logo" src="/images/logos/sheets_logo.png" alt="">
-                        <p class="login-button-p">Abrir Sheet</p>
+                        <p class="login-button-p"><%= lang_object.text.sheet_open_button %></p>
                       </div>
                     </a>
                   </button>
@@ -152,30 +147,30 @@
                   <% } %>
             </div>
             <div class="step-text">
-              <p>Paso 3: Configurar Sheets Central</p>
+              <p><%= lang_object.text.config_step3_title %></p>
             </div>
           </div>
           <div class="step-user-info">
             <div class="step-left-text">
               <div class="step-3">
-                <h3 class="small-text">1. Abre el Google Sheet recién clonado</h3>
-                <h3 class="small-text">2. Copia el siguiente ID de Conexión:</h3>
+                <h3 class="small-text"><%= lang_object.text.config_step3_1 %></h3>
+                <h3 class="small-text"><%= lang_object.text.config_step3_2 %></h3>
                 <div class="contact-form-ins">
                   <div class="input-group width-100">
                     <div class="input-group-item1">
                       <!-- A futuro agregar validacion de cookie por si el usuario no esta logueado -->
-                      <label for="id-conexion">ID de Conexión</label>
+                      <label for="id-conexion"><%= lang_object.text.connection_id %></label>
                       <input type="text" class="form-control" id="id-conexion" aria-describedby="basic-addon2"
                         value="<%= dt_connection_id ? dt_connection_id : '' %>">
                     </div>
                     <div class="input-group-item2">
                       <button class="btn btn-success shadow" onclick="return copyToClipboard(event, this);"><i
-                          class="fa-regular fa-copy"></i> Copiar</button>
+                          class="fa-regular fa-copy"></i> <%= lang_object.text.copy_button %></button>
                     </div>
                   </div>
                 </div>
-                <h3 class="small-text">3. Pega el ID de Conexión en el Google Sheet, bajo el menu Sheets Central >
-                  Configuración de cuenta </h3>
+                <h3 class="small-text"><%= lang_object.text.config_step3_3 %>
+                </h3>
               </div>
 
 
@@ -198,12 +193,12 @@
     <div class="step-block step-ok">
       <div class="step-title">
         <div class="step-text">
-          <p>Comprar créditos</p>
+          <p><%= lang_object.text.dt_buy_credits %></p>
         </div>
       </div>
       <% if (unredeemedPayments.to_redeem) { %>
-        <p>Créditos por canjear: <strong><%= unredeemedPayments.amount %></strong></p>
-        <p>Para canjear el crédito debes ir al Google Sheet y clickear en Sheets Central > Canjear Créditos</p>
+        <p><%= lang_object.text.dt_unredeemed_credits %> <strong><%= unredeemedPayments.amount %></strong></p>
+        <p><%= lang_object.text.dt_credits_subtitle %></p>
         <br>
       <%  } %>
       <div class="step-user-info">
@@ -235,9 +230,9 @@
                               <h1 class="card-title pricing-card-title">U$S 5<small class="text-muted fw-light"></small>
                               </h1>
                               <ul class="list-unstyled mt-3 mb-4">
-                                  <li>Carga 250 imágenes de forma masiva desde Google Drive a Tiendanube.</li>
+                                  <li><%= lang_object.text.dt_pack1_subtitle %></li>
                               </ul>
-                              <a class="btn w-100 btn btn-lg btn-outline-dark" href="https://buy.stripe.com/bIY17CdyQcI7bi85kq?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>" target="_blank" role="button">Comprar pack</a>
+                              <a class="btn w-100 btn btn-lg btn-outline-dark" href="https://buy.stripe.com/bIY17CdyQcI7bi85kq?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>" target="_blank" role="button"><%= lang_object.text.dt_buy_button %></a>
                           </div>
                       </div>
                   </div>
@@ -250,9 +245,9 @@
                           <div class="card-body">
                               <h1 class="card-title pricing-card-title">U$S 15</h1>
                               <ul class="list-unstyled mt-3 mb-4">
-                                <li>Carga 1000 imágenes masivamente desde Google Drive a Tiendanube.</li>
+                                <li><%= lang_object.text.dt_pack2_subtitle %></li>
                               </ul>
-                              <a class="btn w-100 btn btn-lg btn-outline-dark" href="https://buy.stripe.com/cN2bMg52kbE32LC004?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>"  target="_blank"    role="button">Comprar pack</a>
+                              <a class="btn w-100 btn btn-lg btn-outline-dark" href="https://buy.stripe.com/cN2bMg52kbE32LC004?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>"  target="_blank"    role="button"><%= lang_object.text.dt_buy_button %></a>
                           </div>
                       </div>
                   </div>
@@ -281,12 +276,13 @@
         <div class="step-block step-ok no-border">
           <div class="step-title">
             <div class="step-text">
-              <p>Material adicional</p>
+              <p><%= lang_object.text.config_additional_title %>
+              </p>
             </div>
           </div>
           <div class="step-user-info">
             <div class="step-left-text">
-              <h4>Revisa nuestra documentación para conocer en detalle Drive to Tiendanube </h4>
+              <h4><%= lang_object.text.config_additional_subtitle %> </h4>
             </div>
             <div class="step-right-text">
 
@@ -295,7 +291,7 @@
                   <a class="black-button-a" href="/drive-to-tiendanube/documentation" target="_blank">
                     <div class="login-button-text">
                       <img class="login-button-logo" src="/images/icons/document.png" alt="">
-                      <p class="login-button-p">Documentación</p>
+                      <p class="login-button-p"><%= lang_object.text.docs_button %></p>
                     </div>
                   </a>
                 </button>
@@ -328,6 +324,7 @@
 <script src="https://apis.google.com/js/api.js" async defer></script>
 
 <script src="/js/instrucciones.js"></script>
+<script src="/js/index.js"></script>
 
 
 

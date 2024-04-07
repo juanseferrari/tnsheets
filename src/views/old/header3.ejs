@@ -1,0 +1,67 @@
+<header style="height: 12vh;background-color: #f5fbf7">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light top-navbar shadow navbar2">
+    <div class="container">
+      <div class="navbar-brand-container">
+        <a class="navbar-brand-image" href="/">
+          <img src="/images/designs/logo_primario.png" alt="" class="logo-image">
+        </a>
+
+        <a class="navbar-brand" href="/"></a>
+      </div>
+
+      <div class="container-menu">
+        <button class="btn btn-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+          aria-controls="offcanvasRight" id="offcanvas-menu">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="offcanvas offcanvas-end" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+          <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel"></h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <div class="menu-item hover-element">
+              <a href="/#productos">Productos</a>
+            </div>
+            <div class="menu-item hover-element">
+              <% if (typeof firstPath !== 'undefined' ) { %>
+                <a href="/<%= firstPath %>/documentation" target="_blank">Documentación</a>
+                <% } else { %>
+                  <a href="/documentation" target="_blank">Documentación</a>
+                  <% } %>
+            </div>
+            <div class="menu-item hover-element">
+              <a href="/#contacto">Contacto</a>
+            </div>
+            <!-- BOTON DE LOGIN / ACCOUNT-->
+            <%- include("../partials/buttons/connected-button.ejs") %>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- <div class="subnavbar shadow"></div> -->
+
+  </nav>
+</header>
+
+
+
+<!-- LOGIN Modal SI NO VAMOS A USAR EL MODAL, SACARLO. -->
+<div class="modal fade" id="loginModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Iniciar sesión a Sheets Central</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%- include("../partials/buttons/google-login.ejs") %>
+      </div>
+    </div>
+  </div>
+</div>

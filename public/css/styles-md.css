@@ -260,3 +260,9 @@
     display: flex;
     align-items: center;
 }
+
+.menu-lang {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}

@@ -18,11 +18,11 @@
         <div class="main-division2">
           <div class="division-text-content2">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Tu gestión de Tiendanube, en Google Sheets
+              <h1 class="main-title-2"><%= lang_object.text.index_main_title %>
               </h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text">Automatiza y gestiona tu tienda con la herramienta más usada por todas empresas de todos los tamaños </h3>
+              <h3 class="explain-text"><%= lang_object.text.index_main_subtitle %></h3>
               
               <% if (connection_id && user_connected.connection == 'tiendanube' && user_connected.active == 'true' ) { %>
                 <div class="login-button">
@@ -30,7 +30,7 @@
                     <a class="black-button-a" href="/tiendanube/config" >
                       <div class="login-button-text">
                         <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
-                        <p class="login-button-p">Ir a configuración</p>
+                        <p class="login-button-p"><%= lang_object.text.config_button %></p>
                       </div>
                     </a>
                   </button>
@@ -47,7 +47,7 @@
                     target="_blank">
                     <div class="login-button-text">
                       <img class="login-button-logo" src="/images/icons/document.png" alt="">
-                      <p class="login-button-p">Ver documentación</p>
+                      <p class="login-button-p"><%= lang_object.text.docs_button %></p>
                     </div>
                   </a>
                 </button>
@@ -86,12 +86,12 @@
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Automatiza las ventas de tu tienda</h1>
+              <h1 class="main-title-2"><%= lang_object.text.index_title_section1 %></h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text"> Nueva venta → Nueva fila en tu Google Sheets </h3>
-              <h3 class="explain-text"> ¿Actualización? ¿Pago? ¿Cancelación? ¡Las filas se editan automáticamente! </h3>
-              <h3 class="explain-text"> Olvídate de descargar archivos .csv </h3>
+              <% for (var i = 0; i < lang_object.text.index_text_section1.length; i++) { %>
+                <h3 class="explain-text"> <%= lang_object.text.index_text_section1[i] %> </h3>
+              <% } %>
             </div>
 
           </div><!-- Divion left content-->
@@ -112,14 +112,12 @@
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Gestiona tus productos en un mismo lugar</h1>
+              <h1 class="main-title-2"><%= lang_object.text.index_title_section2 %></h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text"> Mantén información actualizada de tus productos </h3>
-              <h3 class="explain-text"> Crea y edita productos masivamente </h3>
-              <h3 class="explain-text"> Carga imágenes desde Google Drive a tu e-commerce </h3>
-              <h3 class="explain-text"> ¡Todo desde Google Sheets! </h3>
-
+              <% for (var i = 0; i < lang_object.text.index_text_section2.length; i++) { %>
+                <h3 class="explain-text"> <%= lang_object.text.index_text_section2[i] %> </h3>
+              <% } %>
             </div>
 
           </div><!-- Divion left content-->
@@ -139,14 +137,12 @@
         <div class="main-division">
           <div class="division-text-content">
             <div class="division-left-content-top">
-              <h1 class="main-title-2">Métricas, Dashboards, filtros ¡y más!</h1>
+              <h1 class="main-title-2"><%= lang_object.text.index_title_section3 %></h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text"> Sigue usando las mismas funciones de Google Sheets </h3>
-              <h3 class="explain-text"> Crea filtros, fórmulas, tablas dinámicas, dashboards... </h3>
-              <h3 class="explain-text"> Crea tus propios gráficos, agrega colores, ¡lo que quieras!</h3>
-              <h3 class="explain-text"> Y dashboards profesionales en Looker Studio</h3>
-
+              <% for (var i = 0; i < lang_object.text.index_text_section3.length; i++) { %>
+                <h3 class="explain-text"> <%= lang_object.text.index_text_section3[i] %> </h3>
+              <% } %>
             </div>
 
           </div><!-- Divion left content-->
@@ -166,10 +162,10 @@
 
     <section id="productos">
       <div class="full-page-item container">
-        <h1 class="main-title">Productos</h1>
+        <h1 class="main-title"><%= lang_object.text.index_product_title %></h1>
 
         <div class="flex card-container">
-          <% for (projecto of projectos) { %>
+          <% for (projecto of projectos[lang_object.lang]) { %>
             <%- include("./partials/card.ejs") %>
           <% } %>
         </div>

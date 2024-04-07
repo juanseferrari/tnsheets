@@ -7,9 +7,9 @@ var logger = require('morgan');
 require('dotenv/config')
 
 const esRouter = require('./src/routes/es-routes');
-const enRouter = require('./src/routes/en-routes');
-const ptRouter = require('./src/routes/pt-routes');
 const apiRouter = require('./src/routes/api-routes');
+
+const langService = require('./src/services/lang-service');
 
 var app = express();
 
@@ -24,8 +24,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', esRouter);
-app.use('/en/', enRouter);
-app.use('/pt/', ptRouter);
 app.use('/api/', apiRouter);
 
 // Middleware to handle JavaScript files in the 'public/js' folder
@@ -39,10 +37,14 @@ app.use('/js', (req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   let navbar_data = { active: false, name: '', logo_url: '' }
+  let lang_object = await langService.language(req.query.lang)
+  let google_user = ""
+  let google_user_id = ""
+
   let message = "Esta página no existe."
-  res.status(404).render("menus/error-page", { message,navbar_data })
+  res.status(404).render("menus/error-page", { message,navbar_data, lang_object, google_user,google_user_id })
 })
 
 // error handler
