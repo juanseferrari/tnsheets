@@ -122,6 +122,12 @@
     cursor: pointer;
     font-size: 1em !important;
 }
+.dropdown-menu {
+    min-width: 6rem !important;
+}
+.fi {
+    margin-left: 5px;
+}
 
 
 

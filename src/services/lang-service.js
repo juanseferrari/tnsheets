@@ -7,6 +7,7 @@ const langService = {
     console.log("lang in service: " + lang)
 
     var supported_langs = ['es', 'pt', 'en']
+    let icon = 'es'
 
     if (!lang || lang === undefined) {
       lang = 'es'
@@ -14,6 +15,16 @@ const langService = {
     if (!supported_langs.includes(lang)) {
       lang = 'es'
     }
+
+    if(lang == "pt"){
+      icon == 'br'
+    } else if (lang == "en"){
+      icon == "gb"
+    } else {
+      icon == "es"
+    }
+
+    
     const language_json = {
       "es": {
         //ESPAÑOL
@@ -348,6 +359,7 @@ const langService = {
     //return object
     let return_object = {
       lang,
+      icon,
       "text": language_json[lang]
 
     }
