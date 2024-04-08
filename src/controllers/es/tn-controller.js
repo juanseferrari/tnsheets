@@ -194,6 +194,7 @@ const tnController = {
                 //SALIO TODO OK
                 //save cookie
                 res.cookie("connection_id", record_id)
+                res.cookie("sc_lang", main_language)
           
                 res.redirect("/tiendanube/config")
             } else {

@@ -17,13 +17,13 @@ const langService = {
     }
 
     if(lang == "pt"){
-      icon == 'br'
+      icon = 'br'
     } else if (lang == "en"){
-      icon == "gb"
+      icon = "gb"
     } else {
-      icon == "es"
+      icon = "es"
     }
-
+    console.log("icon: "+ icon)
     
     const language_json = {
       "es": {
