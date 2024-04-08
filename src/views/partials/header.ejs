@@ -38,7 +38,7 @@
               <div class="dropdown">
                 <% if (typeof lang_object !== 'undefined' ) { %>
                   <button id="mainButton" class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <%= lang_object.lang.toUpperCase(); %>
+                    <%= lang_object.lang.toUpperCase(); %> <span class="fi fi-<%= lang_object.icon%>"></span>
                   </button>
                 <% } else { %>
                   <button id="mainButton" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -47,13 +47,13 @@
                 <% } %>
                 <ul class="dropdown-menu">
                   <% if (typeof firstPath !=='undefined' ) { %>
-                    <li><a class="dropdown-item es" lang="es" onclick="switchLanguage('es')">ES</a></li>
+                    <li><a class="dropdown-item es" lang="es" onclick="switchLanguage('es')">ES <span class="fi fi-es"></span></a></li>
                     <!-- <li><a class="dropdown-item en"  onclick="switchLanguage('en')">EN</a></li>-->
-                    <li><a class="dropdown-item pt" lang="pt" onclick="switchLanguage('pt')" >PT</a></li>
+                    <li><a class="dropdown-item pt" lang="pt" onclick="switchLanguage('pt')" >PT <span class="fi fi-br"></span></a></li>
                   <% } else { %>
-                    <li><a class="dropdown-item es" lang="es" onclick="switchLanguage('es')">ES</a></li>
+                    <li><a class="dropdown-item es" lang="es" onclick="switchLanguage('es')">ES <span class="fi fi-es"></span></a></li>
                     <!-- <li><a class="dropdown-item en" onclick="switchLanguage('en')">EN</a></li>-->
-                    <li><a class="dropdown-item pt" lang="pt" onclick="switchLanguage('pt')">PT</a></li>
+                    <li><a class="dropdown-item pt" lang="pt" onclick="switchLanguage('pt')">PT <span class="fi fi-br"></span></a></li>
                   <% } %>
                 </ul>
               </div>

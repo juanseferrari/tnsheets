@@ -14,6 +14,7 @@
     "dotenv": "^16.0.2",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "flag-icons": "^7.2.1",
     "google-auth-library": "^8.7.0",
     "googleapis": "^105.0.0",
     "http-errors": "~1.6.3",
