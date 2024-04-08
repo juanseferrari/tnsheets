@@ -119,6 +119,11 @@ const dtController = {
       let tn_user_data = await tn_user_request_data.json();
       //console.log(tn_user_data)
 
+      let main_language = "es"
+      if(tn_user_data['main_language']){
+        main_language = tn_user_data['main_language']
+      }
+
       //AIRTABLE DATA
       if(tn_user_data['url_with_protocol']){
         var user_url = tn_user_data['url_with_protocol']
@@ -138,7 +143,7 @@ const dtController = {
 
       var fields_to_db = {
         //  Futuro: Agregar el state para identificar al usuario
-        "nickname": "[DT] " + tn_user_data['name']['es'],
+        "nickname": "[DT] " + tn_user_data['name'][main_language],
         "access_token": data['access_token'],
         "user_id": data['user_id'].toString(),
         "connection": "drive-to-tiendanube",
@@ -146,10 +151,11 @@ const dtController = {
         "active": "true",
         "plan": "free",
         "uninstalled_date": null,
-        "user_name": tn_user_data['name']['es'],
+        "user_name": tn_user_data['name'][main_language],
         "user_email": tn_user_data['email'],
         "user_logo": user_logo,
         "country": tn_user_data['country'],
+        "main_language": main_language,
         "user_url": user_url,
         "connection_date": new Date().toISOString(),
         "tag": { "id": "usrOsqwIYk4a2tZsg" }
@@ -181,14 +187,12 @@ const dtController = {
                 //SALIO TODO OK
                 //save cookie
                 res.cookie("dt_connection_id", record_id)
-                res.cookie("tn_user_name", tn_user_data['name']['es'])
           
                 res.redirect("/drive-to-tiendanube/config")
             } else {
                 //Fallo la generacion del app/uninstalled, pero hago el rendering igual
                 //save cookie
                 res.cookie("dt_connection_id", record_id)
-                res.cookie("tn_user_name",  tn_user_data['name']['es'])
 
                 res.redirect("/drive-to-tiendanube/config")
             }
