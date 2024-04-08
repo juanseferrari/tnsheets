@@ -187,7 +187,8 @@ const dtController = {
                 //SALIO TODO OK
                 //save cookie
                 res.cookie("dt_connection_id", record_id)
-          
+                res.cookie("sc_lang", main_language)
+
                 res.redirect("/drive-to-tiendanube/config")
             } else {
                 //Fallo la generacion del app/uninstalled, pero hago el rendering igual
