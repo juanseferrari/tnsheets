@@ -447,7 +447,6 @@ const mainService = {
     return response_object
   },
   async getConnectionsByGoogleUser(google_user_id) {
-    console.log("getConnectionsByGoogleUser")
     let response_object
 
     if (google_user_id === "" || !google_user_id || google_user_id === undefined || google_user_id === null) {

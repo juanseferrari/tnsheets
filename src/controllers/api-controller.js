@@ -166,7 +166,10 @@ const apiController = {
     var connection = req.body.connection
     var quantity_of_data = req.body.quantity_of_data
 
-    if(!quantity_of_data || quantity_of_data === undefined){
+    console.log(quantity_of_data)
+    if(quantity_of_data === 0){
+      quantity_of_data = "0"
+    } else if(!quantity_of_data || quantity_of_data === undefined){
       quantity_of_data = "error"
     }
 
@@ -180,6 +183,8 @@ const apiController = {
       "quantity_of_data": quantity_of_data.toString(),
       "log_date": new Date().toISOString()
     }
+
+    console.log(fields_to_db)
 
     if (token == "sheetapi5678") {
       let user_exists = await mainService.validateUserExists(connection_id)
