@@ -81,7 +81,19 @@ loginButton2.addEventListener('click', (e) => {
     clickedLink.classList.add('active');
     // Update main button text
     var mainButton = document.getElementById('mainButton');
+    // Create a new span element
+    var spanIcon = document.createElement('span');
+    // Add the necessary classes to the span element
+    let flag = lang
+    if(lang == 'pt'){
+        flag = "br"
+    }
+    spanIcon.className = 'fi fi-' + flag;
+    // Append the span element to the mainButton text content
     mainButton.textContent = lang.toUpperCase();
+    mainButton.appendChild(spanIcon);
+
+    //mainButton.textContent = lang.toUpperCase()
     
 
     // Check if sc_lang cookie already exists
