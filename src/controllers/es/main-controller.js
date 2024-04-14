@@ -27,7 +27,10 @@ const mainController = {
 
     var pathSegments = req.url.split('/');
     var firstPath = undefined;
-    console.log("firstPath: " + firstPath)
+
+    console.log("navbar_data")
+    console.log(navbar_data)
+    console.log("navbar_data")
 
     res.render("index", { projectos, google_user, user_connected, connection_id, dt_connection_id, navbar_data, firstPath, lang_object });
   },

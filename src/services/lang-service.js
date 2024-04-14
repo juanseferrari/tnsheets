@@ -4,7 +4,6 @@ const fs = require("fs");
 
 const langService = {
   async language(lang) {
-    console.log("lang in service: " + lang)
 
     var supported_langs = ['es', 'pt', 'en']
     let icon = 'es'
@@ -23,7 +22,6 @@ const langService = {
     } else {
       icon = "es"
     }
-    console.log("icon: "+ icon)
     
     const language_json = {
       "es": {
