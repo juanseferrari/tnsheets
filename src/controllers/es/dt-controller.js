@@ -74,6 +74,14 @@ const dtController = {
   documentation: (req,res) => {
     res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-72f6a9435253493885209eab1d671c10?pvs=4")
   },
+  getPremium: (req,res) => {
+      res.redirect("/drive-to-tiendanube/config#step4")
+  },
+  cloneSheet: async (req,res) => {
+    res.redirect("https://docs.google.com/spreadsheets/d/1RKtuQ3AYjQdeaUDRvgKIppQMc8J9SxZz6ElzjeCV6EM/copy")
+    //TODO Funcion que valida si existe connection_id y abre el sheet.
+    //Si no existe connection_id redirigir al login page.
+  },
   dtOauth: async (req, res) => {
     let navbar_data = res.locals.navbar_data
 
