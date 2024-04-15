@@ -40,6 +40,8 @@ router.get('/tiendanube/documentation', tnController.documentation);
 router.get('/tiendanube/oauth',generalMid,tnController.tnOauth) 
 router.get('/tiendanube/premium',generalMid,tnController.getPremium)  //hacerlo con todos los planes
 router.get('/tiendanube/sheet',generalMid,tnController.getSheet)  //TODO hacerlo con todos los planes para que te redirija al sheet. 
+router.get('/tiendanube/clone-sheet',generalMid,tnController.cloneSheet)  //TODO hacerlo con todos los planes para clonar el sheet
+
 router.post('/tiendanube/uninstalled', tnController.appUninstalled)
 router.post('/tn/uninstalled', tnController.appUninstalled) //TODO deprecar, cambiarle la url a todos
 
@@ -54,6 +56,9 @@ router.get('/drive-to-tiendanube',generalMid, dtController.dtHome);
 router.get('/drive-to-tiendanube/config',generalMid,dtController.configuration) 
 router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
 router.get('/drive-to-tiendanube/oauth',generalMid,dtController.dtOauth) 
+router.get('/drive-to-tiendanube/premium',generalMid, dtController.getPremium)  //hacerlo con todos los planes
+router.get('/drive-to-tiendanube/clone-sheet',generalMid, dtController.cloneSheet)  //hacerlo con todos los planes
+
 router.post('/drive-to-tiendanube/uninstalled', dtController.appUninstalled)
 
 router.get('/drive-to-tiendanube/:connId/config', generalMid, checkAuth.checkDT, dtController.configuration2)

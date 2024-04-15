@@ -2,6 +2,7 @@ const path = require("path");
 
 const mainService = require("../services/main-service");
 const langService = require("../services/lang-service");
+const linksService = require("../services/links-service");
 
 
 const commonVariablesMiddleware = async (req, res, next) => {
@@ -11,6 +12,7 @@ const commonVariablesMiddleware = async (req, res, next) => {
     let navbar_data
     let connections = []
     let lang_object
+    let links = linksService.links()
 
     //LANGUAGE VARIABLES
     if(req.cookies.sc_lang){
@@ -172,6 +174,13 @@ const commonVariablesMiddleware = async (req, res, next) => {
         }
     }
 
+
+    //LINKS
+
+
+
+
+
     //Lo que hay que hacer aca es entender que connection tiene el cliente configurado. 
 
     res.locals = {
@@ -184,7 +193,8 @@ const commonVariablesMiddleware = async (req, res, next) => {
         wo_connection_id,
         navbar_data,
         connections,
-        lang_object
+        lang_object,
+        links
         // Add more variables as needed
     };
     next();
