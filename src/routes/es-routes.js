@@ -38,9 +38,9 @@ router.get('/tiendanube',generalMid, tnController.tnHome);
 router.get('/tiendanube/config', generalMid, tnController.configuration);
 router.get('/tiendanube/documentation', tnController.documentation);
 router.get('/tiendanube/oauth',generalMid,tnController.tnOauth) 
-router.get('/tiendanube/premium',generalMid,tnController.getPremium)  //hacerlo con todos los planes
+router.get('/tiendanube/premium',generalMid,tnController.getPremium)  
 router.get('/tiendanube/sheet',generalMid,tnController.getSheet)  //TODO hacerlo con todos los planes para que te redirija al sheet. 
-router.get('/tiendanube/clone-sheet',generalMid,tnController.cloneSheet)  //TODO hacerlo con todos los planes para clonar el sheet
+router.get('/tiendanube/clone-sheet',generalMid,tnController.cloneSheet) 
 
 router.post('/tiendanube/uninstalled', tnController.appUninstalled)
 router.post('/tn/uninstalled', tnController.appUninstalled) //TODO deprecar, cambiarle la url a todos
@@ -48,20 +48,33 @@ router.post('/tn/uninstalled', tnController.appUninstalled) //TODO deprecar, cam
 /* Tiendanube usando connId */
 router.get('/tiendanube/:connId/config', generalMid, checkAuth.checkTN, tnController.configuration2)
 
-/* Tiendanube usando Middlewares */
-router.get('/tiendanube/error2',generalMid, tnController.tnHome)
-
 /* Drive to Tiendanube */
 router.get('/drive-to-tiendanube',generalMid, dtController.dtHome); 
 router.get('/drive-to-tiendanube/config',generalMid,dtController.configuration) 
 router.get('/drive-to-tiendanube/documentation',dtController.documentation) 
 router.get('/drive-to-tiendanube/oauth',generalMid,dtController.dtOauth) 
-router.get('/drive-to-tiendanube/premium',generalMid, dtController.getPremium)  //hacerlo con todos los planes
-router.get('/drive-to-tiendanube/clone-sheet',generalMid, dtController.cloneSheet)  //hacerlo con todos los planes
+router.get('/drive-to-tiendanube/premium',generalMid, dtController.getPremium)  
+router.get('/drive-to-tiendanube/clone-sheet',generalMid, dtController.cloneSheet) 
 
 router.post('/drive-to-tiendanube/uninstalled', dtController.appUninstalled)
 
 router.get('/drive-to-tiendanube/:connId/config', generalMid, checkAuth.checkDT, dtController.configuration2)
+
+
+
+/* Shopify */
+router.get('/shopify', generalMid, shController.shHome);
+router.get('/shopify/config', generalMid, shController.configuration);
+router.get('/shopify/documentation', shController.documentation);
+router.get('/sh-oauth',generalMid, shController.verifyRequest); //TODO migrar a shopify/verify
+router.get('/shopify/verify',generalMid, shController.verifyRequest);
+router.get('/shopify/oauth',generalMid, shController.shOauth)
+router.get('/shopify/premium',generalMid, shController.documentation) //TODO finish premium link
+router.get('/shopify/clone-sheet',generalMid,shController.cloneSheet) 
+
+router.post('/shopify/uninstalled', shController.documentation) //TODO finish uninstalled
+
+router.get('/shopify/:connId/config', generalMid, checkAuth.checkSH, shController.configuration2)
 
 
 /* Mercado Pago */
@@ -71,12 +84,6 @@ router.get('/mercadopago/oauth',generalMid, mpController.mpOauth);
 router.get('/mercadopago/documentation', mpController.documentation); 
 router.post('/mercadopago/uninstalled', mpController.appUninstalled)
 
-/* Shopify */
-router.get('/shopify', generalMid, shController.shHome);
-router.get('/shopify/config', generalMid, shController.configuration);
-router.get('/sh-oauth',generalMid, shController.verifyRequest);
-router.get('/shopify/oauth',generalMid, shController.shOauth)
-router.get('/shopify/documentation', shController.documentation);
 
 /* Woocommerce */
 router.get('/woocommerce', generalMid, woController.woHome);

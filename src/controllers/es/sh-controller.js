@@ -54,8 +54,28 @@ const shController = {
     //res.redirect("/tiendanube/config")
     res.render("instructions/sh-instructions", { title: "Instrucciones", sh_connection_id, user_connected, google_user,navbar_data, firstPath,lang_object })
   },
+  configuration2: async (req, res) => {
+    let google_user = res.locals.google_user
+    let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
+
+    let sh_connection_id = req.params.connId
+
+    let user_connected = await mainService.searchUser(sh_connection_id)
+
+    //Path for documentation link
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];
+    console.log("firstPath: " + firstPath)
+
+    //res.redirect("/tiendanube/config")
+    res.render("instructions/sh-instructions", { title: "Instrucciones", sh_connection_id, user_connected, google_user,navbar_data, firstPath,lang_object })
+  },
   documentation: (req, res) => {
-    res.redirect("https://sheetscentral.notion.site/Shopify-b36aaefaf3f040b6ac8fccb9d8912a0e")
+    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Shopify-09d66dbea06746a7937c4f409585d6fc")
+  },
+  cloneSheet: async (req,res) => {
+    res.redirect("https://docs.google.com/spreadsheets/d/1Kt57VfUWG4kLYCN8M22t-8SIQ8ksikkwTngq9nSojB4/copy")
   },
   verifyRequest: async (req, res) => {
     let navbar_data = res.locals.navbar_data
