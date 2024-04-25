@@ -117,6 +117,7 @@ const paymentsController = {
         } catch (error) {
           res.json(error)
         }
+        //HACER LO MISMO ACA PERO PARA PASAR EL FIELD A PREMIUM
 
       }
 
@@ -159,6 +160,8 @@ const paymentsController = {
 
 
     } else if (req.body.type == "customer.subscription.deleted") {
+      //CANCELAMIENTO DE UNA ORDEN
+      //TODO Pasar usuario a Cancelled Plan
 
       fields_to_db = {
         "subscription_status": req.body.data.object.status,
