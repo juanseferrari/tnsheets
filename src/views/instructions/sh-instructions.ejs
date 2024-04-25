@@ -5,12 +5,12 @@
   <%- include("../partials/head.ejs") %>
     <%- include("../partials/header.ejs") %>
       <!-- Titulo del broswer-->
-      <title>Sheets Central | Instrucciones</title>
+      <title>Sheets Central | Shopify</title>
       <meta property="og:title" content="Sheets Central | Instrucciones"> <!-- Esto despues hacerlo cambiado para cada proyecto -->
     
 </head>
 
-<body class="squared-body">
+<body>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KMHPBPS" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
@@ -121,16 +121,7 @@
                   </button>
                 </div>
                 <%} else { %>
-                  <div class="login-button">
-                    <button type="button" class="btn btn-outline-secondary">
-                      <a class="sheet-button-a" href="https://docs.google.com/spreadsheets/d/1vqqop451KIr7L_u84z3iyYa2oG5rA4OerPyn8ZmBnJo/copy" target="_blank">
-                        <div class="login-button-text">
-                          <img class="login-button-logo" src="/images/logos/sheets_logo.png" alt="">
-                          <p class="login-button-p">Clonar Sheet (v1.7)</p>
-                        </div>
-                      </a>
-                    </button>
-                  </div>
+                  <%- include("../partials/sheets_buttons/sh-sheet.ejs") %>
               <% } %>
 
               <!-- end clone sheet button -->
@@ -196,121 +187,10 @@
 
       
 
-      <!-- STEP 4 -->
-
-      <div id="step4">
-        <div class="step-block step-ok ">
-          <div class="step-title">
-            <div class="step-check">
-              <% if (user_connected.webhook_url) { %>
-                <i class="fa-solid fa-circle-check"></i>
-                <%} else { %>
-                  <i class="fa-regular fa-circle"></i>
-              <% } %>
-            </div>
-            <div class="step-text">
-              <p>Paso 4: Configuración de URL</p>
-            </div>
-          </div>
-          <div class="step-user-info">
-            <div class="step-left-text">
-              <div>
-                <h4>Para automatizar la gestión de Sheets Central, realiza la configuración de URL. Para hacerlo, sigue los siguientes pasos:  </h4>
-                <p class="step-left-p">1. Dentro del Google Sheet ya clonado, debes ir a Extensiones > Apps Script </p>
-                <p class="step-left-p">2. Dentro de App Script, hacer click en el botón "Implementar" > "Nueva implementación" </p>
-                <p class="step-left-p">3. Crea una nueva implementación. Importante que Cualquier usuario tenga acceso </p>
-                <p class="step-left-p">4. Esperar Carga </p>
-                <p class="step-left-p">5. Copiar URL de Aplicación Web  </p>
-                <p class="step-left-p">6. Volver al Sheet y click en Sheets Central > Configuración de URL  </p>
-                <p class="step-left-p">7. Pegar URL de la Aplicación Web y click en Aceptar  </p>
-                <p class="step-left-p">8. ¡Listo! Configuración completada  </p>
-
-              </div>
-
-
-
-            </div>
-            <div class="step-right-text">
-              <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS9xpBes5hMMKZiLzwf2NSuWkxbspOkUCCicLiB4iwBBsZ6fJrhX_wMgYVkmm6JNGW64Pk7cF0FQ4bY/embed?start=false&loop=false&delayms=5000" frameborder="0" width="90%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-            </div>
-
-          </div>
-
-        </div>
-
-       </div>
-
-       <!-- STEP 5 -->
-
-      <div id="step5">
-        <div class="step-block step-ok">
-          <div class="step-title">
-            <div class="step-check">
-              <% if (user_connected.subscription_status == 'active' || user_connected.subscription_status == 'trialing') { %>
-                <i class="fa-solid fa-circle-check"></i>
-                <%} else { %>
-                  <i class="fa-regular fa-circle"></i>
-              <% } %>
-            </div>
-            <div class="step-text">
-              <p>Paso 5 (recomendado): Obtener Premium. 15 días de prueba!</p>
-            </div>
-          </div>
-          <div class="step-user-info">
-            <div class="step-left-text" >
-              <div>
-                <h4>Obten Sheets Central Premium y desbloquea todas las funcionalidades </h4>
-                <p class="step-left-p">Prueba Sheets Central Premium por <span class="step-left-span">15 días gratis</span>. No se te cobrará hasta pasados los 15 días.</p>
-                <p class="step-left-p">Funcionalidades extra como edición de productos, edición de stock, ventas automáticas, soporte preferencial y más!</p>
-                <button type="button" class="btn btn-outline-secondary shador btn-functionalities ">
-                  <a href="/#compare-plans">Ver funcionalidades</a>
-                </button>
-
-
-              </div>
-
-
-
-            </div>
-            <div class="step-right-text">
-              <% if (user_connected.subscription_status == 'active' || user_connected.subscription_status == 'trialing' ) { %>
-                <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
-                    <a class="black-button-a" href="https://billing.stripe.com/p/login/9AQbJG39y5kL2eQ6oo?prefilled_email=<%=user_connected.subscription_customer_email %>" target="_blank">
-                      <div class="login-button-text">
-                        <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
-                        <p class="login-button-p">Gestionar plan</p>
-                      </div>
-                    </a>
-                  </button>
-                </div> 
-              <%} else { %>
-                <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
-                    <a class="black-button-a" href="https://buy.stripe.com/3cscQkbqI8rRae4cMN?client_reference_id=<%= sh_connection_id %>" target="_blank">
-                      <div class="login-button-text">
-                        <img class="login-button-logo" src="/images/icons/rocket.png" alt="">
-                        <p class="login-button-p">Obtener premium</p>
-                      </div>
-                    </a>
-                  </button>
-                </div>
-              <% } %>
-              
-
-
-            </div>
-
-          </div>
-
-        </div>
-
-       </div> <!-- END STEP 5 -->
-
 
            <!-- STEP 6  -->
            <div id="step6">
-            <div class="step-block step-ok">
+            <div class="step-block step-ok no-border">
               <div class="step-title">
                 <div class="step-text">
                   <p>Material adicional</p>
@@ -343,46 +223,8 @@
            </div>
            <!-- END STEP 6 -->
 
-                 <!-- STEP 7  -->
-                 <div id="step7">
-                  <div class="step-block step-ok  no-border">
-                    <div class="step-title">
-                      <div class="step-text">
-                        <p>Agenda una reunión</p>
-                      </div>
-                    </div>
-                    <div class="step-user-info">
-                      <div class="step-left-text" >
-                        <h4>Puedes agendar una reunión con nuestro equipo para entender el producto en detalle y hacer las preguntas que desees</h4>
-                      </div>
-                      <div class="step-right-text">
-      
-                            <div class="login-button">
-                              <button type="button" class="btn btn-outline-secondary">
-                                <a class="black-button-a" href="https://calendar.app.google/718kBfWDRgqPTxg29" target="_blank">
-                                  <div class="login-button-text">
-                                    <img class="login-button-logo" src="/images/icons/support.png" alt="">
-                                    <p class="login-button-p">Agendar reunión</p>
-                                  </div>
-                                </a>
-                              </button>
-                            </div>
-          
-                        <!-- end clone sheet button -->
-                      </div>
-          
-                    </div>
-          
-                  </div>
-          
-                 </div>
-                 <!-- END STEP 6 -->
+                
  
-
-
-
-
-
 
     </div>
 
