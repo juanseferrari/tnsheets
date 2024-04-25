@@ -129,6 +129,11 @@
     margin-left: 5px;
 }
 
+.btn-check:focus+.btn, .btn:focus {
+    outline: 0;
+    box-shadow: none !important;
+}
+
 
 
 /** ---------- NAVBAR2 ----------------*/
