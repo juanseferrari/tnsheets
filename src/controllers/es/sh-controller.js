@@ -77,6 +77,9 @@ const shController = {
   cloneSheet: async (req,res) => {
     res.redirect("https://docs.google.com/spreadsheets/d/1Kt57VfUWG4kLYCN8M22t-8SIQ8ksikkwTngq9nSojB4/copy")
   },
+  storeRedact: async (req,res) => {
+    res.status(200).json({"succeeded": true})
+  },
   verifyRequest: async (req, res) => {
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object

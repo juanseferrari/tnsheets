@@ -66,12 +66,15 @@ router.get('/drive-to-tiendanube/:connId/config', generalMid, checkAuth.checkDT,
 router.get('/shopify', generalMid, shController.shHome);
 router.get('/shopify/config', generalMid, shController.configuration);
 router.get('/shopify/documentation', shController.documentation);
+router.get('/sh/documentation', shController.documentation); //Esto es porque a veces Shopify no te deja
 router.get('/sh-oauth',generalMid, shController.verifyRequest); //TODO migrar a shopify/verify
 router.get('/shopify/verify',generalMid, shController.verifyRequest);
 router.get('/shopify/oauth',generalMid, shController.shOauth)
 router.get('/shopify/premium',generalMid, shController.documentation) //TODO finish premium link
 router.get('/shopify/clone-sheet',generalMid,shController.cloneSheet) 
 
+
+router.post('/shopify/store-redact',shController.storeRedact) 
 router.post('/shopify/uninstalled', shController.documentation) //TODO finish uninstalled
 
 router.get('/shopify/:connId/config', generalMid, checkAuth.checkSH, shController.configuration2)
