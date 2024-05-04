@@ -7,8 +7,8 @@ const crypto = require('crypto');
 
 
 //SHOPIFY CREDENTIALS PROD
-const sh_client_id = "75abca07b3318a56f4073ec4ccb16e90"
-const sh_client_secret = "85cf4f19f554f3971b2f6ac3b7c3123d"
+const sh_client_id = process.env.SH_CLIENT_ID
+const sh_client_secret = process.env.SH_CLIENT_SECRET
 const sh_test_redirect_url = "http://localhost:5001/shopify/oauth"
 const sh_prod_redirect_url = "https://www.sheetscentral.com/shopify/oauth"
 const scopes = 'read_products,write_products,read_customers,read_orders,read_inventory,write_inventory'
@@ -79,6 +79,28 @@ const shController = {
   },
   storeRedact: async (req,res) => {
 
+    const data = req.body;
+    const shopify_hmac = req.headers['x-shopify-hmac-sha256']
+
+    if(!shopify_hmac){
+      res.status(401).send('Shopify header not found');
+      return;
+    }
+    const verified = mainService.verifyWebhook(JSON.stringify(data), shopify_hmac);
+    
+    console.log("verified")
+    console.log(verified)
+    console.log("verified")
+
+    if (!verified) {
+        res.status(401).send('Unauthorized');
+        return;
+    }
+
+    // Process webhook payload
+    // ...
+
+
     const responseObject = {
       headers: req.headers,
       status: res.statusCode,
@@ -89,7 +111,7 @@ const shController = {
     console.log(responseObject)
     console.log("responseObject")
 
-    res.status(200).json({"succeeded": true})
+    res.status(200).send('Webhook verified successfully');
   },
   verifyRequest: async (req, res) => {
     let navbar_data = res.locals.navbar_data

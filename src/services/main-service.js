@@ -1,6 +1,8 @@
 // ***** Global requires *****
 const path = require("path");
 const fs = require("fs");
+const crypto = require('crypto');
+const bodyParser = require('body-parser');
 
 const paymentService = require("../services/payment-service")
 
@@ -14,6 +16,8 @@ const AIRTABLE_SUBSCRIPTIONS = process.env.AIRTABLE_SUBSCRIPTIONS
 const AIRTABLE_PAYMENTS = process.env.AIRTABLE_PAYMENTS
 const AIRTABLE_GOOGLE_USERS = process.env.AIRTABLE_GOOGLE_USERS
 const AIRTABLE_LOGS = process.env.AIRTABLE_LOGS
+
+const SHOPIFY_CLIENT_SECRET = process.env.SH_CLIENT_SECRET
 
 
 const airtableConfig = {
@@ -569,7 +573,20 @@ const mainService = {
     const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
 
     return hashHex;
-  }
+  },
+  verifyWebhook(data, hmacHeader) {
+    try {
+      const calculatedHmac = crypto.createHmac('sha256', SHOPIFY_CLIENT_SECRET)
+                                    .update(data)
+                                    .digest('base64');
+
+      console.log("calculatedHmac: " + calculatedHmac)
+      return crypto.timingSafeEqual(Buffer.from(calculatedHmac), Buffer.from(hmacHeader));
+   } catch (error) {
+      console.error('Error verifying webhook:', error);
+      return false; // Return false if an error occurs during verification
+    }
+}
 };
 
 module.exports = mainService;

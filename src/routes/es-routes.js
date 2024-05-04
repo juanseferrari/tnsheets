@@ -75,6 +75,9 @@ router.get('/shopify/clone-sheet',generalMid,shController.cloneSheet)
 
 
 router.post('/shopify/store-redact',shController.storeRedact) 
+router.post('/shopify/customer-redact',shController.storeRedact) 
+router.post('/shopify/data-request',shController.storeRedact) 
+
 router.post('/shopify/uninstalled', shController.documentation) //TODO finish uninstalled
 
 router.get('/shopify/:connId/config', generalMid, checkAuth.checkSH, shController.configuration2)
