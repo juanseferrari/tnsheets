@@ -78,6 +78,17 @@ const shController = {
     res.redirect("https://docs.google.com/spreadsheets/d/1Kt57VfUWG4kLYCN8M22t-8SIQ8ksikkwTngq9nSojB4/copy")
   },
   storeRedact: async (req,res) => {
+
+    const responseObject = {
+      headers: req.headers,
+      status: res.statusCode,
+      body: req.body,
+      method: req.method
+  };
+    console.log("responseObject")
+    console.log(responseObject)
+    console.log("responseObject")
+
     res.status(200).json({"succeeded": true})
   },
   verifyRequest: async (req, res) => {
