@@ -62,7 +62,7 @@ const langService = {
             "pricing_color": "premium-color",
             "pricing_small_text": "/mes",
             "pricing_features": ["- Histórico total de ventas", "- Nuevas ventas automáticas", "- Dashboards", "- Edición de productos y stock"],
-            "pricing_button_text": "15 días de prueba",
+            "pricing_button_text": "10 días de prueba",
             "pricing_href": "/tiendanube/#"
           },
           {
@@ -175,7 +175,7 @@ const langService = {
           "7. Pegar URL de la Aplicación Web y click en Aceptar",
           "8. ¡Listo! Configuración completada"
         ],
-        "config_premium": "Obtener Premium. ¡15 días de prueba!",
+        "config_premium": "Obtener Premium. ¡10 días de prueba!",
         "config_premium_subtitle": "Obten Sheets Central Premium y desbloquea todas las funcionalidades",
         "config_additional_title": "Material adicional",
         "config_additional_subtitle": "Revisa nuestra documentación para conocer en detalle Sheets Central",
@@ -221,7 +221,7 @@ const langService = {
             "pricing_color": "premium-color",
             "pricing_small_text": "/mês",
             "pricing_features": ["- Histórico total de vendas", "- Novas vendas automáticas", "- Dashboards", "- Edição de produtos e estoque"],
-            "pricing_button_text": "15 dias de teste",
+            "pricing_button_text": "10 dias de teste",
             "pricing_href": "/tiendanube/#"
           },
           {
@@ -332,7 +332,7 @@ const langService = {
           "7. Cole a URL da Aplicação Web e clique em OK",
           "8. Pronto! Configuração concluída"
         ],
-        "config_premium": "Obter Premium. 15 dias de teste!",
+        "config_premium": "Obter Premium. 10 dias de teste!",
         "config_premium_subtitle": "Obtenha Sheets Central Premium e desbloqueie todas as funcionalidades",
         "config_additional_title": "Material adicional",
         "config_additional_subtitle": "Consulte nossa documentação para obter mais detalhes sobre o Sheets Central",

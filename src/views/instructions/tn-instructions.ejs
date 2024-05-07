@@ -320,7 +320,7 @@
                 <div class="login-button">
                   <button type="button" class="btn btn-outline-secondary">
                     <a class="black-button-a"
-                      href="https://billing.stripe.com/p/login/9AQbJG39y5kL2eQ6oo?prefilled_email=<%=user_connected.subscription_customer_email %>"
+                      href="<%=user_connected.management_url %>"
                       target="_blank">
                       <div class="login-button-text">
                         <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
@@ -334,7 +334,7 @@
                 <%} else { %>
                   <div class="login-button">
                     <button type="button" class="btn btn-outline-secondary" <%=(connection_id)?'':'disabled' %>>
-                      <a class="black-button-a" href="/tiendanube/premium" target="_blank">
+                      <a class="black-button-a" href="/tiendanube/premium?connection_id=<%=(connection_id)%>" target="_blank">
                         <div class="login-button-text">
                           <img class="login-button-logo" src="/images/icons/rocket.png" alt="">
                           <p class="login-button-p">

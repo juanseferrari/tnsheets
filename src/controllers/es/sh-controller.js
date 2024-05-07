@@ -300,7 +300,19 @@ const shController = {
 
     }
 
-  }
+  },
+  stHome: async (req, res) => {
+    let google_user = res.locals.google_user
+    let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
+
+    let sh_connection_id = res.locals.sh_connection_id
+
+    let user_connected = await mainService.searchUser(sh_connection_id)
+
+
+    res.render("menus/shopify-to-tiendanube", { title: "Shopify to Tiendanube", sh_connection_id, user_connected, google_user, navbar_data, firstPath,lang_object});
+  },
 
 };
 

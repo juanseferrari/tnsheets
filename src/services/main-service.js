@@ -47,6 +47,7 @@ const mainService = {
         "nickname": null,
         "user_id": null,
         "user_name": null,
+        "user_email": null,
         "user_logo": null,
         "country": null,
         "user_url": null,
@@ -58,7 +59,8 @@ const mainService = {
         "active": null,
         "plan": null,
         "subscription_status": null,
-        "subscription_customer_email": null
+        "subscription_customer_email": null,
+        "management_url": null
       }
       return response_object
     }
@@ -88,16 +90,13 @@ const mainService = {
     if (airtable_user_response.status === 200) {
       let user_data = await airtable_user_response.json();
 
-      //console.log("user_data")
-      //console.log(user_data)
-      //console.log("user_data")
-
       //Response of search user
       response_object = {
         "connection_id": user_data.id,
         "nickname": user_data.fields.nickname,
         "user_id": user_data.fields.user_id,
         "user_name": user_data.fields.user_name,
+        "user_email": user_data.fields.user_email,
         "user_logo": user_data.fields.user_logo,
         "country": user_data.fields.country,
         "user_url": user_data.fields.user_url,
@@ -109,7 +108,8 @@ const mainService = {
         "active": user_data.fields.active,
         "plan": user_data.fields.plan,
         "subscription_status": subscription_status,
-        "subscription_customer_email": customer_email
+        "subscription_customer_email": customer_email,
+        "management_url": airtable_payment_status.management_url
       }
 
     } else {

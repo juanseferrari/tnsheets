@@ -40,7 +40,7 @@ const checkDT = async (req, res, next) => {
   console.log("in checkDT")
 
   let google_user = res.locals.google_user
-  let dt_connection_id_cookie = res.locals.connection_id
+  let dt_connection_id_cookie = res.locals.dt_connection_id
   let dt_connection_id_param = req.params.connId
 
   //Aca el usuario tiene el connection_id en cookie, logueo y esta OK para mostrar el dashboard

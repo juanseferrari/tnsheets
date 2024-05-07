@@ -4,6 +4,7 @@ var router = express.Router();
 const apiController = require('../controllers/api-controller');
 const paymentsController = require('../controllers/payments-controller');
 const googleController = require('../controllers/google-controller');
+const mpController = require('../controllers/es/mp-controller');
 
 // Middlewares
 const checkAuth = require('../middlewares/check-auth');
@@ -21,9 +22,11 @@ router.post('/payment-webhooks', paymentsController.notificationController)
 router.get('/subscription-status', paymentsController.checkSubscription)
 router.post('/redeem-payment', paymentsController.redeemPayment)
 
+/* MERCADO PAGO APIS*/
+router.post('/mercadopago/webhooks', mpController.mpWebooks)
+
 /* GOOGLE AUTH DATA */
 router.post('/google-auth',generalMid,googleController.googleoauth)
-router.post('/google-auth2',generalMid,googleController.googleoauth2)
 
 //router.get('/google-login',googleController.googleLink)
 
