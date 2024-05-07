@@ -39,6 +39,8 @@ const paymentsController = {
   },
   notificationController: async (req, res) => {
 
+    //Los webhooks de MP estan en el mp-controller. 
+
     let utm_source = req.query.utm_source
     console.log("utm_source")
     console.log(utm_source)
@@ -79,6 +81,9 @@ const paymentsController = {
           credit_quantity,
           "internal_product": "DT-" + credit_quantity,
           "tag": { "id": "usrOsqwIYk4a2tZsg" },
+          "prod_users": [
+            req.body.data.object.client_reference_id
+          ],
           "test_mode": req.query.test_mode ? req.query.test_mode : "false"
         }
         try {
@@ -89,6 +94,7 @@ const paymentsController = {
         }
 
       } else {
+        //SUBSCRIPTIONS
 
 
         let field_to_merge = []
@@ -99,16 +105,19 @@ const paymentsController = {
         }
         fields_to_db = {
           "subscription_id": req.body.data.object.subscription,
-          "payment_intent_id": req.body.data.object.payment_intent,
+          //"payment_intent_id": req.body.data.object.payment_intent, SACADO PORQUE VAMOS A ELIMINAR COLUMNAS EN LA DB
           "customer_id": req.body.data.object.customer,
           "customer_name": req.body.data.object.customer_details.name,
           "customer_email": req.body.data.object.customer_details.email,
           "client_reference_id": req.body.data.object.client_reference_id,
           "mode": req.body.data.object.mode, //determina si es un payment o un subscription
           "date_created": new Date().toISOString(),
-          "payment_link": req.body.data.object.payment_link,
           "internal_product": "tiendanube_1",
           "tag": { "id": "usrOsqwIYk4a2tZsg" },
+          "management_url": "https://billing.stripe.com/p/login/9AQbJG39y5kL2eQ6oo?prefilled_email=" + req.body.data.object.customer_details.email,
+          "prod_users": [
+            req.body.data.object.client_reference_id
+          ],
           "test_mode": req.query.test_mode ? req.query.test_mode : "false"
         }
         try {
@@ -161,7 +170,6 @@ const paymentsController = {
 
     } else if (req.body.type == "customer.subscription.deleted") {
       //CANCELAMIENTO DE UNA ORDEN
-      //TODO Pasar usuario a Cancelled Plan
 
       fields_to_db = {
         "subscription_status": req.body.data.object.status,

@@ -20,19 +20,11 @@ const redirect_url = "https://www.sheetscentral.com/google-auth"
 //Google OAUTH validation
 //const {OAuth2Client} = require('google-auth-library');
 //const client = new OAuth2Client(google_client_id);
-const {google} = require('googleapis');
-
-//esto tampoco sirve
-const oauth2Client = new google.auth.OAuth2(
-  google_client_id,
-  google_client_secret,
-  "http://localhost:5001/authenticate"
-);
 
 
 const googleController = {
   googleLink: async (req,res)=> {
-    var google_url = "https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri="+redirect_url+"&scope=email%20profile&client_id=561559378274-vquvti7momk6huf1k4ugn8q9jha6313q.apps.googleusercontent.com"
+    var google_url = "https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code&redirect_uri="+redirect_url+"&scope=email%20profile&client_id="+google_client_id
     //SOLUCIONAR ESTO A FUTURO.
     console.log(google_url)
     res.redirect(google_url)
@@ -71,13 +63,6 @@ const googleController = {
         console.log(error)
         res.json(error)
       }
-  },
-  googleoauth2: async (req,res) => {
-    console.log(req.body)
-    res.json({
-      "body": req.body
-    })
-
   }
 };
 
