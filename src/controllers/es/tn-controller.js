@@ -72,18 +72,7 @@ const tnController = {
   documentation: (req, res) => {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-01ee5d985cff4c759afa414a2cdf1c8d")
   },
-  getPremium: (req, res) => {
-    connection_id = ""
-    if (req.cookies.connection_id) {
-      connection_id = req.cookies.connection_id
-      let redirect_url = 'https://buy.stripe.com/3cscQkbqI8rRae4cMN?utm_source=tn_config&client_reference_id=' + connection_id
-      console.log(redirect_url)
-      res.redirect(redirect_url)
-    } else {
-      res.redirect("/tiendanube/config")
-    }
-  },
-  getPremium2: async (req, res) => {
+  getPremium: async (req, res) => {
 
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
@@ -99,17 +88,10 @@ const tnController = {
 
     let user_connected = await mainService.searchUser(connection_id)
 
-    console.log("user_connected")
-    console.log(user_connected)
-    console.log("user_connected")
-
-    let country = user_connected.country
-
-
     if (user_connected.subscription_status == "no subscription" || user_connected.subscription_status == "canceled" ) {
       //Si no tiene ni suscripcion o esta cancelado y quiere reactivar.
-      //let subscription = await paymentService.createMPSubscription(connection_id,user_connected.user_email,country)
-      let subscription = await paymentService.createSubscription(connection_id,"test_user_16552176@testuser.com", country)
+      let subscription = await paymentService.createSubscription(connection_id,user_connected.user_email,user_connected.country)
+      //let subscription = await paymentService.createSubscription(connection_id,"test_user_16552176@testuser.com", country)
       //let subscription = await paymentService.createSubscription(connection_id, "test_user_1941401091@testuser.com", country)
 
       if (subscription.url) {
@@ -127,6 +109,7 @@ const tnController = {
 
   },
   cloneSheet: async (req, res) => {
+    //v2.4
     res.redirect("https://docs.google.com/spreadsheets/d/1fAjXyysxHFVx_2zv70kY3FM9emwi0m1kYHve_XT2JMg/copy")
     //TODO Funcion que valida si existe connection_id y abre el sheet.
     //Si no existe connection_id redirigir al login page.

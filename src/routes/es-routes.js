@@ -38,7 +38,7 @@ router.get('/tiendanube',generalMid, tnController.tnHome);
 router.get('/tiendanube/config', generalMid, tnController.configuration);
 router.get('/tiendanube/documentation', tnController.documentation);
 router.get('/tiendanube/oauth',generalMid,tnController.tnOauth) 
-router.get('/tiendanube/premium',generalMid,tnController.getPremium2)  
+router.get('/tiendanube/premium',generalMid,tnController.getPremium)  
 router.get('/tiendanube/sheet',generalMid,tnController.getSheet)  //TODO hacerlo con todos los planes para que te redirija al sheet. 
 router.get('/tiendanube/clone-sheet',generalMid,tnController.cloneSheet) 
 

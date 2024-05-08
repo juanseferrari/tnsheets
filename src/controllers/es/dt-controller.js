@@ -30,7 +30,6 @@ const dtController = {
     var firstPath = pathSegments[1];  
     console.log("firstPath: "+ firstPath)
 
-
     res.render("menus/drive-to-tiendanube", { google_user, dt_connection_id, user_connected, navbar_data, firstPath, lang_object });
   },
   configuration: async (req, res) => {
