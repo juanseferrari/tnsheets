@@ -204,7 +204,7 @@ const paymentsController = {
       //notification not supported
       //Change status code for 400
       res.json({
-        "errorr": "Notification not supported"
+        "error": "Notification not supported"
       })
     }
   },
