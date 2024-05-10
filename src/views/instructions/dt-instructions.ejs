@@ -232,7 +232,7 @@
                               <ul class="list-unstyled mt-3 mb-4">
                                   <li><%= lang_object.text.dt_pack1_subtitle %></li>
                               </ul>
-                              <a class="btn w-100 btn btn-lg btn-outline-dark" href="https://buy.stripe.com/bIY17CdyQcI7bi85kq?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>" target="_blank" role="button"><%= lang_object.text.dt_buy_button %></a>
+                              <a  class="btn w-100 btn btn-lg btn-outline-dark <%=(dt_connection_id)?'':'disabled' %>" href="https://buy.stripe.com/bIY17CdyQcI7bi85kq?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>" target="_blank" role="button" disabled><%= lang_object.text.dt_buy_button %></a>
                           </div>
                       </div>
                   </div>
@@ -247,7 +247,7 @@
                               <ul class="list-unstyled mt-3 mb-4">
                                 <li><%= lang_object.text.dt_pack2_subtitle %></li>
                               </ul>
-                              <a class="btn w-100 btn btn-lg btn-outline-dark" href="https://buy.stripe.com/cN2bMg52kbE32LC004?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>"  target="_blank"    role="button"><%= lang_object.text.dt_buy_button %></a>
+                              <a class="btn w-100 btn btn-lg btn-outline-dark  <%=(dt_connection_id)?'':'disabled' %>" href="https://buy.stripe.com/cN2bMg52kbE32LC004?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>"  target="_blank"    role="button"><%= lang_object.text.dt_buy_button %></a>
                           </div>
                       </div>
                   </div>

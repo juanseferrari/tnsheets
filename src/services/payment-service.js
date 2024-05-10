@@ -106,6 +106,7 @@ const paymentService = {
 
   },
   async unredeemedPayments(connection_id) {
+    console.log(connection_id)
     const mainService = require("../services/main-service");
 
     let response_object
