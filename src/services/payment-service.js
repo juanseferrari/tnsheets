@@ -151,7 +151,7 @@ const paymentService = {
     }
   },
   async createSubscription(connection_id, user_email, country) {
-
+    console.log({connection_id, user_email, country})
     let return_object
     if (country == "AR") {
       //ARGENTINA LLEVARLO A MP
@@ -172,6 +172,8 @@ const paymentService = {
         "reason": "Sheets Central",
         "status": "pending"
       }
+
+      console.log(JSON.stringify(subscription_object))
 
       var post_request_options = {
         method: 'POST',
@@ -219,7 +221,7 @@ const paymentService = {
     var get_request_options = {
       method: 'GET',
       headers: {
-        "Authorization": "Bearer " + TEST_MP_ACCESS_TOKEN,
+        "Authorization": "Bearer " + MP_ACCESS_TOKEN,
         "Content-Type": "application/json"
       },
       redirect: 'follow'
@@ -236,7 +238,7 @@ const paymentService = {
         "error": {
           "type": "UNABLE_TO_RETURN_SUBSCRIPTION_DATA",
           "message": "We couldn't retrieve the information of MP Subscription.",
-          "error": subscription_response.json()
+          "error": await subscription_response.json()
         }
       }
     }
