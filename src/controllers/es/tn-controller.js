@@ -73,7 +73,6 @@ const tnController = {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-01ee5d985cff4c759afa414a2cdf1c8d")
   },
   getPremium: async (req, res) => {
-
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
 
@@ -91,8 +90,6 @@ const tnController = {
     if (user_connected.subscription_status == "no subscription" || user_connected.subscription_status == "canceled" ) {
       //Si no tiene ni suscripcion o esta cancelado y quiere reactivar.
       let subscription = await paymentService.createSubscription(connection_id,user_connected.user_email,user_connected.country)
-      //let subscription = await paymentService.createSubscription(connection_id,"test_user_16552176@testuser.com", country)
-      //let subscription = await paymentService.createSubscription(connection_id, "test_user_1941401091@testuser.com", country)
 
       if (subscription.url) {
         console.log(subscription.url)
