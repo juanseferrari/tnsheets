@@ -114,45 +114,49 @@ const shController = {
     res.status(200).send('Webhook verified successfully');
   },
   verifyRequest: async (req, res) => {
+
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
 
-    console.log("req.query")
-    console.log(req.query)
-    console.log("req.query")
+    function safeCompare(a, b) {
+      //checks that the lenghts are the same, if not returns false
+      const aBuffer = Buffer.from(a, 'hex');
+      const bBuffer = Buffer.from(b, 'hex');
+      if (aBuffer.length !== bBuffer.length) {
+          return false;
+      }
+        return crypto.timingSafeEqual(aBuffer, bBuffer);
+    }    
 
     //example url: 
     var example_url = `https://quickstart-1893efc4.myshopify.com/admin/oauth/authorize?client_id=${sh_client_id}&scope=${scopes}&redirect_uri=${sh_test_redirect_url}`
     console.log(example_url)
 
-    const originalHMAC = req.query.hmac
-    let shop = req.query.shop
+    //Shopify variables
     const queryParameters = req.query;
+    const originalHMAC = req.query.hmac2
+    let shop = req.query.shop
+
 
     // Remove the 'hmac' parameter if it exists
-    if (queryParameters.hmac) {
-      delete queryParameters.hmac;
+    if (queryParameters.hmac2) {
+      delete queryParameters.hmac2;
     }
     // Sort the remaining parameters alphabetically
     const sortedParameters = Object.keys(queryParameters).sort();
+
     // Create a new query string from the sorted parameters
     const newQueryString = sortedParameters.map(key => `${key}=${queryParameters[key]}`).join('&');
-
-    console.log("newQueryString: " + newQueryString)
     const newHMAC = crypto.createHmac('sha256', sh_client_secret);
     newHMAC.update(newQueryString);
     const digest = newHMAC.digest('hex');
 
     console.log("digest: " + digest)
 
-    const areEqual = crypto.timingSafeEqual(
-      Buffer.from(digest, 'hex'),
-      Buffer.from(originalHMAC, 'hex')
-    );
-
+    const areEqual = safeCompare(digest,originalHMAC)
+    
     if (areEqual) {
-      console.log('Digests match. Redirecting user.');
-
+      console.log('Digests match. Redirecting user to Shopify...');
       let google_user_id = ""
       if (req.cookies.google_user_id) {
         google_user_id = req.cookies.google_user_id
@@ -163,7 +167,7 @@ const shController = {
     } else {
       console.log('Digests do not match.');
       //render error page because there was an error
-      let message = "Shopify url is incorrect. Try again with a new url."
+      let message = "Unable to access Sheets Central at this moment. Check your Shopify url or try again with a new url."
       res.render("menus/error-page", { message, navbar_data, lang_object })
     }
   },

@@ -1,4 +1,5 @@
 const path = require("path");
+const url = require('url');
 
 const mainService = require("../services/main-service");
 const langService = require("../services/lang-service");
@@ -6,6 +7,25 @@ const linksService = require("../services/links-service");
 
 
 const commonVariablesMiddleware = async (req, res, next) => {
+
+    //Shopify validation
+    const queryParams = req.query;
+    if (queryParams.hmac) {
+        const sh_hmac = queryParams.hmac
+        // Construct the base URL you want to redirect to
+        const baseRedirectUrl = '/shopify/verify';
+        const filteredQueryParams = { ...queryParams };
+        filteredQueryParams.hmac2 = queryParams.hmac
+        delete filteredQueryParams.hmac;
+
+        const newUrl = url.format({
+            pathname: baseRedirectUrl,
+            query: filteredQueryParams,
+        });
+        // Redirect to the new URL
+        res.redirect(newUrl);
+    }
+
 
     //GENERAL VARIABLES
     let amount_of_results = 0
