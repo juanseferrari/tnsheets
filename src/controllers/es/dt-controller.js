@@ -39,8 +39,6 @@ const dtController = {
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
 
-    console.log("dt_connection_id: " + dt_connection_id)
-
     let user_connected = await mainService.searchUser(dt_connection_id)
 
     let unredeemedPayments = await paymentService.unredeemedPayments(dt_connection_id)
@@ -48,7 +46,6 @@ const dtController = {
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];  
-    console.log("firstPath: "+ firstPath)    
 
     res.render("instructions/dt-instructions", { dt_connection_id, user_connected,google_user, navbar_data, firstPath, unredeemedPayments, lang_object})
   },
@@ -67,7 +64,6 @@ const dtController = {
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];  
-    console.log("firstPath: "+ firstPath)    
 
     res.render("instructions/dt-instructions", {dt_connection_id, user_connected,google_user, navbar_data, firstPath, unredeemedPayments, lang_object})
   },

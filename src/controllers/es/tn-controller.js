@@ -32,7 +32,6 @@ const tnController = {
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];
-    console.log("firstPath: " + firstPath)
 
     res.render("menus/tiendanube", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object });
   },
@@ -44,7 +43,6 @@ const tnController = {
     let lang_object = res.locals.lang_object
 
     let user_connected = await mainService.searchUser(connection_id)
-
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
@@ -92,7 +90,6 @@ const tnController = {
       let subscription = await paymentService.createSubscription(connection_id,user_connected.user_email,user_connected.country)
 
       if (subscription.url) {
-        console.log(subscription.url)
         res.redirect(subscription.url)
       } else {
         let message = subscription.error.message
@@ -100,6 +97,7 @@ const tnController = {
       }
 
     } else {
+      console.log("AAA")
       //aca idealmente mandarlo a management
       res.redirect("/tiendanube/config#step4")
     }
