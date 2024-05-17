@@ -134,6 +134,11 @@ const mpController = {
 
   },
   mpWebooks: async (req, res) => {
+
+    console.log("MP Webhook data: ")
+    console.log(req.body)
+    console.log("MP Webhook data: ")
+
     //funcion usada cuando se desinstala una conexion. Se guarda en la DB
     let user_id = req.body.user_id
     let action = req.body.action
@@ -180,13 +185,12 @@ const mpController = {
         const connection_id = parts[1];
         const connection = parts[0]
         let status = subscription_data.status
-
-
-        switch (subscription_data.status) {
-          case 'authorized':
-            status = "active"
-          case 'cancelled':
-            status = "canceled"
+        if(subscription_data.status == 'authorized') {
+          status = "active"
+        } else if (subscription_data.status == 'cancelled'){
+          status = "canceled"
+        } else {
+          status = subscription_data.status
         }
 
         let json_to_sc = {
