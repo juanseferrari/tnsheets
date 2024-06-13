@@ -85,7 +85,7 @@ const tnController = {
 
     let user_connected = await mainService.searchUser(connection_id)
 
-    if (user_connected.subscription_status == "no subscription" || user_connected.subscription_status == "canceled" ) {
+    if (user_connected.subscription_status == "no subscription" || user_connected.subscription_status == "canceled" || user_connected.subscription_status == "pending" ) {
       //Si no tiene ni suscripcion o esta cancelado y quiere reactivar.
       let subscription = await paymentService.createSubscription(connection_id,user_connected.user_email,user_connected.country)
 

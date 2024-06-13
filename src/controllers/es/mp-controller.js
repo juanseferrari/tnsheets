@@ -92,6 +92,10 @@ const mpController = {
 
     if (data['error']) {
       //ERROR AL CONECTARSE CON MP
+      console.log("mp error data")
+      console.log(data)
+      console.log("mp error data")
+
       let message = "No hemos podido validar la conexión con Mercado Pago. Por favor intente nuevamente."
       res.render("menus/error-page", { message, navbar_data })
     } else {
@@ -102,6 +106,7 @@ const mpController = {
       console.log(mp_user_info)
       var data_to_airtable_db = {
         "nickname": "[MP] " + mp_user_info["company_name"],
+        //ESTO ES UN ERROR, PORQUE NO TODOS TIENEN COMPANY NAME
         "access_token": data['access_token'],
         "refresh_token": data['refresh_token'],
         "user_id": data['user_id'].toString(),
@@ -181,9 +186,17 @@ const mpController = {
         const subscription_data = await paymentsService.getMPSubcriptionData(preapproval_id)
 
         const ext_ref = subscription_data.external_reference
-        const parts = ext_ref.split('-');
-        const connection_id = parts[1];
-        const connection = parts[0]
+        let connection_id = "1234";
+        let connection = "tn"
+        let prod_users = undefined
+
+        if(ext_ref){
+          const parts = ext_ref.split('-');
+          connection_id = parts[1];
+          connection = parts[0]
+          prod_users = [parts[1]]
+        }
+        
         let status = subscription_data.status
         if(subscription_data.status == 'authorized') {
           status = "active"
@@ -204,14 +217,12 @@ const mpController = {
           "subscription_status": status,
           "internal_product": "tiendanube_2",
           "tag": { "id": "usrOsqwIYk4a2tZsg" },
-          "prod_users": [
-            connection_id
-          ],
-          "test_mode": "true",
+          //"prod_users": [connection_id],
+          prod_users,
+          "test_mode": "false",
           //"test_mode": req.query.test_mode ? req.query.test_mode : "false",
           "management_url": "https://www.mercadopago.com.ar/subscriptions/v0/" + preapproval_id + "/admin"
         }
-
         try {
           let response = await mainService.createAirtableUpsert(true, ["subscription_id"], json_to_sc, "subscriptions")
           res.json(response)
