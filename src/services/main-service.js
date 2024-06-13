@@ -203,7 +203,8 @@ const mainService = {
         "company_name": data['first_name'] + " " + data['last_name'],
         "email": data['email'],
         "country": data['country_id'],
-        "logo_url": data['thumbnail']['picture_url']
+        "logo_url": data['thumbnail']['picture_url'],
+        "nickname": data['nickname']
       }
 
     } else if (platform == "tn") {

@@ -313,7 +313,11 @@ const shController = {
     let sh_connection_id = res.locals.sh_connection_id
 
     let user_connected = await mainService.searchUser(sh_connection_id)
-
+    
+    //Path for documentation link
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];
+    console.log("firstPath: " + firstPath)
 
     res.render("menus/shopify-to-tiendanube", { title: "Shopify to Tiendanube", sh_connection_id, user_connected, google_user, navbar_data, firstPath,lang_object});
   },
