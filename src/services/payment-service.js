@@ -153,7 +153,8 @@ const paymentService = {
   async createSubscription(connection_id, user_email, country) {
     console.log({connection_id, user_email, country})
     let return_object
-    if (country == "AR") {
+    if (country == "JL") {
+      //LE PUSE CUALQUIER COUNTRY PARA QUE VAYA TODO POR STRIPE
       //ARGENTINA LLEVARLO A MP
       let subscription_object = {
         "auto_recurring": {
