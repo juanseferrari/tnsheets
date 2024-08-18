@@ -74,9 +74,8 @@ const dtController = {
       res.redirect("/drive-to-tiendanube/config#step4")
   },
   cloneSheet: async (req,res) => {
+    //v1.5
     res.redirect("https://docs.google.com/spreadsheets/d/1RKtuQ3AYjQdeaUDRvgKIppQMc8J9SxZz6ElzjeCV6EM/copy")
-    //TODO Funcion que valida si existe connection_id y abre el sheet.
-    //Si no existe connection_id redirigir al login page.
   },
   dtOauth: async (req, res) => {
     let navbar_data = res.locals.navbar_data
