@@ -75,6 +75,7 @@ const shController = {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Shopify-09d66dbea06746a7937c4f409585d6fc")
   },
   cloneSheet: async (req,res) => {
+    //v1.1
     res.redirect("https://docs.google.com/spreadsheets/d/1Kt57VfUWG4kLYCN8M22t-8SIQ8ksikkwTngq9nSojB4/copy")
   },
   storeRedact: async (req,res) => {

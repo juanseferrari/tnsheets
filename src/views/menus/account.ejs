@@ -82,7 +82,7 @@
                     <% for (connection of connections) { %>
                       <td scope="row"><%= connection.connection %> </th>
                       <td><%= connection.user_name %></td>
-                      <td><%= connection.plan %></td>
+                      <td><%= connection.plan.charAt(0).toUpperCase() + connection.plan.slice(1) %></td>
                       <td>
                         <div class="login-button">
                           <button type="button" class="btn btn-outline-secondary">

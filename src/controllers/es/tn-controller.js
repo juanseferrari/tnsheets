@@ -106,8 +106,6 @@ const tnController = {
   cloneSheet: async (req, res) => {
     //v2.4
     res.redirect("https://docs.google.com/spreadsheets/d/1fAjXyysxHFVx_2zv70kY3FM9emwi0m1kYHve_XT2JMg/copy")
-    //TODO Funcion que valida si existe connection_id y abre el sheet.
-    //Si no existe connection_id redirigir al login page.
   },
   tnOauth: async (req, res) => {
     let navbar_data = res.locals.navbar_data
