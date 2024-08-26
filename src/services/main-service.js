@@ -199,11 +199,14 @@ const mainService = {
 
       let response = await fetch(url, requestOptions)
       let data = await response.json();
+
+      const logo_url = data['thumbnail']['picture_url'] ? data['thumbnail']['picture_url'] : '';
+
       response_object = {
         "company_name": data['first_name'] + " " + data['last_name'],
         "email": data['email'],
         "country": data['country_id'],
-        "logo_url": data['thumbnail']['picture_url'],
+        "logo_url": logo_url,
         "nickname": data['nickname']
       }
 

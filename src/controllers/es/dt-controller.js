@@ -16,7 +16,10 @@ const dt_client_secret = process.env.DT_CLIENT_SECRET
 
 
 const dtController = {
-
+  cloneSheet: async (req,res) => {
+    //v1.5
+    res.redirect("https://docs.google.com/spreadsheets/d/1RKtuQ3AYjQdeaUDRvgKIppQMc8J9SxZz6ElzjeCV6EM/copy")
+  },
   dtHome: async (req, res) => {
     let google_user = res.locals.google_user
     let dt_connection_id = res.locals.dt_connection_id
@@ -72,10 +75,6 @@ const dtController = {
   },
   getPremium: (req,res) => {
       res.redirect("/drive-to-tiendanube/config#step4")
-  },
-  cloneSheet: async (req,res) => {
-    //v1.5
-    res.redirect("https://docs.google.com/spreadsheets/d/1RKtuQ3AYjQdeaUDRvgKIppQMc8J9SxZz6ElzjeCV6EM/copy")
   },
   dtOauth: async (req, res) => {
     let navbar_data = res.locals.navbar_data

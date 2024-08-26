@@ -20,8 +20,11 @@ const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
 
 
 const tnController = {
+  cloneSheet: async (req, res) => {
+    //v2.5
+    res.redirect("https://docs.google.com/spreadsheets/d/1oG-_Yc1rWjX92Jyoj6OPSf6SLxZh1u3bsrfIdkbHeVE/copy")
+  },
   tnHome: async (req, res) => {
-
     let google_user = res.locals.google_user
     let connection_id = res.locals.connection_id
     let navbar_data = res.locals.navbar_data
@@ -103,10 +106,7 @@ const tnController = {
     }
 
   },
-  cloneSheet: async (req, res) => {
-    //v2.4
-    res.redirect("https://docs.google.com/spreadsheets/d/1fAjXyysxHFVx_2zv70kY3FM9emwi0m1kYHve_XT2JMg/copy")
-  },
+
   tnOauth: async (req, res) => {
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
@@ -172,7 +172,8 @@ const tnController = {
       } else {
         var google_user_id = null
       }
-
+      const whatsapp = data['whatsapp_phone_number'] ? data['whatsapp_phone_number'] : ''
+      
       var fields_to_db = {
         //  Futuro: Agregar el state para identificar al usuario
         "nickname": "[TN] " + tn_user_data['name'][main_language],
@@ -185,6 +186,7 @@ const tnController = {
         "uninstalled_date": null,
         "user_name": tn_user_data['name'][main_language],
         "user_email": tn_user_data['email'],
+        "whatsapp": whatsapp,
         "user_logo": user_logo,
         "country": tn_user_data['country'],
         "main_language": main_language,
