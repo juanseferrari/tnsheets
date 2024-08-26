@@ -133,7 +133,7 @@
                   url: "https://docs.google.com/spreadsheets/d/" + user_connected.spreadsheet_id }) %>
                   <%} else { %>
                     <%- include("../partials/sheets_buttons/tn-sheet.ejs", {buttonText: false, url: false}) %>
-                      <% } %>
+                  <% } %>
 
                         <!-- end clone sheet button -->
             </div>
@@ -142,7 +142,7 @@
 
 
           <!-- New Sheet version-->
-          <% if ((!user_connected.sheet_version || user_connected.sheet_version !=='2.4' ) &&
+          <% if ((!user_connected.sheet_version || user_connected.sheet_version !=='2.5' ) &&
             user_connected.spreadsheet_id) { %>
 
             <div class="step-user-info">

@@ -106,24 +106,14 @@
               <h4><%= lang_object.text.config_step2_config %></h4>
             </div>
             <div class="step-right-text">
-              <% if (user_connected.spreadsheet_id) { %>
-                <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
-                    <a class="sheet-button-a"
-                      href="https://docs.google.com/spreadsheets/d/<%= user_connected.spreadsheet_id %>"
-                      target="_blank">
-                      <div class="login-button-text">
-                        <img class="login-button-logo" src="/images/logos/sheets_logo.png" alt="">
-                        <p class="login-button-p"><%= lang_object.text.sheet_open_button %></p>
-                      </div>
-                    </a>
-                  </button>
-                </div>
-                <%} else { %>
-                  <%- include("../partials/sheets_buttons/dt-sheet.ejs") %>
-                  <% } %>
 
-                    <!-- end clone sheet button -->
+              <% if (user_connected.spreadsheet_id) { %>
+                <%- include("../partials/sheets_buttons/dt-sheet.ejs", {buttonText: lang_object.text.sheet_open_button ,
+                  url: "https://docs.google.com/spreadsheets/d/" + user_connected.spreadsheet_id }) %>
+                  <%} else { %>
+                    <%- include("../partials/sheets_buttons/dt-sheet.ejs", {buttonText: false, url: false}) %>
+                <% } %>
+                <!-- end clone sheet button -->
             </div>
 
           </div>
