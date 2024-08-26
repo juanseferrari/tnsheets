@@ -111,28 +111,11 @@
             </div>
             <div class="step-right-text">
               <% if (user_connected.spreadsheet_id) { %>
-                <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
-                    <a class="sheet-button-a" href="https://docs.google.com/spreadsheets/d/<%= user_connected.spreadsheet_id %>" target="_blank">
-                      <div class="login-button-text">
-                        <img class="login-button-logo" src="/images/logos/sheets_logo.png" alt="">
-                        <p class="login-button-p">Abrir Sheet</p>
-                      </div>
-                    </a>
-                  </button>
-                </div>
-                <%} else { %>
-                  <div class="login-button">
-                    <button type="button" class="btn btn-outline-secondary">
-                      <a class="sheet-button-a" href="https://docs.google.com/spreadsheets/d/1vqqop451KIr7L_u84z3iyYa2oG5rA4OerPyn8ZmBnJo/copy" target="_blank">
-                        <div class="login-button-text">
-                          <img class="login-button-logo" src="/images/logos/sheets_logo.png" alt="">
-                          <p class="login-button-p">Clonar Sheet (v1.0)</p>
-                        </div>
-                      </a>
-                    </button>
-                  </div>
-              <% } %>
+                <%- include("../partials/sheets_buttons/mp-sheet.ejs", {buttonText: lang_object.text.sheet_open_button ,
+                  url: "https://docs.google.com/spreadsheets/d/" + user_connected.spreadsheet_id }) %>
+                  <%} else { %>
+                    <%- include("../partials/sheets_buttons/mp-sheet.ejs", {buttonText: false, url: false}) %>
+                <% } %>
 
               <!-- end clone sheet button -->
             </div>

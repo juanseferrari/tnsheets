@@ -92,6 +92,7 @@ router.get('/mercadopago/config', generalMid, mpController.configuration);
 router.get('/mercadopago/oauth',generalMid, mpController.mpOauth);
 router.get('/mercadopago/documentation', mpController.documentation); 
 router.post('/mercadopago/uninstalled', mpController.mpWebooks)
+router.get('/mercadopago/clone-sheet',generalMid, mpController.cloneSheet) 
 
 
 /* Woocommerce */

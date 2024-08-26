@@ -142,6 +142,7 @@ const dtController = {
       } else {
         var google_user_id = null
       }
+      const whatsapp = data['whatsapp_phone_number'] ? data['whatsapp_phone_number'] : ''
 
       var fields_to_db = {
         //  Futuro: Agregar el state para identificar al usuario
@@ -155,6 +156,7 @@ const dtController = {
         "uninstalled_date": null,
         "user_name": tn_user_data['name'][main_language],
         "user_email": tn_user_data['email'],
+        "whatsapp": whatsapp,
         "user_logo": user_logo,
         "country": tn_user_data['country'],
         "main_language": main_language,

@@ -29,6 +29,10 @@ var mp_redirect_url = "https://www.sheetscentral.com/mercadopago/oauth"
 
 
 const mpController = {
+  cloneSheet: async (req, res) => {
+    //v1.1
+    res.redirect("https://docs.google.com/spreadsheets/d/15nVDNejnPQKCPX6oWjF4-a3N9JVuOLeJslZRKXoo3RY/copy")
+  },
   mpHome: async (req, res) => {
 
     let google_user = res.locals.google_user
@@ -66,7 +70,7 @@ const mpController = {
     res.render("instructions/mp-instructions", { title: "Instrucciones", mp_connection_id, user_connected, google_user, navbar_data, firstPath, lang_object })
   },
   documentation: (req, res) => {
-    res.redirect("https://sheetscentral.notion.site/Mercado-Pago-b65c0b5feb5545c795f277bfe6c5ef04")
+    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Mercado-Pago-2c38dda89e99413fb0b343cff2d90346")
   },
   mpOauth: async (req, res) => {
     let navbar_data = res.locals.navbar_data
@@ -230,7 +234,8 @@ const mpController = {
           res.json(error)
         }
 
-      case 'subscription_authorized_payment':
+      case 'payment':
+        console.log("probando")
       //CREO QUE ESTE NO HACE FALTA TODAVIA. ES PARA OBTENER LA INFO DE LOS PAGOS, PERO ESO LO TIENE TODO EN EL ADMIN
       default:
         return false
