@@ -274,7 +274,7 @@ const shController = {
               //OK with connection. 
 
               //save sh_connection_id cookie
-              res.cookie("sh_connection_id", response['id'])
+              //res.cookie("sh_connection_id", response['id'])
               //redirect user to instructions page
               res.redirect('/shopify/config')
 
