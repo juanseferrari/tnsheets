@@ -147,6 +147,8 @@ const langService = {
         "dt_pack1_subtitle": "Carga 250 imágenes de forma masiva desde Google Drive a Tiendanube.",
         "dt_pack2_subtitle": "Carga 1000 imágenes masivamente desde Google Drive a Tiendanube.",
         "dt_buy_button": "Comprar pack",
+        "dt_migrate_title": "Migra tu e-commerce a Tiendanube",
+        "dt_migrate_subtitle":  "¿Deseas migrar tu Shopify, WooCommerce, VTEX, MercadoLibre a Tiendanube? ¡Escribenos!",
 
 
         //config
@@ -305,7 +307,9 @@ const langService = {
         "dt_pack1_subtitle": "Carregue 250 imagens em massa do Google Drive para a Nuvemshop.",
         "dt_pack2_subtitle": "Carregue 1000 imagens em massa do Google Drive para a Nuvemshop.",
         "dt_buy_button": "Comprar pacote",
-
+        "dt_migrate_title": "Migre seu e-commerce para a Tiendanube",
+        "dt_migrate_subtitle": "Deseja migrar seu Shopify, WooCommerce, VTEX, MercadoLivre para a Nuvemshop? Escreva para nós!",
+        
         //config
         "config_title": "Instruções",
 

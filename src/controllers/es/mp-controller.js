@@ -108,6 +108,11 @@ const mpController = {
       //GET INFO ABOUT MP USER
       let mp_user_info = await mainService.getAccountInfo(data['user_id'], data['access_token'], "mp")
       console.log(mp_user_info)
+      if (mp_user_info["logo_url"] == "") {
+        var user_logo = null
+      } else {
+        var user_logo = mp_user_info["logo_url"]
+      }
       var data_to_airtable_db = {
         "nickname": "[MP] " + mp_user_info["company_name"],
         //ESTO ES UN ERROR, PORQUE NO TODOS TIENEN COMPANY NAME
@@ -119,7 +124,7 @@ const mpController = {
         "uninstalled_date": null,
         "user_name": mp_user_info["company_name"],
         "user_email": mp_user_info["email"],
-        "user_logo": mp_user_info["logo_url"],
+        "user_logo": user_logo,
         "country": mp_user_info["country"],
         "connection_date": new Date().toISOString(),
         "tag": { "id": "usrOsqwIYk4a2tZsg" }
