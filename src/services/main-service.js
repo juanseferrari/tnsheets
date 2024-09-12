@@ -201,7 +201,7 @@ const mainService = {
       let data = await response.json();
 
       let logo_url = ""
-      if(data['thumbnail']['picture_url']){
+      if(data?.thumbnail?.picture_url){
         logo_url = data['thumbnail']['picture_url']
       }
 
