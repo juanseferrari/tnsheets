@@ -9,6 +9,7 @@ const mpController = require('../controllers/es/mp-controller');
 const shController = require('../controllers/es/sh-controller');
 const dtController = require('../controllers/es/dt-controller');
 const woController = require('../controllers/es/wo-controller');
+const astonController = require('../controllers/es/aston-controller');
 
 // Middlewares
 const checkAuth = require('../middlewares/check-auth');
@@ -94,6 +95,9 @@ router.get('/mercadopago/documentation', mpController.documentation);
 router.post('/mercadopago/uninstalled', mpController.mpWebooks)
 router.get('/mercadopago/clone-sheet',generalMid, mpController.cloneSheet) 
 
+/* Aston */
+router.get('/aston',generalMid, astonController.connect);
+router.get('/aston/oauth',generalMid, astonController.astonOauth);
 
 /* Woocommerce */
 router.get('/woocommerce', generalMid, woController.woHome);
