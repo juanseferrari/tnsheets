@@ -52,7 +52,7 @@ const mainController = {
   },
   whatsapp: async (req, res) => {
     let message = req.query.message
-    res.redirect("https://api.whatsapp.com/send/?phone=%2B34628770275&text="+message+"&type=phone_number&app_absent=0")
+    res.redirect("https://wa.me/+541140494130?text="+message+"&type=phone_number&app_absent=0")
   },
   account: async (req, res) => {
     const projectos = await mainService.projectos()

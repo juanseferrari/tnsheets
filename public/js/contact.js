@@ -13,7 +13,7 @@ goToWapp.addEventListener("click", function(e){
     } else {
       text_to_send = "Nombre: " + name_contact.value + "%0aEmail: "+ email_contact.value + "%0aMensaje: "+ text_contact.value
     }
-    window.open("https://wa.me/+34628770275?text=" + text_to_send, '_blank').focus();
+    window.open("https://wa.me/+541140494130?text=" + text_to_send, '_blank').focus();
 })
 
   //window.location.href="https://wa.me/+5491140494130?text=" + text;
