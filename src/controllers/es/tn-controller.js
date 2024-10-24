@@ -21,8 +21,8 @@ const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
 
 const tnController = {
   cloneSheet: async (req, res) => {
-    //v2.5
-    res.redirect("https://docs.google.com/spreadsheets/d/1oG-_Yc1rWjX92Jyoj6OPSf6SLxZh1u3bsrfIdkbHeVE/copy")
+    //v2.4
+    res.redirect("https://docs.google.com/spreadsheets/d/1fAjXyysxHFVx_2zv70kY3FM9emwi0m1kYHve_XT2JMg/copy")
   },
   tnHome: async (req, res) => {
     let google_user = res.locals.google_user
