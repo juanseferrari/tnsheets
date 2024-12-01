@@ -24,6 +24,7 @@ router.post('/redeem-payment', paymentsController.redeemPayment)
 
 /* MERCADO PAGO APIS*/
 router.post('/mercadopago/webhooks', mpController.mpWebooks)
+router.post('/mercadopago/payment-webhooks', mpController.mpPaymentWebooks)
 
 /* GOOGLE AUTH DATA */
 router.post('/google-auth',generalMid,googleController.googleoauth)

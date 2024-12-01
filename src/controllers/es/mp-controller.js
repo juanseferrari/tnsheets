@@ -248,6 +248,35 @@ const mpController = {
 
     }
   },
+  mpPaymentWebooks: async (req,res) => {
+
+    console.log("MP Webhook data: ")
+    console.log(req.body)
+    console.log("MP Webhook data: ")
+
+    //funcion usada cuando se desinstala una conexion. Se guarda en la DB
+    let user_id = req.body.user_id
+    let action = req.body.action
+    let type = req.body.type
+    let id = req.body.data.id
+
+    //GET USER TOKEN
+
+    //GET MP PAYMENT OBJECT
+
+    //POST TO SCRIPT URL
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req.body)
+    };
+    let response = await fetch("https://script.google.com/macros/s/AKfycbwU2wTjI73Fkg6l0vYIP-dyjFMPJpJtmM9QJ_3FBUvNvFIjMmQnoWiwVx5YTYli7VTSUg/exec", requestOptions)
+    //STRUCTURE PAYMENT RESPONSE
+    res.json(response)
+
+  },
   getTokenMP: async (req, res) => {
     //WIP AGREGARLE LO DEL REFRESH TOKEN
 
