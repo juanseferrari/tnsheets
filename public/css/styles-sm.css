@@ -549,6 +549,12 @@ a:lang(pt):after
 .mp-button-a:hover {
     color: #00b1ea;
 }
+.ml-button-a {
+    color: #171576;
+}
+.ml-button-a:hover {
+    color: #171576;
+}
 .black-button-a {
     color: black;
 }

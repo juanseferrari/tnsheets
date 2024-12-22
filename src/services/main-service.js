@@ -235,7 +235,35 @@ const mainService = {
         "country": data['country'],
         "logo_url": data['logo']
       }
-    } else {
+    } else if (platform == "ml") {
+      //MERCADO PAGO
+      headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      }
+      url = "https://api.mercadolibre.com/users/me"
+      var requestOptions = {
+        method: 'GET',
+        headers: headers
+      };
+
+      let response = await fetch(url, requestOptions)
+      let data = await response.json();
+
+      let logo_url = ""
+      if(data?.thumbnail?.picture_url){
+        logo_url = data['thumbnail']['picture_url']
+      }
+
+      response_object = {
+        "company_name": data['first_name'] + " " + data['last_name'],
+        "email": data['email'],
+        "country": data['country_id'],
+        "logo_url": logo_url,
+        "nickname": data['nickname']
+      }
+
+    }  else {
       response_object = {
         "error": "invalid platform"
       }
