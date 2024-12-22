@@ -157,7 +157,6 @@ const mpController = {
     let user_id = req.body.user_id
     let action = req.body.action
     let type = req.body.type
-    let id = req.body.data.id
     let response_object
 
     switch (type) {
