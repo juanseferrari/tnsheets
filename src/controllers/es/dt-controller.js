@@ -142,7 +142,7 @@ const dtController = {
       } else {
         var google_user_id = null
       }
-      const whatsapp = data['whatsapp_phone_number'] ? data['whatsapp_phone_number'] : ''
+      const whatsapp = tn_user_data['whatsapp_phone_number'] ? tn_user_data['whatsapp_phone_number'] : ''
 
       var fields_to_db = {
         //  Futuro: Agregar el state para identificar al usuario
