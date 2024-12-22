@@ -39,9 +39,9 @@ const mlController = {
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
 
-    let mp_connection_id = res.locals.mp_connection_id
+    let ml_connection_id = res.locals.ml_connection_id
 
-    let user_connected = await mainService.searchUser(mp_connection_id)
+    let user_connected = await mainService.searchUser(ml_connection_id)
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
@@ -49,7 +49,7 @@ const mlController = {
     console.log("firstPath: " + firstPath)
 
 
-    res.render("menus/mercadolibre", { title: "Mercado Libre", mp_connection_id, user_connected, google_user, navbar_data, firstPath, lang_object });
+    res.render("menus/mercadolibre", { title: "Mercado Libre", ml_connection_id, user_connected, google_user, navbar_data, firstPath, lang_object });
   },
   configuration: async (req, res) => {
     //TODO
@@ -72,7 +72,6 @@ const mlController = {
   },
   documentation: (req, res) => {
     //TODO
-
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Mercado-Pago-2c38dda89e99413fb0b343cff2d90346")
   },
   mlOauth: async (req, res) => {
