@@ -621,7 +621,23 @@ const mainService = {
       console.error('Error verifying webhook:', error);
       return false; // Return false if an error occurs during verification
     }
-}
+  },
+  async getPluggyApiKey(){
+    var post_request_options = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        clientId: "aae46a59-1e9e-4b95-95e9-c429ee7f8cb9",
+        clientSecret: "4ebd5e10-1bc2-48f8-8ec6-08118071980d"
+      }),
+    }
+    let pluggy_response = await fetch("https://api.pluggy.ai/auth", post_request_options)
+    let user_response_data = await pluggy_response.json();
+    return user_response_data.apiKey
+  }
 };
 
 module.exports = mainService;
