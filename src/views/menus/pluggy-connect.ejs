@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <%- include("../partials/head.ejs") %>
+    <%- include("../partials/header.ejs") %>
+    <!-- Titulo del broswer-->
+    <title>Sheets Central | Pluggy</title>
+    <meta property="og:title" content="Sheets Central | Mercado Pago"> <!-- Esto despues hacerlo cambiado para cada proyecto -->
+
+  </head>
+
+  <body class=" gradient-background">
+    <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KMHPBPS"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+
+
+
+
+
+<div class="container">
+  <main class="main"></main>
+    <script src="https://cdn.pluggy.ai/pluggy-connect/v2.8.2/pluggy-connect.js"></script>
+    <script>
+      // Use your own connect token API endpoint, this one only list sandbox connectors
+      // Example Reference: https://github.com/pluggyai/quickstart/tree/master/examples/vercel-node-connect-token
+      fetch('https://api.pluggy.ai/connect_token', {
+        method: 'POST',
+        headers: {
+          'X-API-KEY': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiZjQxNWFkMGUxZmY0YTc1ZTM5NjVmM2UyNzc2OTU5MTI6MWZjZDZmNTk1ZWRkYzY2NzNlMGMwM2Q2MTNlODEyZjIzNGFiZGJiMWMwYjJhZDRhYjI0NTRlM2M3ODE0NGI2NTZjODI5MzM3MWJmNmYxYzdjNzY2NzBmN2QyNjQ4Y2M4OWIzZGMyZGU1MmFkYmMxMTQ2MWIxZDIxODQ5MjE4YmE1ZjA2YTFlNjllZjEwZDZiMDY2MzRlYTUwOGRhZWU0MSIsImlhdCI6MTczNTAwOTA4MywiZXhwIjoxNzM1MDE2MjgzfQ.D7-o0mzGNMStxkyW28B7NlkOFqXUOh1uXRnQoSa7X-kdGt9PgYW9ucgmTxu4aPR2SxgheEKXRrxGUzRsdGdjlASUR_F-md_HHBRYdk-gYzShQDVDbMbcjqeriUbmVdGGapxviJpynNeqQyhRpju5_N2Q1vouZ2u6s03kO4LLeR0nXy-yvKeU0t-aGwHIHI9QT75dBFi_hIMJGkn4gHw8SiC7lidh03G0_mzTZy6-I1QExM6jKwzAAsU7GMITwOKamp9adtRQ21MjOiXhWroHNF-lDwt6qNLPTOzMlSguBprpHQn4GfPwQItLNVC2YD6tAhrgujs6lTBiKXJj-NQg9A',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          options: {
+            webhookUrl: "https://webhook.site/95e3af29-6fe9-4825-946d-cd8ab9793e82",
+            clientUserId: 'user@example.com',
+            oauthRedirectUri: "https://www.sheetscentral.com/pluggy/config",
+          },
+        }),
+      })
+        .then((response) => response.json())
+        .then(({ accessToken }) => {
+          const pluggyConnect = new PluggyConnect({
+            connectToken: accessToken,
+            includeSandbox: true,
+            onSuccess: (itemData) => {
+              // TODO: Implement logic for succesful connection
+              // The following line is an example, it should be removed when implemented.
+              console.log('Yay! Pluggy connect success!', itemData)
+            },
+            onError: (error) => {
+              // TODO: Implement logic for error on connection
+              // The following line is an example, it should be removed when implemented.
+              console.error('Whoops! Pluggy Connect error... ', error)
+            },
+          })
+          pluggyConnect.init()
+        })
+    </script>
+
+</div>
+    
+  </body>
+  <script src="https://smtpjs.com/v3/smtp.js"></script> <!-- Esto es el servicio para enviar mails -->
+  <script src="./js/index.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</html>

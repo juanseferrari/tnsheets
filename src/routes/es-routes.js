@@ -11,6 +11,7 @@ const dtController = require('../controllers/es/dt-controller');
 const woController = require('../controllers/es/wo-controller');
 const astonController = require('../controllers/es/aston-controller');
 const mlController = require('../controllers/es/ml-controller');
+const plController = require('../controllers/es/pluggy-controller');
 
 // Middlewares
 const checkAuth = require('../middlewares/check-auth');
@@ -96,10 +97,15 @@ router.get('/mercadopago/documentation', mpController.documentation);
 router.post('/mercadopago/uninstalled', mpController.mpWebooks)
 router.get('/mercadopago/clone-sheet',generalMid, mpController.cloneSheet) 
 
-/* Mercado Pago */
+/* Mercado Libre */
 router.get('/mercadolibre', generalMid, mlController.mlHome);
 router.get('/mercadolibre/config', generalMid, mlController.configuration); 
 router.get('/mercadolibre/oauth',generalMid, mlController.mlOauth);
+router.get('/mercadolibre/documentation',generalMid, mlController.documentation);
+
+/* Pluggy */
+router.get('/pluggy', generalMid, plController.plHome);
+router.get('/pluggy/login', generalMid, plController.plConnect);
 
 /* Aston */
 router.get('/aston',generalMid, astonController.connect);
