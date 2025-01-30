@@ -16,6 +16,7 @@ const plController = require('../controllers/es/pluggy-controller');
 // Middlewares
 const checkAuth = require('../middlewares/check-auth');
 const generalMid = require('../middlewares/general-mid');
+const shMid = require('../middlewares/shopify');
 
 const googleController = require('../controllers/google-controller');
 
@@ -85,6 +86,7 @@ router.post('/shopify/uninstalled', shController.documentation) //TODO finish un
 
 router.get('/shopify/:connId/config', generalMid, checkAuth.checkSH, shController.configuration2)
 
+router.get('/shopify/protected', shMid, shController.session)
 
 /* Shopify to Tiendanube */
 router.get('/shopify-to-tiendanube',generalMid,shController.stHome) 
@@ -106,6 +108,8 @@ router.get('/mercadolibre/documentation',generalMid, mlController.documentation)
 /* Pluggy */
 router.get('/pluggy', generalMid, plController.plHome);
 router.get('/pluggy/login', generalMid, plController.plConnect);
+router.get('/pluggy/config', generalMid, plController.plConnect);
+router.post('/pluggy/success', generalMid, plController.plSaveDB);
 
 /* Aston */
 router.get('/aston',generalMid, astonController.connect);

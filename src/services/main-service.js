@@ -6,6 +6,15 @@ const bodyParser = require('body-parser');
 
 const paymentService = require("../services/payment-service")
 
+const { shopifyApi, LATEST_API_VERSION } = require('@shopify/shopify-api');
+const { default: shopifyApiNodeAdapter } = require('@shopify/shopify-api/adapters/node');
+
+//SHOPIFY CREDENTIALS PROD
+const sh_client_id = process.env.SH_CLIENT_ID
+const sh_client_secret = process.env.SH_CLIENT_SECRET
+const scopes = 'read_products,write_products,read_customers,read_orders,read_inventory,write_inventory'
+const host = process.env.HOST || 'http://localhost:5001';
+
 
 //AIRTABLE VALUES
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID
@@ -637,6 +646,18 @@ const mainService = {
     let pluggy_response = await fetch("https://api.pluggy.ai/auth", post_request_options)
     let user_response_data = await pluggy_response.json();
     return user_response_data.apiKey
+  },
+  shopify(){
+    shopifyApi({
+      apiKey: sh_client_id,
+      apiSecretKey: sh_client_secret,
+      scopes: scopes.split(','),
+      hostName: host.replace(/https?:\/\//, ''),
+      apiVersion: LATEST_API_VERSION,
+      isEmbeddedApp: true, // Ensures the app is embedded
+      adapter: shopifyApiNodeAdapter, // Add the Node.js adapter here
+
+    });
   }
 };
 

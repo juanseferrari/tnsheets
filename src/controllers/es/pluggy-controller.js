@@ -32,7 +32,6 @@ const plController = {
 
     let user_connected = await mainService.searchUser(connection_id)
     let apiKey = await mainService.getPluggyApiKey()
-    console.log(apiKey)
     
     //Path for documentation link
     var pathSegments = req.url.split('/');
@@ -54,6 +53,34 @@ const plController = {
 
     res.render("menus/pluggy-connect", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object });
   },
+  plSaveDB: async (req, res) => {
+    const data = req.body;
+    //let user_connected = await mainService.searchUser(connection_id)
+    var data_to_airtable_db = {
+      "nickname": "[PL] " + data["item"]["connector"]["name"],
+      "access_token": data["item"]["id"],
+      "user_id": null,
+      "connection": "pluggy",
+      "active": "true",
+      "uninstalled_date": null,
+      "user_email": data["item"]["clientUserId"],
+      "country": data["item"]["connector"]["country"],
+      "connection_date": new Date().toISOString(),
+      "tag": { "id": "usrOsqwIYk4a2tZsg" }
+    } //end data_to_airtable_db
+    try {
+      let airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "connection"], data_to_airtable_db, "prod_users")
+      let id_conexion = airtable_response['id']
+
+      res.cookie("pl_connection_id", id_conexion)
+
+      res.redirect("/pluggy/config")
+    } catch (error) {
+      let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282992"
+      res.render("menus/error-page", { message, navbar_data })
+    }
+  },
+  
   configuration: async (req, res) => {
 
     let google_user = res.locals.google_user
