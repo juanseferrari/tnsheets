@@ -194,9 +194,16 @@ const tnController = {
         "connection_date": new Date().toISOString(),
         "tag": { "id": "usrOsqwIYk4a2tZsg" }
       }
+      console.log("fields_to_db")
+      console.log(fields_to_db)
+      console.log("fields_to_db")
 
       try {
         let response = await mainService.createAirtableUpsert(true, ["user_id", "connection"], fields_to_db, "prod_users")
+        console.log("Airtable response on save response")
+        console.log(response)
+        console.log("Airtable response on save response")
+
         if (response['response_status'] == 200) {
           let record_id = response['id']
           //send webhook notification for app/uninstalled -> Migrarlo a un service
@@ -236,7 +243,11 @@ const tnController = {
             console.log(error)
           }
 
+        } else {
+          let message = "Ha ocurrido un error, intentelo más tarde. Error: 333134"
+          res.render("menus/error-page", { message, navbar_data, lang_object })
         }
+
       } catch (error) {
         let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282999"
         res.render("menus/error-page", { message, navbar_data, lang_object })
