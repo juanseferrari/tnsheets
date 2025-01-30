@@ -101,6 +101,10 @@ const dtController = {
 
     let response = await fetch("https://www.tiendanube.com/apps/authorize/token", requestOptions)
     let data = await response.json();
+    console.log("data")
+    console.log(data)
+    console.log("data")
+
     if (data['error']) {
       //WIP despues manejar bien este error handling. 
       let message = "No hemos podido validar la conexión con Tienda Nube. Por favor intente nuevamente."
@@ -119,7 +123,7 @@ const dtController = {
       };
       let tn_user_request_data = await fetch("https://api.tiendanube.com/v1/" + data['user_id'] + "/store", GETrequestOptions)
       let tn_user_data = await tn_user_request_data.json();
-      //console.log(tn_user_data)
+      console.log(tn_user_data)
 
       let main_language = "es"
       if(tn_user_data['main_language']){

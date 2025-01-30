@@ -1,3 +1,5 @@
+
+
 // Requires
 const path = require("path");
 const fs = require("fs");
@@ -322,6 +324,12 @@ const shController = {
 
     res.render("menus/shopify-to-tiendanube", { title: "Shopify to Tiendanube", sh_connection_id, user_connected, google_user, navbar_data, firstPath,lang_object});
   },
+  session: async (req,res) => {
+    // Middleware to validate session tokens
+    const verifyRequest = mainService.shopify();
+    console.log(verifyRequest)
+    res.status(200).send('Session is valid!');
+  }
 
 };
 
