@@ -30,8 +30,8 @@ var mp_redirect_url = "https://www.sheetscentral.com/mercadopago/oauth"
 
 const mpController = {
   cloneSheet: async (req, res) => {
-    //v1.1
-    res.redirect("https://docs.google.com/spreadsheets/d/15nVDNejnPQKCPX6oWjF4-a3N9JVuOLeJslZRKXoo3RY/copy")
+    //v1.2
+    res.redirect("https://docs.google.com/spreadsheets/d/1BCPDlZ6kQzc1cay25EVMQVrnoI5oMfQUJ4wqA9QJ7BQ/copy")
   },
   mpHome: async (req, res) => {
 
