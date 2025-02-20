@@ -278,7 +278,24 @@ const shController = {
               //save sh_connection_id cookie
               //res.cookie("sh_connection_id", response['id'])
               //redirect user to instructions page
-              res.redirect('/shopify/config')
+              let google_user = "1234"
+              let navbar_data = res.locals.navbar_data
+              let lang_object = res.locals.lang_object
+          
+              let sh_connection_id = response['id']
+          
+              let user_connected = await mainService.searchUser(response['id'])
+          
+          
+              //Path for documentation link
+              var pathSegments = req.url.split('/');
+              var firstPath = pathSegments[1];
+              console.log("firstPath: " + firstPath)
+          
+          
+              res.render("menus/shopify", { title: "Shopify", sh_connection_id, user_connected, google_user, navbar_data, firstPath,lang_object});
+           
+              //res.redirect('/shopify/config')
 
             }
 

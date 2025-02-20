@@ -128,12 +128,19 @@
                   body: JSON.stringify(itemData), // Send the itemData to the backend
                 })
                 .then(response => {
-                  if (response.ok) {
+                  if (response.status = 'success') {
                     console.log('Data successfully sent to backend');
+                    // Save information in cookies
+                    document.cookie =
+                      `pluggy_connection_id=${response.id}`;
+
+                    // Redirect user to /pluggy/config
+                    window.location.href = '/pluggy/config';
                   } else {
                     console.error('Failed to send data to backend');
                   }
                 })
+
                 .catch(error => {
                   console.error('Error sending data to backend:', error);
                 });
