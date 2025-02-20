@@ -108,7 +108,7 @@ router.get('/mercadolibre/documentation',generalMid, mlController.documentation)
 /* Pluggy */
 router.get('/pluggy', generalMid, plController.plHome);
 router.get('/pluggy/login', generalMid, plController.plConnect);
-router.get('/pluggy/config', generalMid, plController.plConnect);
+router.get('/pluggy/config', generalMid, plController.configuration);
 router.post('/pluggy/success', generalMid, plController.plSaveDB);
 
 /* Aston */

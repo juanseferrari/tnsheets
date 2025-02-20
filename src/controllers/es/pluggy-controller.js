@@ -14,9 +14,6 @@ const paymentService = require("../../services/payment-service");
 const tn_client_id = "5434"
 const tn_client_secret = process.env.TN_CLIENT_SECRET
 
-//TEST ENVIRONMENTS
-const test_client_id = "6107"
-const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
 
 
 const plController = {
@@ -54,6 +51,7 @@ const plController = {
     res.render("menus/pluggy-connect", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object });
   },
   plSaveDB: async (req, res) => {
+    let response_object
     const data = req.body;
     //let user_connected = await mainService.searchUser(connection_id)
     var data_to_airtable_db = {
@@ -70,21 +68,27 @@ const plController = {
     } //end data_to_airtable_db
     try {
       let airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "connection"], data_to_airtable_db, "prod_users")
+      
       let id_conexion = airtable_response['id']
-
-      res.cookie("pl_connection_id", id_conexion)
-
-      res.redirect("/pluggy/config")
+      if(id_conexion){
+        response_object = airtable_response
+      }
     } catch (error) {
-      let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282992"
-      res.render("menus/error-page", { message, navbar_data })
+      response_object = {
+        "error": {
+          "type": "GENERIC_ERROR",
+          "message": error
+        }
+      }
     }
+    console.log(response_object)
+    res.json(response_object)
   },
   
   configuration: async (req, res) => {
 
     let google_user = res.locals.google_user
-    let connection_id = res.locals.connection_id
+    let connection_id = res.locals.pl_connection_id
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
 
@@ -95,7 +99,7 @@ const plController = {
     var firstPath = pathSegments[1];
     console.log("firstPath: " + firstPath)
 
-    res.render("instructions/tn-instructions", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object })
+    res.render("instructions/pl-instructions", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object })
   },
   configuration2: async (req, res) => {
 
