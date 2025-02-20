@@ -325,7 +325,9 @@ const shController = {
     }
 
   },
-  shOauth2: async (req, res) => {
+  shOauth: async (req, res) => {
+    console.log("--- Shopify OAuth Handler Start ---");
+  
     let lang_object = res.locals.lang_object;
     let navbar_data = res.locals.navbar_data;
   
@@ -333,15 +335,18 @@ const shController = {
       return status >= 200 && status < 300;
     }
   
-    console.log(req.query);
+    console.log("Request query:", req.query);
     let shop = req.query.shop;
   
     // POST request to get Access token
     try {
+      console.log("Fetching access token from Shopify...");
       let response = await fetch(
         `https://${shop}/admin/oauth/access_token?client_id=${sh_client_id}&client_secret=${sh_client_secret}&code=${req.query.code}`,
         { method: 'POST', redirect: 'follow' }
       );
+  
+      console.log("Access token fetch response status:", response.status);
   
       if (response.status !== 200) {
         console.log("NO access token");
@@ -350,12 +355,13 @@ const shController = {
       }
   
       let data = await response.json();
-      console.log("shopify data", data);
+      console.log("Shopify access token data:", data);
       let sh_access_token = data['access_token'];
   
       // GET SHOP DATA
       let sh_request_data;
       try {
+        console.log("Fetching shop data from Shopify...");
         let shopResponse = await fetch(
           `https://${shop}/admin/api/2023-07/shop.json`,
           {
@@ -365,13 +371,16 @@ const shController = {
           }
         );
   
+        console.log("Shop data fetch response status:", shopResponse.status);
+  
         if (!isSuccessfulStatus(shopResponse.status)) {
           let sh_data = await shopResponse.json();
           console.log("Request failed with status:", shopResponse.status);
-          throw new Error(`Request failed with status: ${shopResponse.status} Response: ${sh_data.errors}`);
+          throw new Error(`Request failed with status: ${shopResponse.status} Response: ${JSON.stringify(sh_data.errors)}`);
         }
   
         sh_request_data = await shopResponse.json();
+        console.log("Shopify shop data:", sh_request_data);
   
       } catch (error) {
         console.error('Error fetching shop data:', error);
@@ -394,10 +403,14 @@ const shController = {
         "connection_date": new Date().toISOString(),
         "tag": { "id": "usrOsqwIYk4a2tZsg" }
       };
+      console.log("Fields to save in Airtable:", fields_to_db);
   
       // Save to Airtable
       try {
+        console.log("Saving data to Airtable...");
         let airtableResponse = await mainService.createAirtableUpsert(true, ['user_id', 'connection'], fields_to_db, "prod_users");
+        console.log("Airtable response:", airtableResponse);
+  
         if (airtableResponse['error']) {
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997";
           return res.render("menus/error-page", { message, navbar_data, lang_object });
@@ -410,6 +423,7 @@ const shController = {
         let pathSegments = req.url.split('/');
         let firstPath = pathSegments[1];
   
+        console.log("Rendering Shopify page...");
         return res.render("menus/shopify", {
           title: "Shopify",
           sh_connection_id,
@@ -421,6 +435,7 @@ const shController = {
         });
   
       } catch (error) {
+        console.error("Error saving to Airtable:", error);
         let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997 " + error;
         return res.render("menus/error-page", { message, navbar_data, lang_object });
       }
@@ -431,6 +446,7 @@ const shController = {
       return res.render("menus/error-page", { message, navbar_data, lang_object });
     }
   },
+  
   
   stHome: async (req, res) => {
     let google_user = res.locals.google_user
