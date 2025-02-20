@@ -325,6 +325,113 @@ const shController = {
     }
 
   },
+  shOauth2: async (req, res) => {
+    let lang_object = res.locals.lang_object;
+    let navbar_data = res.locals.navbar_data;
+  
+    function isSuccessfulStatus(status) {
+      return status >= 200 && status < 300;
+    }
+  
+    console.log(req.query);
+    let shop = req.query.shop;
+  
+    // POST request to get Access token
+    try {
+      let response = await fetch(
+        `https://${shop}/admin/oauth/access_token?client_id=${sh_client_id}&client_secret=${sh_client_secret}&code=${req.query.code}`,
+        { method: 'POST', redirect: 'follow' }
+      );
+  
+      if (response.status !== 200) {
+        console.log("NO access token");
+        let message = "Unable to retrieve access token. Error: 19716";
+        return res.render("menus/error-page", { message, navbar_data, lang_object });
+      }
+  
+      let data = await response.json();
+      console.log("shopify data", data);
+      let sh_access_token = data['access_token'];
+  
+      // GET SHOP DATA
+      let sh_request_data;
+      try {
+        let shopResponse = await fetch(
+          `https://${shop}/admin/api/2023-07/shop.json`,
+          {
+            method: 'GET',
+            headers: { "X-Shopify-Access-Token": sh_access_token },
+            redirect: 'follow'
+          }
+        );
+  
+        if (!isSuccessfulStatus(shopResponse.status)) {
+          let sh_data = await shopResponse.json();
+          console.log("Request failed with status:", shopResponse.status);
+          throw new Error(`Request failed with status: ${shopResponse.status} Response: ${sh_data.errors}`);
+        }
+  
+        sh_request_data = await shopResponse.json();
+  
+      } catch (error) {
+        console.error('Error fetching shop data:', error);
+        let message = `Ha ocurrido un error, intentelo más tarde. Error: 12997 (${error})`;
+        return res.render("menus/error-page", { message, navbar_data, lang_object });
+      }
+  
+      // Prepare fields for Airtable
+      let fields_to_db = {
+        "nickname": "[SH] " + sh_request_data["shop"]['name'],
+        "access_token": sh_access_token,
+        "user_id": sh_request_data["shop"]['id'].toString(),
+        "connection": "shopify",
+        "active": "true",
+        "uninstalled_date": null,
+        "user_name": sh_request_data["shop"]['name'],
+        "user_email": sh_request_data["shop"]['email'],
+        "country": sh_request_data["shop"]['country'],
+        "user_url": shop.toString(),
+        "connection_date": new Date().toISOString(),
+        "tag": { "id": "usrOsqwIYk4a2tZsg" }
+      };
+  
+      // Save to Airtable
+      try {
+        let airtableResponse = await mainService.createAirtableUpsert(true, ['user_id', 'connection'], fields_to_db, "prod_users");
+        if (airtableResponse['error']) {
+          let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997";
+          return res.render("menus/error-page", { message, navbar_data, lang_object });
+        }
+  
+        // Success: render Shopify page
+        let sh_connection_id = airtableResponse['id'];
+        let user_connected = await mainService.searchUser(sh_connection_id);
+        let google_user = "1234";
+        let pathSegments = req.url.split('/');
+        let firstPath = pathSegments[1];
+  
+        return res.render("menus/shopify", {
+          title: "Shopify",
+          sh_connection_id,
+          user_connected,
+          google_user,
+          navbar_data,
+          firstPath,
+          lang_object
+        });
+  
+      } catch (error) {
+        let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997 " + error;
+        return res.render("menus/error-page", { message, navbar_data, lang_object });
+      }
+  
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      let message = `Ha ocurrido un error inesperado. Error: ${error}`;
+      return res.render("menus/error-page", { message, navbar_data, lang_object });
+    }
+  },
+  
   stHome: async (req, res) => {
     let google_user = res.locals.google_user
     let navbar_data = res.locals.navbar_data
