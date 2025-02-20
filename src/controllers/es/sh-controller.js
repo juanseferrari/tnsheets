@@ -325,7 +325,7 @@ const shController = {
     }
 
   },
-  shOauth: async (req, res) => {
+  shOauth2: async (req, res) => {
     console.log("--- Shopify OAuth Handler Start ---");
   
     let lang_object = res.locals.lang_object;
