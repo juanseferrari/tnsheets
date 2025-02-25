@@ -133,13 +133,17 @@ const shController = {
 
     //example url: 
     var example_url = `https://quickstart-1893efc4.myshopify.com/admin/oauth/authorize?client_id=${sh_client_id}&scope=${scopes}&redirect_uri=${sh_test_redirect_url}`
-    console.log(example_url)
 
     //Shopify variables
     const queryParameters = req.query;
     const originalHMAC = req.query.hmac2
     let shop = req.query.shop
-
+    
+    if (queryParameters.embedded === "1") {
+      //renderizar /shopify/config
+      console.log("redirecting to config")
+      res.redirect('/shopify/config')
+    }
 
     // Remove the 'hmac' parameter if it exists
     if (queryParameters.hmac2) {
