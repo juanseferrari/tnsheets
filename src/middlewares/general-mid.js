@@ -23,7 +23,7 @@ const commonVariablesMiddleware = async (req, res, next) => {
             query: filteredQueryParams,
         });
         // Redirect to the new URL
-        res.redirect(newUrl);
+        return res.redirect(newUrl);
     }
 
 
