@@ -290,8 +290,6 @@ const shController = {
             } else {
               //OK with connection. 
 
-              //save sh_connection_id cookie
-              //res.cookie("sh_connection_id", response['id'])
               //redirect user to instructions page
               let google_user = "1234"
               let navbar_data = res.locals.navbar_data
