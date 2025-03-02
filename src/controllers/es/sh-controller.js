@@ -77,6 +77,7 @@ const shController = {
     } else {
       user_connected = await mainService.searchUser(sh_connection_id)
     }
+    console.log(user_connected)
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];
