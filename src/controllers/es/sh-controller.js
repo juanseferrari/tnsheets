@@ -142,7 +142,7 @@ const shController = {
     if (queryParameters.embedded === "1") {
       //renderizar /shopify/config
       console.log("redirecting to config")
-      res.redirect(`/shopify/config?store_url=${shop}`)
+      res.redirect(`/shopify/config?store_url=${shop}&embedded=1`)
     }
 
     // Remove the 'hmac' parameter if it exists
