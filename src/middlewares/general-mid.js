@@ -9,8 +9,12 @@ const linksService = require("../services/links-service");
 const commonVariablesMiddleware = async (req, res, next) => {
 
     //Shopify validation
+
     const queryParams = req.query;
-    if (queryParams.hmac) {
+    let embedded = queryParams.embedded ? queryParams.embedded : 0
+    console.log("embedded: " + embedded)
+
+    if (queryParams.hmac && (embedded == 0 )) {
         const sh_hmac = queryParams.hmac
         // Construct the base URL you want to redirect to
         const baseRedirectUrl = '/shopify/verify';
