@@ -98,7 +98,7 @@ const paymentService = {
     const mainService = require("../services/main-service");
 
     try {
-      const payments_data = await mainService.getAirtableData(AIRTABLE_PAYMENTS, connection_id, "client_reference_id")
+      const payments_data = await mainService.getAirtableData("payments", connection_id, "client_reference_id")
       return payments_data
     } catch (error) {
       return error
@@ -112,7 +112,7 @@ const paymentService = {
     let response_object
     let credit_quantity = 0
     try {
-      const payments_data = await mainService.getAirtableData(AIRTABLE_PAYMENTS, connection_id, "client_reference_id")
+      const payments_data = await mainService.getAirtableData("payments", connection_id, "client_reference_id")
 
 
       if (payments_data.id && payments_data.redeemed == "false") {
