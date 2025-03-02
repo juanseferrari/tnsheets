@@ -15,6 +15,7 @@ const commonVariablesMiddleware = async (req, res, next) => {
     console.log("embedded: " + embedded)
 
     if (queryParams.hmac && (embedded == 0 )) {
+        console.log("inside hmac-embedded flow")
         const sh_hmac = queryParams.hmac
         // Construct the base URL you want to redirect to
         const baseRedirectUrl = '/shopify/verify';
