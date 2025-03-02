@@ -73,7 +73,7 @@ router.get('/shopify/documentation', shController.documentation);
 router.get('/sh/documentation', shController.documentation); //Esto es porque a veces Shopify no te deja
 
 router.get('/shopify/verify', shController.verifyRequest);
-router.get('/shopify/oauth',generalMid, shController.shOauth2)
+router.get('/shopify/oauth', shController.shOauth2)
 
 router.get('/shopify/premium',generalMid, shController.documentation) //TODO finish premium link
 router.get('/shopify/clone-sheet',generalMid,shController.cloneSheet) 

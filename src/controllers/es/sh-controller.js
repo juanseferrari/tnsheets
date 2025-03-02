@@ -181,7 +181,7 @@ const shController = {
       }
 
       //res.json({"ok": true})
-      res.redirect(301, `https://${shop}/admin/oauth/authorize?client_id=${sh_client_id}&scope=${scopes}&redirect_uri=${sh_prod_redirect_url}&state=${google_user_id}`)
+      res.redirect(301, `https://${shop}/admin/oauth/authorize?client_id=${sh_client_id}&scope=${scopes}&redirect_uri=${sh_prod_redirect_url}&state=1234`)
     } else {
       console.log('Digests do not match.');
       //render error page because there was an error
