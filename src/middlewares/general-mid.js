@@ -8,29 +8,6 @@ const linksService = require("../services/links-service");
 
 const commonVariablesMiddleware = async (req, res, next) => {
 
-    //Shopify validation
-
-    const queryParams = req.query;
-    let embedded = queryParams.embedded ? queryParams.embedded : 0
-    console.log("embedded: " + embedded)
-
-    if (queryParams.hmac && embedded == 0) {
-        console.log("inside hmac-embedded flow")
-        const sh_hmac = queryParams.hmac
-        // Construct the base URL you want to redirect to
-        const baseRedirectUrl = '/shopify/verify';
-        const filteredQueryParams = { ...queryParams };
-        filteredQueryParams.hmac2 = queryParams.hmac
-        delete filteredQueryParams.hmac;
-
-        const newUrl = url.format({
-            pathname: baseRedirectUrl,
-            query: filteredQueryParams,
-        });
-        // Redirect to the new URL
-        return res.redirect(newUrl);
-    }
-
 
     //GENERAL VARIABLES
     let amount_of_results = 0

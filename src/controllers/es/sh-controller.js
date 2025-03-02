@@ -37,6 +37,7 @@ const shController = {
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
+    console.log(pathSegments)
     var firstPath = pathSegments[1];
     console.log("firstPath: " + firstPath)
 
