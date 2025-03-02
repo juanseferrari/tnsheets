@@ -50,7 +50,11 @@ const shController = {
     let lang_object = res.locals.lang_object
 
     let sh_connection_id = res.locals.sh_connection_id
+
     let user_connected
+    console.log("req.query.shop")
+    console.log(req.query.shop)
+    console.log("req.query.shop")
     if(req.query.shop){
       user_connected = await mainService.getAirtableData("prod_users",req.query.shop,"user_url" )
     } else {
@@ -61,6 +65,10 @@ const shController = {
     var firstPath = pathSegments[1];
     console.log("firstPath: " + firstPath)
 
+    console.log("user_connected")
+    console.log(user_connected)
+    console.log("user_connected")
+    
     //res.redirect("/tiendanube/config")
     res.render("instructions/sh-instructions", { title: "Instrucciones", sh_connection_id, user_connected, google_user,navbar_data, firstPath,lang_object })
   },
@@ -72,12 +80,17 @@ const shController = {
     let sh_connection_id = req.params.connId
 
     let user_connected
+
+
     if(req.query.shop){
       user_connected = await mainService.getAirtableData("prod_users",req.query.shop,"user_url" )
     } else {
       user_connected = await mainService.searchUser(sh_connection_id)
     }
+    console.log("user_connected")
     console.log(user_connected)
+    console.log("user_connected")
+
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];
@@ -308,8 +321,8 @@ const shController = {
               console.log("firstPath: " + firstPath)
           
           
-              res.render("menus/shopify", { title: "Shopify", sh_connection_id, user_connected, google_user, navbar_data, firstPath,lang_object});
-           
+              res.render("instructions/sh-instructions", { title: "Shopify", sh_connection_id, user_connected, google_user,navbar_data, firstPath,lang_object })
+
               //res.redirect('/shopify/config')
 
             }
