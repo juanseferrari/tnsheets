@@ -27,9 +27,13 @@ const shController = {
     let lang_object = res.locals.lang_object
 
     let sh_connection_id = res.locals.sh_connection_id
-
-    let user_connected = await mainService.searchUser(sh_connection_id)
-
+    let user_connected
+    if(req.query.shop){
+      user_connected = await mainService.getAirtableData("prod_users",req.query.shop,"user_url" )
+    } else {
+      user_connected = await mainService.searchUser(sh_connection_id)
+    }
+    
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
@@ -45,9 +49,12 @@ const shController = {
     let lang_object = res.locals.lang_object
 
     let sh_connection_id = res.locals.sh_connection_id
-
-    let user_connected = await mainService.searchUser(sh_connection_id)
-
+    let user_connected
+    if(req.query.shop){
+      user_connected = await mainService.getAirtableData("prod_users",req.query.shop,"user_url" )
+    } else {
+      user_connected = await mainService.searchUser(sh_connection_id)
+    }
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];
@@ -63,8 +70,12 @@ const shController = {
 
     let sh_connection_id = req.params.connId
 
-    let user_connected = await mainService.searchUser(sh_connection_id)
-
+    let user_connected
+    if(req.query.shop){
+      user_connected = await mainService.getAirtableData("prod_users",req.query.shop,"user_url" )
+    } else {
+      user_connected = await mainService.searchUser(sh_connection_id)
+    }
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];

@@ -151,7 +151,7 @@ const mainService = {
     }
 
     //Get information about Airtable user
-    const google_user_data = await this.getAirtableData(AIRTABLE_GOOGLE_USERS, google_user_id, "google_user_id")
+    const google_user_data = await this.getAirtableData("google_users", google_user_id, "google_user_id")
 
     if (google_user_data['error']) {
       response_object.message = "Error obtaining google_user. Message: " + google_user_data['error']['message']
@@ -366,6 +366,8 @@ const mainService = {
   },
   async getAirtableData(table, id, filter) {
     let response_object
+    let airtable_table = airtableConfig[table];
+
     var get_request_options = {
       method: 'GET',
       headers: {
@@ -374,7 +376,7 @@ const mainService = {
       },
       redirect: 'follow'
     };
-    let airtable_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + table + "?filterByFormula={" + filter + "}='" + id + "'", get_request_options)
+    let airtable_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + airtable_table + "?filterByFormula={" + filter + "}='" + id + "'", get_request_options)
     let user_response_data = await airtable_response.json();
 
     if (user_response_data.error) {
@@ -503,7 +505,7 @@ const mainService = {
         "records": []
       }
     } else {
-      let connections_data = await this.getAirtableData(AIRTABLE_PROD_USERS, google_user_id, "google_user_id")
+      let connections_data = await this.getAirtableData("prod_users", google_user_id, "google_user_id")
      
       let records_to_response = []
 
@@ -543,7 +545,7 @@ const mainService = {
   },
   async changeUserPlan(subscription_id, action) {
     let return_object = {}
-    let subscription_data = await this.getAirtableData(AIRTABLE_SUBSCRIPTIONS, subscription_id, "subscription_id")
+    let subscription_data = await this.getAirtableData("subscriptions", subscription_id, "subscription_id")
     let user_data = await this.searchUser(subscription_data['client_reference_id'])
 
     console.log("webhook_url")
