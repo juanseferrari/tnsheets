@@ -1,6 +1,9 @@
 const { shopifyApi, LATEST_API_VERSION } = require('@shopify/shopify-api');
 const { default: shopifyApiNodeAdapter } = require('@shopify/shopify-api/adapters/node');
 
+const path = require("path");
+const url = require('url');
+
 //SHOPIFY CREDENTIALS PROD
 const sh_client_id = process.env.SH_CLIENT_ID
 const sh_client_secret = process.env.SH_CLIENT_SECRET
