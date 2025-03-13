@@ -46,7 +46,9 @@ const shMiddleware = async (req, res, next) => {
         adapter: shopifyApiNodeAdapter, // Add the Node.js adapter here
       
       });
+      console.log("shopify sessions tokens data")
       console.log(JSON.stringify(shopify))
+      console.log("shopify sessions tokens data")
     next();
     
 };

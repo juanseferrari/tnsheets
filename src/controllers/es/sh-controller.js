@@ -495,7 +495,10 @@ const shController = {
   session: async (req,res) => {
     // Middleware to validate session tokens
     const verifyRequest = mainService.shopify();
+    console.log("verifyRequest")
     console.log(verifyRequest)
+    console.log("verifyRequest")
+
     res.status(200).send('Session is valid!');
   }
 

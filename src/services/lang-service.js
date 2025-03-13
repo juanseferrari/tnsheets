@@ -41,7 +41,7 @@ const langService = {
         "index_title_section2": "Gestiona tus productos en un mismo lugar",
         "index_text_section2": ["Mantén información actualizada de tus productos", "Crea y edita productos masivamente", "Carga imágenes desde Google Drive a tu e-commerce", "¡Todo desde Google Sheets!"],
         "index_title_section3": "Métricas, Dashboards, filtros ¡y más!",
-        "index_text_section3": ["Sigue usando las mismas funciones de Google Sheets", "Crea filtros, fórmulas, tablas dinámicas, dashboards...", "Crea tus propios gráficos, agrega colores, ¡lo que quieras!", "Y dashboards profesionales en Looker Studio"],
+        "index_text_section3": ["Sigue usando las mismas funciones de Google Sheets", "Genera filtros, fórmulas, tablas dinámicas, dashboards...", "Diseña tus propios gráficos, agrega colores, ¡lo que quieras!", "Y dashboards profesionales en Looker Studio"],
         "index_product_title": "Productos",
         "index_price_title": "Precios",
 
@@ -133,7 +133,7 @@ const langService = {
         "tn_title_section2": "Gestiona tus productos directamente desde Google Sheets",
         "tn_text_section2": ["Mantené actualizado tu stock en tiempo real", "Tus productos, en un solo lugar", "Edita precios y stock masivamente!"],
         "tn_title_section3": "El resto, ¡como ya conoces!",
-        "tn_text_section3": ["Seguí usando las mismas funciones de Google Sheets", "Crea filtros, fórmulas, tablas dinámicas, notas ...", "Crea tus propios gráficos, agrega colores, lo que quieras!"],
+        "tn_text_section3": ["Seguí usando las mismas funciones de Google Sheets", "Genera filtros, fórmulas, tablas dinámicas, notas ...", "Diseña tus propios gráficos, agrega colores, lo que quieras!"],
 
 
         //dt
