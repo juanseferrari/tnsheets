@@ -88,7 +88,7 @@ loginButton2.addEventListener('click', (e) => {
     if(lang == 'pt'){
         flag = "br"
     } else if (lang == 'en') {
-        flag = "en"
+        flag = "gb"
     }
     spanIcon.className = 'fi fi-' + flag;
     // Append the span element to the mainButton text content
