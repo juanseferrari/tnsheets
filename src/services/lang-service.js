@@ -15,14 +15,14 @@ const langService = {
       lang = 'es'
     }
 
-    if(lang == "pt"){
+    if (lang == "pt") {
       icon = 'br'
-    } else if (lang == "en"){
+    } else if (lang == "en") {
       icon = "gb"
     } else {
       icon = "es"
     }
-    
+
     const language_json = {
       "es": {
         //ESPAÑOL
@@ -148,7 +148,7 @@ const langService = {
         "dt_pack2_subtitle": "Carga 1000 imágenes masivamente desde Google Drive a Tiendanube.",
         "dt_buy_button": "Comprar pack",
         "dt_migrate_title": "Migra tu e-commerce a Tiendanube",
-        "dt_migrate_subtitle":  "¿Deseas migrar tu Shopify, WooCommerce, VTEX, MercadoLibre a Tiendanube? ¡Escribenos!",
+        "dt_migrate_subtitle": "¿Deseas migrar tu Shopify, WooCommerce, VTEX, MercadoLibre a Tiendanube? ¡Escribenos!",
 
 
         //config
@@ -234,7 +234,7 @@ const langService = {
             "pricing_features": ["- Personalizações especiais", "- Integrações com sistemas externos", "- Suporte preferencial", "- Design de loja"],
             "pricing_button_text": "Fale conosco",
             "pricing_href": "/#contacto"
-            }
+          }
 
         ],
         //plans
@@ -309,7 +309,7 @@ const langService = {
         "dt_buy_button": "Comprar pacote",
         "dt_migrate_title": "Migre seu e-commerce para a Tiendanube",
         "dt_migrate_subtitle": "Deseja migrar seu Shopify, WooCommerce, VTEX, MercadoLivre para a Nuvemshop? Escreva para nós!",
-        
+
         //config
         "config_title": "Instruções",
 
@@ -348,9 +348,164 @@ const langService = {
 
       },
       "en": {
-        //INGLES
-        "texto1": "test1",
-        "texto2": "test2"
+        //ENGLISH
+
+        //header
+        "header_products": "Products",
+        "header_docs": "Documentation",
+        "header_contact": "Contact",
+        "header_login": "Log In",
+
+        //index
+        "index_main_title": "Manage Your Tiendanube Store in Google Sheets",
+        "index_main_subtitle": "Automate and manage your store with the most widely used tool for businesses of all sizes",
+        "index_title_section1": "Automate Your Store’s Sales",
+        "index_text_section1": ["New sale → New row in your Google Sheets", "Update? Payment? Cancellation? Rows are updated automatically!", "Forget about downloading .csv files"],
+        "index_title_section2": "Manage Your Products in One Place",
+        "index_text_section2": ["Keep your product information up to date", "Create and edit products in bulk", "Upload images from Google Drive to your e-commerce", "All from Google Sheets!"],
+        "index_title_section3": "Metrics, Dashboards, Filters, and More!",
+        "index_text_section3": ["Keep using the same Google Sheets functions", "Generate filters, formulas, pivot tables, dashboards...", "Design your own charts, add colors, anything you want!", "And professional dashboards in Looker Studio"],
+        "index_product_title": "Products",
+        "index_price_title": "Pricing",
+
+        //prices
+        "tn_pricing_plan": [
+          {
+            "pricing_title": "Free",
+            "pricing_price": "Free",
+            "pricing_color": "",
+            "pricing_small_text": "",
+            "pricing_features": ["- History of 50 sales", "- Import new sales", "- Import products", "- Ideal for testing!"],
+            "pricing_button_text": "Start for Free",
+            "pricing_href": "/tiendanube/#"
+          },
+          {
+            "pricing_title": "Premium",
+            "pricing_price": "U$S 5",
+            "pricing_color": "premium-color",
+            "pricing_small_text": "/month",
+            "pricing_features": ["- Full sales history", "- Automatic new sales", "- Dashboards", "- Product and stock editing"],
+            "pricing_button_text": "10-day trial",
+            "pricing_href": "/tiendanube/#"
+          },
+          {
+            "pricing_title": "Enterprise",
+            "pricing_price": "Contact Us",
+            "pricing_color": "enterprise-color",
+            "pricing_small_text": "",
+            "pricing_features": ["- Custom special features", "- Integrations with external systems", "- Priority support", "- Store design"],
+            "pricing_button_text": "Let's Talk",
+            "pricing_href": "/#contacto"
+          }
+        ],
+
+        //plans
+        "plan_title": "Compare Plans",
+        "plan_headers": ["", "Free", "Premium", "Enterprise"],
+        "plan_first_block": [
+          ["Sales history", "Last 50 sales", "Full history", "Full history"],
+          ["New sales", "Manual", "Automatic", "Automatic"],
+          ["Support", "Documentation", "Priority", "Weekly"]
+        ],
+        "plan_first_check": ["Dashboards", "Product import", "Category import"],
+        "plan_second_check": ["Customer import", "Price and stock editing", "Product and variant creation", "Early access to new features"],
+        "plan_third_check": ["Custom special features", "Looker Studio dashboards", "Integrations with external services", "Store design"],
+
+        //contact
+        "contact_title": "Contact",
+        "contact_subtitle": "We are here to help you. We will respond quickly because we value your time.",
+        "contact_name": "Full Name",
+        "contact_email": "Email",
+        "contact_message": "Message",
+        "contact_button": "Send message via WhatsApp",
+
+        //footer
+        "footer_title": "Contact",
+        "privacy_policy": "Privacy Policy",
+        "terms_conditions": "Terms and Conditions",
+
+        //buttons
+        "config_button": "Go to Settings",
+        "tn_login_button": "Log in to Tiendanube",
+        "docs_button": "View Documentation",
+        "sheet_open_button": "Open Sheet",
+        "sheet_clone_button": "Clone Sheet",
+        "copy_button": "Copy",
+        "connection_id": "Connection ID",
+        "see_funcionalities": "View Features",
+        "get_premium": "Get Premium",
+        "manage_plan": "Manage Plan",
+        "see_demo": "View Demo",
+
+        //account
+        "account_title": "Your Account",
+        "account_subtitle": "Sign in with Google to manage more connections.",
+        "account_first_connection": "Add Your First Connection",
+        "account_more_connections": "Add More Accounts",
+        "account_connections": "Connections",
+        "account_table": ["Connection", "Name", "Plan", "Settings"],
+        "account_logout": "Log Out",
+
+        //tn
+        "tn_main_title": "Tiendanube",
+        "tn_title": "Manage Your Tiendanube Store in Google Sheets",
+        "tn_subtitle": "All businesses, from multinational corporations to micro-enterprises, use spreadsheets for management. Use the best of both worlds.",
+        "tn_title_section1": "Automate Your Tiendanube Sales",
+        "tn_text_section1": ["Each new sale adds a new entry to your spreadsheet", "For every update, the corresponding rows are edited", "Forget about downloading and manually uploading sales"],
+        "tn_title_section2": "Manage Your Products Directly from Google Sheets",
+        "tn_text_section2": ["Keep your stock updated in real time", "Your products, all in one place", "Edit prices and stock in bulk!"],
+        "tn_title_section3": "Everything Else, Just as You Know It!",
+        "tn_text_section3": ["Keep using the same Google Sheets functions", "Generate filters, formulas, pivot tables, notes...", "Design your own charts, add colors, anything you want!"],
+
+        //dt
+        "dt_main_title": "Drive to Tiendanube",
+        "dt_subtitle": "Bulk upload your images from Google Drive to Tiendanube",
+        "dt_second_title": "Automate Your Store’s Image Management with Drive to Tiendanube",
+        "dt_config_step1_subtitle": "Log in to start using Drive to Tiendanube",
+        "dt_buy_credits": "Buy Credits",
+        "dt_unredeemed_credits": "Credits to Redeem: ",
+        "dt_credits_subtitle": "To redeem your credits, go to Google Sheets and click on Sheets Central > Redeem Credits",
+        "dt_pack1_subtitle": "Upload 250 images in bulk from Google Drive to Tiendanube.",
+        "dt_pack2_subtitle": "Upload 1000 images in bulk from Google Drive to Tiendanube.",
+        "dt_buy_button": "Buy Pack",
+        "dt_migrate_title": "Migrate Your E-commerce to Tiendanube",
+        "dt_migrate_subtitle": "Do you want to migrate your Shopify, WooCommerce, VTEX, MercadoLibre store to Tiendanube? Contact us!",
+
+        //config
+        "config_title": "Instructions",
+
+        "config_step1_title": "Step 1: Log in to Tiendanube",
+        "config_step1_subtitle": "Log in to Tiendanube to start using Sheets Central",
+
+        "config_step2_title": "Step 2: Clone Google Sheet",
+        "config_step2_ok": "Step Completed! You can open your Sheet from here:",
+        "config_step2_config": "Clone the following Google Sheet into your own Google account",
+        "config_step2_new_version": "🚀 New version available! 🚀",
+
+        "config_step3_title": "Step 3: Configure Sheets Central",
+        "config_step3_1": "1. Open the newly cloned Google Sheet",
+        "config_step3_2": "2. Copy the following Connection ID:",
+        "config_step3_3": "3. Paste the Connection ID into the Google Sheet under Sheets Central > Account Settings",
+
+        "config_step4_title": "Step 4: URL Configuration",
+        "config_step4_steps": [
+          "1. In the cloned Google Sheet, go to Extensions > Apps Script",
+          '2. Inside Apps Script, click on the "Deploy" button > "New Deployment"',
+          '3. Create a new deployment. Make sure that anyone can access it',
+          "5. Copy the Web Application URL",
+          "6. Go back to the Sheet and click on Sheets Central > URL Configuration",
+          "7. Paste the Web Application URL and click Accept",
+          "8. Done! Configuration complete"
+        ],
+        "config_premium": "Get Premium. 10-day trial!",
+        "config_premium_subtitle": "Get Sheets Central Premium and unlock all features",
+        "config_additional_title": "Additional Material",
+        "config_additional_subtitle": "Check our documentation to learn more about Sheets Central"
+        
+
+        //shopify
+
+        //mercado pago
       }
     }
 
