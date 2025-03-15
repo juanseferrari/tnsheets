@@ -206,7 +206,8 @@ const paymentService = {
       }
     } else {
       //OTHER COUNTRIES
-      let redirect_url = 'https://buy.stripe.com/3cscQkbqI8rRae4cMN?utm_source=tn_config&client_reference_id=' + connection_id
+      //10usd
+      let redirect_url = 'https://buy.stripe.com/cN217CcuM5fF4TKbIT?utm_source=tn_config&client_reference_id=' + connection_id
       return_object = {
         "url": redirect_url,
         "status": "pending"

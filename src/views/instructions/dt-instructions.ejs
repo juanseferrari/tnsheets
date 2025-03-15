@@ -208,7 +208,7 @@
       
       
           <main>
-              <div class="row row-cols-1 row-cols-md-2 mb-3 text-center">
+              <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
                   <!-- Despues cambiar el row-cols-md-2 por row-cols-md-3 -->
       
                   <div class="col">
@@ -230,7 +230,7 @@
                   <div class="col">
                       <div class="card mb-4 rounded-3 shadow-sm">
                           <div class="card-header py-3 premium-color">
-                              <h4 class="my-0 fw-normal">Pack 1000</h4>
+                              <h4 class="my-0 fw-normal">Pack 1.000</h4>
                           </div>
                           <div class="card-body">
                               <h1 class="card-title pricing-card-title">U$S 15</h1>
@@ -241,6 +241,20 @@
                           </div>
                       </div>
                   </div>
+                  <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3 enterprise-color">
+                            <h4 class="my-0 fw-normal">Pack 20.000</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">U$S 250</h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                              <li><%= lang_object.text.dt_pack3_subtitle %></li>
+                            </ul>
+                            <a class="btn w-100 btn btn-lg btn-outline-dark  <%=(dt_connection_id)?'':'disabled' %>" href="https://buy.stripe.com/cN2dUo3Yg4bBfyo14b?utm_source=dt_config&client_reference_id=<%= dt_connection_id ? dt_connection_id : '' %>&prefilled_email=<%= google_user.email ? google_user.email : '' %>"  target="_blank"    role="button"><%= lang_object.text.dt_buy_button %></a>
+                        </div>
+                    </div>
+                </div>
               </div>
       
       

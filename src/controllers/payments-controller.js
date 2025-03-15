@@ -106,6 +106,7 @@ const paymentsController = {
         fields_to_db = {
           "subscription_id": req.body.data.object.subscription,
           //"payment_intent_id": req.body.data.object.payment_intent, SACADO PORQUE VAMOS A ELIMINAR COLUMNAS EN LA DB
+          "payment_link": req.body.data.object.payment_link,
           "customer_id": req.body.data.object.customer,
           "customer_name": req.body.data.object.customer_details.name,
           "customer_email": req.body.data.object.customer_details.email,

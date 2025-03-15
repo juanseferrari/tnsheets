@@ -58,7 +58,7 @@ const langService = {
           },
           {
             "pricing_title": "Premium",
-            "pricing_price": "U$S 5",
+            "pricing_price": "U$S 10",
             "pricing_color": "premium-color",
             "pricing_small_text": "/mes",
             "pricing_features": ["- Histórico total de ventas", "- Nuevas ventas automáticas", "- Dashboards", "- Edición de productos y stock"],
@@ -145,7 +145,8 @@ const langService = {
         "dt_unredeemed_credits": "Créditos por canjear: ",
         "dt_credits_subtitle": "Para canjear el crédito debes ir al Google Sheet y clickear en Sheets Central > Canjear Créditos",
         "dt_pack1_subtitle": "Carga 250 imágenes de forma masiva desde Google Drive a Tiendanube.",
-        "dt_pack2_subtitle": "Carga 1000 imágenes masivamente desde Google Drive a Tiendanube.",
+        "dt_pack2_subtitle": "Carga 1.000 imágenes masivamente desde Google Drive a Tiendanube.",
+        "dt_pack3_subtitle": "Carga 20.000 imágenes a Tiendanube desde Google Drive.",
         "dt_buy_button": "Comprar pack",
         "dt_migrate_title": "Migra tu e-commerce a Tiendanube",
         "dt_migrate_subtitle": "¿Deseas migrar tu Shopify, WooCommerce, VTEX, MercadoLibre a Tiendanube? ¡Escribenos!",
@@ -219,7 +220,7 @@ const langService = {
           },
           {
             "pricing_title": "Premium",
-            "pricing_price": "U$S 5",
+            "pricing_price": "U$S 10",
             "pricing_color": "premium-color",
             "pricing_small_text": "/mês",
             "pricing_features": ["- Histórico total de vendas", "- Novas vendas automáticas", "- Dashboards", "- Edição de produtos e estoque"],
@@ -305,7 +306,9 @@ const langService = {
         "dt_unredeemed_credits": "Créditos não resgatados: ",
         "dt_credits_subtitle": "Para resgatar o crédito, vá para a Planilha do Google e clique em Sheets Central > Resgatar Créditos",
         "dt_pack1_subtitle": "Carregue 250 imagens em massa do Google Drive para a Nuvemshop.",
-        "dt_pack2_subtitle": "Carregue 1000 imagens em massa do Google Drive para a Nuvemshop.",
+        "dt_pack2_subtitle": "Carregue 1.000 imagens em massa do Google Drive para a Nuvemshop.",
+        "dt_pack3_subtitle": "Carregue 20.000 imagens para a Nuvemshop do Google Drive.",
+
         "dt_buy_button": "Comprar pacote",
         "dt_migrate_title": "Migre seu e-commerce para a Tiendanube",
         "dt_migrate_subtitle": "Deseja migrar seu Shopify, WooCommerce, VTEX, MercadoLivre para a Nuvemshop? Escreva para nós!",
@@ -381,7 +384,7 @@ const langService = {
           },
           {
             "pricing_title": "Premium",
-            "pricing_price": "U$S 5",
+            "pricing_price": "U$S 10",
             "pricing_color": "premium-color",
             "pricing_small_text": "/month",
             "pricing_features": ["- Full sales history", "- Automatic new sales", "- Dashboards", "- Product and stock editing"],
@@ -466,7 +469,9 @@ const langService = {
         "dt_unredeemed_credits": "Credits to Redeem: ",
         "dt_credits_subtitle": "To redeem your credits, go to Google Sheets and click on Sheets Central > Redeem Credits",
         "dt_pack1_subtitle": "Upload 250 images in bulk from Google Drive to Tiendanube.",
-        "dt_pack2_subtitle": "Upload 1000 images in bulk from Google Drive to Tiendanube.",
+        "dt_pack2_subtitle": "Upload 1.000 images in bulk from Google Drive to Tiendanube.",
+        "dt_pack3_subtitle": "Upload 20.000 images to Tiendanube from Google Drive.",
+
         "dt_buy_button": "Buy Pack",
         "dt_migrate_title": "Migrate Your E-commerce to Tiendanube",
         "dt_migrate_subtitle": "Do you want to migrate your Shopify, WooCommerce, VTEX, MercadoLibre store to Tiendanube? Contact us!",
