@@ -91,35 +91,46 @@ const apiController = {
 
         //validateUserExists
         let user_exists = await mainService.validateUserExists(connection_id)
-
         if (user_exists) {
           //Paso 2 OK usuario existe
 
-          try {
-            //Paso 4 Upsert para agregar la info
-            let response = await mainService.editAirtableDataById(connection_id, "prod_users", fields_to_db)
+          //PASO 3 valido que sea la misma connection
+          let user_data = await mainService.getAirtableDataById(connection_id, "prod_users")
 
-            console.log("response editAirtableDataById")
-            console.log(response)
-            console.log("response editAirtableDataById")
+          if(user_data.fields.connection == connection){
 
-            //Paso 5: Devolver toda la info necesaria del usuario
-            response_object = {
-              "connection_id": response.id,
-              "access_token": response.fields.access_token,
-              //"refresh_token": response.fields.refresh_token,
-              "user_id": response.fields.user_id,
-              "connection": response.fields.connection,
-              "user_url": response.fields.user_url,
-              "active": response.fields.active,
-              "country": response.fields.country,
-              "user_name": response.fields.user_name,
-              "user_logo": response.fields.user_logo
+            try {
+              //Paso 4 Upsert para agregar la info
+              let response = await mainService.editAirtableDataById(connection_id, "prod_users", fields_to_db)
+  
+              //Paso 5: Devolver toda la info necesaria del usuario
+              response_object = {
+                "connection_id": response.id,
+                "access_token": response.fields.access_token,
+                //"refresh_token": response.fields.refresh_token,
+                "user_id": response.fields.user_id,
+                "connection": response.fields.connection,
+                "user_url": response.fields.user_url,
+                "active": response.fields.active,
+                "country": response.fields.country,
+                "user_name": response.fields.user_name,
+                "user_logo": response.fields.user_logo
+              }
+  
+            } catch (error) {
+              response_object = error
             }
 
-          } catch (error) {
-            response_object = error
+          } else {
+            response_object = {
+              "error": {
+                "type": "CONNECTION_ID_MISMATCH",
+                "message": "connection_id provided corresponds to another connection."
+              }
+            }
           }
+
+ 
         } else {
           response_object = {
             "error": {
