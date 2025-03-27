@@ -69,6 +69,24 @@ const mpController = {
 
     res.render("instructions/mp-instructions", { title: "Instrucciones", mp_connection_id, user_connected, google_user, navbar_data, firstPath, lang_object })
   },
+  configuration2: async (req, res) => {
+
+    let google_user = res.locals.google_user
+    let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
+
+    let mp_connection_id = res.params.connId
+
+    let user_connected = await mainService.searchUser(mp_connection_id)
+
+    //Path for documentation link
+    var pathSegments = req.url.split('/');
+    var firstPath = pathSegments[1];
+    console.log("firstPath: " + firstPath)
+
+
+    res.render("instructions/mp-instructions", { title: "Instrucciones", mp_connection_id, user_connected, google_user, navbar_data, firstPath, lang_object })
+  },
   documentation: (req, res) => {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Mercado-Pago-2c38dda89e99413fb0b343cff2d90346")
   },

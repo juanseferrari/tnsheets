@@ -95,6 +95,7 @@ router.get('/shopify-to-tiendanube',generalMid,shController.stHome)
 /* Mercado Pago */
 router.get('/mercadopago', generalMid, mpController.mpHome);
 router.get('/mercadopago/config', generalMid, mpController.configuration); 
+router.get('/mercadopago/:connId/config', generalMid, mpController.configuration2)
 router.get('/mercadopago/oauth',generalMid, mpController.mpOauth);
 router.get('/mercadopago/documentation', mpController.documentation); 
 router.post('/mercadopago/uninstalled', mpController.mpWebooks)
