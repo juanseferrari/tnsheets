@@ -205,155 +205,6 @@ const shController = {
     }
   },
   shOauth: async (req, res) => {
-    let lang_object = res.locals.lang_object
-
-    let navbar_data = res.locals.navbar_data
-
-
-    function isSuccessfulStatus(status) {
-      return status >= 200 && status < 300;
-    }
-
-    console.log(req.query)
-    let shop = req.query.shop
-    //WIP check that the state is the same as the one sent in the previous step
-
-    //WIP validate hmac.
-
-
-    //POST request to get Access token
-    var requestOptions = {
-      method: 'POST',
-      redirect: 'follow'
-    };
-
-    let response = await fetch(`https://${shop}/admin/oauth/access_token?client_id=${sh_client_id}&client_secret=${sh_client_secret}&code=${req.query.code}`, requestOptions)
-    if (response.status !== 200) {
-      //error trying to get client credentials. 
-      console.log("NO access token")
-      let message = "Unable to retrieve access token. Error: 19716"
-      res.render("menus/error-page", { message, navbar_data, lang_object })
-    } else {
-      //access token obtained correctly
-      let data = await response.json();
-      console.log("shopify data")
-      console.log(data)
-      console.log("shopify data")
-
-      let sh_access_token = data['access_token']
-
-
-      //GET SHOP DATA
-      var GETrequestOptions = {
-        method: 'GET',
-        headers: {
-          "X-Shopify-Access-Token": sh_access_token
-        },
-        redirect: 'follow'
-      };
-
-      let sh_request_data = await fetch(`https://${shop}/admin/api/2023-07/shop.json`, GETrequestOptions)
-        .then(async response => {
-          if (isSuccessfulStatus(response.status)) {
-            // The status is a successful 2XX response
-            console.log("RESPONSE OK")
-            return response.json();
-          } else {
-            // Handle other statuses
-            console.log('Request failed with status:', response.status);
-            let sh_data = await response.json()
-            console.log("error response")
-            console.log(sh_data)
-            console.log(sh_data.errors)
-            console.log("error response")
-
-            //aca hacer una pagina con error
-            throw new Error('Request failed with status: ' + response.status + ' Response: ' + sh_data.errors);
-          }
-        })
-        .then(async data => {
-          // Handle the successful response data here
-          console.log('Response data:', data);
-          //Save token in Airtable
-          var fields_to_db = {
-            //  Futuro: Agregar el state para identificar al usuario
-            "nickname": "[SH] " + data["shop"]['name'],
-            "access_token": sh_access_token,
-            "user_id": data["shop"]['id'].toString(),
-            "connection": "shopify",
-            //"google_user_id": google_user_id,
-            "active": "true",
-            "uninstalled_date": null,
-            "user_name": data["shop"]['name'],
-            "user_email": data["shop"]['email'],
-            //"user_logo": user_logo,
-            "country": data["shop"]['country'],
-            "user_url": shop.toString(),
-            "connection_date": new Date().toISOString(),
-            "tag": { "id": "usrOsqwIYk4a2tZsg" }
-          }
-          console.log("fields_to_db")
-          console.log(fields_to_db)
-          console.log("fields_to_db")
-
-          try {
-            let response = await mainService.createAirtableUpsert(true, ['user_id', 'connection'], fields_to_db, "prod_users")
-            if (response['error']) {
-              //console.log(airtable_response['error'])
-              let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997"
-              res.render("menus/error-page", { message, navbar_data })
-            } else {
-              //OK with connection. 
-
-              //redirect user to instructions page
-              let google_user = "1234"
-              let navbar_data = res.locals.navbar_data
-              let lang_object = res.locals.lang_object
-          
-              let sh_connection_id = response['id']
-          
-              let user_connected = await mainService.searchUser(response['id'])
-          
-          
-              //Path for documentation link
-              var pathSegments = req.url.split('/');
-              var firstPath = pathSegments[1];
-              console.log("firstPath: " + firstPath)
-          
-          
-              res.render("instructions/sh-instructions", { title: "Shopify", sh_connection_id, user_connected, google_user,navbar_data, firstPath,lang_object })
-
-              //res.redirect('/shopify/config')
-
-            }
-
-          } catch (error) {
-            let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282997 " + error
-            res.render("menus/error-page", { message,navbar_data, lang_object})
-          }
-
-
-
-        })
-        .catch(error => {
-          // Handle network errors or other exceptions
-          console.error('Error:', error);
-          //aca hacer una pagina con error
-          let message = "Ha ocurrido un error, intentelo más tarde. Error: 12997 (" + error + ")"
-          res.render("menus/error-page", { message, navbar_data, lang_object })
-        });
-
-
-      // https://quickstart-1893efc4.myshopify.com/admin/oauth/authorize?client_id=75abca07b3318a56f4073ec4ccb16e90&scope=read_products,write_products,read_customers,read_orders,read_inventory,write_inventory&redirect_uri=http://localhost:5001/shopify/oauth
-
-
-
-
-
-    }
-
-  },
-  shOauth2: async (req, res) => {
     console.log("--- Shopify OAuth Handler Start ---");
   
     let lang_object = res.locals.lang_object;
@@ -386,7 +237,7 @@ const shController = {
       console.log("Shopify access token data:", data);
       let sh_access_token = data['access_token'];
   
-      // GET SHOP DATA
+      // GET SHOP DATA //TODO MIGRAR A SERVICE
       let sh_request_data;
       try {
         console.log("Fetching shop data from Shopify...");
@@ -415,18 +266,23 @@ const shController = {
         let message = `Ha ocurrido un error, intentelo más tarde. Error: 12997 (${error})`;
         return res.render("menus/error-page", { message, navbar_data, lang_object });
       }
-  
+      const google_user_id = req.query.state ? req.query.state.toString() : null
       // Prepare fields for Airtable
       let fields_to_db = {
         "nickname": "[SH] " + sh_request_data["shop"]['name'],
         "access_token": sh_access_token,
         "user_id": sh_request_data["shop"]['id'].toString(),
         "connection": "shopify",
+        "google_user_id": google_user_id,
         "active": "true",
+        "plan": "free",
         "uninstalled_date": null,
         "user_name": sh_request_data["shop"]['name'],
         "user_email": sh_request_data["shop"]['email'],
+        "whatsapp": sh_request_data["shop"]['phone'],
+        "user_logo": null,
         "country": sh_request_data["shop"]['country'],
+        "main_language": sh_request_data["shop"]['primary_locale'], 
         "user_url": shop.toString(),
         "connection_date": new Date().toISOString(),
         "tag": { "id": "usrOsqwIYk4a2tZsg" }

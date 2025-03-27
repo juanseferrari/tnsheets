@@ -113,6 +113,15 @@ const mpController = {
       } else {
         var user_logo = mp_user_info["logo_url"]
       }
+      if (req.query.state) {
+        var google_user_id = eq.query.state.toString()
+      } else {
+        var google_user_id = null
+      }
+      const user_logo2 = mp_user_info["logo_url"] == "" ? null : mp_user_info["logo_url"]
+      const google_user_id2 = req.query.state ? req.query.state.toString() : null
+      const whatsapp = mp_user_info['phone'] ? mp_user_info['phone'] : ''
+
       var data_to_airtable_db = {
         "nickname": "[MP] " + mp_user_info["company_name"],
         //ESTO ES UN ERROR, PORQUE NO TODOS TIENEN COMPANY NAME
@@ -120,12 +129,17 @@ const mpController = {
         "refresh_token": data['refresh_token'],
         "user_id": data['user_id'].toString(),
         "connection": "mercadopago",
+        "google_user_id": google_user_id2,
         "active": "true",
+        "plan": "free",
         "uninstalled_date": null,
         "user_name": mp_user_info["company_name"],
         "user_email": mp_user_info["email"],
-        "user_logo": user_logo,
+        "whatsapp": whatsapp,
+        "user_logo": user_logo2,
         "country": mp_user_info["country"],
+        "main_language": "es", //aplicar el cambio por pais luego
+        "user_url": null,
         "connection_date": new Date().toISOString(),
         "tag": { "id": "usrOsqwIYk4a2tZsg" }
       } //end data_to_airtable_db

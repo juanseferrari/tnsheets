@@ -213,13 +213,18 @@ const mainService = {
       if(data?.thumbnail?.picture_url){
         logo_url = data['thumbnail']['picture_url']
       }
+      let phone = ""
+      if(data?.phone?.number){
+        phone = data['phone']['number']
+      }
 
       response_object = {
         "company_name": data['first_name'] + " " + data['last_name'],
         "email": data['email'],
         "country": data['country_id'],
         "logo_url": logo_url,
-        "nickname": data['nickname']
+        "nickname": data['nickname'],
+        "phone": phone
       }
 
     } else if (platform == "tn") {

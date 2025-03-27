@@ -89,6 +89,7 @@ const woController = {
           "connection": "woocommerce",
           //"google_user_id": google_user_id,
           "active": "true",
+          "plan": "free",
           "uninstalled_date": null,
           //"user_name": sh_shop_data["shop"]['name'],
           //"user_email": sh_shop_data["shop"]['email'],
