@@ -75,8 +75,7 @@ const mpController = {
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
 
-    let mp_connection_id = res.params.connId
-
+    let mp_connection_id = req.params.connId
     let user_connected = await mainService.searchUser(mp_connection_id)
 
     //Path for documentation link
