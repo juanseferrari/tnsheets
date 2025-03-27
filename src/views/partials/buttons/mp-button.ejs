@@ -1,12 +1,18 @@
 <div class="login-button">
   <button type="button" class="btn btn-outline-secondary">
+    <% if (google_user.google_user_id) { %>
     <a class="mp-button-a"
-      href="https://auth.mercadopago.com/authorization?client_id=1668544373399736&response_type=code&platform_id=mp&redirect_uri=https://www.sheetscentral.com/mercadopago/oauth"
+      href="https://auth.mercadopago.com/authorization?client_id=1668544373399736&response_type=code&platform_id=mp&redirect_uri=https://www.sheetscentral.com/mercadopago/oauth&state=<%= google_user.google_user_id %>"
       target="_blank">
-      <div class="login-button-text">
-        <img class="login-button-logo" src="/images/logos/mercadopago_logo.png" alt="">
-        <p class="login-button-p">Login Mercado Pago</p>
-      </div>
-    </a>
+      <%} else { %>
+      <a class="mp-button-a"
+        href="https://auth.mercadopago.com/authorization?client_id=1668544373399736&response_type=code&platform_id=mp&redirect_uri=https://www.sheetscentral.com/mercadopago/oauth"
+        target="_blank">
+        <% } %>
+        <div class="login-button-text">
+          <img class="login-button-logo" src="/images/logos/mercadopago_logo.png" alt="">
+          <p class="login-button-p">Login Mercado Pago</p>
+        </div>
+      </a>
   </button>
 </div>

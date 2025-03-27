@@ -6,7 +6,7 @@
     <%- include("../partials/header.ejs") %>
     <!-- Titulo del broswer-->
     <title>Sheets Central | Pluggy</title>
-    <meta property="og:title" content="Sheets Central | Mercado Pago"> <!-- Esto despues hacerlo cambiado para cada proyecto -->
+    <meta property="og:title" content="Sheets Central | Pluggy"> <!-- Esto despues hacerlo cambiado para cada proyecto -->
 
   </head>
 
@@ -25,6 +25,7 @@
   <main class="main"></main>
     <script src="https://cdn.pluggy.ai/pluggy-connect/v2.8.2/pluggy-connect.js"></script>
     <script>
+
       // Use your own connect token API endpoint, this one only list sandbox connectors
       // Example Reference: https://github.com/pluggyai/quickstart/tree/master/examples/vercel-node-connect-token
       fetch('https://api.pluggy.ai/connect_token', {
@@ -37,7 +38,7 @@
         body: JSON.stringify({
           options: {
             webhookUrl: "https://webhook.site/95e3af29-6fe9-4825-946d-cd8ab9793e82",
-            clientUserId: 'user@example.com',
+            clientUserId: '<%=google_user.google_user_id%>',
             oauthRedirectUri: "https://www.sheetscentral.com/pluggy/config",
           },
         }),
