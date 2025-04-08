@@ -87,7 +87,7 @@ const mpController = {
     res.render("instructions/mp-instructions", { title: "Instrucciones", mp_connection_id, user_connected, google_user, navbar_data, firstPath, lang_object })
   },
   documentation: (req, res) => {
-    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Mercado-Pago-2c38dda89e99413fb0b343cff2d90346")
+    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Mercado-Pago-ES-2c38dda89e99413fb0b343cff2d90346")
   },
   mpOauth: async (req, res) => {
     let navbar_data = res.locals.navbar_data

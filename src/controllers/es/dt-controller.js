@@ -71,7 +71,7 @@ const dtController = {
     res.render("instructions/dt-instructions", {dt_connection_id, user_connected,google_user, navbar_data, firstPath, unredeemedPayments, lang_object})
   },
   documentation: (req,res) => {
-    res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-72f6a9435253493885209eab1d671c10?pvs=4")
+    res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-ES-72f6a9435253493885209eab1d671c10")
   },
   getPremium: (req,res) => {
       res.redirect("/drive-to-tiendanube/config#step4")

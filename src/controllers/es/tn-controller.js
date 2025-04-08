@@ -71,7 +71,7 @@ const tnController = {
     res.render("instructions/tn-instructions", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object })
   },
   documentation: (req, res) => {
-    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-01ee5d985cff4c759afa414a2cdf1c8d")
+    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-ES-1c390c0cf28a8053ba74ce3a49fe8107")
   },
   getPremium: async (req, res) => {
     let navbar_data = res.locals.navbar_data
@@ -108,6 +108,7 @@ const tnController = {
   },
 
   tnOauth: async (req, res) => {
+    console.log("in: /tiendanube/oauth")
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
 
@@ -148,9 +149,14 @@ const tnController = {
         redirect: 'follow'
       };
       let tn_user_request_data = await fetch("https://api.tiendanube.com/v1/" + data['user_id'] + "/store", GETrequestOptions)
-      let tn_user_data = await tn_user_request_data.json();
-      //console.log(tn_user_data)
+      //Validacion por si TN devuelve un error 500
 
+      if (tn_user_request_data.status === 500) {
+        let message = "Hemos encontrado un problema al conectar Tiendanube."
+        res.render("menus/error-page", { message, navbar_data, lang_object })
+      }
+      let tn_user_data = await tn_user_request_data.json();
+ 
       let main_language = "es"
       if (tn_user_data['main_language']) {
         main_language = tn_user_data['main_language']
