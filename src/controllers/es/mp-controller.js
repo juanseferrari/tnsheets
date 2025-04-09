@@ -131,7 +131,7 @@ const mpController = {
         var user_logo = mp_user_info["logo_url"]
       }
       if (req.query.state) {
-        var google_user_id = eq.query.state.toString()
+        var google_user_id = req.query.state.toString()
       } else {
         var google_user_id = null
       }
