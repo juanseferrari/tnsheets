@@ -26,7 +26,7 @@
             </div>
             <div class="menu-item hover-element">
               <% if (typeof firstPath !=='undefined' ) { %>
-                <a href="/<%= firstPath %>/documentation" target="_blank"><%= lang_object.text.header_docs %></a>
+                <a href="/<%= firstPath %>/documentation?lang=<%= lang_object.lang %>" target="_blank"><%= lang_object.text.header_docs %></a>
                 <% } else { %>
                   <a href="/documentation" target="_blank"><%= lang_object.text.header_docs %></a>
                   <% } %>

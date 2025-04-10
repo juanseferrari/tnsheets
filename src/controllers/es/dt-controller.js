@@ -71,7 +71,13 @@ const dtController = {
     res.render("instructions/dt-instructions", {dt_connection_id, user_connected,google_user, navbar_data, firstPath, unredeemedPayments, lang_object})
   },
   documentation: (req,res) => {
-    res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-ES-72f6a9435253493885209eab1d671c10")
+    let lang = req.query.lang
+    if(lang == 'pt'){
+      res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-PT-1d090c0cf28a80c0bdd6d1bc2e848a81?pvs=74")
+    } else {
+      res.redirect("https://sheetscentral.notion.site/Drive-to-Tiendanube-ES-72f6a9435253493885209eab1d671c10")
+    }
+
   },
   getPremium: (req,res) => {
       res.redirect("/drive-to-tiendanube/config#step4")

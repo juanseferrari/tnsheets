@@ -71,7 +71,12 @@ const tnController = {
     res.render("instructions/tn-instructions", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object })
   },
   documentation: (req, res) => {
-    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-ES-1c390c0cf28a8053ba74ce3a49fe8107")
+    let lang = req.query.lang
+    if(lang == 'pt'){
+      res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-PT-1d190c0cf28a803e8069d8c7efeb6513")
+    } else {
+      res.redirect("https://sheetscentral.notion.site/Sheets-Central-Tiendanube-ES-1c390c0cf28a8053ba74ce3a49fe8107")
+    }
   },
   getPremium: async (req, res) => {
     let navbar_data = res.locals.navbar_data
