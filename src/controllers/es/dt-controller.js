@@ -17,6 +17,22 @@ const dt_client_secret = process.env.DT_CLIENT_SECRET
 
 const dtController = {
   cloneSheet: async (req,res) => {
+    let connection_id = req.query.connection_id    
+    // Validate user exists first
+    if (connection_id) {
+      let user_connected = await mainService.searchUser(connection_id)
+      if (user_connected) {
+        var fields_to_db = {
+          "clicked_cloned": "clicked",
+          "clicked_cloned_date": new Date().toISOString(),
+          connection_id,
+        }
+        try {
+          let result = await mainService.createAirtableUpsert(true, ["connection_id"], fields_to_db, "prod_users")
+        } catch (error) {
+        }
+      }
+    }
     //v1.5
     res.redirect("https://docs.google.com/spreadsheets/d/1RKtuQ3AYjQdeaUDRvgKIppQMc8J9SxZz6ElzjeCV6EM/copy")
   },

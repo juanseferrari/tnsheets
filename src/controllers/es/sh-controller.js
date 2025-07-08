@@ -21,6 +21,26 @@ const mainService = require("../../services/main-service");
 
 
 const shController = {
+  cloneSheet: async (req,res) => {
+    let connection_id = req.query.connection_id    
+    // Validate user exists first
+    if (connection_id) {
+      let user_connected = await mainService.searchUser(connection_id)
+      if (user_connected) {
+        var fields_to_db = {
+          "clicked_cloned": "clicked",
+          "clicked_cloned_date": new Date().toISOString(),
+          connection_id,
+        }
+        try {
+          let result = await mainService.createAirtableUpsert(true, ["connection_id"], fields_to_db, "prod_users")
+        } catch (error) {
+        }
+      }
+    }
+    //v1.1
+    res.redirect("https://docs.google.com/spreadsheets/d/1Kt57VfUWG4kLYCN8M22t-8SIQ8ksikkwTngq9nSojB4/copy")
+  },
   shHome: async (req, res) => {
     let google_user = res.locals.google_user
     let navbar_data = res.locals.navbar_data
@@ -102,10 +122,7 @@ const shController = {
   documentation: (req, res) => {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Shopify-09d66dbea06746a7937c4f409585d6fc")
   },
-  cloneSheet: async (req,res) => {
-    //v1.1
-    res.redirect("https://docs.google.com/spreadsheets/d/1Kt57VfUWG4kLYCN8M22t-8SIQ8ksikkwTngq9nSojB4/copy")
-  },
+
   storeRedact: async (req,res) => {
 
     const data = req.body;

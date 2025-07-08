@@ -126,8 +126,11 @@ const woController = {
   },
   woRedirect: async (req,res) => {
     res.redirect('/woocommerce/config')
-  }  
-  
+  },  
+  woPremium: async (req,res) => {
+ //https://woocommercecomsaasbillingapi.docs.apiary.io/#authentication/basicAuth
+
+  }
 };
 
 module.exports = woController;

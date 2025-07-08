@@ -21,6 +21,22 @@ const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
 
 const tnController = {
   cloneSheet: async (req, res) => {
+    let connection_id = req.query.connection_id    
+    // Validate user exists first
+    if (connection_id) {
+      let user_connected = await mainService.searchUser(connection_id)
+      if (user_connected) {
+        var fields_to_db = {
+          "clicked_cloned": "clicked",
+          "clicked_cloned_date": new Date().toISOString(),
+          connection_id,
+        }
+        try {
+          let result = await mainService.createAirtableUpsert(true, ["connection_id"], fields_to_db, "prod_users")
+        } catch (error) {
+        }
+      }
+    }
     //v2.4
     res.redirect("https://docs.google.com/spreadsheets/d/1fAjXyysxHFVx_2zv70kY3FM9emwi0m1kYHve_XT2JMg/copy")
   },

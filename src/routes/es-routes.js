@@ -12,6 +12,7 @@ const woController = require('../controllers/es/wo-controller');
 const astonController = require('../controllers/es/aston-controller');
 const mlController = require('../controllers/es/ml-controller');
 const plController = require('../controllers/es/pluggy-controller');
+const euController = require('../controllers/es/eu-controller');
 
 // Middlewares
 const checkAuth = require('../middlewares/check-auth');
@@ -123,6 +124,12 @@ router.get('/woocommerce/config', generalMid, woController.configuration);
 router.get('/woocommerce/oauth',generalMid, woController.woRedirect)
 router.post('/woocommerce/oauth',generalMid, woController.woOauth)
 router.get('/woocommerce/documentation', woController.documentation);
+
+/* Woocommerce */
+router.get('/eubanks',generalMid, euController.euHome)
+router.get('/eubanks/connect',generalMid, euController.euGetLink)
+router.post('/eubanks/oauth',generalMid, euController.euOauth)
+
 
 
 /* GOOGLE AUTH DATA */

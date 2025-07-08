@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include("../partials/head.ejs") %>
+    <%- include("../partials/header.ejs") %>
+      <!-- Titulo del broswer-->
+      <title>Sheets Central | Instrucciones</title>
+      <meta property="og:title" content="Sheets Central | Instrucciones">
+      <!-- Esto despues hacerlo cambiado para cada proyecto -->
+
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KMHPBPS" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+
+  <div class="main-container">
+    <h1 class="main-title">
+      <%= lang_object.text.config_title %>
+    </h1>
+
+    <div class="container border instructions-container shadow">
+
+      <!-- STEP 1 -->
+      <div id="step1">
+        <% if (eu_connection_id) { %>
+          <!-- step-block si ya esta logueado-->
+          <div class="step-block step-ok">
+            <div class="step-title">
+              <div class="step-check">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <div class="step-text">
+                <p>
+                  <%= lang_object.text.config_step1_title %>
+                </p>
+              </div>
+            </div>
+
+            <div class="step-user-info">
+              <div class="step-user-info-image">
+                <% if (user_connected.user_logo) { %>
+                  <img class="step-user-info-logo" src="<%= user_connected.user_logo %>" alt="">
+                  <%} else { %>
+                    <img class="step-user-info-logo" src="/images/logos/revolut_logo.png" alt="">
+                    <% } %>
+
+              </div>
+              <div class="step-user-info-data">
+                <h3>
+                  <%= user_connected.user_name %>
+                </h3>
+                <% if (user_connected.subscription_status=='active' ) { %>
+                  <h4>Plan: Premium</h4>
+                  <%} else if (user_connected.subscription_status=='trialing' ) { %>
+                    <h4>Plan: Premium - Trialing</h4>
+                    <% } else { %>
+                      <h4>Plan: Free</h4>
+                      <% } %>
+              </div>
+
+
+            </div>
+          </div>
+          <%} else { %>
+            <!-- step-block si ya esta logueado-->
+            <div class="step-block step-ok">
+              <div class="step-title">
+                <div class="step-check">
+                  <i class="fa-regular fa-circle"></i>
+                </div>
+                <div class="step-text">
+                  <p>
+                    <%= lang_object.text.config_step1_title %>
+                  </p>
+                </div>
+              </div>
+              <div class="step-user-info">
+                <div class="step-left-text">
+                  <h4>
+                    <%= lang_object.text.config_step1_subtitle %>
+                  </h4>
+                </div>
+                <div class="step-right-text">
+                  <!-- Login con European Bank button-->
+                  <%- include("../partials/buttons/eu-button.ejs") %>
+                </div>
+
+              </div>
+
+            </div>
+            <% } %>
+
+      </div>
+      <!-- END STEP 1 -->
+
+      <!-- STEP 2  -->
+      <div id="step2">
+        <div class="step-block step-ok">
+          <div class="step-title">
+            <div class="step-check">
+              <% if (user_connected.spreadsheet_id) { %>
+                <i class="fa-solid fa-circle-check"></i>
+                <%} else { %>
+                  <i class="fa-regular fa-circle"></i>
+                  <% } %>
+            </div>
+            <div class="step-text">
+              <p>
+                <%= lang_object.text.config_step2_title %>
+              </p>
+            </div>
+          </div>
+          <div class="step-user-info">
+            <div class="step-left-text">
+              <% if (user_connected.spreadsheet_id) { %>
+                <h4>
+                  <%= lang_object.text.config_step2_ok %>
+                </h4>
+                <%} else { %>
+                  <h4>
+                    <%= lang_object.text.config_step2_config %>
+                  </h4>
+                  <% } %>
+            </div>
+            <div class="step-right-text">
+              <% if (user_connected.spreadsheet_id) { %>
+                <%- include("../partials/sheets_buttons/eu-sheet.ejs", {buttonText: lang_object.text.sheet_open_button ,
+                  url: "https://docs.google.com/spreadsheets/d/" + user_connected.spreadsheet_id }) %>
+                  <%} else { %>
+                    <%- include("../partials/sheets_buttons/eu-sheet.ejs", {buttonText: false, url: false}) %>
+                  <% } %>
+
+                        <!-- end clone sheet button -->
+            </div>
+
+          </div>
+
+
+          <!-- New Sheet version-->
+          <% if ((!user_connected.sheet_version || user_connected.sheet_version !=='2.4' ) &&
+            user_connected.spreadsheet_id) { %>
+
+            <div class="step-user-info">
+              <div class="step-left-text">
+                <h4>
+                  <%= lang_object.text.config_step2_new_version %>
+                </h4>
+              </div>
+              <div class="step-right-text">
+                <%- include("../partials/sheets_buttons/eu-sheet.ejs", {buttonText: false, url: false}) %>
+                  <!-- end clone sheet button -->
+              </div>
+
+            </div>
+            <%} %>
+
+        </div>
+
+      </div>
+      <!-- END STEP 2 -->
+
+
+      <!-- STEP 3 -->
+
+      <div id="step3">
+        <div class="step-block step-ok">
+          <div class="step-title">
+            <div class="step-check">
+              <% if (user_connected.spreadsheet_id) { %>
+                <i class="fa-solid fa-circle-check"></i>
+                <%} else { %>
+                  <i class="fa-regular fa-circle"></i>
+                  <% } %>
+            </div>
+            <div class="step-text">
+              <p>
+                <%= lang_object.text.config_step3_title %>
+              </p>
+            </div>
+          </div>
+          <div class="step-user-info">
+            <div class="step-left-text">
+              <div class="step-3">
+                <h3 class="small-text">
+                  <%= lang_object.text.config_step3_1 %>
+                </h3>
+                <h3 class="small-text">
+                  <%= lang_object.text.config_step3_2 %>
+                </h3>
+                <div class="contact-form-ins">
+                  <div class="input-group width-100">
+                    <div class="input-group-item1">
+                      <!-- A futuro agregar validacion de cookie por si el usuario no esta logueado -->
+                      <label for="id-conexion">
+                        <%= lang_object.text.eu_connection_id %>
+                      </label>
+                      <input type="text" id="id-conexion" name="id-conexion" value="<%= eu_connection_id %>" readonly>
+                    </div>
+                    <div class="input-group-item2">
+                      <label for="spreadsheet-id">
+                        <%= lang_object.text.spreadsheet_id %>
+                      </label>
+                      <input type="text" id="spreadsheet-id" name="spreadsheet-id" value="<%= user_connected.spreadsheet_id %>" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="step-right-text">
+              <!-- Contact form -->
+              <%- include("../partials/contact-form.ejs") %>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      <!-- END STEP 3 -->
+
+      <!-- STEP 4 -->
+
+      <div id="step4">
+        <div class="step-block step-ok">
+          <div class="step-title">
+            <div class="step-check">
+              <% if (user_connected.subscription_status=='active' || user_connected.subscription_status=='trialing' ) { %>
+                <i class="fa-solid fa-circle-check"></i>
+                <%} else { %>
+                  <i class="fa-regular fa-circle"></i>
+                  <% } %>
+            </div>
+            <div class="step-text">
+              <p>
+                <%= lang_object.text.config_step4_title %>
+              </p>
+            </div>
+          </div>
+          <div class="step-user-info">
+            <div class="step-left-text">
+              <% if (user_connected.subscription_status=='active' || user_connected.subscription_status=='trialing' ) { %>
+                <h4>
+                  <%= lang_object.text.config_step4_ok %>
+                </h4>
+                <%} else { %>
+                  <h4>
+                    <%= lang_object.text.config_step4_config %>
+                  </h4>
+                  <% } %>
+            </div>
+            <div class="step-right-text">
+              <% if (user_connected.subscription_status=='active' || user_connected.subscription_status=='trialing' ) { %>
+                <a href="/eubanks/get-premium" class="btn btn-secondary">
+                  <%= lang_object.text.manage_subscription %>
+                </a>
+                <%} else { %>
+                  <a href="/eubanks/get-premium" class="btn btn-primary">
+                    <%= lang_object.text.get_premium %>
+                  </a>
+                  <% } %>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      <!-- END STEP 4 -->
+
+    </div>
+
+    <!-- Documentation section -->
+    <div class="container border documentation-container shadow">
+      <div class="documentation-content">
+        <h2>
+          <%= lang_object.text.documentation_title %>
+        </h2>
+        <p>
+          <%= lang_object.text.documentation_description %>
+        </p>
+        <a href="/eubanks/documentation" class="btn btn-secondary" target="_blank">
+          <%= lang_object.text.documentation_button %>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <%- include("../partials/footer.ejs") %>
+
+  <script src="/js/instrucciones.js"></script>
+
+</body>
+
+</html> 
