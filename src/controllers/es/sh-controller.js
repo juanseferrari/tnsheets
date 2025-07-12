@@ -33,7 +33,7 @@ const shController = {
           connection_id,
         }
         try {
-          let result = await mainService.createAirtableUpsert(true, ["connection_id"], fields_to_db, "prod_users")
+          let result = await mainService.createAirtableUpsert(true, ["user_id", "connection"], fields_to_db, "prod_users")
         } catch (error) {
         }
       }
