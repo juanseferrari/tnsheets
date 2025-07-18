@@ -22,18 +22,23 @@ const mainService = require("../../services/main-service");
 
 const shController = {
   cloneSheet: async (req,res) => {
-    let connection_id = req.query.connection_id    
+    let connection_id = req.query.connection_id       
     // Validate user exists first
     if (connection_id) {
       let user_connected = await mainService.searchUser(connection_id)
+      console.log("user_connected: " + JSON.stringify(user_connected))
       if (user_connected) {
         var fields_to_db = {
           "clicked_cloned": "clicked",
           "clicked_cloned_date": new Date().toISOString(),
           connection_id,
+          "connection": "shopify",
+          "user_id": user_connected.user_id
         }
+        console.log("fields_to_db: " + JSON.stringify(fields_to_db))
         try {
           let result = await mainService.createAirtableUpsert(true, ["user_id", "connection"], fields_to_db, "prod_users")
+          console.log("result: " + JSON.stringify(result))
         } catch (error) {
         }
       }
