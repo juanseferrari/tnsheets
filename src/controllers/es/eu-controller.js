@@ -60,7 +60,28 @@ async function getASPS (){
 
 const euController = {
   cloneSheet: async (req, res) => {
-    //v2.4
+    let connection_id = req.query.connection_id    
+    if (connection_id) {
+      let user_connected = await mainService.searchUser(connection_id)
+      console.log("user_connected: " + JSON.stringify(user_connected))
+      if (user_connected) {
+        var fields_to_db = {
+          "clicked_cloned": "clicked",
+          "clicked_cloned_date": new Date().toISOString(),
+          connection_id,
+          "connection": "eubanks",
+          "user_id": user_connected.user_id
+        }
+        console.log("fields_to_db: " + JSON.stringify(fields_to_db))
+        try {
+          let result = await mainService.createAirtableUpsert(true, ["user_id", "connection"], fields_to_db, "prod_users")
+          console.log("result: " + JSON.stringify(result))
+        } catch (error) {
+        }
+      }
+    }
+
+    //TODO add logic to redirect to the correct sheet
     res.redirect("https://docs.google.com/spreadsheets/d/1fAjXyysxHFVx_2zv70kY3FM9emwi0m1kYHve_XT2JMg/copy")
   },
   euHome: async (req, res) => {

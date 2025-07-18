@@ -22,14 +22,16 @@ const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
 const tnController = {
   cloneSheet: async (req, res) => {
     let connection_id = req.query.connection_id    
-    // Validate user exists first
     if (connection_id) {
       let user_connected = await mainService.searchUser(connection_id)
+
       if (user_connected) {
         var fields_to_db = {
           "clicked_cloned": "clicked",
           "clicked_cloned_date": new Date().toISOString(),
           connection_id,
+          "connection": "tiendanube",
+          "user_id": user_connected.user_id
         }
         try {
           let result = await mainService.createAirtableUpsert(true, ["user_id", "connection"], fields_to_db, "prod_users")

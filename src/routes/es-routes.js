@@ -129,6 +129,7 @@ router.get('/woocommerce/documentation', woController.documentation);
 router.get('/eubanks',generalMid, euController.euHome)
 router.get('/eubanks/connect',generalMid, euController.euGetLink)
 router.post('/eubanks/oauth',generalMid, euController.euOauth)
+router.get('/eubanks/clone-sheet',generalMid,euController.cloneSheet) 
 
 
 

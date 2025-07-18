@@ -21,11 +21,14 @@ const dtController = {
     // Validate user exists first
     if (connection_id) {
       let user_connected = await mainService.searchUser(connection_id)
+
       if (user_connected) {
         var fields_to_db = {
           "clicked_cloned": "clicked",
           "clicked_cloned_date": new Date().toISOString(),
           connection_id,
+          "connection": "drive-to-tiendanube",
+          "user_id": user_connected.user_id
         }
         try {
           let result = await mainService.createAirtableUpsert(true, ["user_id", "connection"], fields_to_db, "prod_users")
