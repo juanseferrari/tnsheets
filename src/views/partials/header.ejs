@@ -46,8 +46,8 @@
             Mi Cuenta
           </a>
         <% } else { %>
-          <a href="/google-login" class="sc-header__login-btn sc-header__login-btn-desktop"><%= lang_object.text.header_login %></a>
-        <% } %>
+          <button type="button" class="btn sc-header__login-btn sc-header__login-btn-desktop" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-button"><%= lang_object.text.header_login %></button>
+          <% } %>
         <button class="sc-header__menu-btn" id="scMenuBtn" aria-label="Abrir menú" type="button">
           <i class="fas fa-bars"></i>
         </button>
@@ -88,15 +88,15 @@
           </ul>
         </div>
         <% if (navbar_data.active) { %>
-          <a href="/account" class="sc-header__account-btn sc-header__offcanvas-link" style="margin-top:16px;">
+          <a href="/account" class="sc-header__account-btn sc-header__account-btn-desktop">
             <span class="user-image-container" style="display:inline-block;vertical-align:middle;margin-right:8px;">
               <img src="<%= navbar_data.logo_url %>" alt="" class="user-image-navbar" style="height:32px;width:32px;border-radius:50%;object-fit:cover;vertical-align:middle;" />
             </span>
-            <%= lang_object.text.account_title %>
+            Mi Cuenta
           </a>
         <% } else { %>
-          <a href="/google-login" class="sc-header__login-btn sc-header__offcanvas-link" style="margin-top:16px;"><%= lang_object.text.header_login %></a>
-        <% } %>
+          <button type="button" class="btn sc-header__login-btn" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-button"><%= lang_object.text.header_login %></button>
+          <% } %>
       </nav>
     </div>
     <script>
@@ -162,3 +162,18 @@
  
 </header>
 <!-- END NEW MODERN HEADER VERSION -->
+
+<div class="modal fade" id="loginModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= lang_object.text.header_login %></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%- include("../partials/buttons/google-login.ejs") %>
+      </div>
+    </div>
+  </div>
+</div>
