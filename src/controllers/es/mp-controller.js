@@ -110,6 +110,10 @@ const mpController = {
   documentation: (req, res) => {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Mercado-Pago-ES-2c38dda89e99413fb0b343cff2d90346")
   },
+  connect: (req, res) => {
+    let url = "https://auth.mercadopago.com/authorization?client_id=1668544373399736&response_type=code&platform_id=mp&redirect_uri=https://www.sheetscentral.com/mercadopago/oauth&state=google_user.google_user_id"
+    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Mercado-Pago-ES-2c38dda89e99413fb0b343cff2d90346")
+  },
   mpOauth: async (req, res) => {
     let navbar_data = res.locals.navbar_data
 
@@ -330,6 +334,39 @@ const mpController = {
   },
   getTokenMP: async (req, res) => {
     //WIP AGREGARLE LO DEL REFRESH TOKEN
+
+  },
+  getPremium: async (req, res) => {
+    let navbar_data = res.locals.navbar_data
+    let lang_object = res.locals.lang_object
+
+    let mp_connection_id = ""
+    if (req.query.mp_connection_id) {
+      mp_connection_id = req.query.mp_connection_id
+    } else if (res.locals.mp_connection_id) {
+      mp_connection_id = res.locals.mp_connection_id
+    } else {
+      res.redirect("/mercadopago/config")
+    }
+
+    let user_connected = await mainService.searchUser(mp_connection_id)
+
+    if (user_connected.subscription_status == "no subscription" || user_connected.subscription_status == "canceled" || user_connected.subscription_status == "pending" ) {
+      //Si no tiene ni suscripcion o esta cancelado y quiere reactivar.
+      let subscription = await paymentsService.createSubscription(mp_connection_id,user_connected.user_email,user_connected.country)
+
+      if (subscription.url) {
+        res.redirect(subscription.url)
+      } else {
+        let message = subscription.error.message
+        res.render("menus/error-page", { message, navbar_data, lang_object })
+      }
+
+    } else {
+      console.log("AAA")
+      //aca idealmente mandarlo a management
+      res.redirect("/tiendanube/config#step4")
+    }
 
   },
 
