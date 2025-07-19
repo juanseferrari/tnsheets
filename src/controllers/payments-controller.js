@@ -103,6 +103,7 @@ const paymentsController = {
         } else if (req.body.data.object.mode == "subscription") {
           field_to_merge.push("subscription_id")
         }
+        //TODO agregar el payment link mp
         fields_to_db = {
           "subscription_id": req.body.data.object.subscription,
           //"payment_intent_id": req.body.data.object.payment_intent, SACADO PORQUE VAMOS A ELIMINAR COLUMNAS EN LA DB

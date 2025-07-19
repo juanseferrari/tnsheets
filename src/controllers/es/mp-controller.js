@@ -51,8 +51,8 @@ const mpController = {
         }
       }
     }
-    //v1.3
-    res.redirect("https://docs.google.com/spreadsheets/d/1xBWadjiGy0L_VZZ8iICzNDUbr3MAjKdHoXezPLJrEPI/copy")
+    //v1.5
+    res.redirect("https://docs.google.com/spreadsheets/d/1tlEWDurBJ00M016ELmU_3AYBDtXbr3KHlhZAU6FJHf8/copy")
   },
   mpHome: async (req, res) => {
 
@@ -81,6 +81,9 @@ const mpController = {
     let mp_connection_id = res.locals.mp_connection_id
 
     let user_connected = await mainService.searchUser(mp_connection_id)
+    console.log("user_connected")
+    console.log(user_connected)
+    console.log("user_connected")
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
@@ -111,8 +114,21 @@ const mpController = {
     res.redirect("https://sheetscentral.notion.site/Sheets-Central-Mercado-Pago-ES-2c38dda89e99413fb0b343cff2d90346")
   },
   connect: (req, res) => {
-    let url = "https://auth.mercadopago.com/authorization?client_id=1668544373399736&response_type=code&platform_id=mp&redirect_uri=https://www.sheetscentral.com/mercadopago/oauth&state=google_user.google_user_id"
-    res.redirect("https://sheetscentral.notion.site/Sheets-Central-Mercado-Pago-ES-2c38dda89e99413fb0b343cff2d90346")
+    let google_user_id = ''
+    if(req.query.google_user_id){
+      google_user_id = req.query.google_user_id
+    }
+    let country = req.query.country
+    let base_url =  "https://auth.mercadopago.com"  
+    let params = "/authorization?client_id=1668544373399736&response_type=code&platform_id=mp&redirect_uri=https://www.sheetscentral.com/mercadopago/oauth"   
+    if(country == "AR"){
+      base_url = "https://auth.mercadopago.com.ar" 
+    }
+    let final_url = base_url + params + '&state='+google_user_id
+    console.log(final_url)
+    res.redirect(final_url)
+    //let url = "https://auth.mercadopago.com/authorization?client_id=1668544373399736&response_type=code&platform_id=mp&redirect_uri=https://www.sheetscentral.com/mercadopago/oauth&state=google_user.google_user_id"
+    //res.redirect("https://sheetscentral.notion.site/Sheets-Central-Mercado-Pago-ES-2c38dda89e99413fb0b343cff2d90346")
   },
   mpOauth: async (req, res) => {
     let navbar_data = res.locals.navbar_data
@@ -339,7 +355,7 @@ const mpController = {
   getPremium: async (req, res) => {
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
-
+    let connection = "mercadopago"
     let mp_connection_id = ""
     if (req.query.mp_connection_id) {
       mp_connection_id = req.query.mp_connection_id
@@ -353,7 +369,7 @@ const mpController = {
 
     if (user_connected.subscription_status == "no subscription" || user_connected.subscription_status == "canceled" || user_connected.subscription_status == "pending" ) {
       //Si no tiene ni suscripcion o esta cancelado y quiere reactivar.
-      let subscription = await paymentsService.createSubscription(mp_connection_id,user_connected.user_email,user_connected.country)
+      let subscription = await paymentsService.createSubscription(mp_connection_id,user_connected.user_email,user_connected.country,connection)
 
       if (subscription.url) {
         res.redirect(subscription.url)

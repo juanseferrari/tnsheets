@@ -150,8 +150,8 @@ const paymentService = {
       return error
     }
   },
-  async createSubscription(connection_id, user_email, country) {
-    console.log({connection_id, user_email, country})
+  async createSubscription(connection_id, user_email, country, connection) {
+    console.log({connection_id, user_email, country, connection})
     let return_object
     if (country == "JL") {
       //LE PUSE CUALQUIER COUNTRY PARA QUE VAYA TODO POR STRIPE
@@ -204,10 +204,17 @@ const paymentService = {
           }
         }
       }
+    } else if (connection == "mercadopago"){
+      //10usd MP
+      let redirect_url = 'https://buy.stripe.com/dRm8wOb90e8f8SQ1tR9AA0d?client_reference_id=' + connection_id + '&prefilled_email=' + user_email
+      return_object = {
+        "url": redirect_url,
+        "status": "pending"
+      }
     } else {
       //OTHER COUNTRIES
       //10usd
-      let redirect_url = 'https://buy.stripe.com/cN217CcuM5fF4TKbIT?utm_source=tn_config&client_reference_id=' + connection_id
+      let redirect_url = 'https://buy.stripe.com/cN217CcuM5fF4TKbIT?utm_source=tn_config&client_reference_id=' + connection_id + '&prefilled_email=' + user_email
       return_object = {
         "url": redirect_url,
         "status": "pending"
