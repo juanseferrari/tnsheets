@@ -99,7 +99,7 @@ const tnController = {
   getPremium: async (req, res) => {
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
-
+    let connection = "tiendanube"
     let connection_id = ""
     if (req.query.connection_id) {
       connection_id = req.query.connection_id
@@ -113,7 +113,7 @@ const tnController = {
 
     if (user_connected.subscription_status == "no subscription" || user_connected.subscription_status == "canceled" || user_connected.subscription_status == "pending" ) {
       //Si no tiene ni suscripcion o esta cancelado y quiere reactivar.
-      let subscription = await paymentService.createSubscription(connection_id,user_connected.user_email,user_connected.country)
+      let subscription = await paymentService.createSubscription(connection_id,user_connected.user_email,user_connected.country, connection)
 
       if (subscription.url) {
         res.redirect(subscription.url)

@@ -101,6 +101,8 @@ router.get('/mercadopago/oauth',generalMid, mpController.mpOauth);
 router.get('/mercadopago/documentation', mpController.documentation); 
 router.post('/mercadopago/uninstalled', mpController.mpWebooks)
 router.get('/mercadopago/clone-sheet',generalMid, mpController.cloneSheet) 
+router.get('/mercadopago/premium', generalMid, mpController.getPremium)
+router.get('/mercadopago/connect', generalMid, mpController.connect) 
 
 /* Mercado Libre */
 router.get('/mercadolibre', generalMid, mlController.mlHome);

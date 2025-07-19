@@ -178,79 +178,120 @@
 
        </div>
 
-    
+       <!-- STEP 4 GET PREMIUM -->
 
-
-           <!-- STEP 4  -->
-           <div id="step4">
-            <div class="step-block step-ok">
-              <div class="step-title">
-                <div class="step-text">
-                  <p>Material adicional</p>
-                </div>
-              </div>
-              <div class="step-user-info">
-                <div class="step-left-text" >
-                  <h4>Revisa nuestra documentación para conocer en detalle Sheets Central  </h4>
-                </div>
-                <div class="step-right-text">
-
-                      <div class="login-button">
-                        <button type="button" class="btn btn-outline-secondary">
-                          <a class="black-button-a" href="/mercadopago/documentation" target="_blank">
-                            <div class="login-button-text">
-                              <img class="login-button-logo" src="/images/icons/document.png" alt="">
-                              <p class="login-button-p">Documentación</p>
-                            </div>
-                          </a>
-                        </button>
-                      </div>
-    
-                  <!-- end clone sheet button -->
-                </div>
-    
-              </div>
-    
+       <div id="step4">
+        <div class="step-block step-ok">
+          <div class="step-title">
+            <div class="step-check">
+              <% if (user_connected.subscription_status=='active' || user_connected.subscription_status=='trialing' ) {
+                %>
+                <i class="fa-solid fa-circle-check"></i>
+                <%} else { %>
+                  <i class="fa-regular fa-circle"></i>
+                  <% } %>
             </div>
-    
-           </div>
-           <!-- END STEP 4 -->
+            <div class="step-text">
+              <p>
+                <%= lang_object.text.config_premium %>
+              </p>
+            </div>
+          </div>
+          <div class="step-user-info">
+            <div class="step-left-text">
+              <div>
+                <h4>
+                  <%= lang_object.text.config_premium_subtitle %>
+                </h4>
+              </div>
 
-                 <!-- STEP 5  -->
-                 <div id="step5">
-                  <div class="step-block step-ok  no-border">
-                    <div class="step-title">
-                      <div class="step-text">
-                        <p>Agenda una reunión</p>
+
+
+            </div>
+            <div class="step-right-text">
+              <% if (user_connected.subscription_status=='active' || user_connected.subscription_status=='trialing' ) {
+                %>
+                <div class="login-button">
+                  <button type="button" class="btn btn-outline-secondary">
+                    <a class="black-button-a"
+                      href="<%=user_connected.management_url %>"
+                      target="_blank">
+                      <div class="login-button-text">
+                        <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
+                        <p class="login-button-p">
+                          <%= lang_object.text.manage_plan %>
+                        </p>
                       </div>
-                    </div>
-                    <div class="step-user-info">
-                      <div class="step-left-text" >
-                        <h4>Puedes agendar una reunión con nuestro equipo para entender el producto en detalle y hacer las preguntas que desees</h4>
-                      </div>
-                      <div class="step-right-text">
-      
-                            <div class="login-button">
-                              <button type="button" class="btn btn-outline-secondary">
-                                <a class="black-button-a" href="https://calendar.app.google/718kBfWDRgqPTxg29" target="_blank">
-                                  <div class="login-button-text">
-                                    <img class="login-button-logo" src="/images/icons/support.png" alt="">
-                                    <p class="login-button-p">Agendar reunión</p>
-                                  </div>
-                                </a>
-                              </button>
-                            </div>
-          
-                        <!-- end clone sheet button -->
-                      </div>
-          
-                    </div>
-          
+                    </a>
+                  </button>
+                </div>
+                <%} else { %>
+                  <div class="login-button">
+                    <button type="button" class="btn btn-outline-secondary" <%=(mp_connection_id)?'':'disabled' %>>
+                      <a class="black-button-a" href="/mercadopago/premium?mp_connection_id=<%=(mp_connection_id)%>" target="_blank">
+                        <div class="login-button-text">
+                          <img class="login-button-logo" src="/images/icons/rocket.png" alt="">
+                          <p class="login-button-p">
+                            <%= lang_object.text.get_premium %>
+                          </p>
+                        </div>
+                      </a>
+                    </button>
                   </div>
-          
-                 </div>
-                 <!-- END STEP 5 -->
- 
+                  <% } %>
+
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div> <!-- END STEP 4 -->
+
+
+           <!-- STEP 5  -->
+      <div id="step5">
+        <div
+          class="step-block no-border">
+          <div class="step-title">
+            <div class="step-text">
+              <p>
+                <%= lang_object.text.config_additional_title %>
+              </p>
+            </div>
+          </div>
+          <div class="step-user-info">
+            <div class="step-left-text">
+              <h4>
+                <%= lang_object.text.config_additional_subtitle %>
+              </h4>
+            </div>
+            <div class="step-right-text">
+
+              <div class="login-button">
+                <button type="button" class="btn btn-outline-secondary">
+                  <a class="black-button-a" href="/mercadopago/documentation" target="_blank">
+                    <div class="login-button-text">
+                      <img class="login-button-logo" src="/images/icons/document.png" alt="">
+                      <p class="login-button-p">
+                        <%= lang_object.text.docs_button %>
+                      </p>
+                    </div>
+                  </a>
+                </button>
+              </div>
+
+              <!-- end clone sheet button -->
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      <!-- END STEP 6 -->
 
 
 
