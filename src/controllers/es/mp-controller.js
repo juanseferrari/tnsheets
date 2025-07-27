@@ -209,11 +209,14 @@ const mpController = {
       try {
         let airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "connection"], data_to_airtable_db, "prod_users")
         let id_conexion = airtable_response['id']
+        console.log(airtable_response)
 
         //CLONE AND SEND SHEET
         let sheet_clone = await mainService.cloneAndShareSheet(data['access_token'], data['user_id'].toString(), mp_user_info["company_name"], airtable_response['id'], mp_user_info["email"],  "mercadopago")
         let sheet_data = await sheet_clone.json();
-
+        console.log("sheet_data")
+        console.log(sheet_data)
+        console.log("sheet_data")
 
 
         //UPDATE DB TO ADD SPREADSHEET ID
@@ -224,8 +227,10 @@ const mpController = {
           "sheet_version": sheet_data['sheet_version']
         }
         let response = await mainService.editAirtableDataById(id_conexion, "prod_users", fields_to_db2)
-        
-      
+        console.log("MPresponse")
+        console.log(response)
+        console.log("MPresponse")
+
         res.cookie("mp_connection_id", id_conexion)
         res.cookie("mp_user_id", data['user_id'].toString())
         res.cookie("mp_user_name", mp_user_info["company_name"])
