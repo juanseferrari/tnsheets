@@ -1,0 +1,100 @@
+<div class="container" id="precios">
+    <!-- CHECKS -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check" viewBox="0 0 16 16">
+            <title>Check</title>
+            <path
+                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+        </symbol>
+    </svg>
+    <h1 class="display-6 text-center mb-4 pricing-title"><%= lang_object.text.index_price_title %></h1>
+
+
+    <main>
+        <div class="row row-cols-1 row-cols-md-4 mb-4 text-center">
+            <!-- Despues cambiar el row-cols-md-2 por row-cols-md-3 -->
+            <% for (var i = 0; i < lang_object.text.mp_pricing_plan.length; i++) { %>
+                <div class="col">
+                    <div class="card mb-4 rounded-3 shadow-sm hover-element">
+                        <div class="card-header py-4 <%= lang_object.text.mp_pricing_plan[i].pricing_color %>">
+                            <h4 class="my-0 fw-normal"><%= lang_object.text.mp_pricing_plan[i].pricing_title %></h4>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title pricing-card-title"><%= lang_object.text.mp_pricing_plan[i].pricing_price %><small class="text-muted fw-light"><%= lang_object.text.mp_pricing_plan[i].pricing_small_text %></small>
+                            </h2>
+                            <ul class="list-unstyled mt-4 mb-4">
+                                <% for (var j = 0; j < lang_object.text.mp_pricing_plan[i].pricing_features.length; j++) { %>
+                                    <li><%= lang_object.text.mp_pricing_plan[i].pricing_features[j] %></li>
+                                <% } %>
+                            </ul>
+                            <!--TODO  Hacer que el de 10 dias gratis, si esta logueado, te lleve directo a stripe -->
+                            <a class="btn w-100 btn btn-lg btn-outline-primary" href="<%= lang_object.text.mp_pricing_plan[i].pricing_href %>" role="button" ><%= lang_object.text.mp_pricing_plan[i].pricing_button_text %></a>
+                        </div>
+                    </div>
+                </div>
+              <% } %>
+
+            <!-- 
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm hover-element">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Free</h4>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title pricing-card-title">Gratis<small class="text-muted fw-light"></small>
+                        </h2>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>- Histórico de 50 ventas</li>
+                            <li>- Importación de nuevas ventas</li>
+                            <li>- Importación de productos</li>
+                            <li>- Ideal para testearlo!</li>
+                        </ul>
+                        <a class="btn w-100 btn btn-lg btn-outline-primary" href="/tiendanube/#" role="button" >Comenzar gratis</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm hover-element">
+                    <div class="card-header py-3 premium-color">
+                        <h4 class="my-0 fw-normal">Premium</h4>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title pricing-card-title">U$S 5<small class="text-muted fw-light">/mes</small>
+                        </h2>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>- Histórico total de ventas</li>
+                            <li>- Nuevas ventas automáticas</li>
+                            <li>- Dashboards</li>
+                            <li>- Edición de productos y stock</li>
+                        </ul>
+                        <a class="btn w-100 btn btn-lg btn-primary" href="/tiendanube/#" role="button">15 días de prueba</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm hover-element">
+                    <div class="card-header py-3 text-bg-primary enterprise-color">
+                        <h4 class="my-0 fw-normal">Enterprise</h4>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title pricing-card-title">Consultar
+                        </h2>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>- Customizaciones especiales</li>
+                            <li>- Integraciones con sistemas externos</li>
+                            <li>- Soporte preferencial</li>
+                            <li>- Diseño de tienda</li>
+                        </ul>
+                        <a class="btn w-100 btn btn-lg btn-outline-dark" href="/#contacto" role="button">Hablemos</a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+
+    </main>
+
+
+</div>
