@@ -28,6 +28,10 @@ const paymentsService = require("../../services/payment-service");
 var mp_redirect_url = "https://www.sheetscentral.com/mercadopago/oauth"
 
 
+//subfolderName es la connection 
+const originalSpreadsheetId = '1tlEWDurBJ00M016ELmU_3AYBDtXbr3KHlhZAU6FJHf8'; //Mercado Pago
+const version = "1.5"
+
 const mpController = {
   cloneSheet: async (req, res) => {
     let connection_id = req.query.connection_id       
@@ -166,6 +170,7 @@ const mpController = {
       //GET INFO ABOUT MP USER
       let mp_user_info = await mainService.getAccountInfo(data['user_id'], data['access_token'], "mp")
       console.log(mp_user_info)
+      //SAVE TO DB
       if (mp_user_info["logo_url"] == "") {
         var user_logo = null
       } else {
@@ -205,6 +210,22 @@ const mpController = {
         let airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "connection"], data_to_airtable_db, "prod_users")
         let id_conexion = airtable_response['id']
 
+        //CLONE AND SEND SHEET
+        let sheet_clone = await mainService.cloneAndShareSheet(data['access_token'], data['user_id'].toString(), mp_user_info["company_name"], airtable_response['id'], mp_user_info["email"],  "mercadopago")
+        let sheet_data = await sheet_clone.json();
+
+
+
+        //UPDATE DB TO ADD SPREADSHEET ID
+        var fields_to_db2 = {
+          "spreadsheet_id": sheet_data['spreadsheet_id'],
+          "spreadsheet_connection_date": new Date().toISOString(),
+          "connection_id": id_conexion,
+          "sheet_version": sheet_data['sheet_version']
+        }
+        let response = await mainService.editAirtableDataById(id_conexion, "prod_users", fields_to_db2)
+        
+      
         res.cookie("mp_connection_id", id_conexion)
         res.cookie("mp_user_id", data['user_id'].toString())
         res.cookie("mp_user_name", mp_user_info["company_name"])

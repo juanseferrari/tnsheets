@@ -1,0 +1,57 @@
+<div class="container" id="compare-plans">
+
+    <h1 class="display-6 text-center mb-4"><%= lang_object.text.plan_title %></h1>
+
+
+<div class="table-responsive">
+    <table class="table text-center">
+        <thead class="compare-plans-header">
+            <tr>
+                <% for (var i = 0; i < lang_object.text.plan_headers.length; i++) { %>
+                    <th><%= lang_object.text.plan_headers[i] %></th>
+                <% } %>
+            </tr>
+        </thead>
+        <tbody class="compare-plans-body">
+            <% for (var i = 0; i < lang_object.text.plan_first_block.length; i++) { %>
+                <tr class="compare-plans-row">
+                    <% for (var j = 0; j < lang_object.text.plan_first_block[i].length; j++) { %>
+                        <td><%= lang_object.text.plan_first_block[i][j] %></td>
+                    <% } %>
+                </tr>
+            <% } %>
+            <% for (var i = 0; i < lang_object.text.plan_first_check.length; i++) { %>
+                <tr>
+                    <th scope="row" class="text-start"><%= lang_object.text.plan_first_check[i] %></th>
+                    <td><i class="fa-solid fa-check"></i></td>
+                    <td><i class="fa-solid fa-check"></td>
+                    <td><i class="fa-solid fa-check"></td>
+                </tr>
+            <% } %>  
+        </tbody>
+
+        <tbody>
+            <% for (var i = 0; i < lang_object.text.plan_second_check.length; i++) { %>
+                <tr>
+                    <th scope="row" class="text-start"><%= lang_object.text.plan_second_check[i] %></th>
+                    <td><i class="fa-solid fa-xmark"></i></td>
+                    <td><i class="fa-solid fa-check"></td>
+                    <td><i class="fa-solid fa-check"></td>
+                </tr>
+            <% } %>        
+        </tbody>
+        <tbody>
+            <% for (var i = 0; i < lang_object.text.plan_third_check.length; i++) { %>
+                <tr>
+                    <th scope="row" class="text-start"><%= lang_object.text.plan_third_check[i] %></th>
+                    <td><i class="fa-solid fa-xmark"></i></td>
+                    <td><i class="fa-solid fa-xmark"></i></td>
+                    <td><i class="fa-solid fa-check"></td>
+                </tr>
+            <% } %>   
+        </tbody>
+    </table>
+</div>
+
+
+</div>

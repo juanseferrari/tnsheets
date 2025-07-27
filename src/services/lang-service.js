@@ -187,6 +187,45 @@ const langService = {
         //shopify
 
         //mercado pago
+        "mp_pricing_plan": [
+          {
+            "pricing_title": "Gratis",
+            "pricing_price": "$0",
+            "pricing_color": "",
+            "pricing_small_text": "",
+            "pricing_features": ["Para usuarios individuales que quieren automatizar algunos registros y tareas simples"],
+            "pricing_button_text": "Comenzar gratis",
+            "pricing_href": "/mercadopago/connect"
+          },
+          {
+            "pricing_title": "Premium",
+            "pricing_price": "U$S 18",
+            "pricing_color": "premium-color",
+            "pricing_small_text": "/mes",
+            "pricing_features": ["Ideal para usuarios avanzados que administran múltiples datos"],
+            "pricing_button_text": "10 días de prueba",
+            "pricing_href": "/mercadopago/connect"
+          },
+          {
+            "pricing_title": "Business",
+            "pricing_price": "U$S 65",
+            "pricing_color": "enterprise-color",
+            "pricing_small_text": "/mes",
+            "pricing_features": ["Diseñado para negocios con múltiples transacciones diarias"],
+            "pricing_button_text": "10 días de prueba",
+            "pricing_href": "/mercadopago/connect"
+          },
+          {
+            "pricing_title": "Enterprise",
+            "pricing_price": "Consultar",
+            "pricing_color": "enterprise-color",
+            "pricing_small_text": "",
+            "pricing_features": ["Diseñado para organizaciones con múltiples cuentas y quieren reportes automáticos a medida"],
+            "pricing_button_text": "Hablemos",
+            "pricing_href": "/#contacto"
+          }
+
+        ],
       },
       "pt": {
         //header

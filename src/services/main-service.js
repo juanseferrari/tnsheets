@@ -605,6 +605,40 @@ const mainService = {
     return return_object
 
   },
+  async cloneAndShareSheet(access_token, user_id, user_name, connection_id, email, subfolderName) {
+    console.log("cloneAndShareSheet")
+    const script_url = "https://script.google.com/macros/s/AKfycbx4i-W3YK5kMrf0mcMehmC6J9bTohr2WTlFuH8OcBYfJWvwuCeTeFtV9r3PzkbylgpxrA/exec"
+    let response_object
+
+    let data_to_gas = {
+      "access_token": access_token,
+      "user_id": user_id.toString(),
+      "user_name": user_name,
+      "conn_id": connection_id,
+      "email": email,
+      "connection": subfolderName
+    }
+
+    var post_request_options = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data_to_gas),
+      redirect: 'follow'
+    };
+    let gas_response = await fetch(script_url, post_request_options)
+    let sheet_response_data = await gas_response.json();
+
+    if (sheet_response_data.error) {
+      //Error al obtener informacion del usuario
+      response_object = sheet_response_data
+    } else {
+      //console.log("amount of records: 1")
+      response_object = sheet_response_data
+    }
+    return response_object
+  },
   async getSubscriptionData(subscription_id) {
 
   },
