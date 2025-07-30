@@ -102,20 +102,18 @@
               <% } %>
             </div>
             <div class="step-text">
-              <p>Paso 2: Clonar Google Sheet</p>
+              <p>Google Sheet</p>
             </div>
           </div>
           <div class="step-user-info">
             <div class="step-left-text" >
-              <h4>Clona el siguiente Google Sheet en tu propia cuenta de Google  </h4>
+              <h4>Revisa tu mail! Ahi verás un Google Sheet compartido.   </h4>
             </div>
             <div class="step-right-text">
               <% if (user_connected.spreadsheet_id) { %>
                 <%- include("../partials/sheets_buttons/mp-sheet.ejs", {buttonText: lang_object.text.sheet_open_button ,
                   url: "https://docs.google.com/spreadsheets/d/" + user_connected.spreadsheet_id }) %>
-                  <%} else { %>
-                    <%- include("../partials/sheets_buttons/mp-sheet.ejs", {buttonText: false, url: false}) %>
-                <% } %>
+                  <%} %>
 
               <!-- end clone sheet button -->
             </div>
@@ -127,56 +125,6 @@
        </div>
        <!-- END STEP 2 -->
 
-
-      <!-- STEP 3 -->
-
-       <div id="step3">
-        <div class="step-block step-ok">
-          <div class="step-title">
-            <div class="step-check">
-              <% if (user_connected.spreadsheet_id) { %>
-                <i class="fa-solid fa-circle-check"></i>
-                <%} else { %>
-                  <i class="fa-regular fa-circle"></i>
-              <% } %>
-            </div>
-            <div class="step-text">
-              <p>Paso 3: Configurar Sheets Central</p>
-            </div>
-          </div>
-          <div class="step-user-info">
-            <div class="step-left-text" >
-              <div class="step-3">
-                <h3 class="small-text">1. Abre el Google Sheet recién clonado</h3>
-                <h3 class="small-text">2. Copia el siguiente ID de Conexión:</h3>
-                <div class="contact-form-ins">
-                  <div class="input-group width-100">
-                    <div class="input-group-item1">
-                      <!-- A futuro agregar validacion de cookie por si el usuario no esta logueado -->
-                      <label for="id-conexion">ID de Conexión</label>
-                      <input type="text" class="form-control" id="id-conexion" aria-describedby="basic-addon2"
-                        value="<%= mp_connection_id ? mp_connection_id : '' %>">
-                    </div>
-                    <div class="input-group-item2">
-                      <button class="btn btn-success shadow" onclick="return copyToClipboard(event, this);"><i
-                          class="fa-regular fa-copy"></i> Copiar</button>
-                    </div>
-                  </div>
-                </div>
-                <h3 class="small-text">3. Pega el ID de Conexión en el Google Sheet, bajo el menu Sheets Central > Configuración de cuenta </h3>
-              </div>
-
-
-            </div>
-            <div class="step-right-text">
-              <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRhZguOdeL_1YdoW-cBqpu7iC32spiBvx-E8rVKfUs8UC822RsQwLpPhNd3e2ZyeIsO5ClwjPxkuTyw/embed?start=false&loop=false&delayms=5000" frameborder="0" width="90%" height="100%" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-            </div>
-
-          </div>
-
-        </div>
-
-       </div>
 
        <!-- STEP 4 GET PREMIUM -->
 

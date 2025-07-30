@@ -154,7 +154,7 @@ const mpController = {
       })
     };
     let response = await fetch("https://api.mercadopago.com/oauth/token", requestOptions)
-    let data = await response.json();
+    const data = await response.json();
 
     if (data['error']) {
       //ERROR AL CONECTARSE CON MP
@@ -168,7 +168,7 @@ const mpController = {
       /** FUNCIONO OK EL OAUTH */
 
       //GET INFO ABOUT MP USER
-      let mp_user_info = await mainService.getAccountInfo(data['user_id'], data['access_token'], "mp")
+      const mp_user_info = await mainService.getAccountInfo(data['user_id'], data['access_token'], "mp")
       console.log(mp_user_info)
       //SAVE TO DB
       if (mp_user_info["logo_url"] == "") {
@@ -207,29 +207,13 @@ const mpController = {
         "tag": { "id": "usrOsqwIYk4a2tZsg" }
       } //end data_to_airtable_db
       try {
-        let airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "connection"], data_to_airtable_db, "prod_users")
+        const airtable_response = await mainService.createAirtableUpsert(true, ["user_id", "connection"], data_to_airtable_db, "prod_users")
         let id_conexion = airtable_response['id']
         console.log(airtable_response)
 
         //CLONE AND SEND SHEET
-        let sheet_clone = await mainService.cloneAndShareSheet(data['access_token'], data['user_id'].toString(), mp_user_info["company_name"], airtable_response['id'], mp_user_info["email"],  "mercadopago")
-        let sheet_data = await sheet_clone.json();
-        console.log("sheet_data")
-        console.log(sheet_data)
-        console.log("sheet_data")
-
-
-        //UPDATE DB TO ADD SPREADSHEET ID
-        var fields_to_db2 = {
-          "spreadsheet_id": sheet_data['spreadsheet_id'],
-          "spreadsheet_connection_date": new Date().toISOString(),
-          "connection_id": id_conexion,
-          "sheet_version": sheet_data['sheet_version']
-        }
-        let response = await mainService.editAirtableDataById(id_conexion, "prod_users", fields_to_db2)
-        console.log("MPresponse")
-        console.log(response)
-        console.log("MPresponse")
+        //let sheet_clone = await mainService.cloneAndShareSheet(data['access_token'], data['user_id'].toString(), mp_user_info["company_name"], airtable_response['id'], mp_user_info["email"],  "mercadopago")
+        //let sheet_data = await sheet_clone.json();
 
         res.cookie("mp_connection_id", id_conexion)
         res.cookie("mp_user_id", data['user_id'].toString())
@@ -388,6 +372,7 @@ const mpController = {
     } else if (res.locals.mp_connection_id) {
       mp_connection_id = res.locals.mp_connection_id
     } else {
+      //NO HAY PLAN PREMIUM
       res.redirect("/mercadopago/config")
     }
 
@@ -396,6 +381,9 @@ const mpController = {
     if (user_connected.subscription_status == "no subscription" || user_connected.subscription_status == "canceled" || user_connected.subscription_status == "pending" ) {
       //Si no tiene ni suscripcion o esta cancelado y quiere reactivar.
       let subscription = await paymentsService.createSubscription(mp_connection_id,user_connected.user_email,user_connected.country,connection)
+      console.log("subscription")
+      console.log(subscription)
+      console.log("subscription")
 
       if (subscription.url) {
         res.redirect(subscription.url)
@@ -407,7 +395,7 @@ const mpController = {
     } else {
       console.log("AAA")
       //aca idealmente mandarlo a management
-      res.redirect("/tiendanube/config#step4")
+      res.redirect("/mercadopago/config#step4")
     }
 
   },
