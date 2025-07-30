@@ -5,9 +5,11 @@
       href="https://auth.mercadopago.com/authorization?client_id=1668544373399736&response_type=code&platform_id=mp&redirect_uri=https://www.sheetscentral.com/mercadopago/oauth&state=<%= google_user.google_user_id %>"
       target="_blank">
       <%} else { %>
+        <a  class="mp-button-a" data-bs-toggle="modal" data-bs-target="#loginModal" id="login-button">
+ <!-- 
       <a class="mp-button-a"
         href="https://auth.mercadopago.com/authorization?client_id=1668544373399736&response_type=code&platform_id=mp&redirect_uri=https://www.sheetscentral.com/mercadopago/oauth"
-        target="_blank">
+        target="_blank">-->
         <% } %>
         <div class="login-button-text">
           <img class="login-button-logo" src="/images/logos/mercadopago_logo.png" alt="">
@@ -15,4 +17,19 @@
         </div>
       </a>
   </button>
+</div>
+
+  <div class="modal fade" id="loginModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><%= lang_object.text.header_login %></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%- include("../../partials/buttons/google-login.ejs") %>
+      </div>
+    </div>
+  </div>
 </div>

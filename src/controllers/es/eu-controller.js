@@ -182,6 +182,7 @@ const euController = {
     } /** Fin del else error */
   },
   euGetLink: async (req, res) => {
+    console.log("in euGetLink ")
     let google_user = res.locals.google_user
     let connection_id = res.locals.connection_id
     let navbar_data = res.locals.navbar_data
