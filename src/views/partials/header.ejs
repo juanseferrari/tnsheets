@@ -53,7 +53,7 @@
         </button>
       </div>
     </div>
-    <div class="sc-header__offcanvas" id="scOffcanvasMenu">
+    <div class="sc-header__offcanvas d-none" id="scOffcanvasMenu">
       <button class="sc-header__offcanvas-close" id="scOffcanvasClose" aria-label="Cerrar menú" type="button">
         <i class="fas fa-times"></i>
       </button>
@@ -107,16 +107,19 @@
       if (scMenuBtn && scOffcanvas && scOffcanvasClose) {
         scMenuBtn.addEventListener('click', function(e) {
           e.stopPropagation();
+          scOffcanvas.classList.remove('d-none')
           scOffcanvas.classList.add('open');
         });
         scOffcanvasClose.addEventListener('click', function(e) {
           e.stopPropagation();
           scOffcanvas.classList.remove('open');
+          scOffcanvas.classList.add('d-none')
         });
         // Optional: close menu when clicking outside
         document.addEventListener('click', function(e) {
           if (scOffcanvas.classList.contains('open') && !scOffcanvas.contains(e.target) && e.target !== scMenuBtn) {
             scOffcanvas.classList.remove('open');
+            scOffcanvas.classList.add('d-none');
           }
         });
       }

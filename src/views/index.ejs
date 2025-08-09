@@ -15,39 +15,21 @@
 <body class="main-body">
     <section class="" id="" style="background-color: #f5fbf7;padding: 30px 0;">
       <div class="full-page-item container">
-        <div class="main-division2">
+        <div class="main-division2 m-auto justify-content-center">
           <div class="division-text-content2">
             <div class="division-left-content-top">
-              <h1 class="main-title-2"><%= lang_object.text.index_main_title %>
+              <h1 class="main-title-2 fs-1 text-center"><%= lang_object.text.index_main_title %>
               </h1>
             </div>
             <div class="division-left-content-bottom">
-              <h3 class="explain-text"><%= lang_object.text.index_main_subtitle %></h3>
-              
-              <% if (connection_id && user_connected.connection == 'tiendanube' && user_connected.active == 'true' ) { %>
-                <div class="login-button">
-                  <button type="button" class="btn btn-outline-secondary">
-                    <a class="black-button-a" href="/tiendanube/config" >
-                      <div class="login-button-text">
-                        <img class="login-button-logo" src="/images/icons/configuration.png" alt="">
-                        <p class="login-button-p"><%= lang_object.text.config_button %></p>
-                      </div>
-                    </a>
-                  </button>
-                </div> 
-              <%} else { %>
-                <%- include("./partials/buttons/tn-button.ejs") %>
-                <%} %>
-
+              <h3 class="explain-text text-center"><%= lang_object.text.index_main_subtitle %></h3>
               <div class="login-button">
-                <button type="button" class="btn btn-outline-secondary">
+                <button type="button" class="btn btn-outline-secondary" id="btnExploreProducts">
 
-                  <a class="black-button-a"
-                    href="/tiendanube/documentation"
-                    target="_blank">
+                  <a class="sc-header__link sc-header__offcanvas-link"
+                    href="/#productos">
                     <div class="login-button-text">
-                      <img class="login-button-logo" src="/images/icons/document.png" alt="">
-                      <p class="login-button-p"><%= lang_object.text.docs_button %></p>
+                      <p class="login-button-p"><%= lang_object.text.index_explore_products_title %></p>
                     </div>
                   </a>
                 </button>
@@ -56,7 +38,9 @@
             </div>
 
           </div><!-- Divion left content-->
-          <div class="division-right-content2 video-container shadow">
+        </div>
+
+          <div class="division-right-content2 video-container shadow m-auto">
             <!-- Agregar poster="poster.png" en el video-->
             <video loop autoplay playsinline muted class="intro-video" >
               <video:thumbnail_loc>https://www.sheetscentral.com/images/sheets_central_logo.png</video:thumbnail_loc>
@@ -70,8 +54,6 @@
               <source src="/images/demo_videos/home_video_2.mp4" type="video/mp4" />
             </video>
           </div><!-- Divion right content-->
-
-        </div>
 
       </div>
 
@@ -97,7 +79,7 @@
           </div><!-- Divion left content-->
 
           <div class="division-text-content video-container">
-            <video loop autoplay playsinline muted class="intro-video shadow" >
+            <video loop autoplay playsinline muted class="intro-video green-bordered-right" >
               <video:thumbnail_loc>https://www.sheetscentral.com/images/sheets_central_logo.png</video:thumbnail_loc>
               <video:title>Sheets Central orders home video title</video:title>
               <video:description>
@@ -116,23 +98,12 @@
       </div>
     </section>
 
-    <section class="">
+    <section class="mt-5">
       <div class="full-page-item container">
         <div class="main-division">
-          <div class="division-text-content">
-            <div class="division-left-content-top">
-              <h1 class="main-title-2"><%= lang_object.text.index_title_section2 %></h1>
-            </div>
-            <div class="division-left-content-bottom">
-              <% for (var i = 0; i < lang_object.text.index_text_section2.length; i++) { %>
-                <h3 class="explain-text"> <%= lang_object.text.index_text_section2[i] %> </h3>
-              <% } %>
-            </div>
-
-          </div><!-- Divion left content-->
 
           <div class="division-text-content video-container">
-            <video loop autoplay playsinline muted class="intro-video shadow" >
+            <video loop autoplay playsinline muted class="intro-video green-bordered-left" >
               <video:thumbnail_loc>https://www.sheetscentral.com/images/sheets_central_logo.png</video:thumbnail_loc>
               <video:title>Sheets Central products home video title</video:title>
               <video:description>
@@ -144,6 +115,17 @@
               <source src="/images/demo_videos/products-home-1.mp4" type="video/mp4" />
             </video>
           </div> <!-- Divion left content-->
+
+          <div class="division-text-content">
+            <div class="division-left-content-top">
+              <h1 class="main-title-2"><%= lang_object.text.index_title_section2 %></h1>
+            </div>
+            <div class="division-left-content-bottom">
+              <% for (var i = 0; i < lang_object.text.index_text_section2.length; i++) { %>
+                <h3 class="explain-text"> <%= lang_object.text.index_text_section2[i] %> </h3>
+              <% } %>
+            </div>
+          </div><!-- Divion left content-->
 
         </div>
 
@@ -165,7 +147,7 @@
           </div><!-- Divion left content-->
 
           <div class="division-text-content video-container">
-            <video loop autoplay playsinline muted class="intro-video shadow" >
+            <video loop autoplay playsinline muted class="intro-video green-bordered-right" >
               <video:thumbnail_loc>https://www.sheetscentral.com/images/sheets_central_logo.png</video:thumbnail_loc>
               <video:title>Sheets Central dashboard home video title</video:title>
               <video:description>
@@ -184,7 +166,11 @@
       </div>
     </section>
 
-    <section id="productos">
+    <div>
+      <img src="/images/designs/divider1.png" alt="" style="width: 100%;;">
+    </div>
+
+    <section id="productos" style="background-color: #f5fbf7; padding-bottom: 3em;">
       <div class="full-page-item container">
         <h1 class="main-title"><%= lang_object.text.index_product_title %></h1>
 

@@ -1,8 +1,27 @@
 
 
-  <footer class="d-flex flex-wrap justify-content-between align-items-center border-top footer2">
-    <div class="d-flex footer-tos">
-      <p class=" mb-0 text-muted">&copy; 2025 Sheets Central</p>
+<footer>
+  <section class="sc-header m-auto" style="width: 90%" id="scHeader_footer">
+        <div class="d-flex justify-content-between align-items-center g-5 p-4" id="logoFooter">
+          <div>
+              <a href="/" class="sc-header__logo" >
+                  <img src="/images/designs/logo_primario.png" style="height:78px" alt="SheetsCentral Logo" />
+              </a>
+          </div>
+          <nav class="sc-header__nav_footer">
+          <a href="/#productos" class="sc-header__link"><%= lang_object.text.header_products %></a>
+          <% if (typeof firstPath !=='undefined' ) { %>
+            <a href="/<%= firstPath %>/documentation?lang=<%= lang_object.lang %>" class="sc-header__link" target="_blank"><%= lang_object.text.header_docs %></a>
+          <% } else { %>
+            <a href="/documentation" class="sc-header__link" target="_blank"><%= lang_object.text.header_docs %></a>
+          <% } %>
+          <a href="/#contacto" class="sc-header__link"><%= lang_object.text.header_contact %></a>
+        </nav>
+      </div>
+  </section>
+
+  <section class="d-flex flex-wrap justify-content-between align-items-center footer2 m-auto">
+    <div class="d-flex footer-tos justify-content-start g-3" id="policy-terms_footer">
       <a href="/privacy-policy" class="hover-element"> <%= lang_object.text.privacy_policy %></a>
       <a href="/terms-and-conditions" class="hover-element"> <%= lang_object.text.terms_conditions %></a>
     </div>
@@ -16,7 +35,6 @@
         <a href="https://www.youtube.com/channel/UCuKld-_2oXhud6HM34tQciQ" target="_blank"  class="social-icon shadow"><i class="fa-brands fa-youtube"></i></a>
         
       </div>
-
     </div>
-
-  </footer>
+  </section>
+</footer>
