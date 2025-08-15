@@ -34,15 +34,16 @@ const langService = {
         "header_login": "Iniciar Sesión",
 
         //index
-        "index_main_title": "Tu gestión de Tiendanube, en Google Sheets",
+        "index_main_title": "Administra tu negocio desde Google Sheets",
         "index_main_subtitle": "Automatiza y gestiona tu tienda con la herramienta más usada por todas empresas de todos los tamaños",
         "index_title_section1": "Automatiza las ventas de tu tienda",
-        "index_text_section1": ["Nueva venta → Nueva fila en tu Google Sheets", "¿Actualización? ¿Pago? ¿Cancelación? ¡Las filas se editan automáticamente!", "Olvídate de descargar archivos .csv"],
+        "index_text_section1": ["✔ Nueva venta → Nueva fila en tu Google Sheets", "✔ ¿Actualización? ¿Pago? ¿Cancelación? ¡Las filas se editan automáticamente!", "✔ Olvídate de descargar archivos .csv"],
         "index_title_section2": "Gestiona tus productos en un mismo lugar",
-        "index_text_section2": ["Mantén información actualizada de tus productos", "Crea y edita productos masivamente", "Carga imágenes desde Google Drive a tu e-commerce", "¡Todo desde Google Sheets!"],
+        "index_text_section2": ["✔ Mantén información actualizada de tus productos", "✔ Crea y edita productos masivamente", "✔ Carga imágenes desde Google Drive a tu e-commerce", "✔ ¡Todo desde Google Sheets!"],
         "index_title_section3": "Métricas, Dashboards, filtros ¡y más!",
-        "index_text_section3": ["Sigue usando las mismas funciones de Google Sheets", "Genera filtros, fórmulas, tablas dinámicas, dashboards...", "Diseña tus propios gráficos, agrega colores, ¡lo que quieras!", "Y dashboards profesionales en Looker Studio"],
+        "index_text_section3": ["✔ Sigue usando las mismas funciones de Google Sheets", "✔ Genera filtros, fórmulas, tablas dinámicas, dashboards...", "✔ Diseña tus propios gráficos, agrega colores, ¡lo que quieras!", "✔ Y dashboards profesionales en Looker Studio"],
         "index_product_title": "Productos",
+        "index_explore_products_title": "Explorar productos",
         "index_price_title": "Precios",
 
         //prices
@@ -235,7 +236,7 @@ const langService = {
         "header_login": "Entrar",
 
         //index
-        "index_main_title": "Sua gestão do Nuvemshop, no Google Sheets",
+        "index_main_title": "Gerencie seu negócio a partir do Google Sheets",
         "index_main_subtitle": "Automatize e gerencie sua Nuvemshop com a ferramenta mais usada por empresas de todos os tamanhos",
         "index_title_section1": "Automatize as vendas da sua loja",
         "index_text_section1": ["Nova venda → Nova linha no seu Google Sheets", "Atualização? Pagamento? Cancelamento? As linhas são editadas automaticamente!", "Esqueça de baixar arquivos .csv"],
@@ -244,6 +245,7 @@ const langService = {
         "index_title_section3": "Métricas, Dashboards, filtros e muito mais!",
         "index_text_section3": ["Continue usando as mesmas funções do Google Sheets", "Crie filtros, fórmulas, tabelas dinâmicas, dashboards...", "Crie seus próprios gráficos, adicione cores, o que você quiser!", "E dashboards profissionais no Looker Studio"],
         "index_product_title": "Produtos",
+        "index_explore_products_title": "Explorar produtos",
         "index_price_title": "Preços",
 
         //prices
@@ -399,7 +401,7 @@ const langService = {
         "header_login": "Log In",
 
         //index
-        "index_main_title": "Manage Your Tiendanube Store in Google Sheets",
+        "index_main_title": "Manage your business from Google Sheets",
         "index_main_subtitle": "Automate and manage your store with the most widely used tool for businesses of all sizes",
         "index_title_section1": "Automate Your Store’s Sales",
         "index_text_section1": ["New sale → New row in your Google Sheets", "Update? Payment? Cancellation? Rows are updated automatically!", "Forget about downloading .csv files"],
@@ -408,6 +410,7 @@ const langService = {
         "index_title_section3": "Metrics, Dashboards, Filters, and More!",
         "index_text_section3": ["Keep using the same Google Sheets functions", "Generate filters, formulas, pivot tables, dashboards...", "Design your own charts, add colors, anything you want!", "And professional dashboards in Looker Studio"],
         "index_product_title": "Products",
+        "index_explore_products_title": "Explore Products",
         "index_price_title": "Pricing",
 
         //prices
