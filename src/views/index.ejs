@@ -102,6 +102,17 @@
       <div class="full-page-item container">
         <div class="main-division">
 
+
+          <div class="division-text-content">
+            <div class="division-left-content-top">
+              <h1 class="main-title-2"><%= lang_object.text.index_title_section2 %></h1>
+            </div>
+            <div class="division-left-content-bottom">
+              <% for (var i = 0; i < lang_object.text.index_text_section2.length; i++) { %>
+                <h3 class="explain-text"> <%= lang_object.text.index_text_section2[i] %> </h3>
+              <% } %>
+            </div>
+          </div><!-- Divion left content-->
           <div class="division-text-content video-container">
             <video loop autoplay playsinline muted class="intro-video green-bordered-left" >
               <video:thumbnail_loc>https://www.sheetscentral.com/images/sheets_central_logo.png</video:thumbnail_loc>
@@ -115,18 +126,6 @@
               <source src="/images/demo_videos/products-home-1.mp4" type="video/mp4" />
             </video>
           </div> <!-- Divion left content-->
-
-          <div class="division-text-content">
-            <div class="division-left-content-top">
-              <h1 class="main-title-2"><%= lang_object.text.index_title_section2 %></h1>
-            </div>
-            <div class="division-left-content-bottom">
-              <% for (var i = 0; i < lang_object.text.index_text_section2.length; i++) { %>
-                <h3 class="explain-text"> <%= lang_object.text.index_text_section2[i] %> </h3>
-              <% } %>
-            </div>
-          </div><!-- Divion left content-->
-
         </div>
 
       </div>
