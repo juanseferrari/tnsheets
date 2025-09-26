@@ -36,8 +36,8 @@ const dtController = {
         }
       }
     }
-    //v1.5
-    res.redirect("https://docs.google.com/spreadsheets/d/1RKtuQ3AYjQdeaUDRvgKIppQMc8J9SxZz6ElzjeCV6EM/copy")
+    //v1.6
+    res.redirect("https://docs.google.com/spreadsheets/d/1Q87F3Zw4T5z53dBHow_LAHTQ7X32WgfOvU3Oy8Y6DXc/copy")
   },
   dtHome: async (req, res) => {
     let google_user = res.locals.google_user

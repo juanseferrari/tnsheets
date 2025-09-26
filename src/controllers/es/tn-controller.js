@@ -39,8 +39,8 @@ const tnController = {
         }
       }
     }
-    //v2.4
-    res.redirect("https://docs.google.com/spreadsheets/d/1fAjXyysxHFVx_2zv70kY3FM9emwi0m1kYHve_XT2JMg/copy")
+    //v2.6
+    res.redirect("https://docs.google.com/spreadsheets/d/1ALm74fN-KMwdKZykGJnegyhLHMsl8R9zHSRbxUnYUbE/copy")
   },
   tnHome: async (req, res) => {
     let google_user = res.locals.google_user
