@@ -9,6 +9,7 @@ const mpController = require('../controllers/es/mp-controller');
 // Middlewares
 const checkAuth = require('../middlewares/check-auth');
 const generalMid = require('../middlewares/general-mid');
+const { verifySessionToken } = require('../middlewares/verify-session-token');
 
 /* PUBLIC APIS*/
 //tienen que ser kebab-case
@@ -28,6 +29,49 @@ router.post('/mercadopago/payment-webhooks', mpController.mpPaymentWebooks)
 
 /* GOOGLE AUTH DATA */
 router.post('/google-auth',generalMid,googleController.googleoauth)
+
+/* SHOPIFY SESSION TOKEN PROTECTED APIS */
+// Example protected endpoint - get shop data using session token
+router.get('/shopify/shop-data', verifySessionToken, (req, res) => {
+  try {
+    // req.shopify contains: shop, sessionId, userId, token
+    res.json({
+      success: true,
+      shop: req.shopify.shop,
+      message: 'Session token verified successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: error.message
+    });
+  }
+});
+
+// Example protected endpoint - update configuration using session token
+router.post('/shopify/update-config', verifySessionToken, async (req, res) => {
+  try {
+    // req.shopify contains: shop, sessionId, userId, token
+    const { shop } = req.shopify;
+    const configData = req.body;
+
+    console.log(`Updating configuration for shop: ${shop}`);
+    console.log('Configuration data:', configData);
+
+    // Here you would typically update your database with the configuration
+    // For now, just return success
+    res.json({
+      success: true,
+      message: 'Configuration updated successfully',
+      shop: shop
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Internal Server Error',
+      message: error.message
+    });
+  }
+});
 
 //router.get('/google-login',googleController.googleLink)
 

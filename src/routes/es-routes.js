@@ -18,6 +18,7 @@ const euController = require('../controllers/es/eu-controller');
 const checkAuth = require('../middlewares/check-auth');
 const generalMid = require('../middlewares/general-mid');
 const shMid = require('../middlewares/shopify');
+//const { verifySessionToken } = require('../middlewares/verify-session-token');
 
 const googleController = require('../controllers/google-controller');
 
@@ -69,7 +70,7 @@ router.get('/drive-to-tiendanube/:connId/config', generalMid, checkAuth.checkDT,
 
 /* Shopify */
 router.get('/shopify', generalMid, shController.shHome);
-router.get('/shopify/config',shMid, generalMid, shController.configuration);
+router.get('/shopify/config',shMid,  generalMid, shController.configuration);
 router.get('/shopify/documentation', shController.documentation);
 router.get('/sh/documentation', shController.documentation); //Esto es porque a veces Shopify no te deja
 

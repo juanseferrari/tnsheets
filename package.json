@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.0",
+    "@shopify/app-bridge": "^3.7.10",
     "@shopify/app-bridge-utils": "^3.5.1",
-    "@shopify/shopify-api": "^11.8.0",
+    "@shopify/shopify-api": "^12.1.0",
+    "@shopify/shopify-app-session-storage-memory": "^5.0.1",
     "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",

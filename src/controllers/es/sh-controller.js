@@ -322,23 +322,24 @@ const shController = {
           return res.render("menus/error-page", { message, navbar_data, lang_object });
         }
   
-        // Success: render Shopify page
+        // Success: Redirect to Shopify admin with embedded app
         let sh_connection_id = airtableResponse['id'];
-        let user_connected = await mainService.searchUser(sh_connection_id);
-        let google_user = "1234";
-        let pathSegments = req.url.split('/');
-        let firstPath = pathSegments[1];
-  
-        console.log("Rendering Shopify page...");
-        return res.render("menus/shopify", {
-          title: "Shopify",
-          sh_connection_id,
-          user_connected,
-          google_user,
-          navbar_data,
-          firstPath,
-          lang_object
-        });
+        const host = req.query.host;
+
+        console.log("OAuth completed successfully, redirecting to Shopify admin...");
+
+        // Redirect to the app within Shopify admin
+        // This is required for embedded apps to pass Shopify's installation check
+        if (host) {
+          // Decode the host parameter and redirect to Shopify admin
+          const redirectUrl = `https://${Buffer.from(host, 'base64').toString('utf-8')}/apps/${process.env.SH_APP_HANDLE || 'sheets-central'}`;
+          console.log("Redirecting to:", redirectUrl);
+          return res.redirect(redirectUrl);
+        } else {
+          // Fallback: redirect to config page with shop parameter
+          console.log("No host parameter, redirecting to config page");
+          return res.redirect(`/shopify/config?shop=${shop}&embedded=1`);
+        }
   
       } catch (error) {
         console.error("Error saving to Airtable:", error);

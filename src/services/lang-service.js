@@ -200,19 +200,10 @@ const langService = {
           },
           {
             "pricing_title": "Premium",
-            "pricing_price": "U$S 18",
+            "pricing_price": "U$S 5",
             "pricing_color": "premium-color",
             "pricing_small_text": "/mes",
             "pricing_features": ["Ideal para usuarios avanzados que administran múltiples datos"],
-            "pricing_button_text": "10 días de prueba",
-            "pricing_href": "/mercadopago/connect"
-          },
-          {
-            "pricing_title": "Business",
-            "pricing_price": "U$S 65",
-            "pricing_color": "enterprise-color",
-            "pricing_small_text": "/mes",
-            "pricing_features": ["Diseñado para negocios con múltiples transacciones diarias"],
             "pricing_button_text": "10 días de prueba",
             "pricing_href": "/mercadopago/connect"
           },
