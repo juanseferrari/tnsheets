@@ -28,21 +28,17 @@ const verifySessionToken = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-
       console.log('No authorization header found');
       return res.status(401).json({
         error: 'Unauthorized',
         message: 'No authorization token provided'
       });
-
     }
 
     // Extract the token (format: "Bearer <token>")
     const token = authHeader.replace('Bearer ', '');
 
     if (!token) {
-      next();
-
       console.log('No token found in authorization header');
       return res.status(401).json({
         error: 'Unauthorized',
