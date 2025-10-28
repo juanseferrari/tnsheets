@@ -8,6 +8,7 @@ require('dotenv/config')
 
 const esRouter = require('./src/routes/es-routes');
 const apiRouter = require('./src/routes/api-routes');
+const dashboardRouter = require('./src/routes/dashboard-routes');
 
 const langService = require('./src/services/lang-service');
 
@@ -22,6 +23,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Host-based routing for dashboard.sheetscentral.com
+app.use((req, res, next) => {
+  const host = req.hostname;
+  if (host === 'dashboard.sheetscentral.com') {
+    return dashboardRouter(req, res, next);
+  }
+  next();
+});
 
 app.use('/', esRouter);
 app.use('/api/', apiRouter);
