@@ -1,6 +1,7 @@
 /**
  * Shopify App Bridge Session Token Handler
  * This script sets up App Bridge and handles authenticated API requests using session tokens
+ * Based on Shopify's official documentation for App Bridge 3.x
  */
 
 // Initialize App Bridge
@@ -15,18 +16,26 @@ function initializeAppBridge() {
     return null;
   }
 
-  // Create App Bridge instance
+  if (!host) {
+    console.error('Host parameter is missing from URL');
+    return null;
+  }
+
+  // Create App Bridge instance using the correct API
   const app = window['app-bridge'].createApp({
     apiKey: '75abca07b3318a56f4073ec4ccb16e90', // Your Shopify API key
-    host: host,
+    host: host, // This is the base64 encoded host from Shopify
   });
 
   console.log('App Bridge initialized successfully');
+  console.log('Shop:', shop);
+  console.log('Host:', host);
+
   return app;
 }
 
 /**
- * Get session token from App Bridge
+ * Get session token from App Bridge using the utilities library
  * @param {Object} app - App Bridge instance
  * @returns {Promise<string>} Session token
  */
@@ -36,8 +45,10 @@ async function getSessionToken(app) {
   }
 
   try {
+    // Use the getSessionToken utility from app-bridge-utils
     const token = await window['app-bridge-utils'].getSessionToken(app);
     console.log('Session token retrieved successfully');
+    console.log('Token length:', token.length);
     return token;
   } catch (error) {
     console.error('Error getting session token:', error);

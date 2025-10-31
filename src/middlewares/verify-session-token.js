@@ -21,6 +21,7 @@ const shopify = shopifyApi({
 /**
  * Middleware to verify Shopify session tokens
  * This middleware validates JWT tokens sent from the Shopify embedded app
+ * Based on Shopify's official documentation for session tokens
  */
 const verifySessionToken = async (req, res, next) => {
   try {
@@ -28,7 +29,7 @@ const verifySessionToken = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-      console.log('No authorization header found');
+      console.log('[Session Token] No authorization header found');
       return res.status(401).json({
         error: 'Unauthorized',
         message: 'No authorization token provided'
@@ -36,58 +37,75 @@ const verifySessionToken = async (req, res, next) => {
     }
 
     // Extract the token (format: "Bearer <token>")
-    const token = authHeader.replace('Bearer ', '');
+    const token = authHeader.replace('Bearer ', '').trim();
 
-    if (!token) {
-      console.log('No token found in authorization header');
+    if (!token || token === authHeader) {
+      console.log('[Session Token] No token found in authorization header');
       return res.status(401).json({
         error: 'Unauthorized',
-        message: 'Invalid authorization format'
+        message: 'Invalid authorization format. Expected: Bearer <token>'
       });
     }
 
-    // Verify the session token
+    console.log('[Session Token] Attempting to decode token...');
+    console.log('[Session Token] Token length:', token.length);
+
+    // Verify the session token using Shopify's API
     try {
+      // The decodeSessionToken method validates the signature and expiration
       const payload = await shopify.session.decodeSessionToken(token);
 
       // The payload contains:
-      // - dest: shop domain (e.g., "example.myshopify.com")
-      // - aud: API key
+      // - dest: shop domain (e.g., "https://example.myshopify.com")
+      // - aud: API key (your app's client ID)
       // - sub: user ID
-      // - exp: expiration timestamp
+      // - exp: expiration timestamp (Unix timestamp)
       // - nbf: not before timestamp
       // - iat: issued at timestamp
+      // - iss: issuer (shop admin domain)
       // - jti: JWT ID
       // - sid: session ID
 
-      console.log('Session token verified successfully');
-      console.log('Shop:', payload.dest);
-      console.log('Session ID:', payload.sid);
+      console.log('[Session Token] Token verified successfully');
+      console.log('[Session Token] Payload:', {
+        dest: payload.dest,
+        iss: payload.iss,
+        sub: payload.sub,
+        sid: payload.sid,
+        exp: new Date(payload.exp * 1000).toISOString()
+      });
+
+      // Extract shop domain from dest (remove https://)
+      const shopDomain = payload.dest.replace('https://', '').replace('http://', '');
 
       // Attach shop information to the request for use in controllers
       req.shopify = {
-        shop: payload.dest.replace('https://', ''),
+        shop: shopDomain,
         sessionId: payload.sid,
         userId: payload.sub,
-        token: token
+        token: token,
+        payload: payload
       };
 
       next();
 
     } catch (decodeError) {
-      console.error('Error decoding session token:', decodeError);
+      console.error('[Session Token] Error decoding session token:', decodeError);
+      console.error('[Session Token] Error details:', decodeError.message);
+
       return res.status(401).json({
         error: 'Unauthorized',
-        message: 'Invalid session token',
-        details: decodeError.message
+        message: 'Invalid or expired session token',
+        details: process.env.NODE_ENV === 'development' ? decodeError.message : undefined
       });
     }
 
   } catch (error) {
-    console.error('Error in session token verification:', error);
+    console.error('[Session Token] Unexpected error in session token verification:', error);
     return res.status(500).json({
       error: 'Internal Server Error',
-      message: 'Error verifying session token'
+      message: 'Error verifying session token',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
