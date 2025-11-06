@@ -55,7 +55,7 @@ const tnController = {
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];
 
-    res.render("menus/tiendanube", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object, version });
+    res.render("menus/tiendanube", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object });
   },
   configuration: async (req, res) => {
 
