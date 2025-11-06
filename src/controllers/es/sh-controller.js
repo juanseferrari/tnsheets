@@ -58,7 +58,7 @@ const shController = {
     } else {
       user_connected = await mainService.searchUser(sh_connection_id)
     }
-    
+
 
     //Path for documentation link
     var pathSegments = req.url.split('/');
@@ -66,8 +66,21 @@ const shController = {
     var firstPath = pathSegments[1];
     console.log("firstPath: " + firstPath)
 
+    // Get shop and host from query parameters (for embedded app context)
+    const shop = req.query.shop || '';
+    const host = req.query.host || '';
 
-    res.render("menus/shopify", { title: "Shopify", sh_connection_id, user_connected, google_user, navbar_data, firstPath,lang_object});
+    res.render("menus/shopify", {
+      title: "Shopify",
+      sh_connection_id,
+      user_connected,
+      google_user,
+      navbar_data,
+      firstPath,
+      lang_object,
+      shop,
+      host
+    });
   },
   configuration: async (req, res) => {
     let google_user = res.locals.google_user

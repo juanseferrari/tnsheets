@@ -74,10 +74,25 @@
    <%- include("../partials/footer.ejs") %> 
 
   </body>
+
+  <!-- Shopify App Configuration - Pass server data to client -->
+  <script>
+    window.shopifyConfig = {
+      apiKey: '<%= process.env.SH_CLIENT_ID %>',
+      isEmbedded: <%= typeof shop !== 'undefined' && shop ? 'true' : 'false' %>,
+      shop: '<%= typeof shop !== 'undefined' ? shop : '' %>',
+      host: '<%= typeof host !== 'undefined' ? host : '' %>'
+    };
+  </script>
+
+  <!-- Load Shopify App Bridge and Session Token Handler -->
+  <script src="/js/shopify-app-bridge.js"></script>
+
+  <!-- Load your Shopify login logic -->
   <script src="/js/shopify-login.js"></script>
+
   <script src="https://smtpjs.com/v3/smtp.js"></script> <!-- Esto es el servicio para enviar mails -->
   <script src="./js/index.js"></script>
-
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </html>
