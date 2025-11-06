@@ -1,165 +1,424 @@
 /**
- * Shopify App Bridge Session Token Handler
- * This script sets up App Bridge and handles authenticated API requests using session tokens
- * Based on Shopify's official documentation for App Bridge 3.x
+ * Shopify App Bridge Session Token Handler - CDN Version
+ * =======================================================
+ *
+ * This script initializes Shopify App Bridge using the CDN version (required by Shopify)
+ * and provides utilities for making authenticated requests with session tokens.
+ *
+ * IMPORTANT: This uses the CDN-loaded App Bridge, NOT npm packages.
+ * The script is loaded from: https://cdn.shopify.com/shopifycloud/app-bridge.js
+ *
+ * REQUIREMENTS FOR SHOPIFY EMBEDDED APP CHECKS:
+ * ----------------------------------------------
+ * 1. ✅ Using the latest App Bridge script loaded from Shopify's CDN
+ * 2. ✅ Using session tokens for user authentication
+ *
+ * These are auto-checked by Shopify every 2 hours.
  */
 
-// Initialize App Bridge
-function initializeAppBridge() {
-  // Get shop and host from URL parameters (passed by Shopify)
-  const urlParams = new URLSearchParams(window.location.search);
-  const shop = urlParams.get('shop');
-  const host = urlParams.get('host');
+(function() {
+  'use strict';
 
-  if (!shop) {
-    console.error('Shop parameter is missing from URL');
-    return null;
+  // Global state
+  let appBridgeInstance = null;
+  let currentSessionToken = null;
+  let tokenExpiry = null;
+  let isRefreshingToken = false;
+  let pendingTokenRequests = [];
+
+  /**
+   * Initialize App Bridge when DOM is ready
+   */
+  function initializeAppBridge() {
+    console.log('[Shopify App Bridge] Initializing...');
+
+    // Check if App Bridge library is loaded from CDN
+    if (!window.shopify || !window.shopify.AppBridge) {
+      console.error('[Shopify App Bridge] App Bridge library not loaded. Make sure the CDN script is included.');
+      return null;
+    }
+
+    // Get configuration from server (injected in the page)
+    const config = window.shopifyConfig || {};
+
+    // For embedded context, get shop and host from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const shopParam = urlParams.get('shop');
+    const hostParam = urlParams.get('host');
+
+    // Determine if we're in embedded context
+    const isEmbedded = !!(shopParam && hostParam);
+
+    if (!isEmbedded) {
+      console.log('[Shopify App Bridge] Not in embedded context (no shop/host parameters)');
+      console.log('[Shopify App Bridge] This is normal for the initial OAuth flow');
+      return null;
+    }
+
+    // Validate we have the API key
+    if (!config.apiKey || config.apiKey === '') {
+      console.error('[Shopify App Bridge] API key not found in configuration');
+      return null;
+    }
+
+    try {
+      // Create App Bridge instance using CDN API
+      const app = window.shopify.AppBridge.createApp({
+        apiKey: config.apiKey,
+        host: hostParam,
+      });
+
+      console.log('[Shopify App Bridge] Initialized successfully');
+      console.log('[Shopify App Bridge] Shop:', shopParam);
+      console.log('[Shopify App Bridge] Host:', hostParam);
+
+      // Subscribe to errors
+      app.error((data) => {
+        console.error('[Shopify App Bridge] Error:', data);
+      });
+
+      return app;
+    } catch (error) {
+      console.error('[Shopify App Bridge] Failed to initialize:', error);
+      return null;
+    }
   }
 
-  if (!host) {
-    console.error('Host parameter is missing from URL');
-    return null;
+  /**
+   * Get a valid session token
+   * Handles caching and automatic refresh
+   * @returns {Promise<string>} The session token
+   */
+  async function getSessionToken() {
+    if (!appBridgeInstance) {
+      throw new Error('App Bridge is not initialized. Make sure you are in an embedded context.');
+    }
+
+    // Check if we have a valid cached token
+    if (currentSessionToken && isTokenValid()) {
+      console.log('[Shopify Session Token] Using cached token');
+      return currentSessionToken;
+    }
+
+    // If we're already refreshing, wait for that to complete
+    if (isRefreshingToken) {
+      console.log('[Shopify Session Token] Waiting for token refresh...');
+      return waitForTokenRefresh();
+    }
+
+    // Refresh the token
+    return refreshSessionToken();
   }
 
-  // Create App Bridge instance using the correct API
-  const app = window['app-bridge'].createApp({
-    apiKey: '75abca07b3318a56f4073ec4ccb16e90', // Your Shopify API key
-    host: host, // This is the base64 encoded host from Shopify
-  });
+  /**
+   * Check if the current token is still valid
+   * @returns {boolean}
+   */
+  function isTokenValid() {
+    if (!currentSessionToken || !tokenExpiry) {
+      return false;
+    }
 
-  console.log('App Bridge initialized successfully');
-  console.log('Shop:', shop);
-  console.log('Host:', host);
+    // Check if token expires in the next 30 seconds
+    const now = Date.now();
+    const timeUntilExpiry = tokenExpiry - now;
+    const refreshThreshold = 30 * 1000; // 30 seconds
 
-  return app;
-}
-
-/**
- * Get session token from App Bridge using the utilities library
- * @param {Object} app - App Bridge instance
- * @returns {Promise<string>} Session token
- */
-async function getSessionToken(app) {
-  if (!app) {
-    throw new Error('App Bridge is not initialized');
+    return timeUntilExpiry > refreshThreshold;
   }
 
-  try {
-    // Use the getSessionToken utility from app-bridge-utils
-    const token = await window['app-bridge-utils'].getSessionToken(app);
-    console.log('Session token retrieved successfully');
-    console.log('Token length:', token.length);
-    return token;
-  } catch (error) {
-    console.error('Error getting session token:', error);
-    throw error;
+  /**
+   * Refresh the session token
+   * @returns {Promise<string>}
+   */
+  async function refreshSessionToken() {
+    if (isRefreshingToken) {
+      return waitForTokenRefresh();
+    }
+
+    isRefreshingToken = true;
+    console.log('[Shopify Session Token] Refreshing token...');
+
+    try {
+      // Use App Bridge's utility to get session token
+      // The CDN version provides this as: window.shopify.AppBridge.actions.SessionToken
+      const SessionToken = window.shopify.AppBridge.actions.SessionToken;
+
+      // Create a session token action
+      const sessionTokenAction = SessionToken.create(appBridgeInstance);
+
+      // Get the token - this returns a promise
+      const token = await new Promise((resolve, reject) => {
+        sessionTokenAction.dispatch(SessionToken.Action.GET, {
+          resolve: resolve,
+          reject: reject
+        });
+      });
+
+      if (!token) {
+        throw new Error('Failed to retrieve session token');
+      }
+
+      currentSessionToken = token;
+      // Session tokens expire after 1 minute
+      tokenExpiry = Date.now() + (60 * 1000);
+
+      console.log('[Shopify Session Token] Token refreshed successfully');
+      console.log('[Shopify Session Token] Token length:', token.length);
+
+      // Resolve all pending requests
+      resolvePendingTokenRequests(token);
+
+      return token;
+    } catch (error) {
+      console.error('[Shopify Session Token] Failed to refresh token:', error);
+      rejectPendingTokenRequests(error);
+      throw error;
+    } finally {
+      isRefreshingToken = false;
+    }
   }
-}
 
-/**
- * Make an authenticated API request with session token
- * @param {Object} app - App Bridge instance
- * @param {string} endpoint - API endpoint to call
- * @param {Object} options - Fetch options (method, body, etc.)
- * @returns {Promise<Object>} Response data
- */
-async function authenticatedFetch(app, endpoint, options = {}) {
-  if (!app) {
-    throw new Error('App Bridge is not initialized');
-  }
-
-  try {
-    // Get fresh session token
-    const token = await getSessionToken(app);
-
-    // Prepare headers
-    const headers = {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      ...options.headers,
-    };
-
-    // Make the request
-    const response = await fetch(endpoint, {
-      ...options,
-      headers,
+  /**
+   * Wait for an ongoing token refresh to complete
+   * @returns {Promise<string>}
+   */
+  function waitForTokenRefresh() {
+    return new Promise((resolve, reject) => {
+      pendingTokenRequests.push({ resolve, reject });
     });
+  }
 
-    // Handle response
+  /**
+   * Resolve all pending token requests
+   * @param {string} token
+   */
+  function resolvePendingTokenRequests(token) {
+    pendingTokenRequests.forEach(({ resolve }) => resolve(token));
+    pendingTokenRequests = [];
+  }
+
+  /**
+   * Reject all pending token requests
+   * @param {Error} error
+   */
+  function rejectPendingTokenRequests(error) {
+    pendingTokenRequests.forEach(({ reject }) => reject(error));
+    pendingTokenRequests = [];
+  }
+
+  /**
+   * Make an authenticated fetch request with session token
+   * This is the main function you'll use to call your backend APIs
+   *
+   * @param {string} url - The API endpoint to call
+   * @param {Object} options - Fetch options (method, body, headers, etc.)
+   * @returns {Promise<Response>} The fetch response
+   */
+  async function authenticatedFetch(url, options = {}) {
+    if (!appBridgeInstance) {
+      throw new Error('App Bridge is not initialized. Cannot make authenticated requests.');
+    }
+
+    try {
+      // Get a valid session token
+      const token = await getSessionToken();
+
+      // Prepare headers with session token
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        ...options.headers,
+      };
+
+      // Make the request
+      console.log(`[Shopify Authenticated Fetch] ${options.method || 'GET'} ${url}`);
+      const response = await fetch(url, {
+        ...options,
+        headers,
+      });
+
+      // Handle 401 - token might be expired
+      if (response.status === 401) {
+        console.warn('[Shopify Authenticated Fetch] Got 401, token might be expired. Clearing token...');
+        currentSessionToken = null;
+        tokenExpiry = null;
+
+        // Retry once with a fresh token
+        console.log('[Shopify Authenticated Fetch] Retrying with fresh token...');
+        const newToken = await getSessionToken();
+
+        return fetch(url, {
+          ...options,
+          headers: {
+            ...headers,
+            'Authorization': `Bearer ${newToken}`,
+          },
+        });
+      }
+
+      return response;
+    } catch (error) {
+      console.error('[Shopify Authenticated Fetch] Error:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Convenience method for GET requests
+   * @param {string} url - The API endpoint
+   * @returns {Promise<Object>} The response data
+   */
+  async function get(url) {
+    const response = await authenticatedFetch(url, { method: 'GET' });
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `Request failed with status ${response.status}`);
+      throw new Error(`GET ${url} failed with status ${response.status}`);
     }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Authenticated fetch error:', error);
-    throw error;
+    return response.json();
   }
-}
 
-/**
- * Example: Load shop data using session token
- * @param {Object} app - App Bridge instance
- */
-async function loadShopData(app) {
-  try {
-    const data = await authenticatedFetch(app, '/api/shopify/shop-data', {
-      method: 'GET',
-    });
-    console.log('Shop data:', data);
-    return data;
-  } catch (error) {
-    console.error('Error loading shop data:', error);
-    // Handle error (show message to user, etc.)
-  }
-}
-
-/**
- * Example: Update shop configuration
- * @param {Object} app - App Bridge instance
- * @param {Object} configData - Configuration data to update
- */
-async function updateConfiguration(app, configData) {
-  try {
-    const data = await authenticatedFetch(app, '/api/shopify/update-config', {
+  /**
+   * Convenience method for POST requests
+   * @param {string} url - The API endpoint
+   * @param {Object} data - The data to send
+   * @returns {Promise<Object>} The response data
+   */
+  async function post(url, data) {
+    const response = await authenticatedFetch(url, {
       method: 'POST',
-      body: JSON.stringify(configData),
+      body: JSON.stringify(data),
     });
-    console.log('Configuration updated:', data);
-    return data;
-  } catch (error) {
-    console.error('Error updating configuration:', error);
-    // Handle error (show message to user, etc.)
-  }
-}
-
-// Initialize when page loads
-let appBridgeInstance = null;
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Only initialize App Bridge if we're in an embedded context (has shop parameter)
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('shop')) {
-    appBridgeInstance = initializeAppBridge();
-
-    if (appBridgeInstance) {
-      console.log('App is running in embedded context');
-
-      // Example: Load shop data automatically
-      // Uncomment the line below to load shop data on page load
-      // loadShopData(appBridgeInstance);
+    if (!response.ok) {
+      throw new Error(`POST ${url} failed with status ${response.status}`);
     }
-  } else {
-    console.log('App is not running in embedded context (no shop parameter)');
+    return response.json();
   }
-});
 
-// Export functions for use in other scripts
-window.shopifyAppBridge = {
-  getApp: () => appBridgeInstance,
-  getSessionToken: () => getSessionToken(appBridgeInstance),
-  authenticatedFetch: (endpoint, options) => authenticatedFetch(appBridgeInstance, endpoint, options),
-  loadShopData: () => loadShopData(appBridgeInstance),
-  updateConfiguration: (configData) => updateConfiguration(appBridgeInstance, configData),
-};
+  /**
+   * Convenience method for PUT requests
+   * @param {string} url - The API endpoint
+   * @param {Object} data - The data to send
+   * @returns {Promise<Object>} The response data
+   */
+  async function put(url, data) {
+    const response = await authenticatedFetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error(`PUT ${url} failed with status ${response.status}`);
+    }
+    return response.json();
+  }
+
+  /**
+   * Convenience method for DELETE requests
+   * @param {string} url - The API endpoint
+   * @returns {Promise<Object>} The response data
+   */
+  async function deleteRequest(url) {
+    const response = await authenticatedFetch(url, { method: 'DELETE' });
+    if (!response.ok) {
+      throw new Error(`DELETE ${url} failed with status ${response.status}`);
+    }
+    return response.json();
+  }
+
+  /**
+   * Get information about the current session
+   * Useful for debugging
+   * @returns {Object}
+   */
+  function getSessionInfo() {
+    return {
+      isInitialized: !!appBridgeInstance,
+      hasToken: !!currentSessionToken,
+      isTokenValid: isTokenValid(),
+      tokenExpiry: tokenExpiry,
+      isRefreshing: isRefreshingToken,
+      pendingRequests: pendingTokenRequests.length,
+    };
+  }
+
+  /**
+   * Clear the current session token
+   * Forces a refresh on the next request
+   */
+  function clearToken() {
+    console.log('[Shopify Session Token] Clearing token');
+    currentSessionToken = null;
+    tokenExpiry = null;
+  }
+
+  // Initialize App Bridge when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      appBridgeInstance = initializeAppBridge();
+    });
+  } else {
+    appBridgeInstance = initializeAppBridge();
+  }
+
+  // Export API to global scope
+  window.ShopifyAppBridge = {
+    // Core functionality
+    getApp: () => appBridgeInstance,
+    getSessionToken: getSessionToken,
+    authenticatedFetch: authenticatedFetch,
+
+    // Convenience methods
+    get: get,
+    post: post,
+    put: put,
+    delete: deleteRequest,
+
+    // Utilities
+    getSessionInfo: getSessionInfo,
+    clearToken: clearToken,
+    isInitialized: () => !!appBridgeInstance,
+  };
+
+  console.log('[Shopify App Bridge] Module loaded successfully');
+})();
+
+/**
+ * USAGE EXAMPLES:
+ * ===============
+ *
+ * 1. Check if App Bridge is initialized:
+ *    ```javascript
+ *    if (window.ShopifyAppBridge.isInitialized()) {
+ *      console.log('Ready to make authenticated requests');
+ *    }
+ *    ```
+ *
+ * 2. Make a GET request:
+ *    ```javascript
+ *    const shopData = await window.ShopifyAppBridge.get('/api/shopify/shop-data');
+ *    console.log('Shop:', shopData);
+ *    ```
+ *
+ * 3. Make a POST request:
+ *    ```javascript
+ *    const result = await window.ShopifyAppBridge.post('/api/shopify/update-config', {
+ *      setting1: 'value1',
+ *      setting2: 'value2'
+ *    });
+ *    console.log('Updated:', result);
+ *    ```
+ *
+ * 4. Custom authenticated request:
+ *    ```javascript
+ *    const response = await window.ShopifyAppBridge.authenticatedFetch('/api/custom-endpoint', {
+ *      method: 'PATCH',
+ *      body: JSON.stringify({ data: 'value' })
+ *    });
+ *    const data = await response.json();
+ *    ```
+ *
+ * 5. Debug session info:
+ *    ```javascript
+ *    const info = window.ShopifyAppBridge.getSessionInfo();
+ *    console.log('Session status:', info);
+ *    ```
+ */

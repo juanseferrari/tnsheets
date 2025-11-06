@@ -18,6 +18,7 @@ const tn_client_secret = process.env.TN_CLIENT_SECRET
 const test_client_id = "6107"
 const test_client_secret = "d05ab78cfd8ec215ffe08d235cbf079a6c224c9b066b641e"
 
+const tn_sheet_version = "2.7"
 
 const tnController = {
   cloneSheet: async (req, res) => {
@@ -39,8 +40,8 @@ const tnController = {
         }
       }
     }
-    //v2.6
-    res.redirect("https://docs.google.com/spreadsheets/d/1ALm74fN-KMwdKZykGJnegyhLHMsl8R9zHSRbxUnYUbE/copy")
+    //v2.7
+    res.redirect("https://docs.google.com/spreadsheets/d/1RGU3ynKibFAx8MFc5aPaLOut8tNds9AbrDIsdCFpMec/copy")
   },
   tnHome: async (req, res) => {
     let google_user = res.locals.google_user
@@ -54,7 +55,7 @@ const tnController = {
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];
 
-    res.render("menus/tiendanube", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object });
+    res.render("menus/tiendanube", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object, version });
   },
   configuration: async (req, res) => {
 
@@ -86,7 +87,7 @@ const tnController = {
     var firstPath = pathSegments[1];
     console.log("firstPath: " + firstPath)
 
-    res.render("instructions/tn-instructions", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object })
+    res.render("instructions/tn-instructions", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object, tn_sheet_version })
   },
   documentation: (req, res) => {
     let lang = req.query.lang
