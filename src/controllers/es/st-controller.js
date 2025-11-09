@@ -159,7 +159,7 @@ const stController = {
           console.log("record_id: " + record_id)
 
           res.cookie("st_connection_id", record_id)
-          res.cookie("sc_lang", main_language)
+          res.cookie("sc_lang", "es")
           res.redirect("/strava/config")
         
         } else {
