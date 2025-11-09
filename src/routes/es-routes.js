@@ -21,6 +21,7 @@ const shMid = require('../middlewares/shopify');
 //const { verifySessionToken } = require('../middlewares/verify-session-token');
 
 const googleController = require('../controllers/google-controller');
+const stController = require('../controllers/es/st-controller');
 
 /**
  * Nomenclatura general:
@@ -128,11 +129,17 @@ router.get('/woocommerce/oauth',generalMid, woController.woRedirect)
 router.post('/woocommerce/oauth',generalMid, woController.woOauth)
 router.get('/woocommerce/documentation', woController.documentation);
 
-/* Woocommerce */
+/* EUBANKS */
 router.get('/eubanks',generalMid, euController.euHome)
 router.get('/eubanks/connect',generalMid, euController.euGetLink)
 router.post('/eubanks/oauth',generalMid, euController.euOauth)
 router.get('/eubanks/clone-sheet',generalMid,euController.cloneSheet) 
+
+/* STRAVA */
+router.get('/strava',generalMid, stController.stHome)
+router.get('/strava/oauth',generalMid, stController.stOauth)
+router.get('/strava/config',generalMid, stController.configuration)
+router.get('/strava/connect',generalMid,stController.connect) 
 
 
 
