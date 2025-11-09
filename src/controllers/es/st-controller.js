@@ -40,7 +40,7 @@ const stController = {
   },
   stHome: async (req, res) => {
     let google_user = res.locals.google_user
-    let connection_id = res.locals.connection_id
+    let connection_id = res.locals.st_connection_id
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
 
@@ -160,7 +160,7 @@ const stController = {
 
           res.cookie("st_connection_id", record_id)
           res.cookie("sc_lang", main_language)
-          return res.redirect("/strava/config")
+          res.redirect("/strava/config")
         
         } else {
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 333134"
@@ -168,6 +168,7 @@ const stController = {
         }
 
       } catch (error) {
+        console.log(error)
         let message = "Ha ocurrido un error, intentelo más tarde. Error: 90189282999"
         res.render("menus/error-page", { message, navbar_data, lang_object })
       }
