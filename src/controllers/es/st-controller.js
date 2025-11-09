@@ -64,7 +64,7 @@ const stController = {
   configuration: async (req, res) => {
 
     let google_user = res.locals.google_user
-    let connection_id = res.locals.connection_id
+    let connection_id = res.locals.st_connection_id
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
 
@@ -110,7 +110,7 @@ const stController = {
 
     let response = await fetch("https://www.strava.com/api/v3/oauth/token", requestOptions)
     let data = await response.json();
-    if (data['error']) {
+    if (data['errors']) {
       //WIP despues manejar bien este error handling. 
       let message = "No hemos podido validar la conexión con Strava. Por favor intente nuevamente."
       res.render("menus/error-page", { message, navbar_data, lang_object })
@@ -154,11 +154,13 @@ const stController = {
         console.log("Airtable response on save response")
 
         if (response['response_status'] == 200) {
+          console.log("in status 200")
           let record_id = response['id']
+          console.log("record_id: " + record_id)
 
-          res.cookie("connection_id", record_id)
+          res.cookie("st_connection_id", record_id)
           res.cookie("sc_lang", main_language)
-          res.redirect("/strava/config")
+          return res.redirect("/strava/config")
         
         } else {
           let message = "Ha ocurrido un error, intentelo más tarde. Error: 333134"
