@@ -14,6 +14,8 @@ const paymentService = require("../../services/payment-service");
 const st_client_id = process.env.ST_CLIENT_ID
 const st_client_secret = process.env.ST_CLIENT_SECRET
 
+//STRAVA PUBLISH DOCS: https://developers.strava.com/docs/rate-limits/
+//STRAVA API DOCS: https://developers.strava.com/docs/
 
 const stController = {
   cloneSheet: async (req, res) => {
@@ -40,17 +42,17 @@ const stController = {
   },
   stHome: async (req, res) => {
     let google_user = res.locals.google_user
-    let connection_id = res.locals.st_connection_id
+    let st_connection_id = res.locals.st_connection_id
     let navbar_data = res.locals.navbar_data
     let lang_object = res.locals.lang_object
 
-    let user_connected = await mainService.searchUser(connection_id)
+    let user_connected = await mainService.searchUser(st_connection_id)
     console.log(navbar_data)
     //Path for documentation link
     var pathSegments = req.url.split('/');
     var firstPath = pathSegments[1];
 
-    res.render("menus/strava", { connection_id, user_connected, google_user, navbar_data, firstPath, lang_object });
+    res.render("menus/strava", { st_connection_id, user_connected, google_user, navbar_data, firstPath, lang_object });
   },
   connect: async (req, res) => {
     let google_user_id = ''
