@@ -26,7 +26,7 @@
 
       <!-- STEP 1 -->
       <div id="step1">
-        <% if (sh_connection_id || user_connected.id) { %>
+        <% if (connection_id || user_connected.id) { %>
           <!-- step-block si ya esta logueado-->
           <div class="step-block step-ok">
             <div class="step-title">
@@ -155,7 +155,7 @@
                       <!-- A futuro agregar validacion de cookie por si el usuario no esta logueado -->
                       <label for="id-conexion">ID de Conexión</label>
                       <input type="text" class="form-control" id="id-conexion" aria-describedby="basic-addon2"
-                        value="<%= st_connection_id ? st_connection_id : '' %>">
+                        value="<%= connection_id ? connection_id : '' %>">
                     </div>
                     <div class="input-group-item2">
                       <button class="btn btn-success shadow" onclick="return copyToClipboard(event, this);"><i
