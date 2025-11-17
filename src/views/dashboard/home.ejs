@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../partials/head.ejs") %>
+  <title><%= title %></title>
+  <meta property="og:title" content="<%= title %>">
+
+  <style>
+    /* Dashboard-specific styles */
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .dashboard-header {
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .dashboard-header p {
+      color: #6c757d;
+      font-size: 1.1rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .stat-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card-title {
+      font-size: 0.875rem;
+      color: #6c757d;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-card-icon {
+      font-size: 1.5rem;
+      color: #007bff;
+    }
+
+    .stat-card-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #212529;
+    }
+
+    .stat-card-subtitle {
+      font-size: 0.875rem;
+      color: #6c757d;
+      margin-top: 0.5rem;
+    }
+
+    .quick-actions {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .quick-actions h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .action-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .action-btn {
+      padding: 1rem;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #212529;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      border-color: #007bff;
+      background-color: #f8f9fa;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .action-btn i {
+      font-size: 1.5rem;
+    }
+
+    .welcome-message {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .welcome-message h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .login-prompt {
+      background: white;
+      border-radius: 12px;
+      padding: 3rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .login-prompt h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .login-prompt p {
+      color: #6c757d;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+
+<body class="gradient-background">
+  <%- include("../partials/header.ejs") %>
+
+  <div class="dashboard-container">
+    <% if (google_user && google_user.google_user_id) { %>
+      <!-- Logged in user dashboard -->
+      <div class="welcome-message">
+        <h2>Welcome back, <%= google_user.name || 'User' %>!</h2>
+        <p>Here's an overview of your Sheets Central account</p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Total Connections</span>
+            <i class="fas fa-link stat-card-icon"></i>
+          </div>
+          <div class="stat-card-value">
+            <%= userData && userData.totalConnections || connections.length || 0 %>
+          </div>
+          <div class="stat-card-subtitle">Active integrations</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Active Sheets</span>
+            <i class="fas fa-table stat-card-icon"></i>
+          </div>
+          <div class="stat-card-value">
+            <%= userData && userData.activeSheets || 0 %>
+          </div>
+          <div class="stat-card-subtitle">Google Sheets connected</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Last Sync</span>
+            <i class="fas fa-sync stat-card-icon"></i>
+          </div>
+          <div class="stat-card-value">
+            <% if (userData && userData.lastSyncDate) { %>
+              <%= new Date(userData.lastSyncDate).toLocaleDateString() %>
+            <% } else { %>
+              N/A
+            <% } %>
+          </div>
+          <div class="stat-card-subtitle">Most recent update</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Account Status</span>
+            <i class="fas fa-check-circle stat-card-icon"></i>
+          </div>
+          <div class="stat-card-value">Active</div>
+          <div class="stat-card-subtitle">All systems operational</div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+       <!-- 
+      <div class="quick-actions">
+        <h2>Quick Actions</h2>
+        <div class="action-buttons">
+          <a href="https://www.sheetscentral.com/shopify" class="action-btn">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Connect Shopify</span>
+          </a>
+          <a href="https://www.sheetscentral.com/tiendanube" class="action-btn">
+            <i class="fas fa-store"></i>
+            <span>Connect Tiendanube</span>
+          </a>
+          <a href="https://www.sheetscentral.com/woocommerce" class="action-btn">
+            <i class="fab fa-wordpress"></i>
+            <span>Connect WooCommerce</span>
+          </a>
+          <a href="https://www.sheetscentral.com/account" class="action-btn">
+            <i class="fas fa-user-circle"></i>
+            <span>View Account</span>
+          </a>
+          <a href="/analytics" class="action-btn">
+            <i class="fas fa-chart-line"></i>
+            <span>View Analytics</span>
+          </a>
+          <a href="/settings" class="action-btn">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </div>
+      </div>
+-->
+      <!-- Connections Overview -->
+       <!-- 
+      <% if (connections && connections.length > 0) { %>
+      <div class="quick-actions">
+        <h2>Your Connections</h2>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Platform</th>
+                <th>Store Name</th>
+                <th>Status</th>
+                <th>Last Updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% connections.forEach(function(conn) { %>
+              <tr>
+                <td><%= conn.platform || 'N/A' %></td>
+                <td><%= conn.store_name || 'N/A' %></td>
+                <td><span class="badge bg-success">Active</span></td>
+                <td><%= conn.updated_at ? new Date(conn.updated_at).toLocaleDateString() : 'N/A' %></td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <% } %>
+-->
+    <% } else { %>
+      <!-- Not logged in -->
+      <div class="login-prompt">
+        <h2>Welcome to Sheets Central Dashboard</h2>
+        <p>Please log in with Google to access your dashboard</p>
+        <%- include("../partials/buttons/google-login.ejs") %>
+      </div>
+    <% } %>
+  </div>
+
+  <%- include("../partials/footer.ejs") %>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Dashboard-specific JavaScript
+    console.log('[Dashboard] Loaded successfully');
+
+    // You can add dashboard-specific functionality here
+    // For example, real-time updates, charts, etc.
+  </script>
+</body>
+</html>

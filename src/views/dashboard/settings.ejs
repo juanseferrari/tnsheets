@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("../partials/head.ejs") %>
+  <title><%= title %></title>
+  <meta property="og:title" content="<%= title %>">
+</head>
+
+<body class="gradient-background">
+  <%- include("../partials/header.ejs") %>
+
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="mb-4">Settings</h1>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Dashboard Settings</h5>
+            <p class="card-text">
+              Settings page is under development. This page will allow you to:
+            </p>
+            <ul>
+              <li>Manage account preferences</li>
+              <li>Configure notification settings</li>
+              <li>Customize dashboard appearance</li>
+              <li>Manage API keys and integrations</li>
+            </ul>
+            <a href="/" class="btn btn-primary">Back to Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include("../partials/footer.ejs") %>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
