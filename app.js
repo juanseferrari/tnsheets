@@ -27,9 +27,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Host-based routing for dashboard.sheetscentral.com
 app.use((req, res, next) => {
   const host = req.hostname;
-  if (host === 'dashboard.sheetscentral.com') {
+
+  // Handle dashboard subdomain (works for both production and localhost)
+  if (host === 'dashboard.sheetscentral.com' || host === 'dashboard.localhost') {
+    console.log('[App] Routing to dashboard:', req.url);
     return dashboardRouter(req, res, next);
   }
+
   next();
 });
 

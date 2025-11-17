@@ -8,7 +8,6 @@ const linksService = require("../services/links-service");
 
 const commonVariablesMiddleware = async (req, res, next) => {
 
-
     //GENERAL VARIABLES
     let amount_of_results = 0
     let navbar_data
