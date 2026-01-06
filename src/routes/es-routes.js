@@ -128,6 +128,8 @@ router.get('/woocommerce/config', generalMid, woController.configuration);
 router.get('/woocommerce/oauth',generalMid, woController.woRedirect)
 router.post('/woocommerce/oauth',generalMid, woController.woOauth)
 router.get('/woocommerce/documentation', woController.documentation);
+router.get('/woocommerce/clone-sheet',generalMid, woController.cloneSheet) 
+
 
 /* EUBANKS */
 router.get('/eubanks',generalMid, euController.euHome)
@@ -140,6 +142,7 @@ router.get('/strava',generalMid, stController.stHome)
 router.get('/strava/oauth',generalMid, stController.stOauth)
 router.get('/strava/config',generalMid, stController.configuration)
 router.get('/strava/connect',generalMid,stController.connect) 
+router.get('/strava/clone-sheet',generalMid, stController.cloneSheet) 
 
 
 
