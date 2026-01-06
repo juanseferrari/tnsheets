@@ -19,6 +19,28 @@ const mainService = require("../../services/main-service");
 
 
 const woController = {
+  cloneSheet: async (req, res) => {
+    let connection_id = req.query.connection_id    
+    if (connection_id) {
+      let user_connected = await mainService.searchUser(connection_id)
+
+      if (user_connected) {
+        var fields_to_db = {
+          "clicked_cloned": "clicked",
+          "clicked_cloned_date": new Date().toISOString(),
+          connection_id,
+          "connection": "woocommerce",
+          "user_id": user_connected.user_id
+        }
+        try {
+          let result = await mainService.createAirtableUpsert(true, ["user_id", "connection"], fields_to_db, "prod_users")
+        } catch (error) {
+        }
+      }
+    }
+    //v1.3
+    res.redirect("https://docs.google.com/spreadsheets/d/1tg1Ddd7ALviG_EeY_0ZIDyAJaxgntzlBbAFPahcryZ4/copy")
+  },
   woHome: async (req,res) => {
     let google_user = res.locals.google_user
     let wo_connection_id = res.locals.wo_connection_id
