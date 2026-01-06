@@ -107,7 +107,7 @@ const apiController = {
               response_object = {
                 "connection_id": response.id,
                 "access_token": response.fields.access_token,
-                //"refresh_token": response.fields.refresh_token,
+                "refresh_token": response.fields.refresh_token,
                 "user_id": response.fields.user_id,
                 "connection": response.fields.connection,
                 "user_url": response.fields.user_url,
