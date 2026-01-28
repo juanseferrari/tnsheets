@@ -77,6 +77,7 @@ router.get('/sh/documentation', shController.documentation); //Esto es porque a 
 
 router.get('/shopify/verify', generalMid, shController.verifyRequest);
 router.get('/shopify/oauth', generalMid, shController.shOauth)
+router.get('/shopify/session-token-bounce', shController.sessionTokenBounce)
 
 router.get('/shopify/premium',generalMid, shController.documentation) //TODO finish premium link
 router.get('/shopify/clone-sheet',generalMid,shController.cloneSheet) 
