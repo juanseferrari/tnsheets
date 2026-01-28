@@ -19,31 +19,55 @@ const shopify = shopifyApi({
 });
 
 /**
+ * Helper function to extract session token from Authorization header
+ */
+function getSessionTokenFromHeader(req) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) return null;
+
+  const token = authHeader.replace('Bearer ', '').trim();
+  return token !== authHeader ? token : null;
+}
+
+/**
+ * Helper function to extract session token from URL parameter
+ * Shopify adds id_token when initially loading your app
+ */
+function getSessionTokenFromUrlParam(req) {
+  return req.query.id_token || null;
+}
+
+/**
  * Middleware to verify Shopify session tokens
  * This middleware validates JWT tokens sent from the Shopify embedded app
  * Based on Shopify's official documentation for session tokens
+ *
+ * Token sources (in order of preference):
+ * 1. Authorization header (App Bridge adds this automatically)
+ * 2. URL parameter 'id_token' (Shopify adds this on initial load)
  */
 const verifySessionToken = async (req, res, next) => {
   try {
-    // Get the authorization header
-    const authHeader = req.headers.authorization;
+    // Try to get token from header first, then URL parameter
+    let token = getSessionTokenFromHeader(req) || getSessionTokenFromUrlParam(req);
 
-    if (!authHeader) {
-      console.log('[Session Token] No authorization header found');
+    if (!token) {
+      console.log('[Session Token] No token found in header or URL parameters');
+
+      // Check if this is a document request (initial page load vs XHR)
+      const isDocumentRequest = !req.headers.authorization &&
+                               req.headers.accept &&
+                               req.headers.accept.includes('text/html');
+
+      if (isDocumentRequest) {
+        // For document requests, redirect to session token bounce page
+        console.log('[Session Token] Document request without token, redirecting to bounce page');
+        return res.redirect(`/shopify/session-token-bounce?${new URLSearchParams(req.query).toString()}`);
+      }
+
       return res.status(401).json({
         error: 'Unauthorized',
         message: 'No authorization token provided'
-      });
-    }
-
-    // Extract the token (format: "Bearer <token>")
-    const token = authHeader.replace('Bearer ', '').trim();
-
-    if (!token || token === authHeader) {
-      console.log('[Session Token] No token found in authorization header');
-      return res.status(401).json({
-        error: 'Unauthorized',
-        message: 'Invalid authorization format. Expected: Bearer <token>'
       });
     }
 
@@ -92,6 +116,20 @@ const verifySessionToken = async (req, res, next) => {
     } catch (decodeError) {
       console.error('[Session Token] Error decoding session token:', decodeError);
       console.error('[Session Token] Error details:', decodeError.message);
+
+      // Check if this is a document request
+      const isDocumentRequest = !req.headers.authorization &&
+                               req.headers.accept &&
+                               req.headers.accept.includes('text/html');
+
+      if (isDocumentRequest) {
+        // For document requests, redirect to session token bounce page
+        console.log('[Session Token] Invalid token on document request, redirecting to bounce page');
+        return res.redirect(`/shopify/session-token-bounce?${new URLSearchParams(req.query).toString()}`);
+      }
+
+      // For XHR/fetch requests, tell App Bridge to retry with a new token
+      res.setHeader('X-Shopify-Retry-Invalid-Session-Request', '1');
 
       return res.status(401).json({
         error: 'Unauthorized',

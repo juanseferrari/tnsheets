@@ -392,6 +392,108 @@ const shController = {
     console.log("verifyRequest")
 
     res.status(200).send('Session is valid!');
+  },
+
+  /**
+   * Session Token Bounce Page
+   * -------------------------
+   * This page is used when a session token is missing or invalid.
+   * It loads App Bridge which automatically gets a new session token,
+   * then redirects back to the intended page.
+   *
+   * Based on Shopify's official documentation:
+   * https://shopify.dev/docs/apps/build/authentication-authorization/set-embedded-app-authorization
+   */
+  sessionTokenBounce: async (req, res) => {
+    console.log('[Session Token Bounce] Rendering bounce page');
+    console.log('[Session Token Bounce] Query params:', req.query);
+
+    // Get the original path to redirect back to
+    const shopifyReload = req.query['shopify-reload'];
+    const host = req.query.host;
+
+    // Clean up query params for redirect
+    const redirectParams = new URLSearchParams(req.query);
+    redirectParams.delete('shopify-reload');
+
+    const redirectPath = shopifyReload || '/shopify/config';
+    const redirectUrl = redirectParams.toString() ?
+      `${redirectPath}?${redirectParams.toString()}` :
+      redirectPath;
+
+    console.log('[Session Token Bounce] Will redirect to:', redirectUrl);
+
+    // Render minimal page that loads App Bridge and redirects
+    res.setHeader("Content-Type", "text/html");
+    const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="shopify-api-key" content="${sh_client_id}" />
+  <script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: #f6f6f7;
+    }
+    .loader {
+      text-align: center;
+    }
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #5c6ac4;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .message {
+      color: #202223;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="loader">
+    <div class="spinner"></div>
+    <div class="message">Refreshing session...</div>
+  </div>
+
+  <script>
+    // Initialize App Bridge to get a fresh session token
+    if (window.shopify && window.shopify.AppBridge) {
+      const app = window.shopify.AppBridge.createApp({
+        apiKey: '${sh_client_id}',
+        host: '${host || ''}'
+      });
+
+      console.log('[Session Token Bounce] App Bridge initialized');
+
+      // Give App Bridge a moment to initialize, then redirect
+      setTimeout(() => {
+        console.log('[Session Token Bounce] Redirecting to:', '${redirectUrl}');
+        window.location.href = '${redirectUrl}';
+      }, 500);
+    } else {
+      console.error('[Session Token Bounce] App Bridge not loaded');
+      document.querySelector('.message').textContent = 'Error loading session. Please refresh.';
+    }
+  </script>
+</body>
+</html>
+    `;
+
+    res.send(html);
   }
 
 };
