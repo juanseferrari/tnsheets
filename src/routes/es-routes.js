@@ -48,7 +48,6 @@ router.get('/tiendanube/oauth',generalMid,tnController.tnOauth)
 router.get('/tiendanube/premium',generalMid,tnController.getPremium)  
 router.get('/tiendanube/sheet',generalMid,tnController.getSheet)  //TODO hacerlo con todos los planes para que te redirija al sheet. 
 router.get('/tiendanube/clone-sheet',generalMid,tnController.cloneSheet) 
-
 router.post('/tiendanube/uninstalled', tnController.appUninstalled) 
 router.post('/tn/uninstalled', tnController.appUninstalled) //TODO deprecar, cambiarle la url a todos
 
@@ -62,9 +61,7 @@ router.get('/drive-to-tiendanube/documentation',dtController.documentation)
 router.get('/drive-to-tiendanube/oauth',generalMid,dtController.dtOauth) 
 router.get('/drive-to-tiendanube/premium',generalMid, dtController.getPremium)  
 router.get('/drive-to-tiendanube/clone-sheet',generalMid, dtController.cloneSheet) 
-
 router.post('/drive-to-tiendanube/uninstalled', dtController.appUninstalled)
-
 router.get('/drive-to-tiendanube/:connId/config', generalMid, checkAuth.checkDT, dtController.configuration2)
 
 
@@ -74,23 +71,17 @@ router.get('/shopify', generalMid, shController.shHome);
 router.get('/shopify/config',shMid,  generalMid, shController.configuration);
 router.get('/shopify/documentation', shController.documentation);
 router.get('/sh/documentation', shController.documentation); //Esto es porque a veces Shopify no te deja
-
 router.get('/shopify/verify', generalMid, shController.verifyRequest);
 router.get('/shopify/oauth', generalMid, shController.shOauth)
 router.get('/shopify/session-token-bounce', shController.sessionTokenBounce)
 
 router.get('/shopify/premium',generalMid, shController.documentation) //TODO finish premium link
 router.get('/shopify/clone-sheet',generalMid,shController.cloneSheet) 
-
-
 router.post('/shopify/store-redact',shController.storeRedact) 
 router.post('/shopify/customer-redact',shController.storeRedact) 
 router.post('/shopify/data-request',shController.storeRedact) 
-
 router.post('/shopify/uninstalled', shController.documentation) //TODO finish uninstalled
-
 router.get('/shopify/:connId/config', generalMid, checkAuth.checkSH, shController.configuration2)
-
 router.get('/shopify/protected', shMid, shController.session)
 
 /* Shopify to Tiendanube */
@@ -129,6 +120,8 @@ router.get('/woocommerce/config', generalMid, woController.configuration);
 router.get('/woocommerce/oauth',generalMid, woController.woRedirect)
 router.post('/woocommerce/oauth',generalMid, woController.woOauth)
 router.get('/woocommerce/documentation', woController.documentation);
+router.get('/woocommerce/clone-sheet',generalMid, woController.cloneSheet) 
+
 
 /* EUBANKS */
 router.get('/eubanks',generalMid, euController.euHome)
@@ -139,8 +132,11 @@ router.get('/eubanks/clone-sheet',generalMid,euController.cloneSheet)
 /* STRAVA */
 router.get('/strava',generalMid, stController.stHome)
 router.get('/strava/oauth',generalMid, stController.stOauth)
+router.post('/strava/refresh-token',generalMid, stController.refreshToken)
+
 router.get('/strava/config',generalMid, stController.configuration)
 router.get('/strava/connect',generalMid,stController.connect) 
+router.get('/strava/clone-sheet',generalMid, stController.cloneSheet) 
 
 
 

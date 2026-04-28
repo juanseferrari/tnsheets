@@ -114,7 +114,7 @@
                 <%- include("../partials/sheets_buttons/sh-sheet.ejs", {buttonText: lang_object.text.sheet_open_button ,
                   url: "https://docs.google.com/spreadsheets/d/" + user_connected.spreadsheet_id }) %>
                   <%} else { %>
-                    <%- include("../partials/sheets_buttons/sh-sheet.ejs", {buttonText: false, url: false}) %>
+                    <%- include("../partials/sheets_buttons/st-sheet.ejs", {buttonText: false, url: false}) %>
                 <% } %>
 
               <!-- end clone sheet button -->

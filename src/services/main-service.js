@@ -646,8 +646,89 @@ const mainService = {
     //a futuro agregar un servicio que para cualquier plataforma te traiga el access token del usuario
     //este servicio tiene que manejar la gestion del refresh token tambien de alguna forma. 
   },
-  refreshToken(connection_id) {
-    //a futuro hacer una funcion para refreshear el access token. 
+  async stRefreshToken(connection_id, user_id, refresh_token) {
+    //Valida la informacion contra Airtable y genera un nuevo access_token contra Strava
+
+    //1. Validar la conexion en Airtable
+    let user_data = await this.getAirtableDataById(connection_id, "prod_users")
+    if (user_data.error) {
+      return {
+        "error": {
+          "type": "INVALID_CONNECTION_ID",
+          "message": "No se encontró la conexión con ese connection_id."
+        }
+      }
+    }
+
+    let db_user_id = user_data.fields ? user_data.fields.user_id : null
+    let db_refresh_token = user_data.fields ? user_data.fields.refresh_token : null
+    let db_connection = user_data.fields ? user_data.fields.connection : null
+
+    if (db_connection !== "strava") {
+      return {
+        "error": {
+          "type": "INVALID_CONNECTION",
+          "message": "La conexión no es de Strava."
+        }
+      }
+    }
+
+    if (db_user_id?.toString() !== user_id?.toString() || db_refresh_token !== refresh_token) {
+      return {
+        "error": {
+          "type": "INVALID_CREDENTIALS",
+          "message": "El user_id o el refresh_token no coinciden con los registros."
+        }
+      }
+    }
+
+    //2. Pedirle a Strava un nuevo access_token
+    const st_client_id = process.env.ST_CLIENT_ID
+    const st_client_secret = process.env.ST_CLIENT_SECRET
+
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "client_id": st_client_id,
+        "client_secret": st_client_secret,
+        "grant_type": "refresh_token",
+        "refresh_token": refresh_token
+      }),
+      redirect: 'follow'
+    }
+
+    let strava_response = await fetch("https://www.strava.com/api/v3/oauth/token", requestOptions)
+    let strava_data = await strava_response.json()
+
+    if (strava_response.status !== 200 || strava_data.errors) {
+      return {
+        "error": {
+          "type": "STRAVA_REFRESH_FAILED",
+          "message": "No fue posible refrescar el token contra Strava.",
+          "details": strava_data
+        }
+      }
+    }
+
+    //3. Actualizar Airtable con los tokens nuevos
+    let fields_to_db = {
+      "access_token": strava_data.access_token,
+      "refresh_token": strava_data.refresh_token
+    }
+
+    await this.editAirtableDataById(connection_id, "prod_users", fields_to_db)
+
+    return {
+      "status": "success",
+      "access_token": strava_data.access_token,
+      "refresh_token": strava_data.refresh_token,
+      "expires_at": strava_data.expires_at,
+      "expires_in": strava_data.expires_in,
+      "token_type": strava_data.token_type
+    }
   },
   async hashValues(value1, value2, value3) {
     const encoder = new TextEncoder();
