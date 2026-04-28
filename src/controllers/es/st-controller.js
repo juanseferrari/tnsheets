@@ -212,7 +212,29 @@ const stController = {
     //Funcion que valida si existe connection_id y abre el sheet.
     //Si no existe connection_id redirigir al login page.
   },
+  refreshToken: async (req, res) => {
+    //Funcion que actualiza el token de acceso de Strava
+    let connection_id = req.body.connection_id
+    let user_id = req.body.user_id
+    let refresh_token = req.body.refresh_token
 
+    if (!connection_id || !user_id || !refresh_token) {
+      return res.status(400).json({
+        "error": {
+          "type": "MISSING_PARAMETERS",
+          "message": "connection_id, user_id y refresh_token son requeridos."
+        }
+      })
+    }
+
+    let response = await mainService.stRefreshToken(connection_id, user_id, refresh_token)
+
+    if (response.error) {
+      return res.status(400).json(response)
+    }
+
+    return res.status(200).json(response)
+  }
 
 };
 

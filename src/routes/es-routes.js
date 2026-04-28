@@ -139,6 +139,8 @@ router.get('/eubanks/clone-sheet',generalMid,euController.cloneSheet)
 /* STRAVA */
 router.get('/strava',generalMid, stController.stHome)
 router.get('/strava/oauth',generalMid, stController.stOauth)
+router.post('/strava/refresh-token',generalMid, stController.refreshToken)
+
 router.get('/strava/config',generalMid, stController.configuration)
 router.get('/strava/connect',generalMid,stController.connect) 
 

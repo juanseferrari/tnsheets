@@ -44,12 +44,18 @@ const paymentService = {
         redirect: 'follow'
       };
       //TODO MIGRATE TO getAirtableData
-      let airtable_subs_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + AIRTABLE_SUBSCRIPTIONS + "?filterByFormula={client_reference_id}='" + connection_id + "'", get_request_options)
-      let user_subs_data = await airtable_subs_response.json();
+      let airtable_subs_response2 = await mainService.getAirtableDataById(connection_id, AIRTABLE_SUBSCRIPTIONS)
+      console.log(airtable_subs_response2)
+      let user_subs_data = await airtable_subs_response2.json()
+      console.log(user_subs_data)
+
+
+     // let airtable_subs_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + AIRTABLE_SUBSCRIPTIONS + "?filterByFormula={client_reference_id}='" + connection_id + "'", get_request_options)
+    //  let user_subs_data = await airtable_subs_response.json();
       //console.log(user_subs_data)
-      if (user_subs_data.records.length == 0) {
+      if (airtable_subs_data2_json.records.length == 0) {
         //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
-        // console.log("amount of records: 0")
+         console.log("amount of records: 0")
         response_object = {
           "connection_id": connection_id,
           "subscription": false,
