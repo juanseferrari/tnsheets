@@ -28,7 +28,7 @@ const stController = {
           "clicked_cloned": "clicked",
           "clicked_cloned_date": new Date().toISOString(),
           connection_id,
-          "connection": "tiendanube",
+          "connection": "strava",
           "user_id": user_connected.user_id
         }
         try {
@@ -38,7 +38,7 @@ const stController = {
       }
     }
     //TBD
-    res.redirect("https://docs.google.com/spreadsheets/d/1RGU3ynKibFAx8MFc5aPaLOut8tNds9AbrDIsdCFpMec/copy")
+    res.redirect("https://docs.google.com/spreadsheets/d/1anvB2ev_Gtxi_-Ub-G6LTpUEUlTmMfw5MRmUd-siD-Y/copy")
   },
   stHome: async (req, res) => {
     let google_user = res.locals.google_user
