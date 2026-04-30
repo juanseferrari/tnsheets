@@ -35,27 +35,10 @@ const paymentService = {
     //validar si el usuario existe
     let user_exists = await mainService.validateUserExists(connection_id)
     if (user_exists) {
-      var get_request_options = {
-        method: 'GET',
-        headers: {
-          "Authorization": "Bearer " + AIRTABLE_ACCESS_TOKEN,
-          "Content-Type": "application/json"
-        },
-        redirect: 'follow'
-      };
-      //TODO MIGRATE TO getAirtableData
-      let airtable_subs_response2 = await mainService.getAirtableDataById(connection_id, AIRTABLE_SUBSCRIPTIONS)
-      console.log(airtable_subs_response2)
-      let user_subs_data = await airtable_subs_response2.json()
-      console.log(user_subs_data)
+      let user_subs_data = await mainService.getAirtableData("subscriptions", connection_id, "client_reference_id")
 
-
-     // let airtable_subs_response = await fetch("https://api.airtable.com/v0/" + AIRTABLE_BASE_ID + "/" + AIRTABLE_SUBSCRIPTIONS + "?filterByFormula={client_reference_id}='" + connection_id + "'", get_request_options)
-    //  let user_subs_data = await airtable_subs_response.json();
-      //console.log(user_subs_data)
-      if (airtable_subs_data2_json.records.length == 0) {
-        //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion. 
-         console.log("amount of records: 0")
+      if (user_subs_data.error) {
+        //usuario existe pero no tiene suscripcion. Si esta en plan free, todo piola. Sino, rechazar conexion.
         response_object = {
           "connection_id": connection_id,
           "subscription": false,
@@ -66,27 +49,23 @@ const paymentService = {
           "expiration_date": false,
           "message": "Connection do not have any current subscription or payment."
         }
-      } else if (user_subs_data.records.length == 1) {
-        //console.log("amount of records: 1")
-        console.log(user_subs_data.records[0].fields)
-        response_object = {
-          "connection_id": connection_id,
-          "subscription": true,
-          "subscription_status": user_subs_data.records[0].fields.subscription_status,
-          "subscription_customer_email": user_subs_data.records[0].fields.customer_email,
-          "management_url": user_subs_data.records[0].fields.management_url,
-          "payment_status": (user_subs_data.records[0].fields.payment_status) ? user_subs_data.records[0].fields.payment_status : false,
-          "expiration_date": (user_subs_data.records[0].fields.expiration_date) ? user_subs_data.records[0].fields.expiration_date : false,
-          "message": "subscription or payment found."
-        }
-        //Agregar algun log o cambio en airtable para saber que lo canjearon
-      } else {
-        //console.log("amount of records: more")
+      } else if (user_subs_data.records) {
         response_object = {
           "error": {
             "type": "SUBSCRIPTION_ERROR",
             "message": "More than one subscription found."
           }
+        }
+      } else {
+        response_object = {
+          "connection_id": connection_id,
+          "subscription": true,
+          "subscription_status": user_subs_data.subscription_status,
+          "subscription_customer_email": user_subs_data.customer_email,
+          "management_url": user_subs_data.management_url,
+          "payment_status": user_subs_data.payment_status ? user_subs_data.payment_status : false,
+          "expiration_date": user_subs_data.expiration_date ? user_subs_data.expiration_date : false,
+          "message": "subscription or payment found."
         }
       }
     } else {
