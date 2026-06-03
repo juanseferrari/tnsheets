@@ -169,12 +169,11 @@ const tnController = {
       var GETrequestOptions = {
         method: 'GET',
         headers: {
-          "Authentication": "bearer" + data['access_token']
+          "Authentication": "bearer " + data['access_token']
         },
         redirect: 'follow'
       };
 
-      await new Promise(resolve => setTimeout(resolve, 1000))
 
       let tn_user_request_data = await fetch("https://api.tiendanube.com/v1/" + data['user_id'] + "/store", GETrequestOptions)
       //Validacion por si TN devuelve un error 500
@@ -244,7 +243,7 @@ const tnController = {
           var POSTrequestOptions = {
             method: 'POST',
             headers: {
-              "Authentication": "bearer" + data['access_token'],
+              "Authentication": "bearer " + data['access_token'],
               "Content-Type": "application/json",
               "User-Agent": "Sheets Central"
             },

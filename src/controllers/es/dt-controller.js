@@ -141,13 +141,12 @@ const dtController = {
       var GETrequestOptions = {
         method: 'GET',
         headers: {
-          "Authentication": "bearer" + data['access_token'],
+          "Authentication": "bearer " + data['access_token'],
           "User-Agent": "Sheets Central"
         },
         redirect: 'follow'
       };
       
-      await new Promise(resolve => setTimeout(resolve, 1000))
       let tn_user_request_data = await fetch("https://api.tiendanube.com/v1/" + data['user_id'] + "/store", GETrequestOptions)
       let tn_user_data = await tn_user_request_data.json();
       console.log(tn_user_data)
@@ -204,7 +203,7 @@ const dtController = {
           var POSTrequestOptions = {
             method: 'POST',
             headers: {
-              "Authentication": "bearer" + data['access_token'],
+              "Authentication": "bearer " + data['access_token'],
               "Content-Type": "application/json",
               "User-Agent": "Sheets Central"
             },
