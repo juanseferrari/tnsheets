@@ -155,7 +155,6 @@ const tnController = {
       redirect: 'follow'
     };
     //WAIT 1 SECOND TO AVOID RATE LIMIT
-    await new Promise(resolve => setTimeout(resolve, 1000))
 
     let response = await fetch("https://www.tiendanube.com/apps/authorize/token", requestOptions)
     let data = await response.json();
@@ -174,6 +173,9 @@ const tnController = {
         },
         redirect: 'follow'
       };
+
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
       let tn_user_request_data = await fetch("https://api.tiendanube.com/v1/" + data['user_id'] + "/store", GETrequestOptions)
       //Validacion por si TN devuelve un error 500
 
