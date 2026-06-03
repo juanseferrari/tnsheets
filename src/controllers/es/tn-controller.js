@@ -154,6 +154,8 @@ const tnController = {
       body: urlencoded,
       redirect: 'follow'
     };
+    //WAIT 1 SECOND TO AVOID RATE LIMIT
+    await new Promise(resolve => setTimeout(resolve, 1000))
 
     let response = await fetch("https://www.tiendanube.com/apps/authorize/token", requestOptions)
     let data = await response.json();
